@@ -78,7 +78,22 @@ func TestTweetLookup(t *testing.T) {
 	}
 }
 
-func TestUserLookup(t *testing.T) {
+func TestUserIDLookup(t *testing.T) {
+	cli := &twitter.Client{Authorize: checkAuth(t)}
+
+	ctx := context.Background()
+	rsp, err := users.Lookup("12", nil).Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("Lookup failed: %v", err)
+	}
+	t.Logf("Lookup reply: %s", string(rsp.Reply.Data))
+
+	for i, v := range rsp.Users {
+		t.Logf("User %d: %+v", i+1, v)
+	}
+}
+
+func TestUsernameLookup(t *testing.T) {
 	cli := &twitter.Client{Authorize: checkAuth(t)}
 
 	ctx := context.Background()
