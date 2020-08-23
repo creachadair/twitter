@@ -131,11 +131,23 @@ func fieldKeys(v interface{}) map[string]string {
 		if isDefaultField(next.Tag) {
 			continue // default fields do not require enumerators
 		}
+
 		name, ok := jsonFieldName(next.Tag)
-		if !ok {
-			continue // no JSON name, or field is excluded
+		if ok {
+			tags[name] = next.Name
+			continue
 		}
-		tags[name] = next.Name
+
+		// If next is an embedded anonymous struct, visit its subfields.
+		if next.Anonymous && next.Type.Kind() == reflect.Struct {
+			for j := 0; j < next.Type.NumField(); j++ {
+				sub := next.Type.Field(j)
+				name, ok := jsonFieldName(sub.Tag)
+				if ok {
+					tags[name] = sub.Name
+				}
+			}
+		}
 	}
 	return tags
 }
