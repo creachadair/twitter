@@ -14,6 +14,7 @@ type Tweet struct {
 	AuthorID       string    `json:"author_id"`
 	ConversationID string    `json:"conversation_id"`
 	CreatedAt      *Date     `json:"created_at"`
+	Entities       *Entities `json:"entities"`
 	InReplyTo      string    `json:"in_reply_to_user_id"`
 	Language       string    `json:"lang"` // https://tools.ietf.org/html/bcp47
 	Location       *Location `json:"geo"`
