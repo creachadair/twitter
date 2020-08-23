@@ -1,6 +1,7 @@
 // Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
 
-// Package twitter implements a client for the Twitter API v2.
+// Package twitter implements a client for the Twitter API v2.  This package is
+// in development and is not yet ready for production use.
 //
 // Usage outline:
 //
