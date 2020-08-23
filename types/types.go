@@ -8,19 +8,19 @@ import (
 
 //go:generate go run mkenum/mkenum.go -output field_enum.go
 
-// Date_ISO8601 defines the encoding format for a Date string.
-const Date_ISO8601 = "2006-01-02T15:04:05.999Z"
+// DateFormat defines the encoding format for a Date string.
+const DateFormat = "2006-01-02T15:04:05.999Z"
 
 // A Date defines the JSON encoding of an ISO 8601 date.
 type Date time.Time
 
-// MarshalJSON decodes d from a JSON string value.
+// UnmarshalJSON decodes d from a JSON string value.
 func (d *Date) UnmarshalJSON(bits []byte) error {
 	var s string
 	if err := json.Unmarshal(bits, &s); err != nil {
 		return fmt.Errorf("cannot decode %q as a date", string(bits))
 	}
-	ts, err := time.Parse(Date_ISO8601, s)
+	ts, err := time.Parse(DateFormat, s)
 	if err != nil {
 		return fmt.Errorf("invalid date: %v", err)
 	}
@@ -30,7 +30,7 @@ func (d *Date) UnmarshalJSON(bits []byte) error {
 
 // MarshalJSON encodes d as a JSON string value.
 func (d Date) MarshalJSON() ([]byte, error) {
-	return json.Marshal(time.Time(d).Format(Date_ISO8601))
+	return json.Marshal(time.Time(d).Format(DateFormat))
 }
 
 type Tweet struct {
@@ -48,10 +48,14 @@ type Tweet struct {
 	Source         string    `json:"source"` // e.g., "Twitter Web App"
 
 	ContextAnnotations []*ContextAnnotation `json:"context_annotations"`
-	Attachments        map[string][]string  `json:"attachments"`
 	Withheld           *Withholding         `json:"withheld"`
+	Attachments        `json:"attachments"`
 	MetricSet
 }
+
+// Attachments is a map of attachment type keys to string IDs for objects
+// attached to a reply.
+type Attachments map[string][]string
 
 type ContextAnnotation struct {
 	Domain *Domain `json:"domain"`

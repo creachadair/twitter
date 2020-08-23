@@ -36,5 +36,6 @@ type Media struct {
 	Width           int          `json:"width"`  // pixels
 	PreviewImageURL string       `json:"preview_image_url"`
 
+	Attachments `json:"attachments"`
 	MetricSet
 }

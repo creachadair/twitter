@@ -34,6 +34,8 @@ type Poll struct {
 	Duration     Minutes `json:"duration_minutes"`
 	EndTime      *Date   `json:"end_datetime"`
 	VotingStatus string  `json:"voting_status"` // e.g., "closed"
+
+	Attachments `json:"attachments"`
 }
 
 type PollOption struct {

@@ -12,4 +12,6 @@ type Place struct {
 	CountryName string          `json:"country"`      // e.g., "United States"
 	CountryCode string          `json:"country_code"` // e.g., "US"; https://www.iso.org/obp/ui/#search
 	Location    json.RawMessage `json:"geo"`          // in GeoJSON; https://geojson.org/
+
+	Attachments `json:"attachments"`
 }
