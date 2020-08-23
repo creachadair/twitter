@@ -47,12 +47,10 @@ func (c *Client) httpClient() *http.Client {
 	return http.DefaultClient
 }
 
-// Start issues the specified API request and returns its HTTP response.  The
+// start issues the specified API request and returns its HTTP response.  The
 // caller is responsible for interpreting any errors or unexpected status codes
 // from the request.
-//
-// Most callers should use c.Call, which handles the complete cycle.
-func (c *Client) Start(ctx context.Context, req *Request) (*http.Response, error) {
+func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error) {
 	u, err := c.baseURL()
 	if err != nil {
 		return nil, fmt.Errorf("invalid base URL: %v", err)
@@ -74,11 +72,9 @@ func (c *Client) Start(ctx context.Context, req *Request) (*http.Response, error
 	return c.httpClient().Do(hreq)
 }
 
-// Finish cleans up and decodes a successful (non-nil) HTTP response returned
-// by a call to Start.
-//
-// Most callers should use c.Call, which handles the complete cycle.
-func (c *Client) Finish(rsp *http.Response) (*Reply, error) {
+// finish cleans up and decodes a successful (non-nil) HTTP response returned
+// by a call to start.
+func (c *Client) finish(rsp *http.Response) (*Reply, error) {
 	if rsp == nil { // safety check
 		panic("cannot Finish a nil *http.Response")
 	}
@@ -99,16 +95,12 @@ func (c *Client) Finish(rsp *http.Response) (*Reply, error) {
 }
 
 // Call issues the specified API request and returns the decoded reply.
-//
-// This method is a convenience wrapper for c.Start followed by c.Finish. If
-// you need control over the intermediate HTTP response or error handling, you
-// can call those methods directly.
 func (c *Client) Call(ctx context.Context, req *Request) (*Reply, error) {
-	hrsp, err := c.Start(ctx, req)
+	hrsp, err := c.start(ctx, req)
 	if err != nil {
 		return nil, err
 	}
-	return c.Finish(hrsp)
+	return c.finish(hrsp)
 }
 
 // An Authorizer attaches authorization metadata to an outbound request after
