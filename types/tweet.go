@@ -2,36 +2,7 @@ package types
 
 import (
 	"encoding/json"
-	"fmt"
-	"time"
 )
-
-//go:generate go run mkenum/mkenum.go -output field_enum.go
-
-// DateFormat defines the encoding format for a Date string.
-const DateFormat = "2006-01-02T15:04:05.999Z"
-
-// A Date defines the JSON encoding of an ISO 8601 date.
-type Date time.Time
-
-// UnmarshalJSON decodes d from a JSON string value.
-func (d *Date) UnmarshalJSON(bits []byte) error {
-	var s string
-	if err := json.Unmarshal(bits, &s); err != nil {
-		return fmt.Errorf("cannot decode %q as a date", string(bits))
-	}
-	ts, err := time.Parse(DateFormat, s)
-	if err != nil {
-		return fmt.Errorf("invalid date: %v", err)
-	}
-	*d = Date(ts)
-	return nil
-}
-
-// MarshalJSON encodes d as a JSON string value.
-func (d Date) MarshalJSON() ([]byte, error) {
-	return json.Marshal(time.Time(d).Format(DateFormat))
-}
 
 // A Tweet is the decoded form of a single tweet.  The fields marked "default"
 // will always be populated by the API; other fields are filled in based on the
