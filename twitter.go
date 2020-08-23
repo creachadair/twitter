@@ -179,87 +179,77 @@ type Reply struct {
 	// The root reply object from the query.
 	Data json.RawMessage `json:"data"`
 
-	// For expansions that generate attachments, a map of attachment type to an
-	// array of attachment objects.
-	Includes map[string][]json.RawMessage `json:"includes"`
+	// For expansions that generate attachments, a map of attachment type to
+	// JSON arrays of attachment objects.
+	Includes map[string]json.RawMessage `json:"includes,omitempty"`
 }
 
 // IncludedMedia decodes any media objects in the includes of r.
 // It returns nil without error if there are no media inclusions.
-func (r *Reply) IncludedMedia() ([]*types.Media, error) {
-	media := r.Includes["media"]
-	if len(media) == 0 {
-		return nil, nil // nothing to do
+func (r *Reply) IncludedMedia() (types.Medias, error) {
+	media, ok := r.Includes["media"]
+	if !ok || len(media) == 0 {
+		return nil, nil
 	}
-	out := make([]*types.Media, len(media))
-	for i, obj := range media {
-		if err := json.Unmarshal(obj, &out[i]); err != nil {
-			return nil, fmt.Errorf("decoding Media object at offset %d: %v", i, err)
-		}
-	}
-	return out, nil
-}
-
-// IncludedPlaces decodes any place objects in the includes of r.
-// It returns nil without error if there are no place inclusions.
-func (r *Reply) IncludedPlaces() ([]*types.Place, error) {
-	places := r.Includes["places"]
-	if len(places) == 0 {
-		return nil, nil // nothing to do
-	}
-	out := make([]*types.Place, len(places))
-	for i, obj := range places {
-		if err := json.Unmarshal(obj, &out[i]); err != nil {
-			return nil, fmt.Errorf("decoding Place object at offset %d: %v", i, err)
-		}
-	}
-	return out, nil
-}
-
-// IncludedPolls decodes any poll objects in the includes of r.
-// It returns nil without error if there are no poll inclusions.
-func (r *Reply) IncludedPolls() ([]*types.Poll, error) {
-	polls := r.Includes["polls"]
-	if len(polls) == 0 {
-		return nil, nil // nothing to do
-	}
-	out := make([]*types.Poll, len(polls))
-	for i, obj := range polls {
-		if err := json.Unmarshal(obj, &out[i]); err != nil {
-			return nil, fmt.Errorf("decoding Poll object at offset %d: %v", i, err)
-		}
+	var out types.Medias
+	if err := json.Unmarshal(media, &out); err != nil {
+		return nil, fmt.Errorf("decoding media: %v", err)
 	}
 	return out, nil
 }
 
 // IncludedTweets decodes any tweet objects in the includes of r.
 // It returns nil without error if there are no tweet inclusions.
-func (r *Reply) IncludedTweets() ([]*types.Tweet, error) {
-	tweets := r.Includes["tweets"]
-	if len(tweets) == 0 {
-		return nil, nil // nothing to do
+func (r *Reply) IncludedTweets() (types.Tweets, error) {
+	tweets, ok := r.Includes["tweets"]
+	if !ok || len(tweets) == 0 {
+		return nil, nil
 	}
-	out := make([]*types.Tweet, len(tweets))
-	for i, obj := range tweets {
-		if err := json.Unmarshal(obj, &out[i]); err != nil {
-			return nil, fmt.Errorf("decoding Tweet object at offset %d: %v", i, err)
-		}
+	var out types.Tweets
+	if err := json.Unmarshal(tweets, &out); err != nil {
+		return nil, fmt.Errorf("decoding tweets: %v", err)
 	}
 	return out, nil
 }
 
-// IncludedUsers decodes any userr objects in the includes of r.
-// It returns nil without error if there are no user inclusions.
-func (r *Reply) IncludedUsers() ([]*types.User, error) {
-	users := r.Includes["users"]
-	if len(users) == 0 {
-		return nil, nil // nothing to do
+// IncludedUsers decodes any user objects in the includes of r.
+// It returns nil without error if there are user media inclusions.
+func (r *Reply) IncludedUsers() (types.Users, error) {
+	users, ok := r.Includes["users"]
+	if !ok || len(users) == 0 {
+		return nil, nil
 	}
-	out := make([]*types.User, len(users))
-	for i, obj := range users {
-		if err := json.Unmarshal(obj, &out[i]); err != nil {
-			return nil, fmt.Errorf("decoding User object at offset %d: %v", i, err)
-		}
+	var out types.Users
+	if err := json.Unmarshal(users, &out); err != nil {
+		return nil, fmt.Errorf("decoding users: %v", err)
+	}
+	return out, nil
+}
+
+// IncludedPolls decodes any poll objects in the includes of r.
+// It returns nil without error if there are poll media inclusions.
+func (r *Reply) IncludedPolls() (types.Polls, error) {
+	polls, ok := r.Includes["polls"]
+	if !ok || len(polls) == 0 {
+		return nil, nil
+	}
+	var out types.Polls
+	if err := json.Unmarshal(polls, &out); err != nil {
+		return nil, fmt.Errorf("decoding polls: %v", err)
+	}
+	return out, nil
+}
+
+// IncludedPlaces decodes any place objects in the includes of r.
+// It returns nil without error if there are no place inclusions.
+func (r *Reply) IncludedPlaces() (types.Places, error) {
+	places, ok := r.Includes["places"]
+	if !ok || len(places) == 0 {
+		return nil, nil
+	}
+	var out types.Places
+	if err := json.Unmarshal(places, &out); err != nil {
+		return nil, fmt.Errorf("decoding places: %v", err)
 	}
 	return out, nil
 }
