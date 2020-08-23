@@ -36,6 +36,7 @@ func TestClient(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Request failed: %v", err)
 	}
+	t.Logf("Rate limits: %+v", rsp.RateLimit)
 	t.Logf("Reply: %s", string(rsp.Data))
 	tweets, err := rsp.IncludedTweets()
 	if err != nil {

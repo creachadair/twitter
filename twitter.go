@@ -9,7 +9,9 @@ import (
 	"net/http"
 	"net/url"
 	"path"
+	"strconv"
 	"strings"
+	"time"
 
 	"github.com/creachadair/twitter/types"
 )
@@ -91,6 +93,7 @@ func (c *Client) finish(rsp *http.Response) (*Reply, error) {
 	if err := json.Unmarshal(body.Bytes(), &reply); err != nil {
 		return nil, fmt.Errorf("decoding response body: %v", err)
 	}
+	reply.RateLimit = decodeRateLimits(rsp.Header)
 	return &reply, nil
 }
 
@@ -174,6 +177,10 @@ type Reply struct {
 	// For expansions that generate attachments, a map of attachment type to
 	// JSON arrays of attachment objects.
 	Includes map[string]json.RawMessage `json:"includes,omitempty"`
+
+	// Rate limit metadata reported by the server. If the server did not return
+	// these data, this field will be nil.
+	RateLimit *RateLimit `json:"-"`
 }
 
 // IncludedMedia decodes any media objects in the includes of r.
@@ -244,4 +251,31 @@ func (r *Reply) IncludedPlaces() (types.Places, error) {
 		return nil, fmt.Errorf("decoding places: %v", err)
 	}
 	return out, nil
+}
+
+// RateLimit records metadata about API rate limits reported by the server.
+type RateLimit struct {
+	Ceiling   int       // rate limit ceiling for this endpoing
+	Remaining int       // requests remaining in the current window
+	Reset     time.Time // time of next window reset
+}
+
+func decodeRateLimits(h http.Header) *RateLimit {
+	ceiling := h.Get("x-rate-limit-limit")
+	remaining := h.Get("x-rate-limit-remaining")
+	reset := h.Get("x-rate-limit-reset")
+	if ceiling == "" && remaining == "" && reset == "" {
+		return nil
+	}
+	out := new(RateLimit)
+	if v, err := strconv.Atoi(ceiling); err == nil {
+		out.Ceiling = v
+	}
+	if v, err := strconv.Atoi(remaining); err == nil {
+		out.Remaining = v
+	}
+	if v, err := strconv.ParseInt(reset, 10, 64); err == nil {
+		out.Reset = time.Unix(v, 0)
+	}
+	return out
 }
