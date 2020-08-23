@@ -1,3 +1,5 @@
+// Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
+
 package types
 
 // Expansions is the parameter name for object expansions.

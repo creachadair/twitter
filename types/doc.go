@@ -1,3 +1,5 @@
+// Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
+
 // Package types defines types for the Twitter API v2 object model.
 package types
 
