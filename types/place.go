@@ -2,6 +2,9 @@ package types
 
 import "encoding/json"
 
+// A Place describes a location mentioned in a tweet or user description.
+// The fields marked "default" will always be populated by the API; other
+// fields are filled in based on the parameters in the request.
 type Place struct {
 	ID       string `json:"id" twitter:"default"`
 	FullName string `json:"full_name" twitter:"default"` // e.g., "Manhattan, New York"

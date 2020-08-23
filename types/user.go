@@ -1,5 +1,8 @@
 package types
 
+// A User contains Twitter user account metadata describing a Twitter user.
+// The fields marked "default" will always be populated by the API; other
+// fields are filled in based on the parameters in the request.
 type User struct {
 	ID       string `json:"id" twitter:"default"`
 	Name     string `json:"name" twitter:"default"`     // e.g., "User McJones"
@@ -20,6 +23,7 @@ type User struct {
 	Withheld      *Withholding `json:"withheld"`
 }
 
+// UserEntities describe entities found in a user's profile.
 type UserEntities struct {
 	URL         *Entities `json:"url"`
 	Description *Entities `json:"description"`
