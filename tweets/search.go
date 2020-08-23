@@ -2,6 +2,8 @@ package tweets
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"strconv"
 	"time"
 
@@ -16,7 +18,7 @@ import (
 // https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-rule
 func SearchRecent(query string, opts *SearchOpts) SearchQuery {
 	req := &twitter.Request{
-		Method: "search/recent",
+		Method: "tweets/search/recent",
 		Params: make(twitter.Params),
 	}
 	req.Params.Set("query", query)
@@ -31,7 +33,18 @@ type SearchQuery struct {
 
 // Invoke executes the query on the given context and client.
 func (q SearchQuery) Invoke(ctx context.Context, cli *twitter.Client) (*SearchReply, error) {
-	panic("not implemented yet")
+	rsp, err := cli.Call(ctx, q.request)
+	if err != nil {
+		return nil, err
+	}
+	var tweets types.Tweets
+	if err := json.Unmarshal(rsp.Data, &tweets); err != nil {
+		return nil, fmt.Errorf("decoding tweet data: %v", err)
+	}
+	return &SearchReply{
+		Reply:  rsp,
+		Tweets: tweets,
+	}, nil
 }
 
 // A SearchReply is the response from a SearchQuery.
@@ -53,6 +66,7 @@ type SearchOpts struct {
 	EndTime time.Time
 
 	// The maximum number of results to return; 0 means let the server choose.
+	// Values < 10 or > 100 are invalid.
 	MaxResults int
 
 	// If set, return results with IDs greater than this (exclusive).
