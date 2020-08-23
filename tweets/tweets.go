@@ -48,7 +48,7 @@ type LookupReply struct {
 	Tweets types.Tweets
 }
 
-// LookupOpts provide parameters for tweet lookup. A nil *LookupOpts provides
+// LookupOpts provides parameters for tweet lookup. A nil *LookupOpts provides
 // empty values for all fields.
 type LookupOpts struct {
 	IDs []string // additional tweet IDs to query
@@ -74,4 +74,4 @@ func (o *LookupOpts) addRequestParams(req *twitter.Request) {
 	req.Params.Add(types.UserFields, o.UserFields...)
 }
 
-// TODO: SearchRecent, SearchStream, SampleStream
+// TODO: SearchStream, SampleStream
