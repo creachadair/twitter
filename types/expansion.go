@@ -2,10 +2,10 @@
 
 package types
 
-// Expansions is the parameter name for object expansions.
-const Expansions = "expansions"
-
 const (
+	// Expansions is the parameter name for object expansions.
+	Expansions = "expansions"
+
 	// ExpandAuthorID returns a user object representing the Tweet’s author.
 	ExpandAuthorID = "author_id"
 
