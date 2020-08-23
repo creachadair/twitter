@@ -16,7 +16,11 @@ const (
 	Tweet_Location           = "geo"
 	Tweet_InReplyTo          = "in_reply_to_user_id"
 	Tweet_Language           = "lang"
+	Tweet_NonPublicMetrics   = "non_public_metrics"
+	Tweet_OrganicMetrics     = "organic_metrics"
 	Tweet_Sensitive          = "possibly_sensitive"
+	Tweet_PromotedMetrics    = "promoted_metrics"
+	Tweet_PublicMetrics      = "public_metrics"
 	Tweet_Referenced         = "referenced_tweets"
 	Tweet_Source             = "source"
 	Tweet_Withheld           = "withheld"
@@ -71,11 +75,15 @@ const (
 	// MediaFields is the label for optional Media field parameters.
 	MediaFields = "media.fields"
 
-	Media_Attachments     = "attachments"
-	Media_Duration        = "duration_ms"
-	Media_Height          = "height"
-	Media_PreviewImageURL = "preview_image_url"
-	Media_Width           = "width"
+	Media_Attachments      = "attachments"
+	Media_Duration         = "duration_ms"
+	Media_Height           = "height"
+	Media_NonPublicMetrics = "non_public_metrics"
+	Media_OrganicMetrics   = "organic_metrics"
+	Media_PreviewImageURL  = "preview_image_url"
+	Media_PromotedMetrics  = "promoted_metrics"
+	Media_PublicMetrics    = "public_metrics"
+	Media_Width            = "width"
 )
 
 // Medias is a searchable slice of Media values.
