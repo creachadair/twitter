@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/creachadair/twitter"
 	"github.com/creachadair/twitter/tweets"
@@ -20,8 +21,17 @@ func checkAuth(t *testing.T) twitter.Authorizer {
 	return twitter.BearerTokenAuthorizer(bearerToken)
 }
 
+func logFunc(t *testing.T) func(tag, message string) {
+	return func(tag, message string) {
+		t.Logf("LOG tag=%s :: %s", tag, message)
+	}
+}
+
 func TestClientCall(t *testing.T) {
-	cli := &twitter.Client{Authorize: checkAuth(t)}
+	cli := &twitter.Client{
+		Authorize: checkAuth(t),
+		Log:       logFunc(t),
+	}
 
 	rsp, err := cli.Call(context.Background(), &twitter.Request{
 		Method: "/users/by/username/jack",
@@ -52,7 +62,10 @@ func TestClientCall(t *testing.T) {
 }
 
 func TestTweetLookup(t *testing.T) {
-	cli := &twitter.Client{Authorize: checkAuth(t)}
+	cli := &twitter.Client{
+		Authorize: checkAuth(t),
+		Log:       logFunc(t),
+	}
 
 	ctx := context.Background()
 	// jack 1247616214769086465
@@ -79,7 +92,10 @@ func TestTweetLookup(t *testing.T) {
 }
 
 func TestUserIDLookup(t *testing.T) {
-	cli := &twitter.Client{Authorize: checkAuth(t)}
+	cli := &twitter.Client{
+		Authorize: checkAuth(t),
+		Log:       logFunc(t),
+	}
 
 	ctx := context.Background()
 	rsp, err := users.Lookup("12", nil).Invoke(ctx, cli)
@@ -94,7 +110,10 @@ func TestUserIDLookup(t *testing.T) {
 }
 
 func TestUsernameLookup(t *testing.T) {
-	cli := &twitter.Client{Authorize: checkAuth(t)}
+	cli := &twitter.Client{
+		Authorize: checkAuth(t),
+		Log:       logFunc(t),
+	}
 
 	ctx := context.Background()
 	rsp, err := users.LookupByName("creachadair", &users.LookupOpts{
@@ -112,5 +131,38 @@ func TestUsernameLookup(t *testing.T) {
 
 	for i, v := range rsp.Users {
 		t.Logf("User %d: %+v", i+1, v)
+	}
+}
+
+func yesterday() time.Time {
+	y, m, d := time.Now().Date()
+	return time.Date(y, m, d-1, 21, 0, 0, 0, time.UTC)
+}
+
+func TestSearchRecent(t *testing.T) {
+	cli := &twitter.Client{
+		Authorize: checkAuth(t),
+		Log:       logFunc(t),
+	}
+
+	ctx := context.Background()
+	const query = `from:benjaminwittes "Today on @inlieuoffunshow"`
+	rsp, err := tweets.SearchRecent(query, &tweets.SearchOpts{
+		MaxResults:  10,
+		StartTime:   yesterday(),
+		TweetFields: []string{types.Tweet_Entities},
+	}).Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("SearchRecent failed: %v", err)
+	}
+
+	if len(rsp.Tweets) == 0 {
+		t.Fatal("No matching results")
+	}
+	for i, tweet := range rsp.Tweets {
+		t.Logf("Match %d: %+v", i+1, tweet)
+		for j, u := range tweet.Entities.URLs {
+			t.Logf("-- URL [%d]: %s", j+1, u.Expanded)
+		}
 	}
 }
