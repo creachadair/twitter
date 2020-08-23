@@ -37,10 +37,11 @@ func TestClient(t *testing.T) {
 		t.Fatalf("Request failed: %v", err)
 	}
 	t.Logf("Reply: %s", string(rsp.Data))
-	for key, vals := range rsp.Includes {
-		t.Logf("Include type %q:", key)
-		for i, val := range vals {
-			t.Logf("[%d] %s", i+1, string(val))
-		}
+	tweets, err := rsp.IncludedTweets()
+	if err != nil {
+		t.Fatalf("Decoding included tweets: %v", err)
+	}
+	for i, tweet := range tweets {
+		t.Logf("Tweet [%d]: %+v", i+1, tweet)
 	}
 }

@@ -10,6 +10,8 @@ import (
 	"net/url"
 	"path"
 	"strings"
+
+	"github.com/creachadair/twitter/types"
 )
 
 // BaseURL is the default base URL for production Twitter API v2.
@@ -180,4 +182,84 @@ type Reply struct {
 	// For expansions that generate attachments, a map of attachment type to an
 	// array of attachment objects.
 	Includes map[string][]json.RawMessage `json:"includes"`
+}
+
+// IncludedMedia decodes any media objects in the includes of r.
+// It returns nil without error if there are no media inclusions.
+func (r *Reply) IncludedMedia() ([]*types.Media, error) {
+	media := r.Includes["media"]
+	if len(media) == 0 {
+		return nil, nil // nothing to do
+	}
+	out := make([]*types.Media, len(media))
+	for i, obj := range media {
+		if err := json.Unmarshal(obj, &out[i]); err != nil {
+			return nil, fmt.Errorf("decoding Media object at offset %d: %v", i, err)
+		}
+	}
+	return out, nil
+}
+
+// IncludedPlaces decodes any place objects in the includes of r.
+// It returns nil without error if there are no place inclusions.
+func (r *Reply) IncludedPlaces() ([]*types.Place, error) {
+	places := r.Includes["places"]
+	if len(places) == 0 {
+		return nil, nil // nothing to do
+	}
+	out := make([]*types.Place, len(places))
+	for i, obj := range places {
+		if err := json.Unmarshal(obj, &out[i]); err != nil {
+			return nil, fmt.Errorf("decoding Place object at offset %d: %v", i, err)
+		}
+	}
+	return out, nil
+}
+
+// IncludedPolls decodes any poll objects in the includes of r.
+// It returns nil without error if there are no poll inclusions.
+func (r *Reply) IncludedPolls() ([]*types.Poll, error) {
+	polls := r.Includes["polls"]
+	if len(polls) == 0 {
+		return nil, nil // nothing to do
+	}
+	out := make([]*types.Poll, len(polls))
+	for i, obj := range polls {
+		if err := json.Unmarshal(obj, &out[i]); err != nil {
+			return nil, fmt.Errorf("decoding Poll object at offset %d: %v", i, err)
+		}
+	}
+	return out, nil
+}
+
+// IncludedTweets decodes any tweet objects in the includes of r.
+// It returns nil without error if there are no tweet inclusions.
+func (r *Reply) IncludedTweets() ([]*types.Tweet, error) {
+	tweets := r.Includes["tweets"]
+	if len(tweets) == 0 {
+		return nil, nil // nothing to do
+	}
+	out := make([]*types.Tweet, len(tweets))
+	for i, obj := range tweets {
+		if err := json.Unmarshal(obj, &out[i]); err != nil {
+			return nil, fmt.Errorf("decoding Tweet object at offset %d: %v", i, err)
+		}
+	}
+	return out, nil
+}
+
+// IncludedUsers decodes any userr objects in the includes of r.
+// It returns nil without error if there are no user inclusions.
+func (r *Reply) IncludedUsers() ([]*types.User, error) {
+	users := r.Includes["users"]
+	if len(users) == 0 {
+		return nil, nil // nothing to do
+	}
+	out := make([]*types.User, len(users))
+	for i, obj := range users {
+		if err := json.Unmarshal(obj, &out[i]); err != nil {
+			return nil, fmt.Errorf("decoding User object at offset %d: %v", i, err)
+		}
+	}
+	return out, nil
 }
