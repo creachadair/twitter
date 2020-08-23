@@ -10,12 +10,14 @@ import (
 	"github.com/creachadair/twitter/types"
 )
 
-// Lookup constructs a lookup query for one or more users by ID.
+// Lookup constructs a lookup query for one or more users by ID.  To look up
+// multiple IDs, add subsequent values to the opts.Keys field.
 func Lookup(id string, opts *LookupOpts) LookupQuery {
 	return newLookup("users", "ids", id, opts)
 }
 
 // LookupByName constructs a lookup query for one or more users by username.
+// To look up multiple usernames, add subsequent values to the opts.Keys field.
 func LookupByName(name string, opts *LookupOpts) LookupQuery {
 	return newLookup("users/by", "usernames", name, opts)
 }

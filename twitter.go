@@ -1,3 +1,27 @@
+// Package twitter implements a client for the Twitter API v2.
+//
+// Usage outline:
+//
+//    cli := &twitter.Client{
+//       Authorizer: twitter.NewBearerTokenAuthorizer(token),
+//    }
+//
+//    ctx := context.Background()
+//    rsp, err := users.LookupByName("jack", nil).Invoke(ctx, cli)
+//    if err != nil {
+//       log.Fatalf("Request failed: %v", err)
+//    } else if len(rsp.Users) == 0 {
+//       log.Fatal("No matches")
+//    }
+//    process(rsp.Users)
+//
+// Limitations
+//
+// Currently the lookup APIs for tweets and users are supported, as well as the
+// search API for recent tweets.
+//
+// Sampling and streaming are not yet supported.
+//
 package twitter
 
 import (
@@ -17,6 +41,7 @@ import (
 )
 
 // BaseURL is the default base URL for production Twitter API v2.
+// This is the default base URL if one is not given in the client.
 const BaseURL = "https://api.twitter.com/2"
 
 // A Client serves as a client for the Twitter API v2.
@@ -36,6 +61,11 @@ type Client struct {
 
 	// If set, this function is called to log interesting events during the
 	// transaction.
+	//
+	// Tags include:
+	//
+	//    RequestURL   -- the request URL sent to the server
+	//
 	Log func(tag, message string)
 }
 
