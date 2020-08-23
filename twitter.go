@@ -33,6 +33,10 @@ type Client struct {
 	// If set, override the base URL for the API v2 endpoint.
 	// This is mainly useful for testing.
 	BaseURL string
+
+	// If set, this function is called to log interesting events during the
+	// transaction.
+	Log func(tag, message string)
 }
 
 func (c *Client) baseURL() (*url.URL, error) {
@@ -49,6 +53,12 @@ func (c *Client) httpClient() *http.Client {
 	return http.DefaultClient
 }
 
+func (c *Client) log(tag, message string) {
+	if c.Log != nil {
+		c.Log(tag, message)
+	}
+}
+
 // start issues the specified API request and returns its HTTP response.  The
 // caller is responsible for interpreting any errors or unexpected status codes
 // from the request.
@@ -59,8 +69,10 @@ func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error
 	}
 	u.Path = path.Join(u.Path, req.Method)
 	req.addQueryTerms(u)
+	requestURL := u.String()
+	c.log("RequestURL", requestURL)
 
-	hreq, err := http.NewRequestWithContext(ctx, req.HTTPMethod, u.String(), nil)
+	hreq, err := http.NewRequestWithContext(ctx, req.HTTPMethod, requestURL, nil)
 	if err != nil {
 		return nil, fmt.Errorf("invalid request: %v", err)
 	}
