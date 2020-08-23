@@ -93,7 +93,7 @@ type URL struct {
 	Expanded    string `json:"expanded_url"`
 	Display     string `json:"display_url"`
 	Unwound     string `json:"unwound_url"`
-	HTTPStatus  string `json:"status"` // e.g., "200"
+	HTTPStatus  int    `json:"status"` // e.g., 200
 	Title       string `json:"title"`
 	Description string `json:"description"`
 }
