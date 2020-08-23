@@ -140,14 +140,13 @@ type Request struct {
 // Params carries additional request parameters sent in the query URL.
 type Params map[string][]string
 
-// Add adds one or more values for the specified parameter, in addition to any
+// Add the given values for the specified parameter, in addition to any
 // previously-defined values for that name.
-func (p Params) Add(name, value string, more ...string) {
-	if v, ok := p[name]; ok {
-		p[name] = append(append(v, value), more...)
-	} else {
-		p[name] = append([]string{value}, more...)
+func (p Params) Add(name string, values ...string) {
+	if len(values) == 0 {
+		return
 	}
+	p[name] = append(p[name], values...)
 }
 
 // Set sets the value of the specified parameter name, removing any
