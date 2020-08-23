@@ -12,6 +12,7 @@ const (
 	Tweet_ContextAnnotations = "context_annotations"
 	Tweet_ConversationID     = "conversation_id"
 	Tweet_CreatedAt          = "created_at"
+	Tweet_Entities           = "entities"
 	Tweet_Location           = "geo"
 	Tweet_InReplyTo          = "in_reply_to_user_id"
 	Tweet_Language           = "lang"
