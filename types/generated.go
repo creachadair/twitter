@@ -21,6 +21,19 @@ const (
 	Tweet_Withheld           = "withheld"
 )
 
+// Tweets is a searchable slice of Tweet values.
+type Tweets []*Tweet
+
+// FindByID returns the first Tweet in ts whose ID matches, or nil.
+func (ts Tweets) FindByID(id string) *Tweet {
+	for _, v := range ts {
+		if v.ID == id {
+			return v
+		}
+	}
+	return nil
+}
+
 // Legal values of the UserFields enumeration.
 const (
 	// UserFields is the label for optional User field parameters.
@@ -39,6 +52,19 @@ const (
 	User_Withheld        = "withheld"
 )
 
+// Users is a searchable slice of User values.
+type Users []*User
+
+// FindByID returns the first User in us whose ID matches, or nil.
+func (us Users) FindByID(id string) *User {
+	for _, v := range us {
+		if v.ID == id {
+			return v
+		}
+	}
+	return nil
+}
+
 // Legal values of the MediaFields enumeration.
 const (
 	// MediaFields is the label for optional Media field parameters.
@@ -51,6 +77,19 @@ const (
 	Media_Width           = "width"
 )
 
+// Medias is a searchable slice of Media values.
+type Medias []*Media
+
+// FindByKey returns the first Media in ms whose Key matches, or nil.
+func (ms Medias) FindByKey(key string) *Media {
+	for _, v := range ms {
+		if v.Key == key {
+			return v
+		}
+	}
+	return nil
+}
+
 // Legal values of the PollFields enumeration.
 const (
 	// PollFields is the label for optional Poll field parameters.
@@ -61,6 +100,19 @@ const (
 	Poll_EndTime      = "end_datetime"
 	Poll_VotingStatus = "voting_status"
 )
+
+// Polls is a searchable slice of Poll values.
+type Polls []*Poll
+
+// FindByID returns the first Poll in ps whose ID matches, or nil.
+func (ps Polls) FindByID(id string) *Poll {
+	for _, v := range ps {
+		if v.ID == id {
+			return v
+		}
+	}
+	return nil
+}
 
 // Legal values of the PlaceFields enumeration.
 const (
@@ -75,3 +127,16 @@ const (
 	Place_Name        = "name"
 	Place_Type        = "place_type"
 )
+
+// Places is a searchable slice of Place values.
+type Places []*Place
+
+// FindByID returns the first Place in ps whose ID matches, or nil.
+func (ps Places) FindByID(id string) *Place {
+	for _, v := range ps {
+		if v.ID == id {
+			return v
+		}
+	}
+	return nil
+}

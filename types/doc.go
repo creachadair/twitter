@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-//go:generate go run mkenum/mkenum.go -output field_enum.go
+//go:generate go run mkenum/mkenum.go -output generated.go
 
 // DateFormat defines the encoding format for a Date string.
 const DateFormat = "2006-01-02T15:04:05.999Z"
