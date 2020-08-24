@@ -46,7 +46,9 @@ func (q LookupQuery) Invoke(ctx context.Context, cli *twitter.Client) (*LookupRe
 		return nil, err
 	}
 	var users types.Users
-	if err := json.Unmarshal(rsp.Data, &users); err != nil {
+	if len(rsp.Data) == 0 {
+		// no results
+	} else if err := json.Unmarshal(rsp.Data, &users); err != nil {
 		return nil, fmt.Errorf("decoding user data: %v", err)
 	}
 	return &LookupReply{
