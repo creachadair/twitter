@@ -3,9 +3,6 @@
 package tweets
 
 import (
-	"context"
-	"encoding/json"
-	"fmt"
 	"strconv"
 	"time"
 
@@ -18,41 +15,14 @@ import (
 //
 // For query syntax, see
 // https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-rule
-func SearchRecent(query string, opts *SearchOpts) SearchQuery {
+func SearchRecent(query string, opts *SearchOpts) Query {
 	req := &twitter.Request{
 		Method: "tweets/search/recent",
 		Params: make(twitter.Params),
 	}
 	req.Params.Set("query", query)
 	opts.addRequestParams(req)
-	return SearchQuery{request: req}
-}
-
-// A SearchQuery performs a search query on recent tweets matching a query.
-type SearchQuery struct {
-	request *twitter.Request
-}
-
-// Invoke executes the query on the given context and client.
-func (q SearchQuery) Invoke(ctx context.Context, cli *twitter.Client) (*SearchReply, error) {
-	rsp, err := cli.Call(ctx, q.request)
-	if err != nil {
-		return nil, err
-	}
-	var tweets types.Tweets
-	if err := json.Unmarshal(rsp.Data, &tweets); err != nil {
-		return nil, fmt.Errorf("decoding tweet data: %v", err)
-	}
-	return &SearchReply{
-		Reply:  rsp,
-		Tweets: tweets,
-	}, nil
-}
-
-// A SearchReply is the response from a SearchQuery.
-type SearchReply struct {
-	*twitter.Reply
-	Tweets types.Tweets
+	return Query{request: req}
 }
 
 // SearchOpts provides parameters for tweet search. A nil *SearchOpts provides

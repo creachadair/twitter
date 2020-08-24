@@ -14,23 +14,23 @@ import (
 
 // Lookup constructs a lookup query for one or more tweet IDs.  To look up
 // multiple IDs, add subsequent values the opts.IDs field.
-func Lookup(id string, opts *LookupOpts) LookupQuery {
+func Lookup(id string, opts *LookupOpts) Query {
 	req := &twitter.Request{
 		Method: "tweets",
 		Params: make(twitter.Params),
 	}
 	req.Params.Add("ids", id)
 	opts.addRequestParams(req)
-	return LookupQuery{request: req}
+	return Query{request: req}
 }
 
-// A LookupQuery performs a lookup query for one or more tweets by ID.
-type LookupQuery struct {
+// A Query performs a lookup or search query.
+type Query struct {
 	request *twitter.Request
 }
 
 // Invoke executes the query on the given context and client.
-func (q LookupQuery) Invoke(ctx context.Context, cli *twitter.Client) (*LookupReply, error) {
+func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) {
 	rsp, err := cli.Call(ctx, q.request)
 	if err != nil {
 		return nil, err
@@ -39,14 +39,14 @@ func (q LookupQuery) Invoke(ctx context.Context, cli *twitter.Client) (*LookupRe
 	if err := json.Unmarshal(rsp.Data, &tweets); err != nil {
 		return nil, fmt.Errorf("decoding tweet data: %v", err)
 	}
-	return &LookupReply{
+	return &Reply{
 		Reply:  rsp,
 		Tweets: tweets,
 	}, nil
 }
 
-// A LookupReply is the response from a LookupQuery.
-type LookupReply struct {
+// A Reply is the response from a Query.
+type Reply struct {
 	*twitter.Reply
 	Tweets types.Tweets
 }
