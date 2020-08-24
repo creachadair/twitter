@@ -64,8 +64,7 @@ type LookupReply struct {
 // LookupOpts provide parameters for user lookup. A nil *LookupOpts provides
 // empty values for all fields.
 type LookupOpts struct {
-	Keys       []string // additional user keys to query
-	ByUsername bool     // query by usernames instead of ID
+	Keys []string // additional user keys to query
 
 	Expansions  []string
 	TweetFields []string
