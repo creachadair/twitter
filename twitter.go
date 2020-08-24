@@ -257,7 +257,7 @@ func (r *Reply) IncludedTweets() (types.Tweets, error) {
 }
 
 // IncludedUsers decodes any user objects in the includes of r.
-// It returns nil without error if there are user media inclusions.
+// It returns nil without error if there are no user inclusions.
 func (r *Reply) IncludedUsers() (types.Users, error) {
 	users, ok := r.Includes["users"]
 	if !ok || len(users) == 0 {
@@ -271,7 +271,7 @@ func (r *Reply) IncludedUsers() (types.Users, error) {
 }
 
 // IncludedPolls decodes any poll objects in the includes of r.
-// It returns nil without error if there are poll media inclusions.
+// It returns nil without error if there are no poll inclusions.
 func (r *Reply) IncludedPolls() (types.Polls, error) {
 	polls, ok := r.Includes["polls"]
 	if !ok || len(polls) == 0 {
