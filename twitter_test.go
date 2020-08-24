@@ -165,6 +165,7 @@ func TestSearchRecent(t *testing.T) {
 		t.Logf("Match %d: %+v", i+1, tweet)
 		for j, u := range tweet.Entities.URLs {
 			t.Logf("-- URL [%d]: %s", j+1, u.Expanded)
+			t.Logf("   RAW %#v", u)
 		}
 	}
 }

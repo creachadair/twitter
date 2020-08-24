@@ -70,7 +70,7 @@ type Entities struct {
 	Annotations []*Annotation `json:"annotations"`
 	CashTags    []*Tag        `json:"cashtags"`
 	HashTags    []*Tag        `json:"hashtags"`
-	Mentions    []*Tag        `json:"mentions"`
+	Mentions    []*Mention    `json:"mentions"`
 	URLs        []*URL        `json:"urls"`
 }
 
@@ -86,6 +86,12 @@ type Annotation struct {
 type Tag struct {
 	Span
 	Tag string `json:"tag"`
+}
+
+// A Mention denotes a reference to a Twitter username (@user).
+type Mention struct {
+	Span
+	Username string `json:"username"`
 }
 
 // A URL denotes a span of text encoding a URL.
