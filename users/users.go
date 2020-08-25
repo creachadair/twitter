@@ -6,7 +6,6 @@ package users
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	"github.com/creachadair/twitter"
 	"github.com/creachadair/twitter/types"
@@ -49,7 +48,7 @@ func (q LookupQuery) Invoke(ctx context.Context, cli *twitter.Client) (*LookupRe
 	if len(rsp.Data) == 0 {
 		// no results
 	} else if err := json.Unmarshal(rsp.Data, &users); err != nil {
-		return nil, fmt.Errorf("decoding user data: %v", err)
+		return nil, twitter.Errorf(rsp.Data, "decoding users data", err)
 	}
 	return &LookupReply{
 		Reply: rsp,

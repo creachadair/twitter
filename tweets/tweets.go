@@ -6,7 +6,6 @@ package tweets
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	"github.com/creachadair/twitter"
 	"github.com/creachadair/twitter/types"
@@ -39,7 +38,7 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 	if len(rsp.Data) == 0 {
 		// no results
 	} else if err := json.Unmarshal(rsp.Data, &tweets); err != nil {
-		return nil, fmt.Errorf("decoding tweet data: %v", err)
+		return nil, twitter.Errorf(rsp.Data, "decoding tweet data", err)
 	}
 	return &Reply{
 		Reply:  rsp,
