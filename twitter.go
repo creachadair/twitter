@@ -92,13 +92,15 @@ func (c *Client) log(tag, message string) {
 	}
 }
 
+func (c *Client) hasLog() bool { return c.Log != nil }
+
 // start issues the specified API request and returns its HTTP response.  The
 // caller is responsible for interpreting any errors or unexpected status codes
 // from the request.
 func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error) {
 	u, err := c.baseURL()
 	if err != nil {
-		return nil, fmt.Errorf("invalid base URL: %v", err)
+		return nil, Errorf(nil, "invalid base URL", err)
 	}
 	u.Path = path.Join(u.Path, req.Method)
 	req.addQueryTerms(u)
@@ -107,16 +109,20 @@ func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error
 
 	hreq, err := http.NewRequestWithContext(ctx, req.HTTPMethod, requestURL, nil)
 	if err != nil {
-		return nil, fmt.Errorf("invalid request: %v", err)
+		return nil, Errorf(nil, "invalid request", err)
 	}
 
 	if auth := c.Authorize; auth != nil {
 		if err := auth(hreq); err != nil {
-			return nil, fmt.Errorf("attaching authorization: %v", err)
+			return nil, Errorf(nil, "attaching authorization", err)
 		}
 	}
 
-	return c.httpClient().Do(hreq)
+	rsp, err := c.httpClient().Do(hreq)
+	if err != nil {
+		return nil, Errorf(nil, "issuing request", err)
+	}
+	return rsp, nil
 }
 
 // finish cleans up and decodes a successful (non-nil) HTTP response returned
@@ -131,24 +137,71 @@ func (c *Client) finish(rsp *http.Response) (*Reply, error) {
 	var body bytes.Buffer
 	io.Copy(&body, rsp.Body)
 	rsp.Body.Close()
-	if rsp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("request failed: %s", rsp.Status)
+	c.log("HTTPStatus", rsp.Status)
+	if c.hasLog() {
+		c.log("ResponseBody", body.String())
 	}
+	if rsp.StatusCode != http.StatusOK {
+		return nil, newErrorf(nil, rsp.StatusCode, body.Bytes(), "request failed: %s", rsp.Status)
+	}
+
 	var reply Reply
 	if err := json.Unmarshal(body.Bytes(), &reply); err != nil {
-		return nil, fmt.Errorf("decoding response body: %v", err)
+		return nil, Errorf(body.Bytes(), "decoding response body", err)
 	}
 	reply.RateLimit = decodeRateLimits(rsp.Header)
 	return &reply, nil
 }
 
 // Call issues the specified API request and returns the decoded reply.
+// Errors from Call have concrete type *twitter.Error.
 func (c *Client) Call(ctx context.Context, req *Request) (*Reply, error) {
 	hrsp, err := c.start(ctx, req)
 	if err != nil {
 		return nil, err
 	}
 	return c.finish(hrsp)
+}
+
+// Error is the concrete type of errors returned by a Call.
+type Error struct {
+	Message string // a description of the error
+	Status  int    // an HTTP status code, if known
+	Err     error  // the underlying error, if any
+	Body    []byte // the response body from the server, if any
+}
+
+// Error satisfies the error interface.
+func (e *Error) Error() string {
+	if e.Err == nil {
+		return e.Message
+	}
+	return e.Message + ": " + e.Err.Error()
+}
+
+// Unwrap satisfies the wrapping interface for the errors package.
+func (e *Error) Unwrap() error { return e.Err }
+
+// Errorf returns an error of concrete type *Error.
+func Errorf(data []byte, msg string, args ...interface{}) error {
+	var err error
+	if len(args) != 0 {
+		v, ok := args[len(args)-1].(error)
+		if ok {
+			err = v
+			args = args[:len(args)-1]
+		}
+	}
+	return newErrorf(err, 0, data, msg, args...)
+}
+
+func newErrorf(err error, status int, body []byte, msg string, args ...interface{}) *Error {
+	return &Error{
+		Message: fmt.Sprintf(msg, args...),
+		Status:  status,
+		Err:     err,
+		Body:    body,
+	}
 }
 
 // An Authorizer attaches authorization metadata to an outbound request after
@@ -237,7 +290,7 @@ func (r *Reply) IncludedMedia() (types.Medias, error) {
 	}
 	var out types.Medias
 	if err := json.Unmarshal(media, &out); err != nil {
-		return nil, fmt.Errorf("decoding media: %v", err)
+		return nil, Errorf(media, "decoding media", err)
 	}
 	return out, nil
 }
@@ -251,7 +304,7 @@ func (r *Reply) IncludedTweets() (types.Tweets, error) {
 	}
 	var out types.Tweets
 	if err := json.Unmarshal(tweets, &out); err != nil {
-		return nil, fmt.Errorf("decoding tweets: %v", err)
+		return nil, Errorf(tweets, "decoding tweets", err)
 	}
 	return out, nil
 }
@@ -265,7 +318,7 @@ func (r *Reply) IncludedUsers() (types.Users, error) {
 	}
 	var out types.Users
 	if err := json.Unmarshal(users, &out); err != nil {
-		return nil, fmt.Errorf("decoding users: %v", err)
+		return nil, Errorf(users, "decoding users", err)
 	}
 	return out, nil
 }
@@ -279,7 +332,7 @@ func (r *Reply) IncludedPolls() (types.Polls, error) {
 	}
 	var out types.Polls
 	if err := json.Unmarshal(polls, &out); err != nil {
-		return nil, fmt.Errorf("decoding polls: %v", err)
+		return nil, Errorf(polls, "decoding polls", err)
 	}
 	return out, nil
 }
@@ -293,7 +346,7 @@ func (r *Reply) IncludedPlaces() (types.Places, error) {
 	}
 	var out types.Places
 	if err := json.Unmarshal(places, &out); err != nil {
-		return nil, fmt.Errorf("decoding places: %v", err)
+		return nil, Errorf(places, "decoding places", err)
 	}
 	return out, nil
 }
