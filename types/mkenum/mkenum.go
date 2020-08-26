@@ -70,7 +70,6 @@ func generateEnum(w io.Writer, base string, v interface{}) {
 	typeName := base + "Fields"
 	typeLabel := strings.ToLower(base) + ".fields"
 
-	fmt.Fprintf(w, "// Legal values of the %s enumeration.\n", typeName)
 	fmt.Fprintln(w, "const (")
 	fmt.Fprintf(w, "\t// %s is the label for optional %s field parameters.\n", typeName, base)
 	fmt.Fprintf(w, "\t%s = %q\n\n", typeName, typeLabel)
