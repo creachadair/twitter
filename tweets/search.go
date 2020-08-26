@@ -38,7 +38,7 @@ type SearchOpts struct {
 	EndTime time.Time
 
 	// The maximum number of results to return; 0 means let the server choose.
-	// Values < 10 or > 100 are invalid.
+	// Non-zero values < 10 or > 100 are invalid.
 	MaxResults int
 
 	// If set, return results with IDs greater than this (exclusive).
