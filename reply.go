@@ -21,6 +21,9 @@ type Reply struct {
 	// JSON arrays of attachment objects.
 	Includes map[string]json.RawMessage `json:"includes,omitempty"`
 
+	// Server metadata reported with search responses.
+	Meta *Meta `json:"meta,omitempty"`
+
 	// Rate limit metadata reported by the server. If the server did not return
 	// these data, this field will be nil.
 	RateLimit *RateLimit `json:"-"`
@@ -121,4 +124,11 @@ func decodeRateLimits(h http.Header) *RateLimit {
 		out.Reset = time.Unix(v, 0)
 	}
 	return out
+}
+
+// Meta records server metadata reported in the reply.
+type Meta struct {
+	ResultCount int    `json:"result_count"`
+	NewestID    string `json:"newest_id"`
+	OldestID    string `json:"oldest_id"`
 }
