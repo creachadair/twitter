@@ -55,7 +55,7 @@ func TestClientCall(t *testing.T) {
 	cli := newClient(t)
 
 	rsp, err := cli.Call(context.Background(), &twitter.Request{
-		Method: "/users/by/username/jack",
+		Method: "users/by/username/jack",
 		Params: twitter.Params{
 			types.UserFields: []string{
 				types.User_CreatedAt,
@@ -187,7 +187,7 @@ func TestStream(t *testing.T) {
 	checkManual(t)
 	cli := newClient(t)
 	req := &twitter.Request{
-		Method: "/tweets/sample/stream",
+		Method: "tweets/sample/stream",
 		Params: twitter.Params{
 			types.TweetFields: []string{
 				types.Tweet_AuthorID,
