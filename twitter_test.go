@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/rules"
 	"github.com/creachadair/twitter/tweets"
 	"github.com/creachadair/twitter/types"
 	"github.com/creachadair/twitter/users"
@@ -209,4 +210,79 @@ func TestStream(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error from Stream: %v", err)
 	}
+}
+
+func TestRules(t *testing.T) {
+	checkManual(t)
+	cli := newClient(t)
+	ctx := context.Background()
+	logResponse := func(t *testing.T, rsp *rules.Reply) {
+		t.Helper()
+		for i, r := range rsp.Rules {
+			t.Logf("Rule %d: id=%q, value=%q, tag=%q", i+1, r.ID, r.Value, r.Tag)
+		}
+		t.Logf("Sent: %s", rsp.Meta.Sent)
+		t.Logf("Summary: c=%d, nc=%d, d=%d, nd=%d",
+			rsp.Meta.Summary.Created, rsp.Meta.Summary.NotCreated,
+			rsp.Meta.Summary.Deleted, rsp.Meta.Summary.NotDeleted)
+	}
+
+	const testRuleTag = "test english kittens whargarbl"
+	var testRuleID string
+
+	t.Run("Update", func(t *testing.T) {
+		r, err := rules.Add(rules.Rule{
+			Value: `cat has:images lang:en`,
+			Tag:   testRuleTag,
+		})
+		if err != nil {
+			t.Fatalf("Creating rules: %v", err)
+		}
+
+		rsp, err := rules.Update(r).Invoke(ctx, cli)
+		if err != nil {
+			t.Fatalf("Update failed: %v", err)
+		}
+		logResponse(t, rsp)
+	})
+
+	t.Run("Get", func(t *testing.T) {
+		rsp, err := rules.Get(nil).Invoke(ctx, cli)
+		if err != nil {
+			t.Fatalf("Get failed: %v", err)
+		}
+		for _, r := range rsp.Rules {
+			if r.Tag == testRuleTag {
+				testRuleID = r.ID
+			}
+		}
+		logResponse(t, rsp)
+	})
+
+	if testRuleID == "" {
+		t.Fatalf("Test rule with tag %q was not found", testRuleTag)
+	} else {
+		t.Logf("Found test rule with id=%q", testRuleID)
+	}
+
+	del, err := rules.Delete(testRuleID)
+	if err != nil {
+		t.Fatalf("Creating rules: %v", err)
+	}
+
+	t.Run("Validate", func(t *testing.T) {
+		rsp, err := rules.Validate(del).Invoke(ctx, cli)
+		if err != nil {
+			t.Fatalf("Validate failed: %v", err)
+		}
+		logResponse(t, rsp)
+	})
+
+	t.Run("Update", func(t *testing.T) {
+		rsp, err := rules.Update(del).Invoke(ctx, cli)
+		if err != nil {
+			t.Fatalf("Update failed: %v", err)
+		}
+		logResponse(t, rsp)
+	})
 }
