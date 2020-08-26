@@ -15,6 +15,8 @@ This is a work in progress, and is not ready for production use. In particular:
   - [x] tweets/search/recent
   - [ ] tweets/search/stream
   - [ ] tweets/search/stream/rules
+  - [x] users
+  - [x] users/by
 
 - There is very little test coverage (only a few manual smoke tests).
 - The documentation is very poor.
