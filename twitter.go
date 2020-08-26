@@ -63,6 +63,7 @@ type Client struct {
 	// Tags include:
 	//
 	//    RequestURL   -- the request URL sent to the server
+	//    HTTPStatus   -- the HTTP status string (e.g., "200 OK")
 	//    ResponseBody -- the body of the response sent by the server
 	//
 	Log func(tag, message string)
