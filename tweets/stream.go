@@ -10,8 +10,8 @@ import (
 	"github.com/creachadair/twitter/types"
 )
 
-// Sample constructs a streaming sample query that delivers results to f.
-func Sample(f Callback, opts *StreamOpts) Stream {
+// SampleStream constructs a streaming sample query that delivers results to f.
+func SampleStream(f Callback, opts *StreamOpts) Stream {
 	req := &twitter.Request{
 		Method: "tweets/sample/stream",
 		Params: make(twitter.Params),
