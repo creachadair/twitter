@@ -15,13 +15,16 @@ import (
 	"github.com/creachadair/twitter/users"
 )
 
-var doManual = flag.Bool("manual", false, "Run manual tests that query the network")
+var (
+	doManual     = flag.Bool("manual", false, "Run manual tests that query the network")
+	doVerboseLog = flag.Bool("verbose-log", false, "Enable verbose client logging")
+)
 
 func newClient(t *testing.T) *twitter.Client {
 	return &twitter.Client{
 		Authorize: checkAuth(t),
 		Log: func(tag, msg string) {
-			if tag == "RequestURL" {
+			if tag == "RequestURL" || *doVerboseLog {
 				t.Logf("API %s :: %s", tag, msg)
 			}
 		},
@@ -30,9 +33,9 @@ func newClient(t *testing.T) *twitter.Client {
 
 func checkAuth(t *testing.T) twitter.Authorizer {
 	t.Helper()
-	bearerToken := os.Getenv("BEARER_TOKEN")
+	bearerToken := os.Getenv("TWITTER_TOKEN")
 	if bearerToken == "" {
-		t.Skip("No BEARER_TOKEN found in the environment; test cannot run")
+		t.Skip("No TWITTER_TOKEN found in the environment; test cannot run")
 	}
 	return twitter.BearerTokenAuthorizer(bearerToken)
 }
@@ -160,6 +163,10 @@ func TestSearchRecent(t *testing.T) {
 	}).Invoke(ctx, cli)
 	if err != nil {
 		t.Fatalf("SearchRecent failed: %v", err)
+	}
+	if m := rsp.Meta; m != nil {
+		t.Logf("Response metadata: count=%d, oldest=%s, newest=%s",
+			m.ResultCount, m.OldestID, m.NewestID)
 	}
 
 	if len(rsp.Tweets) == 0 {
