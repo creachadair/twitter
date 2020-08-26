@@ -4,6 +4,7 @@ package twitter_test
 
 import (
 	"context"
+	"encoding/json"
 	"flag"
 	"os"
 	"testing"
@@ -164,9 +165,10 @@ func TestSearchRecent(t *testing.T) {
 	if err != nil {
 		t.Fatalf("SearchRecent failed: %v", err)
 	}
-	if m := rsp.Meta; m != nil {
+	var meta tweets.SearchMeta
+	if err := json.Unmarshal(rsp.Meta, &meta); err == nil {
 		t.Logf("Response metadata: count=%d, oldest=%s, newest=%s",
-			m.ResultCount, m.OldestID, m.NewestID)
+			meta.ResultCount, meta.OldestID, meta.NewestID)
 	}
 
 	if len(rsp.Tweets) == 0 {
