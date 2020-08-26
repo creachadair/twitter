@@ -111,6 +111,9 @@ func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error
 	if err != nil {
 		return nil, Errorf(nil, "invalid request", err)
 	}
+	if req.ContentType != "" {
+		hreq.Header.Set("Content-Type", req.ContentType)
+	}
 
 	if auth := c.Authorize; auth != nil {
 		if err := auth(hreq); err != nil {
@@ -265,6 +268,9 @@ type Request struct {
 
 	// If set, send these data as the body of the request.
 	Data io.Reader
+
+	// If set, use this as the content-type for the request body.
+	ContentType string
 }
 
 // Params carries additional request parameters sent in the query URL.
