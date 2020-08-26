@@ -10,6 +10,12 @@ client.
 This is a work in progress, and is not ready for production use. In particular:
 
 - Not all the API endpoints are supported yet.
+  - [x] tweets
+  - [ ] tweets/sample/stream
+  - [x] tweets/search/recent
+  - [ ] tweets/search/stream
+  - [ ] tweets/search/stream/rules
+
 - There is very little test coverage (only a few manual smoke tests).
 - The documentation is very poor.
 
