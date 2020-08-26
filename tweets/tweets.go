@@ -77,5 +77,3 @@ func (o *LookupOpts) addRequestParams(req *twitter.Request) {
 	req.Params.Add(types.TweetFields, o.TweetFields...)
 	req.Params.Add(types.UserFields, o.UserFields...)
 }
-
-// TODO: SearchStream, SampleStream
