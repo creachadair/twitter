@@ -181,3 +181,32 @@ func TestSearchRecent(t *testing.T) {
 		}
 	}
 }
+
+func TestStream(t *testing.T) {
+	checkManual(t)
+	cli := newClient(t)
+	req := &twitter.Request{
+		Method: "/tweets/sample/stream",
+		Params: twitter.Params{
+			types.TweetFields: []string{
+				types.Tweet_AuthorID,
+				types.Tweet_Entities,
+			},
+		},
+	}
+	ctx := context.Background()
+	const maxResults = 5
+
+	nr := 0
+	err := cli.Stream(ctx, req, func(rsp *twitter.Reply) error {
+		nr++
+		t.Logf("Msg %d: %s", nr, string(rsp.Data))
+		if nr == maxResults {
+			return twitter.ErrStopStreaming
+		}
+		return nil
+	})
+	if err != nil {
+		t.Errorf("Error from Stream: %v", err)
+	}
+}

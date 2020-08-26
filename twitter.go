@@ -31,7 +31,9 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"path"
@@ -65,6 +67,7 @@ type Client struct {
 	//    RequestURL   -- the request URL sent to the server
 	//    HTTPStatus   -- the HTTP status string (e.g., "200 OK")
 	//    ResponseBody -- the body of the response sent by the server
+	//    StreamBody   -- the body of a stream response from the server
 	//
 	Log func(tag, message string)
 }
@@ -122,11 +125,20 @@ func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error
 	return rsp, nil
 }
 
+// ErrStopStreaming is a sentinel error that a stream callback can use to
+// signal it does not want any further results.
+var ErrStopStreaming = errors.New("stop streaming")
+
+// A Callback function is invoked for each reply received in a stream.  If the
+// callback reports a non-nil error, the stream is terminated. If the error is
+// anything other than ErrStopStreaming, it is reported to the caller.
+type Callback func(*Reply) error
+
 // finish cleans up and decodes a successful (non-nil) HTTP response returned
 // by a call to start.
 func (c *Client) finish(rsp *http.Response) (*Reply, error) {
 	if rsp == nil { // safety check
-		panic("cannot Finish a nil *http.Response")
+		panic("cannot finish a nil *http.Response")
 	}
 
 	// The body must be fully read and closed to avoid orphaning resources.
@@ -158,6 +170,70 @@ func (c *Client) Call(ctx context.Context, req *Request) (*Reply, error) {
 		return nil, err
 	}
 	return c.finish(hrsp)
+}
+
+// stream streams results from a successful (non-nil) HTTP response returned by
+// a call to start. Results are delivered to the given callback until the
+// stream ends, ctx ends, or the callback reports a non-nil error.  The error
+// from the callback is propagated to the caller of stream.
+func (c *Client) stream(ctx context.Context, rsp *http.Response, f Callback) error {
+	if rsp == nil { // safety check
+		panic("cannot stream a nil *http.Response")
+	}
+	body := rsp.Body
+	defer body.Close()
+
+	c.log("HTTPStatus", rsp.Status)
+	if rsp.StatusCode != http.StatusOK {
+		data, _ := ioutil.ReadAll(body)
+		if c.hasLog() {
+			c.log("ResponseBody", string(data))
+		}
+		return newErrorf(nil, rsp.StatusCode, data, "request failed: %s", rsp.Status)
+	}
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	// When ctx ends, close the response body to unblock the reader.
+	go func() {
+		<-ctx.Done()
+		body.Close()
+	}()
+
+	dec := json.NewDecoder(body)
+	for {
+		var next json.RawMessage
+		if err := dec.Decode(&next); err == io.EOF {
+			break
+		} else if err != nil {
+			return Errorf(nil, "decoding message from stream", err)
+		}
+		if c.hasLog() {
+			c.log("StreamBody", string(next))
+		}
+		var reply Reply
+		if err := json.Unmarshal(next, &reply); err != nil {
+			return Errorf(next, "decoding stream response", err)
+		} else if err := f(&reply); err != nil {
+			return Errorf(nil, "callback", err)
+		}
+	}
+	return nil
+}
+
+// Stream issues the specified API request and streams results to the given
+// callback. Errors from Stream have concrete type *twitter.Error.
+func (c *Client) Stream(ctx context.Context, req *Request, f Callback) error {
+	hrsp, err := c.start(ctx, req)
+	if err != nil {
+		return err
+	}
+	if err := c.stream(ctx, hrsp, f); errors.Is(err, ErrStopStreaming) {
+		return nil // the callback requested a stop
+	} else if !errors.Is(err, io.EOF) {
+		return err
+	}
+	return nil
 }
 
 // An Authorizer attaches authorization metadata to an outbound request after
