@@ -153,7 +153,10 @@ func (c *Client) finish(rsp *http.Response) (*Reply, error) {
 	if c.hasLog() {
 		c.log("ResponseBody", body.String())
 	}
-	if rsp.StatusCode != http.StatusOK {
+	switch rsp.StatusCode {
+	case http.StatusOK, http.StatusCreated:
+		// ok
+	default:
 		return nil, newErrorf(nil, rsp.StatusCode, body.Bytes(), "request failed: %s", rsp.Status)
 	}
 
