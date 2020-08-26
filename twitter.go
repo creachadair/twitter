@@ -107,7 +107,7 @@ func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error
 	requestURL := u.String()
 	c.log("RequestURL", requestURL)
 
-	hreq, err := http.NewRequestWithContext(ctx, req.HTTPMethod, requestURL, nil)
+	hreq, err := http.NewRequestWithContext(ctx, req.HTTPMethod, requestURL, req.Data)
 	if err != nil {
 		return nil, Errorf(nil, "invalid request", err)
 	}
@@ -262,6 +262,9 @@ type Request struct {
 
 	// The HTTP method to use for the request; if unset the default is "GET".
 	HTTPMethod string
+
+	// If set, send these data as the body of the request.
+	Data io.Reader
 }
 
 // Params carries additional request parameters sent in the query URL.
