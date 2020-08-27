@@ -9,12 +9,13 @@ client.
 
 This is a work in progress, and is not ready for production use. In particular:
 
-- Not all the API endpoints are supported yet.
+- ~Not All the API endpoints are supported yet.~
   - [x] tweets
-  - [ ] tweets/sample/stream
+  - [x] tweets/sample/stream
   - [x] tweets/search/recent
-  - [ ] tweets/search/stream
-  - [ ] tweets/search/stream/rules
+  - [x] tweets/search/stream
+  - [x] GET tweets/search/stream/rules
+  - [x] POST tweets/search/stream/rules
   - [x] users
   - [x] users/by
 
