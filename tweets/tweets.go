@@ -61,7 +61,7 @@
 // Expansions and non-default fields can be requested using *StreamOpts:
 //
 //    opts := &tweets.StreamOpts{
-//       Expansion:   []string{types.ExpandMediaKeys},
+//       Expansions:  []string{types.ExpandMediaKeys},
 //       MediaFields: []string{types.Media_PublicMetrics},
 //    }
 //
