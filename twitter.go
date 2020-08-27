@@ -23,6 +23,8 @@
 //
 // Packages
 //
+// Package "types" contains the type and constant definitions for the API.
+//
 // Queries to look up tweets by ID or username, to search recent tweets, and to
 // search or sample streams of tweets are defined in package "tweets".
 //
