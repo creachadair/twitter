@@ -39,3 +39,11 @@ const (
 	// to the top of the user’s profile.
 	ExpandPinnedTweetID = "pinned_tweet_id"
 )
+
+// Constants for the names of public metrics.
+const (
+	Metric_FollowersCount = "followers_count"
+	Metric_FollowingCount = "following_count"
+	Metric_TweetCount     = "tweet_count"
+	Metric_ListedCount    = "listed_count"
+)
