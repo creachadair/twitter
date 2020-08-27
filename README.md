@@ -1,7 +1,6 @@
 # twitter
 
-http://godoc.org/github.com/creachadair/twitter
-
+[![GoDoc](https://img.shields.io/static/v1?label=godoc&message=reference&color=blue)](https://pkg.go.dev/github.com/creachadair/twitter)
 [![Go Report Card](https://goreportcard.com/badge/github.com/creachadair/twitter)](https://goreportcard.com/report/github.com/creachadair/twitter)
 
 This repository provides Go package that implements a [Twitter API v2][tv2]
