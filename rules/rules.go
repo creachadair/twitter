@@ -5,11 +5,11 @@
 //
 // Reading Rules
 //
-// Use rules.Get to query for existing rules by ID. Pass nil to Get to fetch
-// all available rules.
+// Use rules.Get to query for existing rules by ID. If no IDs are given, Get
+// will return all available rules.
 //
-//   myRules := rules.Get([]string{id1, id2, id3})
-//   allRules := rules.Get(nil)
+//   myRules := rules.Get(id1, id2, id3)
+//   allRules := rules.Get()
 //
 // Invoke the query to fetch the rules:
 //
@@ -55,7 +55,7 @@ import (
 
 // Get constructs a query to fetch the specified streaming search rule IDs.  If
 // no rule IDs are given, all known rules are fetched.
-func Get(ids []string) Query {
+func Get(ids ...string) Query {
 	req := &twitter.Request{Method: "tweets/search/stream/rules"}
 	if len(ids) != 0 {
 		req.Params = twitter.Params{"ids": ids}

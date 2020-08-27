@@ -194,7 +194,7 @@ func TestStream(t *testing.T) {
 		},
 	}
 	ctx := context.Background()
-	const maxResults = 5
+	const maxResults = 3
 
 	nr := 0
 	err := cli.Stream(ctx, req, func(rsp *twitter.Reply) error {
@@ -240,31 +240,55 @@ func TestRules(t *testing.T) {
 		rsp, err := rules.Update(r).Invoke(ctx, cli)
 		if err != nil {
 			t.Fatalf("Update failed: %v", err)
+		} else if len(rsp.Rules) != 1 {
+			t.Errorf("Update: got %d rules, want 1", len(rsp.Rules))
+		} else {
+			testRuleID = rsp.Rules[0].ID
+			t.Logf("Update assigned rule ID %q", testRuleID)
 		}
 		logResponse(t, rsp)
 	})
 
 	t.Run("Get", func(t *testing.T) {
-		rsp, err := rules.Get(nil).Invoke(ctx, cli)
+		rsp, err := rules.Get(testRuleID).Invoke(ctx, cli)
 		if err != nil {
 			t.Fatalf("Get failed: %v", err)
-		}
-		for _, r := range rsp.Rules {
-			if r.Tag == testRuleTag {
-				testRuleID = r.ID
-			}
+		} else if len(rsp.Rules) != 1 {
+			t.Errorf("Get: got %d rules, want 1", len(rsp.Rules))
+		} else if r := rsp.Rules[0]; r.Tag != testRuleTag {
+			t.Errorf("Rule %q tag: got %q, want %q", r.ID, r.Tag, testRuleTag)
 		}
 		logResponse(t, rsp)
 	})
 
-	if testRuleID == "" {
-		t.Fatalf("Test rule with tag %q was not found", testRuleTag)
-	} else {
-		t.Logf("Found test rule with id=%q", testRuleID)
-	}
+	t.Run("GetAll", func(t *testing.T) {
+		rsp, err := rules.Get().Invoke(ctx, cli)
+		if err != nil {
+			t.Fatalf("Get failed: %v", err)
+		}
+		for _, r := range rsp.Rules {
+			if r.ID == testRuleID && r.Tag == testRuleTag {
+				t.Logf("Found rule ID %q with tag %q", r.ID, r.Tag)
+				return
+			}
+		}
+		t.Fatalf("Did not find expected rule ID %q", testRuleID)
+	})
+
+	// Requesting a non-existent rule ID should return an empty result.
+	t.Run("GetMissing", func(t *testing.T) {
+		const badID = "12345678"
+		rsp, err := rules.Get(badID).Invoke(ctx, cli)
+		if err != nil {
+			t.Fatalf("Get(%q) failed: %v", badID, err)
+		} else if len(rsp.Rules) != 0 {
+			t.Errorf("Get(%q): got %d rules, want 0", badID, len(rsp.Rules))
+		}
+		logResponse(t, rsp)
+	})
 
 	t.Run("Search", func(t *testing.T) {
-		const maxResults = 5
+		const maxResults = 3
 
 		nr := 0
 		err := tweets.SearchStream(func(rsp *tweets.Reply) error {
