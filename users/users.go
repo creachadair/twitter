@@ -13,33 +13,33 @@ import (
 
 // Lookup constructs a lookup query for one or more users by ID.  To look up
 // multiple IDs, add subsequent values to the opts.Keys field.
-func Lookup(id string, opts *LookupOpts) LookupQuery {
+func Lookup(id string, opts *LookupOpts) Query {
 	return newLookup("users", "ids", id, opts)
 }
 
 // LookupByName constructs a lookup query for one or more users by username.
 // To look up multiple usernames, add subsequent values to the opts.Keys field.
-func LookupByName(name string, opts *LookupOpts) LookupQuery {
+func LookupByName(name string, opts *LookupOpts) Query {
 	return newLookup("users/by", "usernames", name, opts)
 }
 
-func newLookup(method, param, key string, opts *LookupOpts) LookupQuery {
+func newLookup(method, param, key string, opts *LookupOpts) Query {
 	req := &twitter.Request{
 		Method: method,
 		Params: make(twitter.Params),
 	}
 	req.Params.Add(param, key)
 	opts.addRequestParams(param, req)
-	return LookupQuery{request: req}
+	return Query{request: req}
 }
 
-// A LookupQuery performs a lookup query for one or more users.
-type LookupQuery struct {
+// A Query performs a lookup query for one or more users.
+type Query struct {
 	request *twitter.Request
 }
 
 // Invoke executes the query on the given context and client.
-func (q LookupQuery) Invoke(ctx context.Context, cli *twitter.Client) (*LookupReply, error) {
+func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) {
 	rsp, err := cli.Call(ctx, q.request)
 	if err != nil {
 		return nil, err
@@ -50,14 +50,14 @@ func (q LookupQuery) Invoke(ctx context.Context, cli *twitter.Client) (*LookupRe
 	} else if err := json.Unmarshal(rsp.Data, &users); err != nil {
 		return nil, twitter.Errorf(rsp.Data, "decoding users data", err)
 	}
-	return &LookupReply{
+	return &Reply{
 		Reply: rsp,
 		Users: users,
 	}, nil
 }
 
-// A LookupReply is the response from a LookupQuery.
-type LookupReply struct {
+// A Reply is the response from a Query.
+type Reply struct {
 	*twitter.Reply
 	Users types.Users
 }
