@@ -62,10 +62,10 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 	if len(rsp.Data) == 0 {
 		// no rules returned
 	} else if err := json.Unmarshal(rsp.Data, &out.Rules); err != nil {
-		return nil, twitter.Errorf(rsp.Data, "decoding rules data", err)
+		return nil, &twitter.Error{Data: rsp.Data, Message: "decoding rules data", Err: err}
 	}
 	if err := json.Unmarshal(rsp.Meta, &out.Meta); err != nil {
-		return nil, twitter.Errorf(rsp.Meta, "decoding rules metadata", err)
+		return nil, &twitter.Error{Data: rsp.Meta, Message: "decoding rules metadata", Err: err}
 	}
 	return out, nil
 }

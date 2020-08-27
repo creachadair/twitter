@@ -69,7 +69,7 @@ func (s Stream) Invoke(ctx context.Context, cli *twitter.Client) error {
 	return cli.Stream(ctx, s.request, func(rsp *twitter.Reply) error {
 		var tweet types.Tweet
 		if err := json.Unmarshal(rsp.Data, &tweet); err != nil {
-			return twitter.Errorf(rsp.Data, "decoding tweet data", err)
+			return &twitter.Error{Data: rsp.Data, Message: "decoding tweet data", Err: err}
 		}
 		return s.callback(&Reply{
 			Reply:  rsp,

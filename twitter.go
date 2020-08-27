@@ -107,7 +107,7 @@ func (c *Client) hasLog() bool { return c.Log != nil }
 func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error) {
 	u, err := c.baseURL()
 	if err != nil {
-		return nil, Errorf(nil, "invalid base URL", err)
+		return nil, &Error{Message: "invalid base URL", Err: err}
 	}
 	u.Path = path.Join(u.Path, req.Method)
 	req.addQueryTerms(u)
@@ -116,7 +116,7 @@ func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error
 
 	hreq, err := http.NewRequestWithContext(ctx, req.HTTPMethod, requestURL, req.Data)
 	if err != nil {
-		return nil, Errorf(nil, "invalid request", err)
+		return nil, &Error{Message: "invalid request", Err: err}
 	}
 	if req.ContentType != "" {
 		hreq.Header.Set("Content-Type", req.ContentType)
@@ -124,13 +124,13 @@ func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error
 
 	if auth := c.Authorize; auth != nil {
 		if err := auth(hreq); err != nil {
-			return nil, Errorf(nil, "attaching authorization", err)
+			return nil, &Error{Message: "attaching authorization", Err: err}
 		}
 	}
 
 	rsp, err := c.httpClient().Do(hreq)
 	if err != nil {
-		return nil, Errorf(nil, "issuing request", err)
+		return nil, &Error{Message: "issuing request", Err: err}
 	}
 	return rsp, nil
 }
@@ -164,12 +164,16 @@ func (c *Client) finish(rsp *http.Response) (*Reply, error) {
 	case http.StatusOK, http.StatusCreated:
 		// ok
 	default:
-		return nil, newErrorf(nil, rsp.StatusCode, body.Bytes(), "request failed: %s", rsp.Status)
+		return nil, &Error{
+			Status:  rsp.StatusCode,
+			Data:    body.Bytes(),
+			Message: "request failed: " + rsp.Status,
+		}
 	}
 
 	var reply Reply
 	if err := json.Unmarshal(body.Bytes(), &reply); err != nil {
-		return nil, Errorf(body.Bytes(), "decoding response body", err)
+		return nil, &Error{Data: body.Bytes(), Message: "decoding response body", Err: err}
 	}
 	reply.RateLimit = decodeRateLimits(rsp.Header)
 	return &reply, nil
@@ -202,7 +206,11 @@ func (c *Client) stream(ctx context.Context, rsp *http.Response, f Callback) err
 		if c.hasLog() {
 			c.log("ResponseBody", string(data))
 		}
-		return newErrorf(nil, rsp.StatusCode, data, "request failed: %s", rsp.Status)
+		return &Error{
+			Status:  rsp.StatusCode,
+			Data:    data,
+			Message: "request failed: " + rsp.Status,
+		}
 	}
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
@@ -219,16 +227,16 @@ func (c *Client) stream(ctx context.Context, rsp *http.Response, f Callback) err
 		if err := dec.Decode(&next); err == io.EOF {
 			break
 		} else if err != nil {
-			return Errorf(nil, "decoding message from stream", err)
+			return &Error{Message: "decoding message from stream", Err: err}
 		}
 		if c.hasLog() {
 			c.log("StreamBody", string(next))
 		}
 		var reply Reply
 		if err := json.Unmarshal(next, &reply); err != nil {
-			return Errorf(next, "decoding stream response", err)
+			return &Error{Data: next, Message: "decoding stream response", Err: err}
 		} else if err := f(&reply); err != nil {
-			return Errorf(nil, "callback", err)
+			return &Error{Message: "callback", Err: err}
 		}
 	}
 	return nil

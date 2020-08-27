@@ -48,7 +48,7 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 	if len(rsp.Data) == 0 {
 		// no results
 	} else if err := json.Unmarshal(rsp.Data, &users); err != nil {
-		return nil, twitter.Errorf(rsp.Data, "decoding users data", err)
+		return nil, &twitter.Error{Data: rsp.Data, Message: "decoding users data", Err: err}
 	}
 	return &Reply{
 		Reply: rsp,

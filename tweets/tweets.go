@@ -38,11 +38,11 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 	if len(rsp.Data) == 0 {
 		// no results
 	} else if err := json.Unmarshal(rsp.Data, &out.Tweets); err != nil {
-		return nil, twitter.Errorf(rsp.Data, "decoding tweet data", err)
+		return nil, &twitter.Error{Data: rsp.Data, Message: "decoding tweet data", Err: err}
 	}
 	if len(rsp.Meta) != 0 {
 		if err := json.Unmarshal(rsp.Meta, &out.Meta); err != nil {
-			return nil, twitter.Errorf(rsp.Meta, "decoding response metadata", err)
+			return nil, &twitter.Error{Data: rsp.Meta, Message: "decoding response metadata", Err: err}
 		}
 	}
 	return out, nil
