@@ -28,7 +28,7 @@ This is a work in progress, and is not ready for production use. In particular:
   - [ ] Executable examples for package `tweets`
   - [ ] Doc comment for package `types`
   - [ ] Executable examples for package `types`
-  - [ ] Doc comment for package `users`
+  - [x] Doc comment for package `users`
   - [ ] Executable examples for package `users`
 
 I plan to improve on all of these, but in the meantime I do not recommend using
