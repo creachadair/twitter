@@ -265,6 +265,27 @@ func TestRules(t *testing.T) {
 		t.Logf("Found test rule with id=%q", testRuleID)
 	}
 
+	t.Run("Search", func(t *testing.T) {
+		const maxResults = 5
+
+		nr := 0
+		err := tweets.SearchStream(func(rsp *tweets.Reply) error {
+			for _, tw := range rsp.Tweets {
+				nr++
+				t.Logf("Result %d: id=%s, author=%s, text=%s", nr, tw.ID, tw.AuthorID, tw.Text)
+			}
+			if nr >= maxResults {
+				return twitter.ErrStopStreaming
+			}
+			return nil
+		}, &tweets.StreamOpts{
+			TweetFields: []string{types.Tweet_AuthorID},
+		}).Invoke(ctx, cli)
+		if err != nil {
+			t.Errorf("SearchStream failed: %v", err)
+		}
+	})
+
 	del, err := rules.Delete(testRuleID)
 	if err != nil {
 		t.Fatalf("Creating rules: %v", err)
