@@ -1,3 +1,7 @@
+// Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
+
+// Package rules implements queries for reading and modifying the
+// rules used by streaming search queries.
 package rules
 
 import (
