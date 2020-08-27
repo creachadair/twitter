@@ -3,7 +3,10 @@
 // Package twitter implements a client for the Twitter API v2.  This package is
 // in development and is not yet ready for production use.
 //
-// Usage outline:
+// Usage outline
+//
+// The general structure of an API call is to first construct a query, then
+// invoke that query with a context on a client:
 //
 //    cli := &twitter.Client{
 //       Authorizer: twitter.NewBearerTokenAuthorizer(token),
@@ -18,12 +21,14 @@
 //    }
 //    process(rsp.Users)
 //
-// Limitations
+// Packages
 //
-// Currently the lookup APIs for tweets and users are supported, as well as the
-// search API for recent tweets.
+// Queries to look up tweets by ID or username, to search recent tweets, and to
+// search or sample streams of tweets are defined in package "tweets".
 //
-// Sampling and streaming are not yet supported.
+// Queries to look up users by ID or user name are defined in package "users".
+//
+// Queries to read or update search rules are defined in package "rules".
 //
 package twitter
 
