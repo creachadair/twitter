@@ -63,7 +63,7 @@ func TestClientCall(t *testing.T) {
 				types.User_Verified,
 			},
 			types.Expansions: []string{
-				types.ExpandPinnedTweetID,
+				types.Expand_PinnedTweetID,
 			},
 		},
 	})
@@ -92,7 +92,7 @@ func TestTweetLookup(t *testing.T) {
 			types.Tweet_Entities,
 			types.Tweet_AuthorID,
 		},
-		Expansions: []string{types.ExpandMentionUsername},
+		Expansions: []string{types.Expand_MentionUsername},
 	}).Invoke(ctx, cli)
 	if err != nil {
 		t.Fatalf("Lookup failed: %v", err)
