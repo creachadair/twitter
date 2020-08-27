@@ -37,6 +37,19 @@
 // For search query syntax, see
 // https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-rule
 //
+// Search results can be paginated. Specifically, if there are more results
+// available than the requested cap (max_results), the server response will
+// contain a pagination token that can be used to fetch more. Invoking a search
+// query automatically updates the query with this pagination token, so
+// invoking the query again will fetch the remaining results:
+//
+//   for q.HasMorePages() {
+//      rsp, err := q.Invoke(ctx, cli)
+//      // ...
+//   }
+//
+// Use q.ResetPageToken to reset the query.
+//
 // Streaming
 //
 // Streaming queries take a callback that receives each response sent by the
@@ -92,7 +105,9 @@ type Query struct {
 	request *twitter.Request
 }
 
-// Invoke executes the query on the given context and client.
+// Invoke executes the query on the given context and client. If the reply
+// contains a pagination token, q is updated in-place so that invoking the
+// query again will fetch the next page.
 func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) {
 	rsp, err := cli.Call(ctx, q.request)
 	if err != nil {
@@ -108,9 +123,37 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 		if err := json.Unmarshal(rsp.Meta, &out.Meta); err != nil {
 			return nil, &twitter.Error{Data: rsp.Meta, Message: "decoding response metadata", Err: err}
 		}
+		q.request.Params.Set(nextTokenParam, out.Meta.NextToken)
 	}
 	return out, nil
 }
+
+const nextTokenParam = "next_token"
+
+// HasMorePages reports whether the query has more pages to fetch.
+func (q Query) HasMorePages() bool {
+	// To distinguish a fresh query from a query that has exhausted all pages,
+	// we use the presence of nextTokenParam in the parameter map.
+	//
+	// If it's there but empty, there are no more pages.
+	// If it's there but nonempty, there are more pages.
+	// If it's not there, this is a fresh query.
+	v, ok := q.request.Params[nextTokenParam]
+	return !ok || v[0] != ""
+}
+
+// PageToken reports the query's current page token, or "".
+func (q Query) PageToken() string {
+	v, ok := q.request.Params[nextTokenParam]
+	if ok && len(v) != 0 {
+		return v[0]
+	}
+	return ""
+}
+
+// ResetPageToken clears (resets) the query's current page token. Subsequently
+// invoking the query will then fetch the first page of results.
+func (q Query) ResetPageToken() { q.request.Params.Reset(nextTokenParam) }
 
 // A Reply is the response from a Query.
 type Reply struct {
@@ -122,7 +165,8 @@ type Reply struct {
 // LookupOpts provides parameters for tweet lookup. A nil *LookupOpts provides
 // empty values for all fields.
 type LookupOpts struct {
-	IDs []string // additional tweet IDs to query
+	IDs       []string // additional tweet IDs to query
+	PageToken string   // a pagination token
 
 	Expansions  []string
 	MediaFields []string
@@ -135,6 +179,9 @@ type LookupOpts struct {
 func (o *LookupOpts) addRequestParams(req *twitter.Request) {
 	if o == nil {
 		return // nothing to do
+	}
+	if o.PageToken != "" {
+		req.Params.Set("next_token", o.PageToken)
 	}
 	req.Params.Add("ids", o.IDs...)
 	req.Params.Add(types.Expansions, o.Expansions...)

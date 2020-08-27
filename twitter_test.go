@@ -151,6 +151,49 @@ func TestUsernameLookup(t *testing.T) {
 	}
 }
 
+func TestSearchPages(t *testing.T) {
+	checkManual(t)
+	cli := newClient(t)
+	ctx := context.Background()
+
+	const maxResults = 25
+	for _, test := range []struct {
+		label, query string
+	}{
+		{"OnePage", `from:creachadair has:mentions`},
+		{"MultiPage", `from:benjaminwittes -has:images`},
+	} {
+		t.Run(test.label, func(t *testing.T) {
+			q := tweets.SearchRecent(test.query, nil)
+
+			nr := 0
+			for q.HasMorePages() {
+				rsp, err := q.Invoke(ctx, cli)
+				if err != nil {
+					t.Fatalf("SearchRecent failed: %v", err)
+				}
+				for _, tw := range rsp.Tweets {
+					nr++
+					t.Logf("Tweet %d: id=%s, text=%q", nr, tw.ID, tw.Text)
+				}
+
+				qpage := q.PageToken()
+				t.Logf("Next page token: %q", qpage)
+
+				if mpage := rsp.Meta.NextToken; mpage != qpage {
+					t.Errorf("Query page token: got %q, want %q", qpage, mpage)
+				}
+
+				if nr > maxResults {
+					t.Logf("Done: Got %d (> %d) results", nr, maxResults)
+					return
+				}
+			}
+			t.Log("Done: No more pages")
+		})
+	}
+}
+
 func TestSearchRecent(t *testing.T) {
 	checkManual(t)
 	cli := newClient(t)
