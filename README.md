@@ -13,6 +13,7 @@ This is a work in progress, and is not ready for production use. In particular:
   - [x] tweets
   - [x] tweets/sample/stream
   - [x] tweets/search/recent
+      - [x] pagination
   - [x] tweets/search/stream
   - [x] GET tweets/search/stream/rules
   - [x] POST tweets/search/stream/rules
