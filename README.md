@@ -21,7 +21,15 @@ This is a work in progress, and is not ready for production use. In particular:
   - [x] users/by
 
 - There is very little test coverage (only a few manual smoke tests).
-- The documentation is very poor.
+- The documentation is still incomplete.
+  - [x] Doc comment for package `rules`
+  - [ ] Executable examples for package `rules`
+  - [x] Doc comment for package `tweets`
+  - [ ] Executable examples for package `tweets`
+  - [ ] Doc comment for package `types`
+  - [ ] Executable examples for package `types`
+  - [ ] Doc comment for package `users`
+  - [ ] Executable examples for package `users`
 
 I plan to improve on all of these, but in the meantime I do not recommend using
 this library for serious work. Please feel free to file issues, however.  The
