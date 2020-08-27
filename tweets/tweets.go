@@ -1,6 +1,70 @@
 // Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
 
 // Package tweets supports queries for tweet lookup and search.
+//
+// Lookup
+//
+// To look up one or more tweets by ID, use tweets.Lookup. Additional IDs can
+// be given in the options:
+//
+//   single := tweets.Lookup(id, nil)
+//   multi := tweets.Lookup(id1, &tweets.LookupOpts{
+//      IDs: []string{id2, id3},
+//   })
+//
+// By default only the default fields are returned (see types.Tweet).  To
+// request additional fields or expansions, include them in the options:
+//
+//   q := tweets.Lookup(id, &tweets.LookupOpts{
+//      TweetFields: []string{types.Tweet_AuthorID},
+//      Expansions:  []string{types.ExpandAuthorID},
+//   })
+//
+// Invoke the query to fetch the tweets:
+//
+//   rsp, err := q.Invoke(ctx, cli)
+//
+// The Tweets field of the response contains the requested tweets.  In
+// addition, any attachments resulting from expansions can be fetched using
+// methods on the *Reply, e.g., rsp.IncludedTweets.
+//
+// Search
+//
+// To search recent tweets, use tweets.SearchRecent:
+//
+//   q := tweets.SearchRecent(`from:jack has:mentions -has:media`, nil)
+//
+// For search query syntax, see
+// https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-rule
+//
+// Streaming
+//
+// Streaming queries take a callback that receives each response sent by the
+// server. Streaming continues as long as there are more results, or until the
+// callback reports an error. The tweets.SearchStream and tweets.SampleStream
+// functions use this interface.
+//
+// For example:
+//
+//    q := tweets.SearchStream(func(rsp *tweets.Reply) error {
+//       handle(rsp)
+//       if !wantMore() {
+//          return twitter.ErrStopStreaming
+//       }
+//       return nil
+//    }, nil)
+//
+// If the callback returns twitter.ErrStopStreaming, the stream is terminated
+// without error; otherwise the error returned by the callback is reported to
+// the caller of the query.
+//
+// Expansions and non-default fields can be requested using *StreamOpts:
+//
+//    opts := &tweets.StreamOpts{
+//       Expansion:   []string{types.ExpandMediaKeys},
+//       MediaFields: []string{types.Media_PublicMetrics},
+//    }
+//
 package tweets
 
 import (
