@@ -2,6 +2,46 @@
 
 // Package rules implements queries for reading and modifying the
 // rules used by streaming search queries.
+//
+// Reading Rules
+//
+// Use rules.Get to query for existing rules by ID. Pass nil to Get to fetch
+// all available rules.
+//
+//   myRules := rules.Get([]string{id1, id2, id3})
+//   allRules := rules.Get(nil)
+//
+// Invoke the query to fetch the rules:
+//
+//   rsp, err := allRules.Invoke(ctx, cli)
+//
+// The Rules field of the response contains the requested rules.
+//
+// Updating Rules
+//
+// Each rule update must either add or delete rules, but not both.  Use Add to
+// build a Set of rules to add, or Delete to identify a Set of rules to
+// delete. For example:
+//
+//    r, err := rules.Add(rules.Rule{
+//       Value: `cat has:images lang:en`,
+//       Tag:   "cat pictures in English",
+//    })
+//
+// Once you have a set, you can build a query to Update or Validate.  Update
+// applies the rule change; Validate just reports whether the update would have
+// succeeded (this corresponds to the "dry_run" parameter in the API):
+//
+//    apply := rules.Update(r)
+//    check := rules.Validate(r)
+//
+// Invoke the query to execute the change or check:
+//
+//    rsp, err := apply.Invoke(ctx, cli)
+//
+// The response will include the updated rules, along with server metadata
+// indicating the effective time of application and summary statistics.
+//
 package rules
 
 import (
