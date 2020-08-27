@@ -25,8 +25,8 @@ func SearchRecent(query string, opts *SearchOpts) Query {
 	return Query{request: req}
 }
 
-// SearchMeta records server metadata reported in a search reply.
-type SearchMeta struct {
+// Meta records server metadata reported in a search reply.
+type Meta struct {
 	ResultCount int    `json:"result_count"`
 	NewestID    string `json:"newest_id"`
 	OldestID    string `json:"oldest_id"`

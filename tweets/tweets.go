@@ -34,22 +34,25 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 	if err != nil {
 		return nil, err
 	}
-	var tweets types.Tweets
+	out := &Reply{Reply: rsp}
 	if len(rsp.Data) == 0 {
 		// no results
-	} else if err := json.Unmarshal(rsp.Data, &tweets); err != nil {
+	} else if err := json.Unmarshal(rsp.Data, &out.Tweets); err != nil {
 		return nil, twitter.Errorf(rsp.Data, "decoding tweet data", err)
 	}
-	return &Reply{
-		Reply:  rsp,
-		Tweets: tweets,
-	}, nil
+	if len(rsp.Meta) != 0 {
+		if err := json.Unmarshal(rsp.Meta, &out.Meta); err != nil {
+			return nil, twitter.Errorf(rsp.Meta, "decoding response metadata", err)
+		}
+	}
+	return out, nil
 }
 
 // A Reply is the response from a Query.
 type Reply struct {
 	*twitter.Reply
 	Tweets types.Tweets
+	Meta   *Meta
 }
 
 // LookupOpts provides parameters for tweet lookup. A nil *LookupOpts provides
