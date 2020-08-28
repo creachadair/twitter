@@ -39,7 +39,7 @@ type Meta struct {
 // empty or zero values for all fields.
 type SearchOpts struct {
 	// A pagination token provided by the server.
-	NextPage string
+	PageToken string
 
 	// The oldest UTC time from which results will be provided.
 	StartTime time.Time
@@ -69,8 +69,8 @@ func (o *SearchOpts) addRequestParams(req *twitter.Request) {
 	if o == nil {
 		return // nothing to do
 	}
-	if o.NextPage != "" {
-		req.Params.Set("next_token", o.NextPage)
+	if o.PageToken != "" {
+		req.Params.Set("next_token", o.PageToken)
 	}
 	if !o.StartTime.IsZero() {
 		req.Params.Set("start_time", o.StartTime.Format(types.DateFormat))
