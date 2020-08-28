@@ -42,10 +42,28 @@ const (
 	Expand_PinnedTweetID = "pinned_tweet_id"
 )
 
-// Constants for the names of public metrics.
+// Constants for the names of various metrics reported in a Metrics map.  The
+// comment beside each constant describes its visibility.
+//
+// See https://developer.twitter.com/en/docs/twitter-api/metrics
 const (
-	Metric_FollowersCount = "followers_count"
-	Metric_FollowingCount = "following_count"
-	Metric_TweetCount     = "tweet_count"
-	Metric_ListedCount    = "listed_count"
+	Metric_FollowersCount    = "followers_count"     // public
+	Metric_FollowingCount    = "following_count"     // public
+	Metric_ImpressionCount   = "impression_count"    // non-public, organic, promoted
+	Metric_LikeCount         = "like_count"          // public, organic, promoted
+	Metric_ListedCount       = "listed_count"        // public
+	Metric_QuoteCount        = "quote_count"         // public
+	Metric_ReplyCount        = "reply_count"         // public, organic, promoted
+	Metric_RetweetCount      = "retweet_count"       // public, organic, promoted
+	Metric_TweetCount        = "tweet_count"         // public
+	Metric_URLLinkClicks     = "url_link_clicks"     // non-public, organic, promoted
+	Metric_UserProfileClicks = "user_profile_clicks" // non-public, organic, promoted
+	Metric_ViewCount         = "view_count"          // public, organic, promoted
+
+	// Video view quartile metrics. Non-public, organic, promoted.
+	Metric_Playback0Count   = "playback_0_count"
+	Metric_Playback25Count  = "playback_25_count"
+	Metric_Playback50Count  = "playback_50_count"
+	Metric_Playback75Count  = "playback_75_count"
+	Metric_Playback100Count = "playback_100_count	"
 )
