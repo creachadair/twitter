@@ -149,10 +149,24 @@ type Callback func(*Reply) error
 // finish cleans up and decodes a successful (non-nil) HTTP response returned
 // by a call to start.
 func (c *Client) finish(rsp *http.Response) (*Reply, error) {
+	body, err := c.receive(rsp)
+	if err != nil {
+		return nil, err
+	}
+	var reply Reply
+	if err := json.Unmarshal(body, &reply); err != nil {
+		return nil, &Error{Data: body, Message: "decoding response body", Err: err}
+	}
+	reply.RateLimit = decodeRateLimits(rsp.Header)
+	return &reply, nil
+}
+
+// receive checks the status of a successful (non-nil) HTTP response returned
+// by a call to start.  It returns the response body data on success.
+func (c *Client) receive(rsp *http.Response) ([]byte, error) {
 	if rsp == nil { // safety check
 		panic("cannot finish a nil *http.Response")
 	}
-
 	// The body must be fully read and closed to avoid orphaning resources.
 	// See: https://godoc.org/net/http#Do
 	var body bytes.Buffer
@@ -172,13 +186,7 @@ func (c *Client) finish(rsp *http.Response) (*Reply, error) {
 			Message: "request failed: " + rsp.Status,
 		}
 	}
-
-	var reply Reply
-	if err := json.Unmarshal(body.Bytes(), &reply); err != nil {
-		return nil, &Error{Data: body.Bytes(), Message: "decoding response body", Err: err}
-	}
-	reply.RateLimit = decodeRateLimits(rsp.Header)
-	return &reply, nil
+	return body.Bytes(), nil
 }
 
 // Call issues the specified API request and returns the decoded reply.
