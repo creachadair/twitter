@@ -2,6 +2,8 @@
 
 package types
 
+import "time"
+
 // A Poll is the encoded description of a Twitter poll.
 // The fields marked "default" will always be populated by the API; other
 // fields are filled in based on the parameters in the request.
@@ -9,9 +11,9 @@ type Poll struct {
 	ID      string        `json:"id" twitter:"default"`
 	Options []*PollOption `json:"options" twitter:"default"`
 
-	Duration     Minutes `json:"duration_minutes"`
-	EndTime      *Date   `json:"end_datetime"`
-	VotingStatus string  `json:"voting_status"` // e.g., "closed"
+	Duration     Minutes    `json:"duration_minutes"`
+	EndTime      *time.Time `json:"end_datetime"`
+	VotingStatus string     `json:"voting_status"` // e.g., "closed"
 
 	Attachments `json:"attachments"`
 }

@@ -4,6 +4,7 @@ package types
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // A Tweet is the decoded form of a single tweet.  The fields marked "default"
@@ -13,16 +14,16 @@ type Tweet struct {
 	ID   string `json:"id" twitter:"default"`
 	Text string `json:"text" twitter:"default"`
 
-	AuthorID       string    `json:"author_id"`
-	ConversationID string    `json:"conversation_id"`
-	CreatedAt      *Date     `json:"created_at"`
-	Entities       *Entities `json:"entities"`
-	InReplyTo      string    `json:"in_reply_to_user_id"`
-	Language       string    `json:"lang"` // https://tools.ietf.org/html/bcp47
-	Location       *Location `json:"geo"`
-	Sensitive      bool      `json:"possibly_sensitive"`
-	Referenced     []*Ref    `json:"referenced_tweets"`
-	Source         string    `json:"source"` // e.g., "Twitter Web App"
+	AuthorID       string     `json:"author_id"`
+	ConversationID string     `json:"conversation_id"`
+	CreatedAt      *time.Time `json:"created_at"`
+	Entities       *Entities  `json:"entities"`
+	InReplyTo      string     `json:"in_reply_to_user_id"`
+	Language       string     `json:"lang"` // https://tools.ietf.org/html/bcp47
+	Location       *Location  `json:"geo"`
+	Sensitive      bool       `json:"possibly_sensitive"`
+	Referenced     []*Ref     `json:"referenced_tweets"`
+	Source         string     `json:"source"` // e.g., "Twitter Web App"
 
 	ContextAnnotations []*ContextAnnotation `json:"context_annotations"`
 	Withheld           *Withholding         `json:"withheld"`

@@ -15,31 +15,6 @@ import (
 // DateFormat defines the encoding format for a Date string.
 const DateFormat = "2006-01-02T15:04:05.999Z"
 
-// A Date defines the JSON encoding of an ISO 8601 date.
-type Date time.Time
-
-// String returns d as rendered by DateFormat.
-func (d Date) String() string { return time.Time(d).Format(DateFormat) }
-
-// UnmarshalJSON decodes d from a JSON string value.
-func (d *Date) UnmarshalJSON(bits []byte) error {
-	var s string
-	if err := json.Unmarshal(bits, &s); err != nil {
-		return fmt.Errorf("cannot decode %q as a date", string(bits))
-	}
-	ts, err := time.Parse(DateFormat, s)
-	if err != nil {
-		return fmt.Errorf("invalid date: %v", err)
-	}
-	*d = Date(ts)
-	return nil
-}
-
-// MarshalJSON encodes d as a JSON string value.
-func (d Date) MarshalJSON() ([]byte, error) {
-	return json.Marshal(d.String())
-}
-
 // Minutes defines the JSON encoding of a duration in minutes.
 type Minutes time.Duration
 

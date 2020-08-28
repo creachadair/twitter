@@ -48,9 +48,9 @@ package rules
 import (
 	"context"
 	"encoding/json"
+	"time"
 
 	"github.com/creachadair/twitter"
-	"github.com/creachadair/twitter/types"
 )
 
 // Get constructs a query to fetch the specified streaming search rule IDs.  If
@@ -139,7 +139,7 @@ type Reply struct {
 
 // Meta records rule set metadata reported by the service.
 type Meta struct {
-	Sent    *types.Date `json:"sent"`
+	Sent    time.Time `json:"sent"`
 	Summary struct {
 		Created    int `json:"created"`
 		NotCreated int `json:"not_created"`

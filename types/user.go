@@ -2,6 +2,8 @@
 
 package types
 
+import "time"
+
 // A User contains Twitter user account metadata describing a Twitter user.
 // The fields marked "default" will always be populated by the API; other
 // fields are filled in based on the parameters in the request.
@@ -10,7 +12,7 @@ type User struct {
 	Name     string `json:"name" twitter:"default"`     // e.g., "User McJones"
 	Username string `json:"username" twitter:"default"` // e.g., "mcjonesey"
 
-	CreatedAt       *Date         `json:"created_at"`
+	CreatedAt       *time.Time    `json:"created_at"`
 	Description     string        `json:"description"` // profile bio
 	ProfileURL      string        `json:"url"`
 	Entities        *UserEntities `json:"entities"`
