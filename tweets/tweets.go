@@ -17,7 +17,7 @@
 //
 //   q := tweets.Lookup(id, &tweets.LookupOpts{
 //      TweetFields: []string{types.Tweet_AuthorID},
-//      Expansions:  []string{types.ExpandAuthorID},
+//      Expansions:  []string{types.Expand_AuthorID},
 //   })
 //
 // Invoke the query to fetch the tweets:
@@ -74,7 +74,7 @@
 // Expansions and non-default fields can be requested using *StreamOpts:
 //
 //    opts := &tweets.StreamOpts{
-//       Expansions:  []string{types.ExpandMediaKeys},
+//       Expansions:  []string{types.Expand_MediaKeys},
 //       MediaFields: []string{types.Media_PublicMetrics},
 //    }
 //
