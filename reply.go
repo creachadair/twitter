@@ -101,7 +101,7 @@ func (r *Reply) IncludedPlaces() (types.Places, error) {
 
 // RateLimit records metadata about API rate limits reported by the server.
 type RateLimit struct {
-	Ceiling   int       // rate limit ceiling for this endpoing
+	Ceiling   int       // rate limit ceiling for this endpoint
 	Remaining int       // requests remaining in the current window
 	Reset     time.Time // time of next window reset
 }
