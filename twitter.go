@@ -199,6 +199,16 @@ func (c *Client) Call(ctx context.Context, req *Request) (*Reply, error) {
 	return c.finish(hrsp)
 }
 
+// CallRaw issues the specified API request and returns the raw response body
+// without decoding. Errors from CallRaw have concrete type *twitter.Error
+func (c *Client) CallRaw(ctx context.Context, req *Request) ([]byte, error) {
+	hrsp, err := c.start(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	return c.receive(hrsp)
+}
+
 // stream streams results from a successful (non-nil) HTTP response returned by
 // a call to start. Results are delivered to the given callback until the
 // stream ends, ctx ends, or the callback reports a non-nil error.  The error
