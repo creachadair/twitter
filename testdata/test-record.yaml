@@ -1,0 +1,720 @@
+---
+version: 1
+interactions:
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+    url: https://api.twitter.com/2/users/by/username/jack?expansions=pinned_tweet_id&user.fields=created_at%2Cdescription%2Cpublic_metrics%2Cverified
+    method: GET
+  response:
+    body: '{"data":{"public_metrics":{"followers_count":4773667,"following_count":4515,"tweet_count":27154,"listed_count":27755},"id":"12","username":"jack","created_at":"2006-03-21T20:50:14.000Z","name":"jack","description":"#bitcoin","pinned_tweet_id":"1247616214769086465","verified":true},"includes":{"tweets":[{"id":"1247616214769086465","text":"I’m moving $1B of my Square equity (~28% of my wealth) to #startsmall LLC to fund global COVID-19 relief. After we disarm this pandemic, the focus will shift to girl’s health and education, and UBI. It will operate transparently, all flows tracked here: https://t.co/hVkUczDQmz"}]}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Aug 2020 05:07:28 GMT
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - personalization_id="v1_bYb7wCMZPKifoVNPZiWwRQ=="; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A159859124870602760; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - 757304cf793a0616b0fa6e924a1997df
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "300"
+      X-Rate-Limit-Remaining:
+      - "299"
+      X-Rate-Limit-Reset:
+      - "1598592148"
+      X-Response-Time:
+      - "58"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+    url: https://api.twitter.com/2/tweets?expansions=entities.mentions.username&ids=1297524288245895168&tweet.fields=created_at%2Centities%2Cauthor_id
+    method: GET
+  response:
+    body: '{"data":[{"created_at":"2020-08-23T13:21:11.000Z","entities":{"urls":[{"start":173,"end":196,"url":"https://t.co/N3pCyxcpZW","expanded_url":"https://www.crowdcast.io/e/in-lieu-of-fun-episode-44","display_url":"crowdcast.io/e/in-lieu-of-f…","images":[{"url":"https://pbs.twimg.com/news_img/1297524293283315739/yneRzw3p?format=png&name=orig","width":800,"height":550},{"url":"https://pbs.twimg.com/news_img/1297524293283315739/yneRzw3p?format=png&name=150x150","width":150,"height":150}],"status":200,"title":"In Lieu of Fun, Episode 150: Mystery Guest Sunday - Crowdcast","description":"Register now for Lawfare''s event on Crowdcast, scheduled to go live on Sunday August 23, 2020 at 5:00 pm EDT.","unwound_url":"https://www.crowdcast.io/e/in-lieu-of-fun-episode-44"},{"start":210,"end":233,"url":"https://t.co/pUKPEg4UKz","expanded_url":"https://youtu.be/ua64SYY08rE","display_url":"youtu.be/ua64SYY08rE","images":[{"url":"https://pbs.twimg.com/news_img/1297524290192121860/x42CG24Z?format=jpg&name=orig","width":1280,"height":720},{"url":"https://pbs.twimg.com/news_img/1297524290192121860/x42CG24Z?format=jpg&name=150x150","width":150,"height":150}],"status":200,"title":"In Lieu of Fun, Episode 150: Mystery Guest Sunday","description":"Wherein, it being Sunday, Ben brings a mystery guest...","unwound_url":"https://www.youtube.com/watch?v=ua64SYY08rE&feature=youtu.be"}],"annotations":[{"start":201,"end":207,"probability":0.4142,"type":"Organization","normalized_text":"YouTube"},{"start":237,"end":244,"probability":0.5224,"type":"Organization","normalized_text":"Facebook"},{"start":264,"end":270,"probability":0.5724,"type":"Product","normalized_text":"Twitter"}],"mentions":[{"start":9,"end":25,"username":"inlieuoffunshow"}]},"text":"Today on @inlieuoffunshow, it''s Mystery Guest Sunday. I bring a mystery guest recommended by audience members yesterday. Who will it be?\n5:00 pm Eastern time.\nOn Crowdcast: https://t.co/N3pCyxcpZW \nOn YouTube: https://t.co/pUKPEg4UKz\nOn Facebook, or right here on Twitter.","id":"1297524288245895168","author_id":"186667011"}],"includes":{"users":[{"id":"1242605009205956608","name":"In Lieu of Fun","username":"inlieuoffunshow"}]}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Aug 2020 05:07:28 GMT
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - personalization_id="v1_/YoBRNHI6YJBpTp0pBnHYw=="; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A159859124879075966; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - 757304cf793a0616b0fa6e924a1997df
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "300"
+      X-Rate-Limit-Remaining:
+      - "299"
+      X-Rate-Limit-Reset:
+      - "1598592148"
+      X-Response-Time:
+      - "35"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+    url: https://api.twitter.com/2/users?ids=12
+    method: GET
+  response:
+    body: '{"data":[{"id":"12","name":"jack","username":"jack"}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Aug 2020 05:07:28 GMT
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - personalization_id="v1_6Nks/iYWjgsgJFhEjN+6sA=="; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A159859124885222713; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - 757304cf793a0616b0fa6e924a1997df
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "300"
+      X-Rate-Limit-Remaining:
+      - "299"
+      X-Rate-Limit-Reset:
+      - "1598592148"
+      X-Response-Time:
+      - "21"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+    url: https://api.twitter.com/2/users/by?user.fields=pinned_tweet_id%2Cprofile_image_url%2Cpublic_metrics&usernames=creachadair%2Cjack%2Cinlieuoffunshow
+    method: GET
+  response:
+    body: '{"data":[{"public_metrics":{"followers_count":550,"following_count":79,"tweet_count":431,"listed_count":8},"profile_image_url":"https://pbs.twimg.com/profile_images/693243834063417344/luSHcxJu_normal.jpg","name":"M. J. Fromberger","username":"creachadair","id":"16431281"},{"public_metrics":{"followers_count":4773667,"following_count":4515,"tweet_count":27154,"listed_count":27755},"profile_image_url":"https://pbs.twimg.com/profile_images/1115644092329758721/AFjOr-K8_normal.jpg","pinned_tweet_id":"1247616214769086465","name":"jack","username":"jack","id":"12"},{"public_metrics":{"followers_count":2538,"following_count":25,"tweet_count":179,"listed_count":19},"profile_image_url":"https://pbs.twimg.com/profile_images/1252728536462393346/leVFokPg_normal.jpg","name":"In Lieu of Fun","username":"inlieuoffunshow","id":"1242605009205956608"}]}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Aug 2020 05:07:28 GMT
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - personalization_id="v1_RPMe/V7CuQVYHtCVef8Yiw=="; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A159859124889815553; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - 757304cf793a0616b0fa6e924a1997df
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "300"
+      X-Rate-Limit-Remaining:
+      - "299"
+      X-Rate-Limit-Reset:
+      - "1598592148"
+      X-Response-Time:
+      - "37"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+    url: https://api.twitter.com/2/tweets/search/recent?query=from%3Acreachadair+has%3Amentions
+    method: GET
+  response:
+    body: '{"data":[{"id":"1298721687895019522","text":"@eisokant Remote work is rather like IFR in that regard. You can’t just look out the window, but you also can’t just assume your instruments are flawless. You need multiple sources of information that you can corroborate and make decisions from."},{"id":"1298443458030399489","text":"@Klonick @LeahLitman @marty_lederman @inlieuoffunshow https://t.co/ntiREmu2fV"},{"id":"1298099485747249152","text":"@Sajma @QuinnyPig He said \"wrong\"."}],"meta":{"newest_id":"1298721687895019522","oldest_id":"1298099485747249152","result_count":3}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Aug 2020 05:07:29 GMT
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - personalization_id="v1_j5MIRkIRq3rG+XzvcwwjVw=="; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A159859124896559357; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - 757304cf793a0616b0fa6e924a1997df
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "450"
+      X-Rate-Limit-Remaining:
+      - "449"
+      X-Rate-Limit-Reset:
+      - "1598592148"
+      X-Response-Time:
+      - "64"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+    url: https://api.twitter.com/2/tweets/search/recent?query=from%3Abenjaminwittes+-has%3Aimages
+    method: GET
+  response:
+    body: '{"data":[{"id":"1299089127833444352","text":"https://t.co/662pL3ZMwr"},{"id":"1299089087052288002","text":"And we''re live with @MargLTaylor! https://t.co/Zp16RYQeyr"},{"id":"1299081820227735552","text":"We are live in 30 minutes... https://t.co/Zp16RYQeyr"},{"id":"1299080559650578438","text":"RT @lawfareblog: Congressional investigation has played, and is playing, a critical role in the counterintelligence (CI) realm. But the gap…"},{"id":"1299056182892658688","text":"Also word https://t.co/RmrgiWb5WT"},{"id":"1299056140882530306","text":"Word https://t.co/myKiQ3UyPr"},{"id":"1299055928889741315","text":"Word https://t.co/bDkTi2sMrs"},{"id":"1299046028243599360","text":"RT @petestrzok: https://t.co/1pEqSP130L\n\n.@richardgrenell and @elisestefanik, here are 966 bipartisan pages of the truth you ignored last n…"},{"id":"1299031144625827843","text":"Quick thoughts on @RepAdamSchiff and the counterintelligence gap:\n\nhttps://t.co/TRCKGSYmfY"},{"id":"1299019159804801024","text":"Today on @inlieuoffunshow, @MargLTaylor has led @lawfareblog''s deep dive on the #SSCI Russia report. Join her and @Klonick and me to discuss at 5:00 pm Eastern.\nOn Crowdcast: https://t.co/8Fos4xiZVr \nOn YouTube: https://t.co/M7mPJY4o24\nOn Facebook or Twitter."}],"meta":{"newest_id":"1299089127833444352","oldest_id":"1299019159804801024","result_count":10,"next_token":"b26v89c19zqg8o3fo7mg0nihrbjwq2veb2azh59lavtdp"}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Aug 2020 05:07:29 GMT
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - personalization_id="v1_10GAKGrenIjweciB0YrqGw=="; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A159859124904870272; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - 757304cf793a0616b0fa6e924a1997df
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "450"
+      X-Rate-Limit-Remaining:
+      - "448"
+      X-Rate-Limit-Reset:
+      - "1598592148"
+      X-Response-Time:
+      - "93"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+    url: https://api.twitter.com/2/tweets/search/recent?next_token=b26v89c19zqg8o3fo7mg0nihrbjwq2veb2azh59lavtdp&query=from%3Abenjaminwittes+-has%3Aimages
+    method: GET
+  response:
+    body: '{"data":[{"id":"1299002549492690945","text":"RT @RVAT2020: NEW AD: Elizabeth Neumann – the former Assistant Secretary for Threat Prevention in Trump''s DHS – says that the U.S. is \"less…"},{"id":"1298972304605614080","text":"Everything that has ever happened in the history of the world is all now just a pile of briefing materials to help you with the decisions you will make today."},{"id":"1298969112069263360","text":"RT @benjaminwittes: A coalition of the decent.\nA coalition of those choose not to hate.\nA coalition of the honest.\nA coalition of those who…"},{"id":"1298961554755514368","text":"68\n\n146 https://t.co/tXhBnWnjhG"},{"id":"1298800685153226753","text":"@EnglishRose622 @tolokno ❤️❤️❤️"},{"id":"1298795031403388928","text":"Pretty good https://t.co/NdKC6w0OAA"},{"id":"1298773075497025541","text":"@NanflemE @muffin_train @robinwolaner @tolokno The tweet is surrounded by tweets about the piece she wrote. I wasn’t trying to hide the ball. I was just flagging an important paragraph she wrote about Putin that really should resonate with Americans."},{"id":"1298772729823461376","text":"@NanflemE @muffin_train @robinwolaner @tolokno Huh? Unfollow me if you like, but I said in the tweet itself it was by NT, tagged her, in fact. And I linked to the piece just below."},{"id":"1298770505286246400","text":"https://t.co/92oAjTpaDM"},{"id":"1298769321498472448","text":"RT @nytopinion: \"Sometimes I find it hard to believe this is my life,\" writes @tolokno, a founder of the Russian activist band Pussy Riot.…"}],"meta":{"newest_id":"1299002549492690945","oldest_id":"1298769321498472448","result_count":10,"next_token":"b26v89c19zqg8o3fo7mflwv4tqktyhhv86m48up7i0hvh"}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Aug 2020 05:07:29 GMT
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - personalization_id="v1_OXNMtb7DCaB27rvvKDeGUw=="; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A159859124916894006; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - 757304cf793a0616b0fa6e924a1997df
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "450"
+      X-Rate-Limit-Remaining:
+      - "447"
+      X-Rate-Limit-Reset:
+      - "1598592148"
+      X-Response-Time:
+      - "99"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+    url: https://api.twitter.com/2/tweets/search/recent?next_token=b26v89c19zqg8o3fo7mflwv4tqktyhhv86m48up7i0hvh&query=from%3Abenjaminwittes+-has%3Aimages
+    method: GET
+  response:
+    body: '{"data":[{"id":"1298766632609865728","text":".@tolokno is everything a democracy activist should be. https://t.co/1tZGXGBGQj"},{"id":"1298765967829471233","text":"I wasn’t invited either.\nI remain prepared to give exactly the same speech I was not invited to give at the Democratic convention. https://t.co/nMUpRQxLSV"},{"id":"1298753334871044099","text":"RT @persily: Lawyers and law students should serve as poll workers— here’s how. https://t.co/wNxTwpvznD"},{"id":"1298753272413597701","text":"A coalition of the decent.\nA coalition of those choose not to hate.\nA coalition of the honest.\nA coalition of those who believe in the rule of law.\nA coalition of those who believe in science.\nA coalition of those who believe in allies.\nA coalition of all the democratic forces."},{"id":"1298752496215756807","text":"RT @DavidAFrench: Just a minute ago I tweeted that Biden should make a statement like this, and turns out that he''d just done it. \n\nThis st…"},{"id":"1298747514741547008","text":"RT @Klonick: I f I could do one thing ... to reduce the risk I see for this election it would be to get people to still go out and vote in…"},{"id":"1298728020266504192","text":"https://t.co/5veoIKGTeK"},{"id":"1298727988893298690","text":"And we''re live! https://t.co/ZPBr7aw5fC"},{"id":"1298723089941819392","text":"We are live in 15 minutes.... https://t.co/ZPBr7aetR2"},{"id":"1298687774535692288","text":"Today on @inlieuoffunshow, it''s election law and national security expert Rick Pildes.\nJoin him and @klonick and me at 5:00 pm Eastern!\nOn Crowdcast: https://t.co/CcFJqwt8GQ \nOn YouTube: https://t.co/sc7FcTHQmm\nOn Facebook or on Twitter."}],"meta":{"newest_id":"1298766632609865728","oldest_id":"1298687774535692288","result_count":10,"next_token":"b26v89c19zqg8o3fo7mflur068za1gtej08v7lmq29dvh"}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Aug 2020 05:07:29 GMT
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - personalization_id="v1_zNJVoOiS+D/1GeswdCEcwA=="; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A159859124929441791; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - 757304cf793a0616b0fa6e924a1997df
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "450"
+      X-Rate-Limit-Remaining:
+      - "446"
+      X-Rate-Limit-Reset:
+      - "1598592148"
+      X-Response-Time:
+      - "88"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+    url: https://api.twitter.com/2/tweets/search/recent?max_results=10&query=from%3Abenjaminwittes+%22Today+on+%40inlieuoffunshow%22&tweet.fields=author_id%2Centities
+    method: GET
+  response:
+    body: '{"data":[{"entities":{"annotations":[{"start":86,"end":91,"probability":0.949,"type":"Place","normalized_text":"Russia"},{"start":203,"end":209,"probability":0.4885,"type":"Organization","normalized_text":"YouTube"},{"start":239,"end":246,"probability":0.5923,"type":"Organization","normalized_text":"Facebook"},{"start":251,"end":257,"probability":0.5199,"type":"Organization","normalized_text":"Twitter"}],"mentions":[{"start":9,"end":25,"username":"inlieuoffunshow"},{"start":27,"end":39,"username":"MargLTaylor"},{"start":48,"end":60,"username":"lawfareblog"},{"start":114,"end":122,"username":"Klonick"}],"hashtags":[{"start":80,"end":85,"tag":"SSCI"}],"urls":[{"start":175,"end":198,"url":"https://t.co/8Fos4xiZVr","expanded_url":"https://www.crowdcast.io/e/in-lieu-of-fun-episode-48","display_url":"crowdcast.io/e/in-lieu-of-f…"},{"start":212,"end":235,"url":"https://t.co/M7mPJY4o24","expanded_url":"https://youtu.be/z2onIuNc0F8","display_url":"youtu.be/z2onIuNc0F8","images":[{"url":"https://pbs.twimg.com/news_img/1299019162170396674/jO1L-LFp?format=jpg&name=orig","width":1280,"height":720},{"url":"https://pbs.twimg.com/news_img/1299019162170396674/jO1L-LFp?format=jpg&name=150x150","width":150,"height":150}],"status":200,"title":"In Lieu of Fun, Episode 154: Margaret Taylor on the SSCI Report","description":"Wherein we are joined by Margaret Taylor, Lawfare''s congressional guru, to discuss the Senate Intelligence Committee''s Russia report.","unwound_url":"https://www.youtube.com/watch?v=z2onIuNc0F8&feature=youtu.be"}]},"id":"1299019159804801024","text":"Today on @inlieuoffunshow, @MargLTaylor has led @lawfareblog''s deep dive on the #SSCI Russia report. Join her and @Klonick and me to discuss at 5:00 pm Eastern.\nOn Crowdcast: https://t.co/8Fos4xiZVr \nOn YouTube: https://t.co/M7mPJY4o24\nOn Facebook or Twitter.","author_id":"186667011"},{"entities":{"annotations":[{"start":74,"end":84,"probability":0.9808,"type":"Person","normalized_text":"Rick Pildes"},{"start":178,"end":184,"probability":0.4804,"type":"Organization","normalized_text":"YouTube"},{"start":214,"end":221,"probability":0.5497,"type":"Organization","normalized_text":"Facebook"},{"start":229,"end":235,"probability":0.494,"type":"Product","normalized_text":"Twitter"}],"mentions":[{"start":9,"end":25,"username":"inlieuoffunshow"},{"start":100,"end":108,"username":"Klonick"}],"urls":[{"start":150,"end":173,"url":"https://t.co/CcFJqwt8GQ","expanded_url":"https://www.crowdcast.io/e/in-lieu-of-fun-episode-47","display_url":"crowdcast.io/e/in-lieu-of-f…"},{"start":187,"end":210,"url":"https://t.co/sc7FcTHQmm","expanded_url":"https://youtu.be/LO2nnELFW4M","display_url":"youtu.be/LO2nnELFW4M","images":[{"url":"https://pbs.twimg.com/news_img/1298687777127763968/y-M0eipE?format=jpg&name=orig","width":1280,"height":720},{"url":"https://pbs.twimg.com/news_img/1298687777127763968/y-M0eipE?format=jpg&name=150x150","width":150,"height":150}],"status":200,"title":"In Lieu of Fun, Episode 152: Rick Pildes","description":"Rick is one of the nation’s leading scholars of constitutional law and a specialist in legal issues concerning democracy. A former law clerk to Justice Thurg...","unwound_url":"https://www.youtube.com/watch?v=LO2nnELFW4M&feature=youtu.be"}]},"id":"1298687774535692288","text":"Today on @inlieuoffunshow, it''s election law and national security expert Rick Pildes.\nJoin him and @klonick and me at 5:00 pm Eastern!\nOn Crowdcast: https://t.co/CcFJqwt8GQ \nOn YouTube: https://t.co/sc7FcTHQmm\nOn Facebook or on Twitter.","author_id":"186667011"},{"entities":{"annotations":[{"start":257,"end":264,"probability":0.4889,"type":"Organization","normalized_text":"Facebook"},{"start":272,"end":278,"probability":0.6098,"type":"Product","normalized_text":"Twitter"}],"mentions":[{"start":9,"end":25,"username":"inlieuoffunshow"},{"start":32,"end":48,"username":"RachelBitecofer"},{"start":85,"end":93,"username":"Klonick"}],"urls":[{"start":192,"end":215,"url":"https://t.co/iJqosQffOD","expanded_url":"https://www.crowdcast.io/e/in-lieu-of-fun-episode-46","display_url":"crowdcast.io/e/in-lieu-of-f…"},{"start":230,"end":253,"url":"https://t.co/gUaD2A387q","expanded_url":"https://youtu.be/nphZCMuhgUU","display_url":"youtu.be/nphZCMuhgUU"}]},"id":"1298270539996225537","text":"Today on @inlieuoffunshow, it''s @RachelBitecofer!\nJoin us at 5:00 Eastern as she and @Klonick and I talk about what election forecasts and polls and crystal balls can really do.\nOn Crowdcast: https://t.co/iJqosQffOD \nOn YoutTube: https://t.co/gUaD2A387q\nOn Facebook or on Twitter.","author_id":"186667011"},{"entities":{"annotations":[{"start":244,"end":251,"probability":0.5251,"type":"Organization","normalized_text":"Facebook"},{"start":270,"end":276,"probability":0.4639,"type":"Organization","normalized_text":"Twitter"}],"mentions":[{"start":9,"end":25,"username":"inlieuoffunshow"},{"start":27,"end":35,"username":"Klonick"},{"start":56,"end":69,"username":"SykesCharlie"},{"start":82,"end":96,"username":"BulwarkOnline"}],"urls":[{"start":180,"end":203,"url":"https://t.co/GhabGqgFXR","expanded_url":"https://www.crowdcast.io/e/in-lieu-of-fun-episode-45","display_url":"crowdcast.io/e/in-lieu-of-f…"},{"start":217,"end":240,"url":"https://t.co/A9Chlij7we","expanded_url":"https://youtu.be/5LE3cZfkZJg","display_url":"youtu.be/5LE3cZfkZJg","images":[{"url":"https://pbs.twimg.com/news_img/1297904915206090753/bA89WL7s?format=jpg&name=orig","width":1280,"height":720},{"url":"https://pbs.twimg.com/news_img/1297904915206090753/bA89WL7s?format=jpg&name=150x150","width":150,"height":150}],"status":200,"title":"In Lieu of Fun, Episode 151: Charlie Sykes","description":"Wherein we are joined by Charlie Sykes, founder of The Bulwark, host of the Bulwark Podcast, former conservative talk radio host, and Wisconsin politics guru.","unwound_url":"https://www.youtube.com/watch?v=5LE3cZfkZJg&feature=youtu.be"}]},"id":"1297904912613945345","text":"Today on @inlieuoffunshow, @klonick and I are joined by @SykesCharlie, founder of @BulwarkOnline, host of the Bulwark Podcast, and WI politics guru!\n5:00 pm Eastern.\nOn Crowdcast: https://t.co/GhabGqgFXR \nOn YouTube: https://t.co/A9Chlij7we\nOn Facebook or right here on Twitter.","author_id":"186667011"},{"entities":{"annotations":[{"start":201,"end":207,"probability":0.4142,"type":"Organization","normalized_text":"YouTube"},{"start":237,"end":244,"probability":0.5224,"type":"Organization","normalized_text":"Facebook"},{"start":264,"end":270,"probability":0.5724,"type":"Product","normalized_text":"Twitter"}],"mentions":[{"start":9,"end":25,"username":"inlieuoffunshow"}],"urls":[{"start":173,"end":196,"url":"https://t.co/N3pCyxcpZW","expanded_url":"https://www.crowdcast.io/e/in-lieu-of-fun-episode-44","display_url":"crowdcast.io/e/in-lieu-of-f…","images":[{"url":"https://pbs.twimg.com/news_img/1297524293283315739/yneRzw3p?format=png&name=orig","width":800,"height":550},{"url":"https://pbs.twimg.com/news_img/1297524293283315739/yneRzw3p?format=png&name=150x150","width":150,"height":150}],"status":200,"title":"In Lieu of Fun, Episode 150: Mystery Guest Sunday - Crowdcast","description":"Register now for Lawfare''s event on Crowdcast, scheduled to go live on Sunday August 23, 2020 at 5:00 pm EDT.","unwound_url":"https://www.crowdcast.io/e/in-lieu-of-fun-episode-44"},{"start":210,"end":233,"url":"https://t.co/pUKPEg4UKz","expanded_url":"https://youtu.be/ua64SYY08rE","display_url":"youtu.be/ua64SYY08rE","images":[{"url":"https://pbs.twimg.com/news_img/1297524290192121860/x42CG24Z?format=jpg&name=orig","width":1280,"height":720},{"url":"https://pbs.twimg.com/news_img/1297524290192121860/x42CG24Z?format=jpg&name=150x150","width":150,"height":150}],"status":200,"title":"In Lieu of Fun, Episode 150: Mystery Guest Sunday","description":"Wherein, it being Sunday, Ben brings a mystery guest...","unwound_url":"https://www.youtube.com/watch?v=ua64SYY08rE&feature=youtu.be"}]},"id":"1297524288245895168","text":"Today on @inlieuoffunshow, it''s Mystery Guest Sunday. I bring a mystery guest recommended by audience members yesterday. Who will it be?\n5:00 pm Eastern time.\nOn Crowdcast: https://t.co/N3pCyxcpZW \nOn YouTube: https://t.co/pUKPEg4UKz\nOn Facebook, or right here on Twitter.","author_id":"186667011"},{"entities":{"annotations":[{"start":135,"end":141,"probability":0.396,"type":"Organization","normalized_text":"YouTube"},{"start":171,"end":178,"probability":0.4771,"type":"Organization","normalized_text":"Facebook"},{"start":197,"end":203,"probability":0.6029,"type":"Product","normalized_text":"Twitter"}],"mentions":[{"start":9,"end":25,"username":"inlieuoffunshow"},{"start":56,"end":64,"username":"Klonick"}],"urls":[{"start":107,"end":130,"url":"https://t.co/f49UAXY2VA","expanded_url":"https://www.crowdcast.io/e/in-lieu-of-fun-episode-43","display_url":"crowdcast.io/e/in-lieu-of-f…","images":[{"url":"https://pbs.twimg.com/news_img/1297246450250911746/d4d2-8t9?format=png&name=orig","width":800,"height":545},{"url":"https://pbs.twimg.com/news_img/1297246450250911746/d4d2-8t9?format=png&name=150x150","width":150,"height":150}],"status":200,"title":"In Lieu of Fun, Episode 149: Just Us Saturday - Crowdcast","description":"Register now for Lawfare''s event on Crowdcast, scheduled to go live on Saturday August 22, 2020 at 5:00 pm EDT.","unwound_url":"https://www.crowdcast.io/e/in-lieu-of-fun-episode-43"},{"start":144,"end":167,"url":"https://t.co/ZoISelcGVz","expanded_url":"https://youtu.be/oLMErzS74xQ","display_url":"youtu.be/oLMErzS74xQ"}]},"id":"1297246441988136962","text":"Today on @inlieuoffunshow, it being Saturday, it''s just @klonick and me. \n5:00 Eastern time.\nOn Crowdcast: https://t.co/f49UAXY2VA \nOn YouTube: https://t.co/ZoISelcGVz\nOn Facebook or right here on Twitter.","author_id":"186667011"},{"entities":{"annotations":[{"start":77,"end":83,"probability":0.9811,"type":"Place","normalized_text":"America"},{"start":197,"end":203,"probability":0.4497,"type":"Organization","normalized_text":"YouTube"},{"start":233,"end":240,"probability":0.5306,"type":"Organization","normalized_text":"Facebook"},{"start":259,"end":265,"probability":0.5661,"type":"Product","normalized_text":"Twitter"}],"mentions":[{"start":9,"end":25,"username":"inlieuoffunshow"},{"start":27,"end":41,"username":"scottjshapiro"},{"start":53,"end":64,"username":"YaleLawSch"},{"start":114,"end":122,"username":"Klonick"}],"urls":[{"start":169,"end":192,"url":"https://t.co/yUIr6js54x","expanded_url":"https://www.crowdcast.io/e/in-lieu-of-fun-episode-42","display_url":"crowdcast.io/e/in-lieu-of-f…"},{"start":206,"end":229,"url":"https://t.co/uwEMAIeIQ0","expanded_url":"https://youtu.be/rZotHWlMhhY","display_url":"youtu.be/rZotHWlMhhY"}]},"id":"1296832295828107265","text":"Today on @inlieuoffunshow: @scottjshapiro is bad for @YaleLawSch and bad for America—and he''s back.\n\nJoin him and @Klonick and me at 5:00 pm Eastern time.\nOn Crowdcast: https://t.co/yUIr6js54x \nOn YouTube: https://t.co/uwEMAIeIQ0\nOn Facebook or right here on Twitter.","author_id":"186667011"}],"meta":{"newest_id":"1299019159804801024","oldest_id":"1296832295828107265","result_count":7}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Aug 2020 05:07:29 GMT
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - personalization_id="v1_rgBxCyCBHO3WYXxSA8MvAQ=="; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A159859124940942331; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - 757304cf793a0616b0fa6e924a1997df
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "450"
+      X-Rate-Limit-Remaining:
+      - "445"
+      X-Rate-Limit-Reset:
+      - "1598592148"
+      X-Response-Time:
+      - "65"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"add":[{"value":"cat has:images lang:en","tag":"test english kittens whargarbl"}]}'
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+      Content-Type:
+      - application/json
+    url: https://api.twitter.com/2/tweets/search/stream/rules
+    method: POST
+  response:
+    body: '{"data":[{"value":"cat has:images lang:en","tag":"test english kittens whargarbl","id":"1299211982684340224"}],"meta":{"sent":"2020-08-28T05:07:29.663Z","summary":{"created":1,"not_created":0,"valid":1,"invalid":0}}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Aug 2020 05:07:29 GMT
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - personalization_id="v1_ewH1MHmvJrslaI+p1s5edg=="; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A159859124950188913; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - 757304cf793a0616b0fa6e924a1997df
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "450"
+      X-Rate-Limit-Remaining:
+      - "449"
+      X-Rate-Limit-Reset:
+      - "1598592149"
+      X-Response-Time:
+      - "191"
+      X-Tsa-Request-Body-Time:
+      - "1"
+      X-Xss-Protection:
+      - "0"
+    status: 201 Created
+    code: 201
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+    url: https://api.twitter.com/2/tweets/search/stream/rules?ids=1299211982684340224
+    method: GET
+  response:
+    body: '{"data":[{"id":"1299211982684340224","value":"cat has:images lang:en","tag":"test english kittens whargarbl"}],"meta":{"sent":"2020-08-28T05:07:29.756Z"}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Aug 2020 05:07:29 GMT
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - personalization_id="v1_k191j0E4oZRRNb/uo0eoyg=="; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A159859124971591737; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - 757304cf793a0616b0fa6e924a1997df
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "450"
+      X-Rate-Limit-Remaining:
+      - "449"
+      X-Rate-Limit-Reset:
+      - "1598592149"
+      X-Response-Time:
+      - "70"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+    url: https://api.twitter.com/2/tweets/search/stream/rules
+    method: GET
+  response:
+    body: '{"data":[{"id":"1299197432593408001","value":"cat lang:en has:images"},{"id":"1299211982684340224","value":"cat has:images lang:en","tag":"test english kittens whargarbl"}],"meta":{"sent":"2020-08-28T05:07:29.831Z"}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Aug 2020 05:07:29 GMT
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - personalization_id="v1_qo55PBR5yv+MWxHo2qoq3g=="; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A159859124981482006; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - 757304cf793a0616b0fa6e924a1997df
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "450"
+      X-Rate-Limit-Remaining:
+      - "448"
+      X-Rate-Limit-Reset:
+      - "1598592149"
+      X-Response-Time:
+      - "43"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+    url: https://api.twitter.com/2/tweets/search/stream/rules?ids=12345678
+    method: GET
+  response:
+    body: '{"meta":{"sent":"2020-08-28T05:07:29.904Z"}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Aug 2020 05:07:29 GMT
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - personalization_id="v1_M6AwxjIYHTyuk+bfMY0x+Q=="; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A159859124988466187; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - 757304cf793a0616b0fa6e924a1997df
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "450"
+      X-Rate-Limit-Remaining:
+      - "447"
+      X-Rate-Limit-Reset:
+      - "1598592149"
+      X-Response-Time:
+      - "46"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"delete":{"ids":["1299211982684340224"]}}'
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+      Content-Type:
+      - application/json
+    url: https://api.twitter.com/2/tweets/search/stream/rules?dry_run=true
+    method: POST
+  response:
+    body: '{"meta":{"sent":"2020-08-28T05:07:29.993Z","summary":{"deleted":1,"not_deleted":0}}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Aug 2020 05:07:30 GMT
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - personalization_id="v1_gTLqqubRMo6FjfwGBub0mg=="; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A159859124995497754; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - 757304cf793a0616b0fa6e924a1997df
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "450"
+      X-Rate-Limit-Remaining:
+      - "448"
+      X-Rate-Limit-Reset:
+      - "1598592149"
+      X-Response-Time:
+      - "51"
+      X-Tsa-Request-Body-Time:
+      - "0"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"delete":{"ids":["1299211982684340224"]}}'
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+      Content-Type:
+      - application/json
+    url: https://api.twitter.com/2/tweets/search/stream/rules
+    method: POST
+  response:
+    body: '{"meta":{"sent":"2020-08-28T05:07:30.089Z","summary":{"deleted":1,"not_deleted":0}}}'
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 28 Aug 2020 05:07:30 GMT
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - personalization_id="v1_FJtrbsSd47gZ1Da5gRjU1Q=="; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A159859125003298479; Max-Age=63072000; Expires=Sun, 28 Aug 2022 05:07:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - 757304cf793a0616b0fa6e924a1997df
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "450"
+      X-Rate-Limit-Remaining:
+      - "447"
+      X-Rate-Limit-Reset:
+      - "1598592149"
+      X-Response-Time:
+      - "123"
+      X-Tsa-Request-Body-Time:
+      - "1"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: ""

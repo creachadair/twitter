@@ -5,9 +5,14 @@ package twitter_test
 import (
 	"context"
 	"flag"
+	"log"
+	"net/http"
 	"os"
+	"strings"
 	"testing"
-	"time"
+
+	"github.com/dnaeon/go-vcr/cassette"
+	"github.com/dnaeon/go-vcr/recorder"
 
 	"github.com/creachadair/twitter"
 	"github.com/creachadair/twitter/rules"
@@ -17,42 +22,125 @@ import (
 )
 
 var (
-	doManual     = flag.Bool("manual", false, "Run manual tests that query the network")
+	testDataFile = flag.String("testdata", "testdata/test-record", "Path of test data file")
+	testMode     = flag.String("mode", "replay", "Test mode (record, replay, run)")
 	doVerboseLog = flag.Bool("verbose-log", false, "Enable verbose client logging")
+
+	cli *twitter.Client // see TestMain
 )
 
-func newClient(t *testing.T) *twitter.Client {
-	return &twitter.Client{
-		Authorize: checkAuth(t),
-		Log: func(tag, msg string) {
-			if tag == "RequestURL" || *doVerboseLog {
-				t.Logf("API %s :: %s", tag, msg)
+const fakeAuthToken = "this-is-a-fake-auth-token-for-testing"
+
+// This test uses the go-vcr module to replay recorded HTTP interactions,
+// captured from the live Twitter API.
+//
+// For ordinary use, run "go test", which will use the test-data.yaml file
+// checked in at the root of the repository.
+//
+// To record a new file, run "go test -mode=record". Don't forget to check in any
+// changes you obtain in this way.
+//
+// Use the -testdata flag to specify the location of the test data file.
+//
+// Use -verbose-log to get spammy client debug logging. This is mainly useful
+// when you are verifying that the recording worked.
+//
+// Known deficiencies:
+//
+// - Streaming does not play nicely with the recording mechanism.  The recorder
+//   seems to try to buffer the entire response before sending anything to the
+//   client. For now I have skipped those tests.
+//
+// - Each interaction is marked as "played" once it has been used so that it
+//   cannot be replayed. This is sensible, but means if you run go test with
+//   -count > 1 or multiple -cpu options, it will fail on all runs after the
+//   first because it can't find the interactions again.
+//
+func TestMain(m *testing.M) {
+	flag.Parse()
+
+	var mode recorder.Mode
+	switch *testMode {
+	case "replay":
+		mode = recorder.ModeReplaying
+	case "record":
+		mode = recorder.ModeRecording
+	case "run":
+		mode = recorder.ModeDisabled
+	default:
+		log.Fatalf("Unknown recorder mode %q (options: record, replay, run)", *testMode)
+	}
+	var rec *recorder.Recorder
+
+	// Recording or replaying require a test data file and a recorder.
+	if *testMode != "run" {
+		if *testDataFile == "" {
+			log.Fatal("You must provide a non-empty -testdata file path")
+		}
+		var err error
+		rec, err = recorder.NewAsMode(*testDataFile, mode, nil)
+		if err != nil {
+			log.Fatalf("Opening recorder %q: %v", *testDataFile, err)
+		}
+	}
+
+	// Running or recording require a production credential.
+	// Replaying requires a fake credential.
+	var auth twitter.Authorizer
+	switch *testMode {
+	case "run", "record":
+		bearerToken := os.Getenv("TWITTER_TOKEN")
+		if bearerToken == "" {
+			// When talking to production, we need a real credential.
+			log.Fatalf("No TWITTER_TOKEN found in the environment; cannot %s tests", *testMode)
+		}
+		auth = twitter.BearerTokenAuthorizer(bearerToken)
+	default:
+		auth = twitter.BearerTokenAuthorizer(fakeAuthToken)
+	}
+
+	// Filter Authorization headers when recording to swap the real token with
+	// the fake, so we don't check in production credentials with testdata.
+	if *testMode == "record" {
+		rec.AddFilter(func(in *cassette.Interaction) error {
+			// This relies on the fact that Values promises not to return a copy.
+			auth := in.Request.Headers.Values("Authorization")
+			for i, v := range auth {
+				if strings.HasPrefix(v, "Bearer ") {
+					auth[i] = "Bearer " + fakeAuthToken
+					return nil
+				}
 			}
-		},
+			log.Printf("WARNING: No Authorization found in request")
+			return nil
+		})
 	}
-}
 
-func checkAuth(t *testing.T) twitter.Authorizer {
-	t.Helper()
-	bearerToken := os.Getenv("TWITTER_TOKEN")
-	if bearerToken == "" {
-		t.Skip("No TWITTER_TOKEN found in the environment; test cannot run")
+	cli = &twitter.Client{
+		HTTPClient: &http.Client{Transport: rec},
+		Authorize:  auth,
 	}
-	return twitter.BearerTokenAuthorizer(bearerToken)
-}
-
-func checkManual(t *testing.T) {
-	t.Helper()
-	if !*doManual {
-		t.Skip("Skipping manual test because -manual=false")
+	if *doVerboseLog {
+		log.Printf("Enabled verbose client logging")
+		cli.Log = func(tag, msg string) {
+			log.Printf("CLIENT :: %s | %s", tag, msg)
+		}
 	}
+	os.Exit(func() int {
+		if rec != nil {
+			defer func() {
+				if err := rec.Stop(); err != nil {
+					log.Fatalf("Stopping recorder: %v", err)
+				}
+			}()
+		}
+		log.Print("Running tests...")
+		return m.Run() // run the actual tests
+	}())
 }
 
 // Verify that the direct call plumbing works.
 func TestClientCall(t *testing.T) {
-	checkManual(t)
-	cli := newClient(t)
-
 	rsp, err := cli.Call(context.Background(), &twitter.Request{
 		Method: "users/by/username/jack",
 		Params: twitter.Params{
@@ -82,9 +170,6 @@ func TestClientCall(t *testing.T) {
 }
 
 func TestTweetLookup(t *testing.T) {
-	checkManual(t)
-	cli := newClient(t)
-
 	ctx := context.Background()
 	rsp, err := tweets.Lookup("1297524288245895168", &tweets.LookupOpts{
 		TweetFields: []string{
@@ -112,9 +197,6 @@ func TestTweetLookup(t *testing.T) {
 }
 
 func TestUserIDLookup(t *testing.T) {
-	checkManual(t)
-	cli := newClient(t)
-
 	ctx := context.Background()
 	rsp, err := users.Lookup("12", nil).Invoke(ctx, cli) // @jack
 	if err != nil {
@@ -128,9 +210,6 @@ func TestUserIDLookup(t *testing.T) {
 }
 
 func TestUsernameLookup(t *testing.T) {
-	checkManual(t)
-	cli := newClient(t)
-
 	ctx := context.Background()
 	rsp, err := users.LookupByName("creachadair", &users.LookupOpts{
 		Keys: []string{"jack", "inlieuoffunshow"},
@@ -152,8 +231,6 @@ func TestUsernameLookup(t *testing.T) {
 }
 
 func TestSearchPages(t *testing.T) {
-	checkManual(t)
-	cli := newClient(t)
 	ctx := context.Background()
 
 	const maxResults = 25
@@ -195,14 +272,17 @@ func TestSearchPages(t *testing.T) {
 }
 
 func TestSearchRecent(t *testing.T) {
-	checkManual(t)
-	cli := newClient(t)
-
 	ctx := context.Background()
+
+	// N.B. Don't set timestamps in the search options. Twitter only provides
+	// about a week of data, so fixing a static timestamp will break recording.
+	// But moving time will break playback, which matches on time.
+	//
+	// TODO: See about writing a matcher to ignore the time fields.
+
 	const query = `from:benjaminwittes "Today on @inlieuoffunshow"`
 	rsp, err := tweets.SearchRecent(query, &tweets.SearchOpts{
 		MaxResults:  10,
-		StartTime:   time.Now().Add(-24 * time.Hour),
 		TweetFields: []string{types.Tweet_AuthorID, types.Tweet_Entities},
 	}).Invoke(ctx, cli)
 	if err != nil {
@@ -225,8 +305,10 @@ func TestSearchRecent(t *testing.T) {
 }
 
 func TestStream(t *testing.T) {
-	checkManual(t)
-	cli := newClient(t)
+	t.Skip("This test does not work with recording (skipped)")
+
+	ctx := context.Background()
+
 	req := &twitter.Request{
 		Method: "tweets/sample/stream",
 		Params: twitter.Params{
@@ -236,7 +318,7 @@ func TestStream(t *testing.T) {
 			},
 		},
 	}
-	ctx := context.Background()
+
 	const maxResults = 3
 
 	nr := 0
@@ -254,9 +336,8 @@ func TestStream(t *testing.T) {
 }
 
 func TestRules(t *testing.T) {
-	checkManual(t)
-	cli := newClient(t)
 	ctx := context.Background()
+
 	logResponse := func(t *testing.T, rsp *rules.Reply) {
 		t.Helper()
 		for i, r := range rsp.Rules {
@@ -331,6 +412,8 @@ func TestRules(t *testing.T) {
 	})
 
 	t.Run("Search", func(t *testing.T) {
+		t.Skip("This test does not work with recording (skipped)")
+
 		const maxResults = 3
 
 		nr := 0
