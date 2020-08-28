@@ -65,7 +65,7 @@ func Get(ids ...string) Query {
 	return Query{request: req}
 }
 
-// Update constructs a query to add and/or delete streaming search rules.
+// Update constructs a query to add or delete streaming search rules.
 //
 // API: POST tweets/search/stream/rules
 func Update(r Set) Query {
@@ -79,8 +79,8 @@ func Update(r Set) Query {
 	return Query{request: req, encodeErr: err}
 }
 
-// Validate constructs a query to validate addition and/or deletion of
-// streaming search rules, without actually modifying the rules.
+// Validate constructs a query to validate addition or deletion of streaming
+// search rules, without actually modifying the rules.
 //
 // API: POST tweets/search/stream/rules, dry_run=true
 func Validate(r Set) Query {
@@ -148,7 +148,7 @@ type Meta struct {
 	} `json:"summary,omitempty"`
 }
 
-// A Set encodes a set of rule additions and/or deletions.
+// A Set encodes a set of rule additions or deletions.
 type Set interface {
 	encode() ([]byte, error)
 }
@@ -172,7 +172,7 @@ func (as Adds) encode() ([]byte, error) {
 	}{A: rules})
 }
 
-// Deletes is a Set of rule IDs to be deleted.
+// Deletes is a Set of search rule IDs to be deleted.
 type Deletes []string
 
 func (ds Deletes) encode() ([]byte, error) {
