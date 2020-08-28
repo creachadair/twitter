@@ -19,21 +19,22 @@
 //
 // Updating Rules
 //
-// Each rule update must either add or delete rules, but not both.  Use Add to
-// build a Set of rules to add, or Delete to identify a Set of rules to
+// Each rule update must either add or delete rules, but not both.  Use Adds to
+// describe a Set of rules to add, or Deletes to identify a Set of rules to
 // delete. For example:
 //
-//    r, err := rules.Add(rules.Rule{
-//       Value: `cat has:images lang:en`,
-//       Tag:   "cat pictures in English",
-//    })
+//    adds := rules.Adds{
+//       {Query: `cat has:images lang:en`, Tag: "cat pictures in English"},
+//       {Query: `dog or puppy has:images`},
+//    }
+//    dels := rules.Deletes{id1, id2}
 //
 // Once you have a set, you can build a query to Update or Validate.  Update
 // applies the rule change; Validate just reports whether the update would have
 // succeeded (this corresponds to the "dry_run" parameter in the API):
 //
-//    apply := rules.Update(r)
-//    check := rules.Validate(r)
+//    apply := rules.Update(adds)
+//    check := rules.Validate(dels)
 //
 // Invoke the query to execute the change or check:
 //
@@ -68,13 +69,14 @@ func Get(ids ...string) Query {
 //
 // API: POST tweets/search/stream/rules
 func Update(r Set) Query {
+	enc, err := r.encode()
 	req := &twitter.Request{
 		Method:      "tweets/search/stream/rules",
 		HTTPMethod:  "POST",
-		Data:        r.encoded,
+		Data:        enc,
 		ContentType: "application/json",
 	}
-	return Query{request: req}
+	return Query{request: req, encodeErr: err}
 }
 
 // Validate constructs a query to validate addition and/or deletion of
@@ -82,23 +84,29 @@ func Update(r Set) Query {
 //
 // API: POST tweets/search/stream/rules, dry_run=true
 func Validate(r Set) Query {
+	enc, err := r.encode()
 	req := &twitter.Request{
 		Method:      "tweets/search/stream/rules",
 		HTTPMethod:  "POST",
 		Params:      twitter.Params{"dry_run": []string{"true"}},
-		Data:        r.encoded,
+		Data:        enc,
 		ContentType: "application/json",
 	}
-	return Query{request: req}
+	return Query{request: req, encodeErr: err}
 }
 
 // A Query performs a rule fetch or update query.
 type Query struct {
-	request *twitter.Request
+	request   *twitter.Request
+	encodeErr error // an error from encoding the rules
 }
 
 // Invoke executes the query on the given context and client.
 func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) {
+	// Report a deferred error from encoding.
+	if q.encodeErr != nil {
+		return nil, &twitter.Error{Message: "encoding rule set", Err: q.encodeErr}
+	}
 	rsp, err := cli.Call(ctx, q.request)
 	if err != nil {
 		return nil, err
@@ -141,33 +149,39 @@ type Meta struct {
 }
 
 // A Set encodes a set of rule additions and/or deletions.
-type Set struct {
-	encoded []byte
+type Set interface {
+	encode() ([]byte, error)
 }
 
-// Add constructs a set of add rules.
-func Add(rules ...Rule) (Set, error) {
-	enc, err := json.Marshal(struct {
+// Add gives a query and optional tag to define a rule.
+type Add struct {
+	Query string
+	Tag   string
+}
+
+// Adds is a Set of search rules to be added.
+type Adds []Add
+
+func (as Adds) encode() ([]byte, error) {
+	rules := make([]Rule, len(as))
+	for i, a := range as {
+		rules[i] = Rule{Value: a.Query, Tag: a.Tag}
+	}
+	return json.Marshal(struct {
 		A []Rule `json:"add"`
 	}{A: rules})
-	if err != nil {
-		return Set{}, err
-	}
-	return Set{encoded: enc}, nil
 }
 
-// Delete constructs a set of delete rules.
-func Delete(ids ...string) (Set, error) {
+// Deletes is a Set of rule IDs to be deleted.
+type Deletes []string
+
+func (ds Deletes) encode() ([]byte, error) {
 	type del struct {
 		I []string `json:"ids"`
 	}
-	enc, err := json.Marshal(struct {
+	return json.Marshal(struct {
 		D del `json:"delete"`
 	}{
-		D: del{I: ids},
+		D: del{I: []string(ds)},
 	})
-	if err != nil {
-		return Set{}, err
-	}
-	return Set{encoded: enc}, nil
 }

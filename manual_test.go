@@ -73,12 +73,7 @@ func TestSearchStream(t *testing.T) {
 	cli := newProdClient(t)
 	ctx := context.Background()
 
-	r, err := rules.Add(rules.Rule{
-		Value: `cat has:images lang:en`,
-	})
-	if err != nil {
-		t.Fatalf("Creating rules: %v", err)
-	}
+	r := rules.Adds{{Query: `cat has:images lang:en`}}
 	rsp, err := rules.Update(r).Invoke(ctx, cli)
 	if err != nil {
 		t.Fatalf("Updating rules: %v", err)
@@ -106,10 +101,8 @@ func TestSearchStream(t *testing.T) {
 		}
 	})
 
-	del, err := rules.Delete(id)
-	if err != nil {
-		t.Fatalf("Creating rules: %v", err)
-	} else if _, err := rules.Update(del).Invoke(ctx, cli); err != nil {
+	del := rules.Deletes{id}
+	if _, err := rules.Update(del).Invoke(ctx, cli); err != nil {
 		t.Fatalf("Deleting rules: %v", err)
 	}
 }

@@ -323,14 +323,9 @@ func TestRules(t *testing.T) {
 	var testRuleID string
 
 	t.Run("Update", func(t *testing.T) {
-		r, err := rules.Add(rules.Rule{
-			Value: `cat has:images lang:en`,
-			Tag:   testRuleTag,
-		})
-		if err != nil {
-			t.Fatalf("Creating rules: %v", err)
+		r := rules.Adds{
+			{Query: `cat has:images lang:en`, Tag: testRuleTag},
 		}
-
 		rsp, err := rules.Update(r).Invoke(ctx, cli)
 		if err != nil {
 			t.Fatalf("Update failed: %v", err)
@@ -381,12 +376,8 @@ func TestRules(t *testing.T) {
 		logResponse(t, rsp)
 	})
 
-	del, err := rules.Delete(testRuleID)
-	if err != nil {
-		t.Fatalf("Creating rules: %v", err)
-	}
-
 	t.Run("Validate", func(t *testing.T) {
+		del := rules.Deletes{testRuleID}
 		rsp, err := rules.Validate(del).Invoke(ctx, cli)
 		if err != nil {
 			t.Fatalf("Validate failed: %v", err)
@@ -395,6 +386,7 @@ func TestRules(t *testing.T) {
 	})
 
 	t.Run("Update", func(t *testing.T) {
+		del := rules.Deletes{testRuleID}
 		rsp, err := rules.Update(del).Invoke(ctx, cli)
 		if err != nil {
 			t.Fatalf("Update failed: %v", err)
