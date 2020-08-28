@@ -4,9 +4,6 @@ package twitter_test
 
 import (
 	"context"
-	"flag"
-	"log"
-	"os"
 	"testing"
 
 	"github.com/creachadair/twitter"
@@ -15,32 +12,10 @@ import (
 	"github.com/creachadair/twitter/types"
 )
 
-var (
-	doManual = flag.Bool("manual", false, "Enable manual tests")
-)
-
-func newProdClient(t *testing.T) *twitter.Client {
-	t.Helper()
-	if !*doManual {
-		t.Skip("Skipping test because -manual=false")
-	}
-
-	bearerToken := os.Getenv("TWITTER_TOKEN")
-	if bearerToken == "" {
-		// When talking to production, we need a real credential.
-		log.Fatal("No TWITTER_TOKEN found in the environment; cannot run manual tests")
-	}
-	cli = &twitter.Client{Authorize: twitter.BearerTokenAuthorizer(bearerToken)}
-	if *doVerboseLog {
-		cli.Log = func(tag, msg string) {
-			log.Printf("CLIENT :: %s | %s", tag, msg)
-		}
-	}
-	return cli
-}
-
 func TestStream(t *testing.T) {
-	cli := newProdClient(t)
+	if *testMode == "record" && *maxBodyBytes == 0 {
+		t.Fatal("Cannot record streaming methods without a -max-body-size")
+	}
 	ctx := context.Background()
 
 	req := &twitter.Request{
@@ -70,7 +45,9 @@ func TestStream(t *testing.T) {
 }
 
 func TestSearchStream(t *testing.T) {
-	cli := newProdClient(t)
+	if *testMode == "record" && *maxBodyBytes == 0 {
+		t.Fatal("Cannot record streaming methods without a -max-body-size")
+	}
 	ctx := context.Background()
 
 	r := rules.Adds{{Query: `cat has:images lang:en`}}

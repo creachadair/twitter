@@ -6,6 +6,7 @@ import (
 	"context"
 	"encoding/json"
 	"flag"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -26,9 +27,36 @@ var (
 	testDataFile = flag.String("testdata", "testdata/test-record", "Path of test data file")
 	testMode     = flag.String("mode", "replay", "Test mode (record, replay, run)")
 	doVerboseLog = flag.Bool("verbose-log", false, "Enable verbose client logging")
+	maxBodyBytes = flag.Int64("max-body-size", 12000,
+		"Maximum response body size when recording (0=unlimited)")
 
 	cli *twitter.Client // see TestMain
 )
+
+// limitTransport wraps an http.RoundTripper to artificially truncate the
+// response body to a fixed limit. We need to do this when recording stream
+// methods, because the recorder consumes the whole response body before it
+// returns any data to the client.
+type limitTransport struct {
+	real  http.RoundTripper
+	limit int64
+}
+
+func (t limitTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	rsp, err := t.real.RoundTrip(req)
+	if err == nil {
+		rsp.Body = readCloser{
+			Reader: io.LimitReader(rsp.Body, t.limit),
+			Closer: rsp.Body,
+		}
+	}
+	return rsp, err
+}
+
+type readCloser struct {
+	io.Reader
+	io.Closer
+}
 
 const fakeAuthToken = "this-is-a-fake-auth-token-for-testing"
 
@@ -47,11 +75,6 @@ const fakeAuthToken = "this-is-a-fake-auth-token-for-testing"
 // when you are verifying that the recording worked.
 //
 // Known deficiencies:
-//
-// - Streaming does not play nicely with the recording mechanism.  The recorder
-//   seems to try to buffer the entire response before sending anything to the
-//   client. These tests only run when the -manual is set, and they do not use
-//   the recording client but talk directly to production.
 //
 // - Each interaction is marked as "played" once it has been used so that it
 //   cannot be replayed. This is sensible, but means if you run go test with
@@ -77,7 +100,22 @@ func TestMain(m *testing.M) {
 	if *testMode != "run" && *testDataFile == "" {
 		log.Fatal("You must provide a non-empty -testdata file path")
 	}
-	rec, err := recorder.NewAsMode(*testDataFile, mode, nil)
+
+	// When recording, we need to limit the size of response bodies from the
+	// server so that streaming methods do not stall the recorder.
+	//
+	// You want as small a limit as possible so as not to blow up the test data
+	// size, but if it's too small the client will fail spuriously. The
+	// practical solution is empiricism: Run production queries with a trial
+	// limit and adjust the limit till they all pass.
+
+	var rt http.RoundTripper = http.DefaultTransport
+	if *testMode == "record" && *maxBodyBytes > 0 {
+		rt = limitTransport{real: rt, limit: *maxBodyBytes}
+		log.Printf("Limiting response bodies to %d bytes", *maxBodyBytes)
+	}
+
+	rec, err := recorder.NewAsMode(*testDataFile, mode, rt)
 	if err != nil {
 		log.Fatalf("Opening recorder %q: %v", *testDataFile, err)
 	}
