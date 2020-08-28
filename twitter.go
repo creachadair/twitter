@@ -286,7 +286,7 @@ type Request struct {
 	// The HTTP method to use for the request; if unset the default is "GET".
 	HTTPMethod string
 
-	// If set, send these data as the body of the request.
+	// If non-empty, send these data as the body of the request.
 	Data []byte
 
 	// If set, use this as the content-type for the request body.
@@ -294,7 +294,7 @@ type Request struct {
 }
 
 func (r *Request) dataLen() (io.Reader, int64) {
-	if r.Data == nil {
+	if len(r.Data) == 0 {
 		return nil, 0
 	}
 	return bytes.NewReader(r.Data), int64(len(r.Data))
