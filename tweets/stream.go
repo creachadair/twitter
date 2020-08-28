@@ -11,6 +11,8 @@ import (
 )
 
 // SampleStream constructs a streaming sample query that delivers results to f.
+//
+// API: tweets/sample/stream
 func SampleStream(f Callback, opts *StreamOpts) Stream {
 	req := &twitter.Request{
 		Method: "tweets/sample/stream",
@@ -21,6 +23,8 @@ func SampleStream(f Callback, opts *StreamOpts) Stream {
 }
 
 // SearchStream constructs a streaming search query that delivers results to f.
+//
+// API: tweets/search/stream
 func SearchStream(f Callback, opts *StreamOpts) Stream {
 	req := &twitter.Request{
 		Method: "tweets/search/stream",

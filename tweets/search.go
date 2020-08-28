@@ -15,6 +15,8 @@ import (
 //
 // For query syntax, see
 // https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-rule
+//
+// API: tweets/search/recent
 func SearchRecent(query string, opts *SearchOpts) Query {
 	req := &twitter.Request{
 		Method: "tweets/search/recent",

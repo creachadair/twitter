@@ -90,6 +90,8 @@ import (
 
 // Lookup constructs a lookup query for one or more tweet IDs.  To look up
 // multiple IDs, add subsequent values the opts.IDs field.
+//
+// API: tweets
 func Lookup(id string, opts *LookupOpts) Query {
 	req := &twitter.Request{
 		Method: "tweets",
