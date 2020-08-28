@@ -4,6 +4,7 @@ package twitter_test
 
 import (
 	"context"
+	"encoding/json"
 	"flag"
 	"log"
 	"net/http"
@@ -73,7 +74,7 @@ func TestMain(m *testing.M) {
 	}
 
 	// Recording or replaying require a test data file and a recorder.
-	if *testMode != "run" && *testDataFile =="" {
+	if *testMode != "run" && *testDataFile == "" {
 		log.Fatal("You must provide a non-empty -testdata file path")
 	}
 	rec, err := recorder.NewAsMode(*testDataFile, mode, nil)
@@ -389,4 +390,35 @@ func TestRules(t *testing.T) {
 		}
 		logResponse(t, rsp)
 	})
+}
+
+func TestCallRaw(t *testing.T) {
+	ctx := context.Background()
+
+	save := cli.BaseURL
+	defer func() { cli.BaseURL = save }()
+	cli.BaseURL = "https://api.twitter.com/1.1"
+
+	req := &twitter.Request{
+		Method: "statuses/show.json",
+		Params: twitter.Params{
+			"id":         []string{"1297524288245895168"},
+			"tweet_mode": []string{"extended"},
+		},
+	}
+	data, err := cli.CallRaw(ctx, req)
+	if err != nil {
+		t.Fatalf("CallRaw failed: %v", err)
+	}
+	t.Logf("Received %d response bytes", len(data))
+
+	var obj map[string]interface{}
+	if err := json.Unmarshal(data, &obj); err != nil {
+		t.Fatalf("Decoding response: %v", err)
+	}
+	for key, val := range obj {
+		if s, ok := val.(string); ok {
+			t.Logf("%-10s : %q", key, s)
+		}
+	}
 }
