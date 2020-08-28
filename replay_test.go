@@ -71,18 +71,14 @@ func TestMain(m *testing.M) {
 	default:
 		log.Fatalf("Unknown recorder mode %q (options: record, replay, run)", *testMode)
 	}
-	var rec *recorder.Recorder
 
 	// Recording or replaying require a test data file and a recorder.
-	if *testMode != "run" {
-		if *testDataFile == "" {
-			log.Fatal("You must provide a non-empty -testdata file path")
-		}
-		var err error
-		rec, err = recorder.NewAsMode(*testDataFile, mode, nil)
-		if err != nil {
-			log.Fatalf("Opening recorder %q: %v", *testDataFile, err)
-		}
+	if *testMode != "run" && *testDataFile =="" {
+		log.Fatal("You must provide a non-empty -testdata file path")
+	}
+	rec, err := recorder.NewAsMode(*testDataFile, mode, nil)
+	if err != nil {
+		log.Fatalf("Opening recorder %q: %v", *testDataFile, err)
 	}
 
 	// Running or recording require a production credential.
