@@ -12,8 +12,8 @@ import (
 
 //go:generate go run mkenum/mkenum.go -output generated.go
 
-// DateFormat defines the encoding format for a Date string.
-const DateFormat = "2006-01-02T15:04:05.999Z"
+// DateFormat defines the encoding format for timestamps.
+const DateFormat = time.RFC3339Nano
 
 // Minutes defines the JSON encoding of a duration in minutes.
 type Minutes time.Duration
