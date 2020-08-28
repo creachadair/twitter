@@ -49,7 +49,8 @@ const fakeAuthToken = "this-is-a-fake-auth-token-for-testing"
 //
 // - Streaming does not play nicely with the recording mechanism.  The recorder
 //   seems to try to buffer the entire response before sending anything to the
-//   client. For now I have skipped those tests.
+//   client. These tests only run when the -manual is set, and they do not use
+//   the recording client but talk directly to production.
 //
 // - Each interaction is marked as "played" once it has been used so that it
 //   cannot be replayed. This is sensible, but means if you run go test with
@@ -304,37 +305,6 @@ func TestSearchRecent(t *testing.T) {
 	}
 }
 
-func TestStream(t *testing.T) {
-	t.Skip("This test does not work with recording (skipped)")
-
-	ctx := context.Background()
-
-	req := &twitter.Request{
-		Method: "tweets/sample/stream",
-		Params: twitter.Params{
-			types.TweetFields: []string{
-				types.Tweet_AuthorID,
-				types.Tweet_Entities,
-			},
-		},
-	}
-
-	const maxResults = 3
-
-	nr := 0
-	err := cli.Stream(ctx, req, func(rsp *twitter.Reply) error {
-		nr++
-		t.Logf("Msg %d: %s", nr, string(rsp.Data))
-		if nr == maxResults {
-			return twitter.ErrStopStreaming
-		}
-		return nil
-	})
-	if err != nil {
-		t.Errorf("Error from Stream: %v", err)
-	}
-}
-
 func TestRules(t *testing.T) {
 	ctx := context.Background()
 
@@ -409,29 +379,6 @@ func TestRules(t *testing.T) {
 			t.Errorf("Get(%q): got %d rules, want 0", badID, len(rsp.Rules))
 		}
 		logResponse(t, rsp)
-	})
-
-	t.Run("Search", func(t *testing.T) {
-		t.Skip("This test does not work with recording (skipped)")
-
-		const maxResults = 3
-
-		nr := 0
-		err := tweets.SearchStream(func(rsp *tweets.Reply) error {
-			for _, tw := range rsp.Tweets {
-				nr++
-				t.Logf("Result %d: id=%s, author=%s, text=%s", nr, tw.ID, tw.AuthorID, tw.Text)
-			}
-			if nr >= maxResults {
-				return twitter.ErrStopStreaming
-			}
-			return nil
-		}, &tweets.StreamOpts{
-			TweetFields: []string{types.Tweet_AuthorID},
-		}).Invoke(ctx, cli)
-		if err != nil {
-			t.Errorf("SearchStream failed: %v", err)
-		}
 	})
 
 	del, err := rules.Delete(testRuleID)
