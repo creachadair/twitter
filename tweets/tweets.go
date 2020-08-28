@@ -125,6 +125,9 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 		if err := json.Unmarshal(rsp.Meta, &out.Meta); err != nil {
 			return nil, &twitter.Error{Data: rsp.Meta, Message: "decoding response metadata", Err: err}
 		}
+		// Update the query page token. Do this even if next_token is empty; the
+		// HasMorePages method uses the presence of the parameter to distinguish
+		// a fresh query from end-of-pages.
 		q.request.Params.Set(nextTokenParam, out.Meta.NextToken)
 	}
 	return out, nil
