@@ -11,6 +11,7 @@ This is a work in progress, and is not ready for production use. In particular:
 - There is very little test coverage, mostly smoke tests.
   - [x] Replay tests with captured API data.
   - [x] Manual tests for streaming APIs.
+  - [x] Basic CI actions workflow.
 
 - The documentation is still incomplete.
   - [x] Doc comment for package `rules`
