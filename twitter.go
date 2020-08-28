@@ -114,10 +114,12 @@ func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error
 	requestURL := u.String()
 	c.log("RequestURL", requestURL)
 
-	hreq, err := http.NewRequestWithContext(ctx, req.HTTPMethod, requestURL, req.Data)
+	data, dlen := req.dataLen()
+	hreq, err := http.NewRequestWithContext(ctx, req.HTTPMethod, requestURL, data)
 	if err != nil {
 		return nil, &Error{Message: "invalid request", Err: err}
 	}
+	hreq.ContentLength = dlen
 	if req.ContentType != "" {
 		hreq.Header.Set("Content-Type", req.ContentType)
 	}
@@ -285,10 +287,17 @@ type Request struct {
 	HTTPMethod string
 
 	// If set, send these data as the body of the request.
-	Data io.Reader
+	Data []byte
 
 	// If set, use this as the content-type for the request body.
 	ContentType string
+}
+
+func (r *Request) dataLen() (io.Reader, int64) {
+	if r.Data == nil {
+		return nil, 0
+	}
+	return bytes.NewReader(r.Data), int64(len(r.Data))
 }
 
 // Params carries additional request parameters sent in the query URL.

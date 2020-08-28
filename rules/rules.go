@@ -45,7 +45,6 @@
 package rules
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
 
@@ -72,7 +71,7 @@ func Update(r Set) Query {
 	req := &twitter.Request{
 		Method:      "tweets/search/stream/rules",
 		HTTPMethod:  "POST",
-		Data:        bytes.NewReader(r.encoded),
+		Data:        r.encoded,
 		ContentType: "application/json",
 	}
 	return Query{request: req}
@@ -87,7 +86,7 @@ func Validate(r Set) Query {
 		Method:      "tweets/search/stream/rules",
 		HTTPMethod:  "POST",
 		Params:      twitter.Params{"dry_run": []string{"true"}},
-		Data:        bytes.NewReader(r.encoded),
+		Data:        r.encoded,
 		ContentType: "application/json",
 	}
 	return Query{request: req}
