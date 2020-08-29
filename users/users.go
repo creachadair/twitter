@@ -7,7 +7,7 @@
 //
 //   single := users.Lookup("12", nil)
 //   multi := users.Lookup("12", &users.LookupOpts{
-//      Keys: []string{"16431281", "2805856351"},
+//      More: []string{"16431281", "2805856351"},
 //   })
 //
 // By default only the default fields are returned (see types.User).  To
@@ -34,7 +34,7 @@ import (
 )
 
 // Lookup constructs a lookup query for one or more users by ID.  To look up
-// multiple IDs, add subsequent values to the opts.Keys field.
+// multiple IDs, add subsequent values to the opts.More field.
 //
 // API: users
 func Lookup(id string, opts *LookupOpts) Query {
@@ -42,7 +42,7 @@ func Lookup(id string, opts *LookupOpts) Query {
 }
 
 // LookupByName constructs a lookup query for one or more users by username.
-// To look up multiple usernames, add subsequent values to the opts.Keys field.
+// To look up multiple usernames, add subsequent values to the opts.More field.
 //
 // API: users/by
 func LookupByName(name string, opts *LookupOpts) Query {
@@ -91,7 +91,7 @@ type Reply struct {
 // LookupOpts provide parameters for user lookup. A nil *LookupOpts provides
 // empty values for all fields.
 type LookupOpts struct {
-	Keys []string // additional user keys to query
+	More []string // additional usernames or IDs to query
 
 	Expansions  []string
 	TweetFields []string
@@ -102,7 +102,7 @@ func (o *LookupOpts) addRequestParams(param string, req *twitter.Request) {
 	if o == nil {
 		return // nothing to do
 	}
-	req.Params.Add(param, o.Keys...)
+	req.Params.Add(param, o.More...)
 	req.Params.Add(types.Expansions, o.Expansions...)
 	req.Params.Add(types.TweetFields, o.TweetFields...)
 	req.Params.Add(types.UserFields, o.UserFields...)

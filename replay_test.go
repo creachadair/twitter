@@ -248,7 +248,7 @@ func TestUserIDLookup(t *testing.T) {
 func TestUsernameLookup(t *testing.T) {
 	ctx := context.Background()
 	rsp, err := users.LookupByName("creachadair", &users.LookupOpts{
-		Keys: []string{"jack", "inlieuoffunshow"},
+		More: []string{"jack", "inlieuoffunshow"},
 		UserFields: []string{
 			types.User_PinnedTweetID,
 			types.User_ProfileImageURL,

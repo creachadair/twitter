@@ -9,7 +9,7 @@
 //
 //   single := tweets.Lookup(id, nil)
 //   multi := tweets.Lookup(id1, &tweets.LookupOpts{
-//      IDs: []string{id2, id3},
+//      More: []string{id2, id3},
 //   })
 //
 // By default only the default fields are returned (see types.Tweet).  To
@@ -89,7 +89,7 @@ import (
 )
 
 // Lookup constructs a lookup query for one or more tweet IDs.  To look up
-// multiple IDs, add subsequent values the opts.IDs field.
+// multiple IDs, add subsequent values the opts.More field.
 //
 // API: tweets
 func Lookup(id string, opts *LookupOpts) Query {
@@ -170,7 +170,7 @@ type Reply struct {
 // LookupOpts provides parameters for tweet lookup. A nil *LookupOpts provides
 // empty values for all fields.
 type LookupOpts struct {
-	IDs       []string // additional tweet IDs to query
+	More      []string // additional tweet IDs to query
 	PageToken string   // a pagination token
 
 	Expansions  []string
@@ -188,7 +188,7 @@ func (o *LookupOpts) addRequestParams(req *twitter.Request) {
 	if o.PageToken != "" {
 		req.Params.Set("next_token", o.PageToken)
 	}
-	req.Params.Add("ids", o.IDs...)
+	req.Params.Add("ids", o.More...)
 	req.Params.Add(types.Expansions, o.Expansions...)
 	req.Params.Add(types.MediaFields, o.MediaFields...)
 	req.Params.Add(types.PlaceFields, o.PlaceFields...)
