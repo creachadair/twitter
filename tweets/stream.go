@@ -19,7 +19,7 @@ func SampleStream(f Callback, opts *StreamOpts) Stream {
 		Params: make(twitter.Params),
 	}
 	opts.addRequestParams(req)
-	return Stream{callback: f, request: req}
+	return Stream{callback: f, request: req, maxResults: opts.maxResults()}
 }
 
 // SearchStream constructs a streaming search query that delivers results to f.
@@ -31,18 +31,22 @@ func SearchStream(f Callback, opts *StreamOpts) Stream {
 		Params: make(twitter.Params),
 	}
 	opts.addRequestParams(req)
-	return Stream{callback: f, request: req}
+	return Stream{callback: f, request: req, maxResults: opts.maxResults()}
 }
 
 // A Stream performs a streaming search or sampling query.
 type Stream struct {
-	callback Callback
-	request  *twitter.Request
+	callback   Callback
+	request    *twitter.Request
+	maxResults int
 }
 
 // StreamOpts provides parameters for tweet streaming. A nil *StreamOpts
 // provides empty values for all fields.
 type StreamOpts struct {
+	// If positive, stop streaming after this many results have been reported.
+	MaxResults int
+
 	Expansions  []string
 	MediaFields []string
 	PlaceFields []string
@@ -63,6 +67,13 @@ func (o *StreamOpts) addRequestParams(req *twitter.Request) {
 	req.Params.Add(types.UserFields, o.UserFields...)
 }
 
+func (o *StreamOpts) maxResults() int {
+	if o == nil {
+		return 0
+	}
+	return o.MaxResults
+}
+
 // A Callback receives streaming replies from a sample or streaming search
 // query. If the callback returns an error, the stream is terminated. If the
 // error is not twitter.ErrStopStreaming, that error is reported to the caller.
@@ -70,14 +81,21 @@ type Callback func(*Reply) error
 
 // Invoke executes the streaming query on the given context and client.
 func (s Stream) Invoke(ctx context.Context, cli *twitter.Client) error {
+	var nr int
 	return cli.Stream(ctx, s.request, func(rsp *twitter.Reply) error {
+		nr++
 		var tweet types.Tweet
 		if err := json.Unmarshal(rsp.Data, &tweet); err != nil {
 			return &twitter.Error{Data: rsp.Data, Message: "decoding tweet data", Err: err}
 		}
-		return s.callback(&Reply{
+		if err := s.callback(&Reply{
 			Reply:  rsp,
 			Tweets: types.Tweets{&tweet},
-		})
+		}); err != nil {
+			return err
+		} else if s.maxResults > 0 && nr == s.maxResults {
+			return twitter.ErrStopStreaming
+		}
+		return nil
 	})
 }
