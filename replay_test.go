@@ -455,8 +455,11 @@ func TestCallRaw(t *testing.T) {
 		t.Fatalf("Decoding response: %v", err)
 	}
 	for key, val := range obj {
-		if s, ok := val.(string); ok {
-			t.Logf("%-10s : %q", key, s)
+		switch s := val.(type) {
+		case string:
+			t.Logf("%-15s : %q", key, s)
+		case float64:
+			t.Logf("%-15s : %d", key, int64(s))
 		}
 	}
 }
