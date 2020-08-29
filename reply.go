@@ -21,8 +21,11 @@ type Reply struct {
 	// JSON arrays of attachment objects.
 	Includes map[string]json.RawMessage `json:"includes,omitempty"`
 
-	// Server metadata reported with search responses.
+	// Server metadata reported with search replies.
 	Meta json.RawMessage `json:"meta,omitempty"`
+
+	// Error details reported with lookup or search replies.
+	Errors []*types.ErrorDetail `json:"errors,omitempty"`
 
 	// Rate limit metadata reported by the server. If the server did not return
 	// these data, this field will be nil.
