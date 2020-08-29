@@ -272,7 +272,10 @@ func (c *Client) Stream(ctx context.Context, req *Request, f Callback) error {
 	if err := c.stream(ctx, hrsp, f); errors.Is(err, ErrStopStreaming) {
 		return nil // the callback requested a stop
 	} else if !errors.Is(err, io.EOF) {
-		return err
+		if _, ok := err.(*Error); ok {
+			return err
+		}
+		return &Error{Message: "callback", Err: err}
 	}
 	return nil
 }
