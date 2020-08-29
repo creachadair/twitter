@@ -8,7 +8,7 @@ client.
 
 This is a work in progress, and is not ready for production use. In particular:
 
-- There is very little test coverage, mostly smoke tests.
+- The test coverage isn't as good as it should be.
   - [x] Replay tests with captured API data.
   - [x] Manual tests for streaming APIs.
   - [x] Basic CI actions workflow.
