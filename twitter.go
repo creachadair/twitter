@@ -9,7 +9,7 @@
 // invoke that query with a context on a client:
 //
 //    cli := &twitter.Client{
-//       Authorizer: twitter.NewBearerTokenAuthorizer(token),
+//       Authorizer: twitter.BearerTokenAuthorizer(token),
 //    }
 //
 //    ctx := context.Background()
