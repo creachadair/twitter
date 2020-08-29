@@ -79,11 +79,11 @@ type Client struct {
 	Log func(tag, message string)
 }
 
-func (c *Client) baseURL() (*url.URL, error) {
+func (c *Client) baseURL() string {
 	if c.BaseURL != "" {
-		return url.Parse(c.BaseURL)
+		return c.BaseURL
 	}
-	return url.Parse(BaseURL)
+	return BaseURL // default
 }
 
 func (c *Client) httpClient() *http.Client {
@@ -105,13 +105,10 @@ func (c *Client) hasLog() bool { return c.Log != nil }
 // caller is responsible for interpreting any errors or unexpected status codes
 // from the request.
 func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error) {
-	u, err := c.baseURL()
+	requestURL, err := req.URL(c.baseURL())
 	if err != nil {
-		return nil, &Error{Message: "invalid base URL", Err: err}
+		return nil, &Error{Message: "invalid request URL", Err: err}
 	}
-	u.Path = path.Join(u.Path, req.Method)
-	req.addQueryTerms(u)
-	requestURL := u.String()
 	c.log("RequestURL", requestURL)
 
 	data, dlen := req.dataLen()
@@ -312,6 +309,17 @@ type Request struct {
 
 	// If set, use this as the content-type for the request body.
 	ContentType string
+}
+
+// URL returns the complete request URL for r, using base as the base URL.
+func (r *Request) URL(base string) (string, error) {
+	u, err := url.Parse(base)
+	if err != nil {
+		return "", err
+	}
+	u.Path = path.Join(u.Path, r.Method)
+	r.addQueryTerms(u)
+	return u.String(), nil
 }
 
 func (r *Request) dataLen() (io.Reader, int64) {
