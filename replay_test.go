@@ -170,7 +170,7 @@ func TestMain(m *testing.M) {
 				}
 			}()
 		}
-		log.Print("Running tests...")
+		log.Printf("Running tests (mode=%s)...", *testMode)
 		return m.Run() // run the actual tests
 	}())
 }
