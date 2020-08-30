@@ -143,6 +143,8 @@ type Meta struct {
 		NotCreated int `json:"not_created"`
 		Deleted    int `json:"deleted"`
 		NotDeleted int `json:"not_deleted"`
+		Valid      int `json:"valid"`
+		Invalid    int `json:"invalid"`
 	} `json:"summary,omitempty"`
 }
 
