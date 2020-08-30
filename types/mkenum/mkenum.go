@@ -89,7 +89,7 @@ func generateEnum(w io.Writer, base string, v interface{}) {
 
 	// Support methods.
 	fmt.Fprintf(w, `// Label returns the parameter tag for optional %[1]s fields.
-func (f %[2]s) Label() string { return %q }
+func (%[2]s) Label() string { return %q }
 
 `, base, typeName, typeLabel)
 
