@@ -56,7 +56,9 @@ func (o *StreamOpts) addRequestParams(req *twitter.Request) {
 		return // nothing to do
 	}
 	for _, fs := range o.Optional {
-		req.Params.AddFields(fs)
+		if vs := fs.Values(); len(vs) != 0 {
+			req.Params.Add(fs.Label(), vs...)
+		}
 	}
 }
 

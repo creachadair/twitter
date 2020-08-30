@@ -103,6 +103,8 @@ func (o *LookupOpts) addRequestParams(param string, req *twitter.Request) {
 	}
 	req.Params.Add(param, o.More...)
 	for _, fs := range o.Optional {
-		req.Params.AddFields(fs)
+		if vs := fs.Values(); len(vs) != 0 {
+			req.Params.Add(fs.Label(), vs...)
+		}
 	}
 }
