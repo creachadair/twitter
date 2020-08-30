@@ -132,13 +132,18 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 		// HasMorePages method uses the presence of the parameter to distinguish
 		// a fresh query from end-of-pages.
 		q.request.Params.Set(nextTokenParam, out.Meta.NextToken)
+	} else {
+		// Maintain the flag validity for lookup queries.
+		q.request.Params.Set(nextTokenParam, "")
 	}
 	return out, nil
 }
 
 const nextTokenParam = "next_token"
 
-// HasMorePages reports whether the query has more pages to fetch.
+// HasMorePages reports whether the query has more pages to fetch. This is true
+// for a freshly-constructed query, and for an invoked query where the server
+// has not reported a next-page token.
 func (q Query) HasMorePages() bool {
 	// To distinguish a fresh query from a query that has exhausted all pages,
 	// we use the presence of nextTokenParam in the parameter map.

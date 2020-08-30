@@ -207,7 +207,7 @@ func TestClientCall(t *testing.T) {
 
 func TestTweetLookup(t *testing.T) {
 	ctx := context.Background()
-	rsp, err := tweets.Lookup("1297524288245895168", &tweets.LookupOpts{
+	query := tweets.Lookup("1297524288245895168", &tweets.LookupOpts{
 		Optional: []types.Fields{
 			types.TweetFields{
 				CreatedAt: true,
@@ -216,9 +216,16 @@ func TestTweetLookup(t *testing.T) {
 			},
 		},
 		Expansions: []string{types.Expand_MentionUsername},
-	}).Invoke(ctx, cli)
+	})
+	if !query.HasMorePages() {
+		t.Error("HasMorePages on fresh query: got false, want true")
+	}
+	rsp, err := query.Invoke(ctx, cli)
 	if err != nil {
 		t.Fatalf("Lookup failed: %v", err)
+	}
+	if query.HasMorePages() {
+		t.Error("HasMorePages after lookup: got true, want false")
 	}
 	t.Logf("Lookup request returned %d bytes", len(rsp.Reply.Data))
 
