@@ -47,9 +47,15 @@ import (
 	"strings"
 )
 
-// BaseURL is the default base URL for production Twitter API v2.
-// This is the default base URL if one is not given in the client.
-const BaseURL = "https://api.twitter.com/2"
+const (
+	// BaseURL is the default base URL for production Twitter API v2.
+	// This is the default base URL if one is not given in the client.
+	BaseURL = "https://api.twitter.com/2"
+
+	// DefaultContentType is the default content-type reported when sending a
+	// request body.
+	DefaultContentType = "application/json"
+)
 
 // A Client serves as a client for the Twitter API v2.
 type Client struct {
@@ -308,7 +314,7 @@ type Request struct {
 	Data []byte
 
 	// If set, use this as the content-type for the request body.
-	// If unset, the value defaults to "application/json".
+	// If unset, the value defaults to DefaultContentType (JSON).
 	// A content-type is only set if Data is non-empty.
 	ContentType string
 }
@@ -330,7 +336,7 @@ func (r *Request) dataLen() (data io.Reader, size int64, ctype string) {
 	}
 	ctype = r.ContentType
 	if ctype == "" {
-		ctype = "application/json"
+		ctype = DefaultContentType
 	}
 	return bytes.NewReader(r.Data), int64(len(r.Data)), ctype
 }
