@@ -24,7 +24,7 @@ type TweetFields struct {
 }
 
 // Label returns the parameter tag for optional Tweet fields.
-func (f TweetFields) Label() string { return "tweet.fields" }
+func (TweetFields) Label() string { return "tweet.fields" }
 
 // Values returns a slice of the selected field names from f.
 func (f TweetFields) Values() []string {
@@ -112,7 +112,7 @@ type UserFields struct {
 }
 
 // Label returns the parameter tag for optional User fields.
-func (f UserFields) Label() string { return "user.fields" }
+func (UserFields) Label() string { return "user.fields" }
 
 // Values returns a slice of the selected field names from f.
 func (f UserFields) Values() []string {
@@ -190,7 +190,7 @@ type MediaFields struct {
 }
 
 // Label returns the parameter tag for optional Media fields.
-func (f MediaFields) Label() string { return "media.fields" }
+func (MediaFields) Label() string { return "media.fields" }
 
 // Values returns a slice of the selected field names from f.
 func (f MediaFields) Values() []string {
@@ -247,7 +247,7 @@ type PollFields struct {
 }
 
 // Label returns the parameter tag for optional Poll fields.
-func (f PollFields) Label() string { return "poll.fields" }
+func (PollFields) Label() string { return "poll.fields" }
 
 // Values returns a slice of the selected field names from f.
 func (f PollFields) Values() []string {
@@ -292,7 +292,7 @@ type PlaceFields struct {
 }
 
 // Label returns the parameter tag for optional Place fields.
-func (f PlaceFields) Label() string { return "place.fields" }
+func (PlaceFields) Label() string { return "place.fields" }
 
 // Values returns a slice of the selected field names from f.
 func (f PlaceFields) Values() []string {
