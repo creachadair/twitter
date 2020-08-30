@@ -180,11 +180,11 @@ func TestClientCall(t *testing.T) {
 	rsp, err := cli.Call(context.Background(), &twitter.Request{
 		Method: "users/by/username/jack",
 		Params: twitter.Params{
-			types.UserFields: []string{
-				types.User_CreatedAt,
-				types.User_Description,
-				types.User_PublicMetrics,
-				types.User_Verified,
+			"user.fields": []string{
+				"created_at",
+				"description",
+				"public_metrics",
+				"verified",
 			},
 			types.Expansions: []string{
 				types.Expand_PinnedTweetID,
@@ -208,10 +208,12 @@ func TestClientCall(t *testing.T) {
 func TestTweetLookup(t *testing.T) {
 	ctx := context.Background()
 	rsp, err := tweets.Lookup("1297524288245895168", &tweets.LookupOpts{
-		TweetFields: []string{
-			types.Tweet_CreatedAt,
-			types.Tweet_Entities,
-			types.Tweet_AuthorID,
+		Optional: []types.Fields{
+			types.TweetFields{
+				CreatedAt: true,
+				Entities:  true,
+				AuthorID:  true,
+			},
 		},
 		Expansions: []string{types.Expand_MentionUsername},
 	}).Invoke(ctx, cli)
@@ -249,10 +251,12 @@ func TestUsernameLookup(t *testing.T) {
 	ctx := context.Background()
 	rsp, err := users.LookupByName("kanyewest", &users.LookupOpts{
 		More: []string{"jack", "Popehat"},
-		UserFields: []string{
-			types.User_PinnedTweetID,
-			types.User_ProfileImageURL,
-			types.User_PublicMetrics,
+		Optional: []types.Fields{
+			types.UserFields{
+				PinnedTweetID:   true,
+				ProfileImageURL: true,
+				PublicMetrics:   true,
+			},
 		},
 	}).Invoke(ctx, cli)
 	if err != nil {
@@ -318,8 +322,8 @@ func TestSearchRecent(t *testing.T) {
 
 	const query = `from:benjaminwittes "Today on @inlieuoffunshow"`
 	rsp, err := tweets.SearchRecent(query, &tweets.SearchOpts{
-		MaxResults:  10,
-		TweetFields: []string{types.Tweet_AuthorID, types.Tweet_Entities},
+		MaxResults: 10,
+		Optional:   []types.Fields{types.TweetFields{AuthorID: true, Entities: true}},
 	}).Invoke(ctx, cli)
 	if err != nil {
 		t.Fatalf("SearchRecent failed: %v", err)

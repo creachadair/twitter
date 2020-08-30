@@ -21,10 +21,7 @@ func TestStream(t *testing.T) {
 	req := &twitter.Request{
 		Method: "tweets/sample/stream",
 		Params: twitter.Params{
-			types.TweetFields: []string{
-				types.Tweet_AuthorID,
-				types.Tweet_Entities,
-			},
+			"tweet.fields": []string{"author_id", "entities"},
 		},
 	}
 
@@ -64,8 +61,10 @@ func TestSearchStream(t *testing.T) {
 			}
 			return nil
 		}, &tweets.StreamOpts{
-			MaxResults:  3,
-			TweetFields: []string{types.Tweet_AuthorID},
+			MaxResults: 3,
+			Optional: []types.Fields{
+				types.TweetFields{AuthorID: true},
+			},
 		}).Invoke(ctx, cli)
 		if err != nil {
 			t.Errorf("SearchStream failed: %v", err)
