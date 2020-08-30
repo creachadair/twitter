@@ -111,14 +111,14 @@ func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error
 	}
 	c.log("RequestURL", requestURL)
 
-	data, dlen := req.dataLen()
+	data, dlen, dtype := req.dataLen()
 	hreq, err := http.NewRequestWithContext(ctx, req.HTTPMethod, requestURL, data)
 	if err != nil {
 		return nil, &Error{Message: "invalid request", Err: err}
 	}
 	hreq.ContentLength = dlen
-	if req.ContentType != "" {
-		hreq.Header.Set("Content-Type", req.ContentType)
+	if dlen > 0 {
+		hreq.Header.Set("Content-Type", dtype)
 	}
 
 	if auth := c.Authorize; auth != nil {
@@ -308,6 +308,8 @@ type Request struct {
 	Data []byte
 
 	// If set, use this as the content-type for the request body.
+	// If unset, the value defaults to "application/json".
+	// A content-type is only set if Data is non-empty.
 	ContentType string
 }
 
@@ -322,11 +324,15 @@ func (r *Request) URL(base string) (string, error) {
 	return u.String(), nil
 }
 
-func (r *Request) dataLen() (io.Reader, int64) {
+func (r *Request) dataLen() (data io.Reader, size int64, ctype string) {
 	if len(r.Data) == 0 {
-		return nil, 0
+		return nil, 0, ""
 	}
-	return bytes.NewReader(r.Data), int64(len(r.Data))
+	ctype = r.ContentType
+	if ctype == "" {
+		ctype = "application/json"
+	}
+	return bytes.NewReader(r.Data), int64(len(r.Data)), ctype
 }
 
 // Params carries additional request parameters sent in the query URL.

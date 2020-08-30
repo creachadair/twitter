@@ -71,10 +71,9 @@ func Get(ids ...string) Query {
 func Update(r Set) Query {
 	enc, err := r.encode()
 	req := &twitter.Request{
-		Method:      "tweets/search/stream/rules",
-		HTTPMethod:  "POST",
-		Data:        enc,
-		ContentType: "application/json",
+		Method:     "tweets/search/stream/rules",
+		HTTPMethod: "POST",
+		Data:       enc,
 	}
 	return Query{request: req, encodeErr: err}
 }
@@ -86,11 +85,10 @@ func Update(r Set) Query {
 func Validate(r Set) Query {
 	enc, err := r.encode()
 	req := &twitter.Request{
-		Method:      "tweets/search/stream/rules",
-		HTTPMethod:  "POST",
-		Params:      twitter.Params{"dry_run": []string{"true"}},
-		Data:        enc,
-		ContentType: "application/json",
+		Method:     "tweets/search/stream/rules",
+		HTTPMethod: "POST",
+		Params:     twitter.Params{"dry_run": []string{"true"}},
+		Data:       enc,
 	}
 	return Query{request: req, encodeErr: err}
 }
