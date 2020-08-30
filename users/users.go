@@ -14,9 +14,8 @@
 // request additional fields or expansions, include them in the options:
 //
 //   q := users.Lookup("12", &users.LookupOpts{
-//      UserFields: []string{
-//         types.User_Description,
-//         types.User_PublicMetrics,
+//      Optional: []types.Fields{
+//         types.UserFields{Description: true, PublicMetrics: true},
 //      },
 //   })
 //
@@ -91,10 +90,11 @@ type Reply struct {
 // LookupOpts provide parameters for user lookup. A nil *LookupOpts provides
 // empty values for all fields.
 type LookupOpts struct {
-	More []string // additional usernames or IDs to query
+	// Additional usernames or IDs to query
+	More []string
 
-	Expansions []string
-	Optional   []types.Fields // optional response fields
+	// Optional response fields and expansions.
+	Optional []types.Fields
 }
 
 func (o *LookupOpts) addRequestParams(param string, req *twitter.Request) {

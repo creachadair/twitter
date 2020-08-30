@@ -12,10 +12,16 @@ type Fields interface {
 	Values() []string
 }
 
-const (
-	// Expansions is the parameter name for object expansions.
-	Expansions = "expansions"
+// Expansions represents a set of object field expansions.
+type Expansions []string
 
+// Label satisfies part of the Fields interface.
+func (Expansions) Label() string { return "expansions" }
+
+// Values satisfies part of the Fields interface.
+func (e Expansions) Values() []string { return []string(e) }
+
+const (
 	// Expand_AuthorID returns a user object representing the Tweet’s author.
 	Expand_AuthorID = "author_id"
 

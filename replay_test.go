@@ -186,9 +186,7 @@ func TestClientCall(t *testing.T) {
 				"public_metrics",
 				"verified",
 			},
-			types.Expansions: []string{
-				types.Expand_PinnedTweetID,
-			},
+			"expansions": []string{types.Expand_PinnedTweetID},
 		},
 	})
 	if err != nil {
@@ -214,8 +212,8 @@ func TestTweetLookup(t *testing.T) {
 				Entities:  true,
 				AuthorID:  true,
 			},
+			types.Expansions{types.Expand_MentionUsername},
 		},
-		Expansions: []string{types.Expand_MentionUsername},
 	})
 	if !query.HasMorePages() {
 		t.Error("HasMorePages on fresh query: got false, want true")

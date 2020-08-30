@@ -57,8 +57,8 @@ type SearchOpts struct {
 	// If set, return results with IDs smaller than this (exclusive).
 	UntilID string
 
-	Expansions []string
-	Optional   []types.Fields // optional response fields
+	// Optional response fields and expansions
+	Optional []types.Fields
 }
 
 func (o *SearchOpts) addRequestParams(req *twitter.Request) {
@@ -83,7 +83,6 @@ func (o *SearchOpts) addRequestParams(req *twitter.Request) {
 	if o.UntilID != "" {
 		req.Params.Set("until_id", o.UntilID)
 	}
-	req.Params.Add(types.Expansions, o.Expansions...)
 	for _, fs := range o.Optional {
 		req.Params.AddFields(fs)
 	}
