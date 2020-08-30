@@ -93,9 +93,8 @@ type Reply struct {
 type LookupOpts struct {
 	More []string // additional usernames or IDs to query
 
-	Expansions  []string
-	TweetFields []string
-	UserFields  []string
+	Expansions []string
+	Optional   []types.Fields // optional response fields
 }
 
 func (o *LookupOpts) addRequestParams(param string, req *twitter.Request) {
@@ -103,7 +102,7 @@ func (o *LookupOpts) addRequestParams(param string, req *twitter.Request) {
 		return // nothing to do
 	}
 	req.Params.Add(param, o.More...)
-	req.Params.Add(types.Expansions, o.Expansions...)
-	req.Params.Add(types.TweetFields, o.TweetFields...)
-	req.Params.Add(types.UserFields, o.UserFields...)
+	for _, fs := range o.Optional {
+		req.Params.AddFields(fs)
+	}
 }
