@@ -81,5 +81,5 @@ const (
 	Metric_Playback25Count  = "playback_25_count"
 	Metric_Playback50Count  = "playback_50_count"
 	Metric_Playback75Count  = "playback_75_count"
-	Metric_Playback100Count = "playback_100_count	"
+	Metric_Playback100Count = "playback_100_count"
 )
