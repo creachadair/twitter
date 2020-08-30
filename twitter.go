@@ -45,6 +45,8 @@ import (
 	"net/url"
 	"path"
 	"strings"
+
+	"github.com/creachadair/twitter/types"
 )
 
 // BaseURL is the default base URL for production Twitter API v2.
@@ -347,6 +349,13 @@ func (p Params) Set(name, value string) { p[name] = []string{value} }
 
 // Reset removes any existing values for the specified parameter.
 func (p Params) Reset(name string) { delete(p, name) }
+
+// AddFields adds the values of the specified field set to p.
+func (p Params) AddFields(fs types.Fields) {
+	if vs := fs.Values(); len(vs) != 0 {
+		p.Add(fs.Label(), vs...)
+	}
+}
 
 func (p Params) addQueryTerms(query url.Values) {
 	for name, values := range p {
