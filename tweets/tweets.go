@@ -16,8 +16,10 @@
 // request additional fields or expansions, include them in the options:
 //
 //   q := tweets.Lookup(id, &tweets.LookupOpts{
-//      TweetFields: []string{types.Tweet_AuthorID},
-//      Expansions:  []string{types.Expand_AuthorID},
+//      Optional: []types.Fields{
+//         types.TweetFields{AuthorID: true},
+//      },
+//      Expansions: []string{types.Expand_AuthorID},
 //   })
 //
 // Invoke the query to fetch the tweets:
@@ -75,7 +77,7 @@
 //
 //    opts := &tweets.StreamOpts{
 //       Expansions:  []string{types.Expand_MediaKeys},
-//       MediaFields: []string{types.Media_PublicMetrics},
+//       Optional:    []types.Fields{types.MediaFields{PublicMetrics: true}},
 //    }
 //
 package tweets
@@ -173,12 +175,8 @@ type LookupOpts struct {
 	More      []string // additional tweet IDs to query
 	PageToken string   // a pagination token
 
-	Expansions  []string
-	MediaFields []string
-	PlaceFields []string
-	PollFields  []string
-	TweetFields []string
-	UserFields  []string
+	Expansions []string
+	Optional   []types.Fields // optional response fields
 }
 
 func (o *LookupOpts) addRequestParams(req *twitter.Request) {
@@ -190,9 +188,7 @@ func (o *LookupOpts) addRequestParams(req *twitter.Request) {
 	}
 	req.Params.Add("ids", o.More...)
 	req.Params.Add(types.Expansions, o.Expansions...)
-	req.Params.Add(types.MediaFields, o.MediaFields...)
-	req.Params.Add(types.PlaceFields, o.PlaceFields...)
-	req.Params.Add(types.PollFields, o.PollFields...)
-	req.Params.Add(types.TweetFields, o.TweetFields...)
-	req.Params.Add(types.UserFields, o.UserFields...)
+	for _, fs := range o.Optional {
+		req.Params.AddFields(fs)
+	}
 }

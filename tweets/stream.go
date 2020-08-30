@@ -47,12 +47,8 @@ type StreamOpts struct {
 	// If positive, stop streaming after this many results have been reported.
 	MaxResults int
 
-	Expansions  []string
-	MediaFields []string
-	PlaceFields []string
-	PollFields  []string
-	TweetFields []string
-	UserFields  []string
+	Expansions []string
+	Optional   []types.Fields // optional response fields
 }
 
 func (o *StreamOpts) addRequestParams(req *twitter.Request) {
@@ -60,11 +56,9 @@ func (o *StreamOpts) addRequestParams(req *twitter.Request) {
 		return // nothing to do
 	}
 	req.Params.Add(types.Expansions, o.Expansions...)
-	req.Params.Add(types.MediaFields, o.MediaFields...)
-	req.Params.Add(types.PlaceFields, o.PlaceFields...)
-	req.Params.Add(types.PollFields, o.PollFields...)
-	req.Params.Add(types.TweetFields, o.TweetFields...)
-	req.Params.Add(types.UserFields, o.UserFields...)
+	for _, fs := range o.Optional {
+		req.Params.AddFields(fs)
+	}
 }
 
 func (o *StreamOpts) maxResults() int {
