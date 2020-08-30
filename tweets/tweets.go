@@ -72,7 +72,8 @@
 //
 // If the callback returns twitter.ErrStopStreaming, the stream is terminated
 // without error; otherwise the error returned by the callback is reported to
-// the caller of the query.
+// the caller of the query. For the common and simple case of limiting the
+// number of results, you can use the MaxResults stream option.
 //
 // Expansions and non-default fields can be requested using *StreamOpts:
 //
