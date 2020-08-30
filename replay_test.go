@@ -283,9 +283,10 @@ func TestSearchPages(t *testing.T) {
 	const maxResults = 25
 	for _, test := range []struct {
 		label, query string
+		wantMore     bool
 	}{
-		{"OnePage", `from:creachadair has:mentions`},
-		{"MultiPage", `from:benjaminwittes -has:images`},
+		{"OnePage", `from:creachadair has:mentions`, false},
+		{"MultiPage", `from:benjaminwittes -has:images`, true},
 	} {
 		t.Run(test.label, func(t *testing.T) {
 			q := tweets.SearchRecent(test.query, nil)
@@ -310,10 +311,12 @@ func TestSearchPages(t *testing.T) {
 
 				if nr > maxResults {
 					t.Logf("Done: Got %d (> %d) results", nr, maxResults)
-					return
+					break
 				}
 			}
-			t.Log("Done: No more pages")
+			if got := q.HasMorePages(); got != test.wantMore {
+				t.Errorf("HasMorePages: got %v, want %v", got, test.wantMore)
+			}
 		})
 	}
 }
