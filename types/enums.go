@@ -2,6 +2,16 @@
 
 package types
 
+// Fields defines a set of optional response fields to request.  This interface
+// is satisfied by the generated enumeration types.
+type Fields interface {
+	// Return the parameter label for this field type.
+	Label() string
+
+	// Return the values selected for this field type.
+	Values() []string
+}
+
 const (
 	// Expansions is the parameter name for object expansions.
 	Expansions = "expansions"
