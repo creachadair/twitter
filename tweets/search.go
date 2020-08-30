@@ -24,7 +24,7 @@ func SearchRecent(query string, opts *SearchOpts) Query {
 	}
 	req.Params.Set("query", query)
 	opts.addRequestParams(req)
-	return Query{request: req}
+	return Query{Request: req}
 }
 
 // Meta records server metadata reported in a search reply.

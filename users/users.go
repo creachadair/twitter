@@ -55,17 +55,17 @@ func newLookup(method, param, key string, opts *LookupOpts) Query {
 	}
 	req.Params.Add(param, key)
 	opts.addRequestParams(param, req)
-	return Query{request: req}
+	return Query{Request: req}
 }
 
 // A Query performs a lookup query for one or more users.
 type Query struct {
-	request *twitter.Request
+	*twitter.Request
 }
 
 // Invoke executes the query on the given context and client.
 func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) {
-	rsp, err := cli.Call(ctx, q.request)
+	rsp, err := cli.Call(ctx, q.Request)
 	if err != nil {
 		return nil, err
 	}

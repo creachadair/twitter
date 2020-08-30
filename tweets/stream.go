@@ -19,7 +19,7 @@ func SampleStream(f Callback, opts *StreamOpts) Stream {
 		Params: make(twitter.Params),
 	}
 	opts.addRequestParams(req)
-	return Stream{callback: f, request: req, maxResults: opts.maxResults()}
+	return Stream{Request: req, callback: f, maxResults: opts.maxResults()}
 }
 
 // SearchStream constructs a streaming search query that delivers results to f.
@@ -31,13 +31,13 @@ func SearchStream(f Callback, opts *StreamOpts) Stream {
 		Params: make(twitter.Params),
 	}
 	opts.addRequestParams(req)
-	return Stream{callback: f, request: req, maxResults: opts.maxResults()}
+	return Stream{Request: req, callback: f, maxResults: opts.maxResults()}
 }
 
 // A Stream performs a streaming search or sampling query.
 type Stream struct {
+	*twitter.Request
 	callback   Callback
-	request    *twitter.Request
 	maxResults int
 }
 
@@ -77,7 +77,7 @@ type Callback func(*Reply) error
 // Invoke executes the streaming query on the given context and client.
 func (s Stream) Invoke(ctx context.Context, cli *twitter.Client) error {
 	var nr int
-	return cli.Stream(ctx, s.request, func(rsp *twitter.Reply) error {
+	return cli.Stream(ctx, s.Request, func(rsp *twitter.Reply) error {
 		nr++
 		var tweet types.Tweet
 		if err := json.Unmarshal(rsp.Data, &tweet); err != nil {
