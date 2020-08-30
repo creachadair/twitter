@@ -17,7 +17,8 @@
 //
 //   q := tweets.Lookup(id, &tweets.LookupOpts{
 //      Optional: []types.Fields{
-//         types.TweetFields{AuthorID: true},
+//         types.TweetFields{AuthorID: true, PublicMetrics: true},
+//         types.MediaFields{Duration: true},
 //      },
 //      Expansions: []string{types.Expand_AuthorID},
 //   })
