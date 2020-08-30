@@ -67,12 +67,11 @@ func main() {
 }
 
 func generateEnum(w io.Writer, base string, v interface{}) {
-	typeName := base + "Fields"
-	typeLabel := strings.ToLower(base) + ".fields"
+	typeName := base + "Fields"                    // e.g., TweetFields
+	typeLabel := strings.ToLower(base) + ".fields" // e.g., tweet.fields
 
-	fmt.Fprintln(w, "const (")
-	fmt.Fprintf(w, "\t// %s is the label for optional %s field parameters.\n", typeName, base)
-	fmt.Fprintf(w, "\t%s = %q\n\n", typeName, typeLabel)
+	fmt.Fprintf(w, "// %s defines optional %s field parameters.\n", typeName, base)
+	fmt.Fprintf(w, "type %s struct{\n", typeName)
 
 	fields := fieldKeys(v)
 
@@ -84,12 +83,24 @@ func generateEnum(w io.Writer, base string, v interface{}) {
 	sort.Strings(names)
 
 	for _, key := range names {
-		field := fields[key]
-		enumName := base + "_" + field
-		fmt.Fprintf(w, "\t%s = %q\n", enumName, key)
+		fmt.Fprintf(w, "\t%s bool\t// %s\n", fields[key], key)
 	}
+	fmt.Fprint(w, "}\n\n")
 
-	fmt.Fprintln(w, ")")
+	// Support methods.
+	fmt.Fprintf(w, `// Label returns the parameter tag for optional %[1]s fields.
+func (f %[2]s) Label() string { return %q }
+
+`, base, typeName, typeLabel)
+
+	fmt.Fprintf(w, `// Values returns a slice of the selected field names from f.
+func (f %[1]s) Values() []string {
+  var values []string
+`, typeName)
+	for _, key := range names {
+		fmt.Fprintf(w, "\tif f.%[1]s { values=append(values, %[2]q) }\n", fields[key], key)
+	}
+	fmt.Fprintln(w, "\treturn values\n}")
 }
 
 func generateSearchableSlice(w io.Writer, base string, fields ...string) {
