@@ -2,6 +2,12 @@
 
 package auth
 
+// TODO:
+//  - oauth/invalidate_token
+//  - oauth2/invalidate_token
+//
+// See https://developer.twitter.com/en/docs/api-reference-index#platform
+
 import (
 	"context"
 	"encoding/json"
