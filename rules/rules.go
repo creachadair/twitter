@@ -56,9 +56,9 @@ import (
 // Get constructs a query to fetch the specified streaming search rule IDs.  If
 // no rule IDs are given, all known rules are fetched.
 //
-// API: GET tweets/search/stream/rules
+// API: GET 2/tweets/search/stream/rules
 func Get(ids ...string) Query {
-	req := &twitter.Request{Method: "tweets/search/stream/rules"}
+	req := &twitter.Request{Method: "2/tweets/search/stream/rules"}
 	if len(ids) != 0 {
 		req.Params = twitter.Params{"ids": ids}
 	}
@@ -67,11 +67,11 @@ func Get(ids ...string) Query {
 
 // Update constructs a query to add or delete streaming search rules.
 //
-// API: POST tweets/search/stream/rules
+// API: POST 2/tweets/search/stream/rules
 func Update(r Set) Query {
 	enc, err := r.encode()
 	req := &twitter.Request{
-		Method:     "tweets/search/stream/rules",
+		Method:     "2/tweets/search/stream/rules",
 		HTTPMethod: "POST",
 		Data:       enc,
 	}
@@ -81,11 +81,11 @@ func Update(r Set) Query {
 // Validate constructs a query to validate addition or deletion of streaming
 // search rules, without actually modifying the rules.
 //
-// API: POST tweets/search/stream/rules, dry_run=true
+// API: POST 2/tweets/search/stream/rules, dry_run=true
 func Validate(r Set) Query {
 	enc, err := r.encode()
 	req := &twitter.Request{
-		Method:     "tweets/search/stream/rules",
+		Method:     "2/tweets/search/stream/rules",
 		HTTPMethod: "POST",
 		Params:     twitter.Params{"dry_run": []string{"true"}},
 		Data:       enc,

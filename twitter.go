@@ -48,9 +48,9 @@ import (
 )
 
 const (
-	// BaseURL is the default base URL for production Twitter API v2.
+	// BaseURL is the default base URL for the production Twitter API.
 	// This is the default base URL if one is not given in the client.
-	BaseURL = "https://api.twitter.com/2"
+	BaseURL = "https://api.twitter.com"
 
 	// DefaultContentType is the default content-type reported when sending a
 	// request body.

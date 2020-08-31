@@ -178,7 +178,7 @@ func TestMain(m *testing.M) {
 // Verify that the direct call plumbing works.
 func TestClientCall(t *testing.T) {
 	rsp, err := cli.Call(context.Background(), &twitter.Request{
-		Method: "users/by/username/jack",
+		Method: "2/users/by/username/jack",
 		Params: twitter.Params{
 			"user.fields": []string{
 				"created_at",

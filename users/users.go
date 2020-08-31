@@ -35,17 +35,17 @@ import (
 // Lookup constructs a lookup query for one or more users by ID.  To look up
 // multiple IDs, add subsequent values to the opts.More field.
 //
-// API: users
+// API: 2/users
 func Lookup(id string, opts *LookupOpts) Query {
-	return newLookup("users", "ids", id, opts)
+	return newLookup("2/users", "ids", id, opts)
 }
 
 // LookupByName constructs a lookup query for one or more users by username.
 // To look up multiple usernames, add subsequent values to the opts.More field.
 //
-// API: users/by
+// API: 2/users/by
 func LookupByName(name string, opts *LookupOpts) Query {
-	return newLookup("users/by", "usernames", name, opts)
+	return newLookup("2/users/by", "usernames", name, opts)
 }
 
 func newLookup(method, param, key string, opts *LookupOpts) Query {

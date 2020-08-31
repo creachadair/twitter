@@ -16,10 +16,10 @@ import (
 // For query syntax, see
 // https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-rule
 //
-// API: tweets/search/recent
+// API: 2/tweets/search/recent
 func SearchRecent(query string, opts *SearchOpts) Query {
 	req := &twitter.Request{
-		Method: "tweets/search/recent",
+		Method: "2/tweets/search/recent",
 		Params: make(twitter.Params),
 	}
 	req.Params.Set("query", query)

@@ -12,10 +12,10 @@ import (
 
 // SampleStream constructs a streaming sample query that delivers results to f.
 //
-// API: tweets/sample/stream
+// API: 2/tweets/sample/stream
 func SampleStream(f Callback, opts *StreamOpts) Stream {
 	req := &twitter.Request{
-		Method: "tweets/sample/stream",
+		Method: "2/tweets/sample/stream",
 		Params: make(twitter.Params),
 	}
 	opts.addRequestParams(req)
@@ -24,10 +24,10 @@ func SampleStream(f Callback, opts *StreamOpts) Stream {
 
 // SearchStream constructs a streaming search query that delivers results to f.
 //
-// API: tweets/search/stream
+// API: 2/tweets/search/stream
 func SearchStream(f Callback, opts *StreamOpts) Stream {
 	req := &twitter.Request{
-		Method: "tweets/search/stream",
+		Method: "2/tweets/search/stream",
 		Params: make(twitter.Params),
 	}
 	opts.addRequestParams(req)
