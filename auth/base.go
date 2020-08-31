@@ -1,4 +1,13 @@
-// Package auth implements the OAuth 1.0 request signing protocol.
+// Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
+
+// Package auth supports OAuth request signing and requests to generate
+// authorization tokens.
+//
+// The core type in this package is Config, which carries the application and
+// user secrets. Methods of the Config type implement signing of requests and
+// handle queries to the API for tokens. At minimum, the APIKey and APISecret
+// fields must be populated with the application's credentials.
+//
 package auth
 
 import (
@@ -7,12 +16,15 @@ import (
 	"crypto/sha1"
 	"encoding/base64"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/creachadair/twitter"
 )
 
 /*
@@ -43,6 +55,10 @@ So: When the app acts on its own behalf (e.g., to request a user token), it
 */
 
 // Config carries the keys and secrets to generate OAuth 1.0 signatures.
+//
+// The APIKey and APISecret fields must be populated for all requests.
+// The rules for AccessToken and AccessTokenSecret are described in the
+// documentation for each query type.
 type Config struct {
 	APIKey            string `oauth:"oauth_consumer_key"`    // also: Consumer or App Key
 	APISecret         string `oauth:"oauth_consumer_secret"` // also: Consumer or App Secret
@@ -58,8 +74,24 @@ type Config struct {
 	Timestamp func() time.Time
 }
 
+// Authorizer returns a twitter.Authorizer that uses the specified access token
+// to sign requests.
+func (c Config) Authorizer(token, secret string) twitter.Authorizer {
+	uc := c // shallow copy
+	uc.AccessToken = token
+	uc.AccessTokenSecret = secret
+	return uc.Authorize
+}
+
 // Authorize attaches an OAuth 1.0 signature to the given request.
+//
+// This operation requires c.AccessToken and c.AccessTokenSecret to be set.
+// To authorize a ticket request, use the application's credentials.
+// To authorize a user request, use the user's credentials.
 func (c Config) Authorize(req *http.Request) error {
+	if c.AccessToken == "" || c.AccessTokenSecret == "" {
+		return errors.New("missing access credentials")
+	}
 	q, err := url.ParseQuery(req.URL.RawQuery)
 	if err != nil {
 		return fmt.Errorf("invalid query: %v", err)
@@ -183,7 +215,7 @@ func (c Config) makeTimestamp() string {
 // Params represent URL query parameters.
 type Params map[string]string
 
-// Encode encodes p as a URL query string.
+// Encode encodes p as a URL query string, not including the "?" prefix.
 func (p Params) Encode() string {
 	q := make(url.Values)
 	for key, val := range p {
