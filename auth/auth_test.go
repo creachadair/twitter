@@ -120,6 +120,8 @@ Token:    %q
 Secret:   %q`, tok.UserID, tok.Username, tok.Key, tok.Secret)
 }
 
+// This is a manual test that requires production credentials.
+// Skip the test if they are not set in the environment.
 func TestBearerToken(t *testing.T) {
 	cfg := baseConfigOrSkip(t)
 	cli := debugClient(t)
@@ -134,6 +136,8 @@ Token:  %q
 Secret: %q`, tok.Key, tok.Secret)
 }
 
+// This is a manual test that requires production credentials.
+// Skip the test if they are not set in the environment.
 func TestUserQuery(t *testing.T) {
 	cfg := baseConfigOrSkip(t)
 	creds := strings.SplitN(getOrSkip(t, "AUTHTEST_USER_TOKEN"), ":", 3)
