@@ -432,7 +432,7 @@ func TestRules(t *testing.T) {
 		logResponse(t, rsp)
 	})
 
-	t.Run("Update", func(t *testing.T) {
+	t.Run("Cleanup", func(t *testing.T) {
 		del := rules.Deletes{testRuleID}
 		rsp, err := rules.Update(del).Invoke(ctx, cli)
 		if err != nil {
