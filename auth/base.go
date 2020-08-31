@@ -45,7 +45,7 @@ To get an access token and secret for a user:
    - In the PIN flow, the site gives the user a PIN (P) to hand-deliver to the app.
    Either V or P is needed for step (3).
 
-3. GET api.twitter.com/oauth/access_toekn ? oauth_token=ET & oauth_consumer_key=APIKEY & oauth_verifier=P
+3. GET api.twitter.com/oauth/access_token ? oauth_token=ET & oauth_verifier=P
    It returns the durable user token (UT) and secret (UTS).
    These are returned as form-encoded query terms in the response body.
    These must be stored securly and used to sign requests on behalf of the user.
