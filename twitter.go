@@ -131,6 +131,9 @@ func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error
 		if err := auth(hreq); err != nil {
 			return nil, &Error{Message: "attaching authorization", Err: err}
 		}
+		if c.hasLog() {
+			c.log("Authorization", hreq.Header.Get("authorization"))
+		}
 	}
 
 	rsp, err := c.httpClient().Do(hreq)
