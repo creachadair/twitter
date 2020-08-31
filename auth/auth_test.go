@@ -1,5 +1,43 @@
 package auth_test
 
+/*
+About the tests in this file:
+
+Most of the tests defined below require production access and credentials.
+The tests that require this expect their credentials to be passed in the
+environment, and if they are missing the test will be skipped.
+
+The environment variables affecting the tests are as follows:
+
+All tests:
+  AUTHTEST_API_KEY    : the application's API key ("consumer key")
+  AUTHTEST_API_SECRET : the application's API secret ("consumer secret")
+
+TestRequestFlow:
+  AUTHTEST_ACCESS_TOKEN        : the application's access token
+  AUTHTEST_ACCESS_TOKEN_SECRET : the application's access token secret
+
+TestAccessGrant:
+  AUTHTEST_REQUEST_TOKEN    : the request token from the request flow
+  AUTHTEST_REQUEST_VERIFIER : the access verifier (PIN or nonce)
+
+TestUserQuery:
+  AUTHTEST_USER_TOKEN : the user's name and access token, in the format
+     <username>:<token>:<secret>
+
+To generate user credentials:
+
+1. Run TestRequestFlow and use the URL logged in the test output to manually
+   generate a verification PIN.
+
+2. Run TestAccessGrant with the token and verifier from (1).
+
+3. Use the log output from (2) to construct the AUTHTEST_USER_TOKEN string.
+
+TestUserQuery verifies that the user credentials work by requesting information
+that the API will not grant without user context.
+*/
+
 import (
 	"context"
 	"os"
