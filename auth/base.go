@@ -32,26 +32,29 @@ Working notes:
 
 To get an access token and secret for a user:
 
-1. POST api.twitter.com/oauth/request_token ? oauth_callback=oob
+1. POST api.twitter.com/oauth/request_token ? oauth_callback=URL
    This request must be signed with the app's own access token and secret.
    It returns an ephemeral token (ET) and secret (ETS) to use for step 2.
+   These are returned as form-encoded query terms in the response body.
+   ETS is not used for anything.
    Note that the "oob" callback causes Twitter to issue a PIN for verification.
 
 2. GET api.twitter.com/oauth/authorize ? oauth_token=ET [& force_login=true & screen_name=who]
-   This URL is visited by the user. Assuming they accept:
-   In the ordinary flow, the site sends the user to the app's callback with a verifier (V).
-   in the PIN flow, the site gives the user a PIN (P) to type in to the app.
+   This URL is visited by the user. Assuming the user grants access:
+   - In the ordinary flow, the site redirects to the app's callback with a verifier (V).
+   - In the PIN flow, the site gives the user a PIN (P) to hand-deliver to the app.
    Either V or P is needed for step (3).
 
 3. GET api.twitter.com/oauth/access_toekn ? oauth_token=ET & oauth_consumer_key=APIKEY & oauth_verifier=P
-   This returns the durable user token (UT) and secret (UTS).
-   These are what you store and use to sign requests on behalf of the user.
+   It returns the durable user token (UT) and secret (UTS).
+   These are returned as form-encoded query terms in the response body.
+   These must be stored securly and used to sign requests on behalf of the user.
 
-So: When the app acts on its own behalf (e.g., to request a user token), it
-    uses its own AccessToken, from the app settings.
+When the app acts on its own behalf (e.g., to request a user token), it uses
+its own AccessToken, from the app settings.
 
-    When the app acts on the user's behalf, it uses the user's AccessToken,
-    issued by the server in Step (3).
+When the app acts on the user's behalf, it uses the user's AccessToken, issued
+by the server in Step (3).
 */
 
 // Config carries the keys and secrets to generate OAuth 1.0 signatures.
