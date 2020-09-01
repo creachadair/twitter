@@ -18,6 +18,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -113,11 +114,41 @@ func (c Config) Authorize(req *http.Request) error {
 		}
 	}
 
-	// TODO: Maybe parse query terms out of the body?
+	for key, vals := range parseBodyParams(req) {
+		if len(vals) != 0 {
+			params[key] = strings.Join(vals, ",")
+		}
+	}
 
 	authData := c.Sign(req.Method, sigURL, params)
 	req.Header.Add("Authorization", authData.Authorization)
 	return nil
+}
+
+// parseBodyParams reads the body of req and parses it for query terms.  It
+// returns nil if there is no body, or the body does not contain query terms.
+func parseBodyParams(req *http.Request) url.Values {
+	// The expected content type of encoded form data. It is also possible to
+	// use multipart/form-data, but that seems uncommon in practice.
+	const formDataType = "application/x-www-form-urlencoded"
+
+	if req.GetBody == nil || req.Header.Get("content-type") != formDataType {
+		return nil
+	}
+	rc, err := req.GetBody()
+	if err != nil {
+		return nil
+	}
+	body, err := ioutil.ReadAll(rc)
+	rc.Close()
+	if err != nil {
+		return nil
+	}
+	q, err := url.ParseQuery(string(body))
+	if err != nil {
+		return nil
+	}
+	return q
 }
 
 // AuthData carries the result of authorizing a request.
