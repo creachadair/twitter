@@ -1,10 +1,28 @@
 package query_test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/creachadair/twitter/query"
 )
+
+func Example() {
+	b := query.New()
+	q := b.And(
+		b.Or(
+			b.All("red", "green", "blue"),
+			b.Some("black", "white"),
+		),
+		b.HasImages(),
+		b.Not(b.IsRetweet()),
+	)
+
+	fmt.Printf("Valid: %v\nQuery: %s\n", q.Valid(), q.String())
+	// Output:
+	// Valid: true
+	// Query: ((red green blue) OR black OR white) has:images -is:retweet
+}
 
 func TestValidQueries(t *testing.T) {
 	var b query.Builder
