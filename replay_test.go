@@ -17,6 +17,7 @@ import (
 	"github.com/dnaeon/go-vcr/recorder"
 
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/query"
 	"github.com/creachadair/twitter/rules"
 	"github.com/creachadair/twitter/tweets"
 	"github.com/creachadair/twitter/types"
@@ -279,15 +280,17 @@ func TestSearchPages(t *testing.T) {
 	ctx := context.Background()
 
 	const maxResults = 25
+	var b query.Builder
 	for _, test := range []struct {
-		label, query string
-		wantMore     bool
+		label    string
+		query    query.Query
+		wantMore bool
 	}{
-		{"OnePage", `from:creachadair has:mentions`, false},
-		{"MultiPage", `from:benjaminwittes -has:images`, true},
+		{"OnePage", b.And(b.From("creachadair"), b.HasMentions()), false},
+		{"MultiPage", b.And(b.From("benjaminwittes"), b.Not(b.HasImages())), true},
 	} {
 		t.Run(test.label, func(t *testing.T) {
-			q := tweets.SearchRecent(test.query, nil)
+			q := tweets.SearchRecent(test.query.String(), nil)
 
 			nr := 0
 			for q.HasMorePages() {
@@ -328,8 +331,9 @@ func TestSearchRecent(t *testing.T) {
 	//
 	// TODO: See about writing a matcher to ignore the time fields.
 
-	const query = `from:benjaminwittes "Today on @inlieuoffunshow"`
-	rsp, err := tweets.SearchRecent(query, &tweets.SearchOpts{
+	var b query.Builder
+	query := b.And(b.From("benjaminwittes"), b.Word("Today on @inlieuoffunshow"))
+	rsp, err := tweets.SearchRecent(query.String(), &tweets.SearchOpts{
 		MaxResults: 10,
 		Optional:   []types.Fields{types.TweetFields{AuthorID: true, Entities: true}},
 	}).Invoke(ctx, cli)
