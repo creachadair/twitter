@@ -23,7 +23,8 @@ func (Builder) All(ss ...string) Query { return newAndQuery(words(ss)) }
 // Some matches a disjunction of words, equivalent to Or(Word(s) ...).
 func (Builder) Some(ss ...string) Query { return newOrQuery(words(ss)) }
 
-// Word converts a string into a keyword term.
+// Word converts a string into a keyword term. If s contains spaces it will be
+// quoted.
 func (Builder) Word(s string) Query { return newWord(s) }
 
 // And matches the conjunction of the specified queries.
@@ -175,11 +176,13 @@ func isCompound(q Query) bool {
 }
 
 func newWord(s string) Query {
-	if strings.ContainsAny(s, " \t") {
-		return quoted{arg: s}
+	trim := strings.TrimSpace(s)
+	if strings.ContainsAny(trim, " \t") {
+		return quoted{arg: trim}
 	}
-	return solo(s)
+	return solo(trim)
 }
+
 func words(ss []string) []Query {
 	q := make([]Query, len(ss))
 	for i, s := range ss {
