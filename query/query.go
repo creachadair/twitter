@@ -14,8 +14,12 @@ type Query interface {
 	Valid() bool
 }
 
-// A Builder exports methods to construct query terms.
+// A Builder exports methods to construct query terms. A zero value is ready
+// for use.
 type Builder struct{}
+
+// New returns a new query builder.
+func New() Builder { return Builder{} }
 
 // All matches a conjunction of words, equivalent to And(Word(s) ...).
 func (Builder) All(ss ...string) Query { return newAndQuery(words(ss)) }
@@ -37,23 +41,23 @@ func (Builder) Or(qs ...Query) Query { return newOrQuery(qs) }
 func (Builder) Not(q Query) Query { return newNotQuery(q) }
 
 // From matches tweets from the specified user.
-func (Builder) From(s string) Query { return solo("from:" + s) }
+func (Builder) From(s string) Query { return solo("from:" + untag("@", s)) }
 
 // To matches tweets that reply to the specified user.
-func (Builder) To(s string) Query { return solo("to:" + s) }
+func (Builder) To(s string) Query { return solo("to:" + untag("@", s)) }
 
 // URL matches tweets that contain the specified URL.  The match applies to
 // both the plain and expanded URL.
 func (Builder) URL(s string) Query { return quoted{tag: "url:", arg: s} }
 
 // Hashtag matches tweets that contain the specified hashtag.
-func (Builder) Hashtag(s string) Query { return solo("#" + s) }
+func (Builder) Hashtag(s string) Query { return solo("#" + untag("#", s)) }
 
 // Mention matches tweets that mention the specified username.
-func (Builder) Mention(s string) Query { return solo("@" + s) }
+func (Builder) Mention(s string) Query { return solo("@" + untag("@", s)) }
 
 // RetweetOf matches retweets of the specified user.
-func (Builder) RetweetOf(s string) Query { return solo("retweets_of:" + s) }
+func (Builder) RetweetOf(s string) Query { return solo("retweets_of:" + untag("@", s)) }
 
 // Entity matches tweets containing an entity with the given value.
 func (Builder) Entity(s string) Query { return solo("entity:" + s) }
@@ -174,6 +178,8 @@ func isCompound(q Query) bool {
 		return false
 	}
 }
+
+func untag(tag, s string) string { return strings.TrimPrefix(s, tag) }
 
 func newWord(s string) Query {
 	trim := strings.TrimSpace(s)
