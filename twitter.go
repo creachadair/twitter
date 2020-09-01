@@ -9,7 +9,7 @@
 // invoke that query with a context on a client:
 //
 //    cli := &twitter.Client{
-//       Authorizer: twitter.BearerTokenAuthorizer(token),
+//       Authorize: twitter.BearerTokenAuthorizer(token),
 //    }
 //
 //    ctx := context.Background()
@@ -341,6 +341,9 @@ func (r *Request) dataLen() (data io.Reader, size int64, ctype string) {
 	if ctype == "" {
 		ctype = DefaultContentType
 	}
+
+	// N.B. Do not change the type of the reader without first reading the
+	// documentation for http.Request.GetBody.
 	return bytes.NewReader(r.Data), int64(len(r.Data)), ctype
 }
 
