@@ -11,11 +11,11 @@ import (
 	"github.com/creachadair/twitter/types"
 )
 
-// Update constructs a status update ("tweet") with the given text.
+// Create constructs a status update ("tweet") with the given text.
 // This query requires user-context authorization.
 //
 // API: 1.1/statuses/update.json
-func Update(text string, opts *UpdateOpts) Query {
+func Create(text string, opts *UpdateOpts) Query {
 	q := Query{
 		Request: &types.Request{
 			Method:     "1.1/statuses/update.json",

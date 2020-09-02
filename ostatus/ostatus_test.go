@@ -51,7 +51,7 @@ func TestUserCall(t *testing.T) {
 
 	var createdID string
 	t.Run("Create", func(t *testing.T) {
-		rsp, err := ostatus.Update(testMessage, &ostatus.UpdateOpts{
+		rsp, err := ostatus.Create(testMessage, &ostatus.UpdateOpts{
 			Optional: types.TweetFields{
 				AuthorID:  true,
 				CreatedAt: true,
