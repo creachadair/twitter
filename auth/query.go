@@ -15,10 +15,10 @@ import (
 	"net/url"
 
 	"github.com/creachadair/twitter"
-	"github.com/creachadair/twitter/types"
+	"github.com/creachadair/twitter/jhttp"
 )
 
-func clientWithAuth(cli *twitter.Client, auth twitter.Authorizer) *twitter.Client {
+func clientWithAuth(cli *twitter.Client, auth jhttp.Authorizer) *twitter.Client {
 	cp := *cli // shallow copy
 	cp.Authorize = auth
 	return &cp
@@ -37,10 +37,10 @@ const UsePIN = "oob"
 //
 // API: oauth/request_token
 func (c Config) GetRequestToken(callback string, opts *RequestOpts) RequestQuery {
-	req := &types.Request{
+	req := &jhttp.Request{
 		Method:     "oauth/request_token",
 		HTTPMethod: "POST",
-		Params:     types.Params{"oauth_callback": []string{callback}},
+		Params:     jhttp.Params{"oauth_callback": []string{callback}},
 	}
 	opts.addRequestParams(req)
 	return RequestQuery{Request: req, authorize: c.Authorize}
@@ -48,8 +48,8 @@ func (c Config) GetRequestToken(callback string, opts *RequestOpts) RequestQuery
 
 // A RequestQuery is a query for an authorization ticket.
 type RequestQuery struct {
-	*types.Request
-	authorize twitter.Authorizer
+	*jhttp.Request
+	authorize jhttp.Authorizer
 }
 
 // Invoke issues the query to the given client and returns the request Token.
@@ -74,7 +74,7 @@ type RequestOpts struct {
 	AccessType string // access override; "read" or "write"
 }
 
-func (o *RequestOpts) addRequestParams(req *types.Request) {
+func (o *RequestOpts) addRequestParams(req *jhttp.Request) {
 	if o != nil && o.AccessType != "" {
 		req.Params.Set("x_auth_access_type", o.AccessType)
 	}
@@ -87,10 +87,10 @@ func (o *RequestOpts) addRequestParams(req *types.Request) {
 //
 // API: oauth/access_token
 func (c Config) GetAccessToken(reqToken, verifier string, opts *AccessOpts) AccessQuery {
-	req := &types.Request{
+	req := &jhttp.Request{
 		Method:     "oauth/access_token",
 		HTTPMethod: "POST",
-		Params: types.Params{
+		Params: jhttp.Params{
 			"oauth_token":    []string{reqToken},
 			"oauth_verifier": []string{verifier},
 		},
@@ -100,7 +100,7 @@ func (c Config) GetAccessToken(reqToken, verifier string, opts *AccessOpts) Acce
 
 // An AccessQuery is a query for an access token.
 type AccessQuery struct {
-	*types.Request
+	*jhttp.Request
 }
 
 // Invoke issues the query and returns the access Token.
@@ -147,10 +147,10 @@ type AccessToken struct {
 //
 // API: oauth2/token
 func (c Config) GetBearerToken(opts *BearerOpts) BearerQuery {
-	req := &types.Request{
+	req := &jhttp.Request{
 		Method:     "oauth2/token",
 		HTTPMethod: "POST",
-		Params: types.Params{
+		Params: jhttp.Params{
 			"grant_type": []string{"client_credentials"},
 			// This is the only grant type currently supported, but the parameter
 			// is required to be set.
@@ -163,7 +163,7 @@ func (c Config) GetBearerToken(opts *BearerOpts) BearerQuery {
 
 // A BearerQuery is a query for an OAuth 2 bearer token.
 type BearerQuery struct {
-	*types.Request
+	*jhttp.Request
 	user, password string
 }
 

@@ -51,7 +51,7 @@ import (
 	"time"
 
 	"github.com/creachadair/twitter"
-	"github.com/creachadair/twitter/types"
+	"github.com/creachadair/twitter/jhttp"
 )
 
 // Get constructs a query to fetch the specified streaming search rule IDs.  If
@@ -59,9 +59,9 @@ import (
 //
 // API: GET 2/tweets/search/stream/rules
 func Get(ids ...string) Query {
-	req := &types.Request{Method: "2/tweets/search/stream/rules"}
+	req := &jhttp.Request{Method: "2/tweets/search/stream/rules"}
 	if len(ids) != 0 {
-		req.Params = types.Params{"ids": ids}
+		req.Params = jhttp.Params{"ids": ids}
 	}
 	return Query{request: req}
 }
@@ -71,7 +71,7 @@ func Get(ids ...string) Query {
 // API: POST 2/tweets/search/stream/rules
 func Update(r Set) Query {
 	enc, err := r.encode()
-	req := &types.Request{
+	req := &jhttp.Request{
 		Method:     "2/tweets/search/stream/rules",
 		HTTPMethod: "POST",
 		Data:       enc,
@@ -85,10 +85,10 @@ func Update(r Set) Query {
 // API: POST 2/tweets/search/stream/rules, dry_run=true
 func Validate(r Set) Query {
 	enc, err := r.encode()
-	req := &types.Request{
+	req := &jhttp.Request{
 		Method:     "2/tweets/search/stream/rules",
 		HTTPMethod: "POST",
-		Params:     types.Params{"dry_run": []string{"true"}},
+		Params:     jhttp.Params{"dry_run": []string{"true"}},
 		Data:       enc,
 	}
 	return Query{request: req, encodeErr: err}
@@ -96,7 +96,7 @@ func Validate(r Set) Query {
 
 // A Query performs a rule fetch or update query.
 type Query struct {
-	request   *types.Request
+	request   *jhttp.Request
 	encodeErr error // an error from encoding the rules
 }
 

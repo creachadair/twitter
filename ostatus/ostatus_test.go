@@ -48,7 +48,9 @@ func TestUserCall(t *testing.T) {
 	}
 
 	ctx := context.Background()
-	cli := &twitter.Client{Authorize: cfg.Authorizer(userToken[0], userToken[1])}
+	cli := twitter.NewClient(&twitter.ClientOpts{
+		Authorize: cfg.Authorizer(userToken[0], userToken[1]),
+	})
 	if *doVerboseLog {
 		cli.Log = func(tag, msg string) {
 			t.Logf("DEBUG :: %s | %s", tag, msg)

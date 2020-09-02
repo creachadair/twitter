@@ -65,12 +65,12 @@
 //    q := tweets.SearchStream(func(rsp *tweets.Reply) error {
 //       handle(rsp)
 //       if !wantMore() {
-//          return twitter.ErrStopStreaming
+//          return jhttp.ErrStopStreaming
 //       }
 //       return nil
 //    }, nil)
 //
-// If the callback returns twitter.ErrStopStreaming, the stream is terminated
+// If the callback returns jhttp.ErrStopStreaming, the stream is terminated
 // without error; otherwise the error returned by the callback is reported to
 // the caller of the query. For the common and simple case of limiting the
 // number of results, you can use the MaxResults stream option.
@@ -91,6 +91,7 @@ import (
 	"encoding/json"
 
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jhttp"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -99,9 +100,9 @@ import (
 //
 // API: 2/tweets
 func Lookup(id string, opts *LookupOpts) Query {
-	req := &types.Request{
+	req := &jhttp.Request{
 		Method: "2/tweets",
-		Params: make(types.Params),
+		Params: make(jhttp.Params),
 	}
 	req.Params.Add("ids", id)
 	opts.addRequestParams(req)
@@ -110,7 +111,7 @@ func Lookup(id string, opts *LookupOpts) Query {
 
 // A Query performs a lookup or search query.
 type Query struct {
-	*types.Request
+	*jhttp.Request
 }
 
 // Invoke executes the query on the given context and client. If the reply
@@ -125,13 +126,13 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 	if len(rsp.Data) == 0 {
 		// no results
 	} else if err := json.Unmarshal(rsp.Data, &out.Tweets); err != nil {
-		return nil, &twitter.Error{Data: rsp.Data, Message: "decoding tweet data", Err: err}
+		return nil, &jhttp.Error{Data: rsp.Data, Message: "decoding tweet data", Err: err}
 	}
 	// Maintain the flag validity for lookup queries.
 	q.Request.Params.Set(nextTokenParam, "")
 	if len(rsp.Meta) != 0 {
 		if err := json.Unmarshal(rsp.Meta, &out.Meta); err != nil {
-			return nil, &twitter.Error{Data: rsp.Meta, Message: "decoding response metadata", Err: err}
+			return nil, &jhttp.Error{Data: rsp.Meta, Message: "decoding response metadata", Err: err}
 		}
 		// Update the query page token. Do this even if next_token is empty; the
 		// HasMorePages method uses the presence of the parameter to distinguish
@@ -185,7 +186,7 @@ type LookupOpts struct {
 	Optional  []types.Fields // optional response fields, expansions
 }
 
-func (o *LookupOpts) addRequestParams(req *types.Request) {
+func (o *LookupOpts) addRequestParams(req *jhttp.Request) {
 	if o == nil {
 		return // nothing to do
 	}

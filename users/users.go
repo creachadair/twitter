@@ -29,6 +29,7 @@ import (
 	"encoding/json"
 
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jhttp"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -49,9 +50,9 @@ func LookupByName(name string, opts *LookupOpts) Query {
 }
 
 func newLookup(method, param, key string, opts *LookupOpts) Query {
-	req := &types.Request{
+	req := &jhttp.Request{
 		Method: method,
-		Params: make(types.Params),
+		Params: make(jhttp.Params),
 	}
 	req.Params.Add(param, key)
 	opts.addRequestParams(param, req)
@@ -60,7 +61,7 @@ func newLookup(method, param, key string, opts *LookupOpts) Query {
 
 // A Query performs a lookup query for one or more users.
 type Query struct {
-	*types.Request
+	*jhttp.Request
 }
 
 // Invoke executes the query on the given context and client.
@@ -97,7 +98,7 @@ type LookupOpts struct {
 	Optional []types.Fields
 }
 
-func (o *LookupOpts) addRequestParams(param string, req *types.Request) {
+func (o *LookupOpts) addRequestParams(param string, req *jhttp.Request) {
 	if o == nil {
 		return // nothing to do
 	}

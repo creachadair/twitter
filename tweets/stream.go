@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jhttp"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -14,9 +15,9 @@ import (
 //
 // API: 2/tweets/sample/stream
 func SampleStream(f Callback, opts *StreamOpts) Stream {
-	req := &types.Request{
+	req := &jhttp.Request{
 		Method: "2/tweets/sample/stream",
-		Params: make(types.Params),
+		Params: make(jhttp.Params),
 	}
 	opts.addRequestParams(req)
 	return Stream{Request: req, callback: f, maxResults: opts.maxResults()}
@@ -26,9 +27,9 @@ func SampleStream(f Callback, opts *StreamOpts) Stream {
 //
 // API: 2/tweets/search/stream
 func SearchStream(f Callback, opts *StreamOpts) Stream {
-	req := &types.Request{
+	req := &jhttp.Request{
 		Method: "2/tweets/search/stream",
-		Params: make(types.Params),
+		Params: make(jhttp.Params),
 	}
 	opts.addRequestParams(req)
 	return Stream{Request: req, callback: f, maxResults: opts.maxResults()}
@@ -36,7 +37,7 @@ func SearchStream(f Callback, opts *StreamOpts) Stream {
 
 // A Stream performs a streaming search or sampling query.
 type Stream struct {
-	*types.Request
+	*jhttp.Request
 	callback   Callback
 	maxResults int
 }
@@ -51,7 +52,7 @@ type StreamOpts struct {
 	Optional []types.Fields
 }
 
-func (o *StreamOpts) addRequestParams(req *types.Request) {
+func (o *StreamOpts) addRequestParams(req *jhttp.Request) {
 	if o == nil {
 		return // nothing to do
 	}
@@ -71,7 +72,7 @@ func (o *StreamOpts) maxResults() int {
 
 // A Callback receives streaming replies from a sample or streaming search
 // query. If the callback returns an error, the stream is terminated. If the
-// error is not twitter.ErrStopStreaming, that error is reported to the caller.
+// error is not jhttp.ErrStopStreaming, that error is reported to the caller.
 type Callback func(*Reply) error
 
 // Invoke executes the streaming query on the given context and client.
@@ -89,7 +90,7 @@ func (s Stream) Invoke(ctx context.Context, cli *twitter.Client) error {
 		}); err != nil {
 			return err
 		} else if s.maxResults > 0 && nr == s.maxResults {
-			return twitter.ErrStopStreaming
+			return jhttp.ErrStopStreaming
 		}
 		return nil
 	})
