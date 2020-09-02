@@ -1,3 +1,5 @@
+// Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
+
 // Program mkenum constructs  type enumerations for the optional fields
 // that may be requested in Twitter API v2.
 package main

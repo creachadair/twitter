@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jhttp"
 	"github.com/creachadair/twitter/rules"
 	"github.com/creachadair/twitter/tweets"
 	"github.com/creachadair/twitter/types"
@@ -18,9 +19,9 @@ func TestStream(t *testing.T) {
 	}
 	ctx := context.Background()
 
-	req := &types.Request{
+	req := &jhttp.Request{
 		Method: "2/tweets/sample/stream",
-		Params: types.Params{
+		Params: jhttp.Params{
 			"tweet.fields": []string{"author_id", "entities"},
 		},
 	}
@@ -32,7 +33,7 @@ func TestStream(t *testing.T) {
 		nr++
 		t.Logf("Msg %d: %s", nr, string(rsp.Data))
 		if nr == maxResults {
-			return twitter.ErrStopStreaming
+			return jhttp.ErrStopStreaming
 		}
 		return nil
 	})

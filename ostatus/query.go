@@ -1,3 +1,5 @@
+// Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
+
 // Package ostatus implements queries that operate on statuses (tweets)
 // using the Twitter API v1.1.
 package ostatus
@@ -8,6 +10,7 @@ import (
 	"strconv"
 
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jhttp"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -17,10 +20,10 @@ import (
 // API: 1.1/statuses/update.json
 func Create(text string, opts *UpdateOpts) Query {
 	q := Query{
-		Request: &types.Request{
+		Request: &jhttp.Request{
 			Method:     "1.1/statuses/update.json",
 			HTTPMethod: "POST",
-			Params: types.Params{
+			Params: jhttp.Params{
 				"status":    []string{text},
 				"trim_user": []string{"true"},
 			},
@@ -32,10 +35,10 @@ func Create(text string, opts *UpdateOpts) Query {
 
 func modQuery(path, id string, opts *Options) Query {
 	q := Query{
-		Request: &types.Request{
+		Request: &jhttp.Request{
 			Method:     path + "/" + id + ".json", // N.B. parameter in path
 			HTTPMethod: "POST",
-			Params:     types.Params{"trim_user": []string{"true"}},
+			Params:     jhttp.Params{"trim_user": []string{"true"}},
 		},
 	}
 	opts.addQueryParams(&q)
@@ -68,10 +71,10 @@ func Unretweet(id string, opts *Options) Query {
 
 func likeQuery(path, id string, opts *Options) Query {
 	q := Query{
-		Request: &types.Request{
+		Request: &jhttp.Request{
 			Method:     path + ".json",
 			HTTPMethod: "POST",
-			Params:     types.Params{"id": []string{id}},
+			Params:     jhttp.Params{"id": []string{id}},
 		},
 	}
 	opts.addQueryParams(&q)
@@ -97,7 +100,7 @@ func UnLike(id string, opts *Options) Query {
 
 // Query is the query to post a status update.
 type Query struct {
-	*types.Request
+	*jhttp.Request
 	opts types.TweetFields
 }
 
@@ -109,7 +112,7 @@ func (o Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 	}
 	var rsp oldTweet
 	if err := json.Unmarshal(data, &rsp); err != nil {
-		return nil, &twitter.Error{Message: "decoding response body", Err: err}
+		return nil, &jhttp.Error{Message: "decoding response body", Err: err}
 	}
 	return &Reply{
 		Data:  data,

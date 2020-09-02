@@ -1,3 +1,5 @@
+// Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
+
 package auth_test
 
 /*
@@ -52,11 +54,11 @@ import (
 
 func debugClient(t *testing.T) *twitter.Client {
 	t.Helper()
-	return &twitter.Client{
+	return twitter.NewClient(&twitter.ClientOpts{
 		Log: func(tag, msg string) {
 			t.Logf("DEBUG :: %s | %s", tag, msg)
 		},
-	}
+	})
 }
 
 func getOrSkip(t *testing.T, key string) string {

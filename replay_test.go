@@ -17,6 +17,7 @@ import (
 	"github.com/dnaeon/go-vcr/recorder"
 
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jhttp"
 	"github.com/creachadair/twitter/query"
 	"github.com/creachadair/twitter/rules"
 	"github.com/creachadair/twitter/tweets"
@@ -123,7 +124,7 @@ func TestMain(m *testing.M) {
 
 	// Running or recording require a production credential.
 	// Replaying requires a fake credential.
-	var auth twitter.Authorizer
+	var auth jhttp.Authorizer
 	switch *testMode {
 	case "run", "record":
 		bearerToken := os.Getenv("TWITTER_TOKEN")
@@ -131,9 +132,9 @@ func TestMain(m *testing.M) {
 			// When talking to production, we need a real credential.
 			log.Fatalf("No TWITTER_TOKEN found in the environment; cannot %s tests", *testMode)
 		}
-		auth = twitter.BearerTokenAuthorizer(bearerToken)
+		auth = jhttp.BearerTokenAuthorizer(bearerToken)
 	default:
-		auth = twitter.BearerTokenAuthorizer(fakeAuthToken)
+		auth = jhttp.BearerTokenAuthorizer(fakeAuthToken)
 	}
 
 	// Filter Authorization headers when recording to swap the real token with
@@ -153,10 +154,10 @@ func TestMain(m *testing.M) {
 		})
 	}
 
-	cli = &twitter.Client{
+	cli = twitter.NewClient(&twitter.ClientOpts{
 		HTTPClient: &http.Client{Transport: rec},
 		Authorize:  auth,
-	}
+	})
 	if *doVerboseLog {
 		log.Printf("Enabled verbose client logging")
 		cli.Log = func(tag, msg string) {
@@ -178,9 +179,9 @@ func TestMain(m *testing.M) {
 
 // Verify that the direct call plumbing works.
 func TestClientCall(t *testing.T) {
-	rsp, err := cli.Call(context.Background(), &types.Request{
+	rsp, err := cli.Call(context.Background(), &jhttp.Request{
 		Method: "2/users/by/username/jack",
-		Params: types.Params{
+		Params: jhttp.Params{
 			"user.fields": []string{
 				"created_at",
 				"description",
@@ -453,9 +454,9 @@ func TestCallRaw(t *testing.T) {
 	defer func() { cli.BaseURL = save }()
 	cli.BaseURL = "https://api.twitter.com/1.1"
 
-	req := &types.Request{
+	req := &jhttp.Request{
 		Method: "statuses/show.json",
-		Params: types.Params{
+		Params: jhttp.Params{
 			"id":         []string{"1297524288245895168"},
 			"tweet_mode": []string{"extended"},
 		},

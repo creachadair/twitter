@@ -1,6 +1,6 @@
 // Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
 
-package twitter
+package jhttp
 
 // Error is the concrete type of errors returned by a Call.
 type Error struct {

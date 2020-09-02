@@ -1,7 +1,7 @@
 // Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
 
 // Package auth supports OAuth request signing and requests to generate
-// authorization tokens.
+// authorization tokens in the Twitter API.
 //
 // The core type in this package is Config, which carries the application and
 // user secrets. Methods of the Config type implement signing of requests and
@@ -25,7 +25,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jhttp"
 )
 
 /*
@@ -78,9 +78,9 @@ type Config struct {
 	Timestamp func() time.Time
 }
 
-// Authorizer returns a twitter.Authorizer that uses the specified access token
+// Authorizer returns a jhttp.Authorizer that uses the specified access token
 // to sign requests.
-func (c Config) Authorizer(token, secret string) twitter.Authorizer {
+func (c Config) Authorizer(token, secret string) jhttp.Authorizer {
 	uc := c // shallow copy
 	uc.AccessToken = token
 	uc.AccessTokenSecret = secret
