@@ -5,6 +5,7 @@ package ostatus
 import (
 	"context"
 	"encoding/json"
+	"strconv"
 
 	"github.com/creachadair/twitter"
 	"github.com/creachadair/twitter/types"
@@ -14,8 +15,8 @@ import (
 // This query requires user-context authorization.
 //
 // API: 1.1/statuses/update.json
-func Update(text string, opts *UpdateOpts) UpdateQuery {
-	q := UpdateQuery{
+func Update(text string, opts *UpdateOpts) Query {
+	q := Query{
 		Request: &types.Request{
 			Method:     "1.1/statuses/update.json",
 			HTTPMethod: "POST",
@@ -29,14 +30,10 @@ func Update(text string, opts *UpdateOpts) UpdateQuery {
 	return q
 }
 
-// Delete constructs a query to delete ("destroy") a tweet with the given ID.
-// This query requires user-context authorization.
-//
-// API: 1.1/statuses/destroy/:id.json
-func Delete(id string, opts *DeleteOpts) UpdateQuery {
-	q := UpdateQuery{
+func modQuery(path, id string, opts *Options) Query {
+	q := Query{
 		Request: &types.Request{
-			Method:     "1.1/statuses/destroy/" + id + ".json", // N.B. Unusual parameter in URL
+			Method:     path + "/" + id + ".json", // N.B. parameter in path
 			HTTPMethod: "POST",
 			Params:     types.Params{"trim_user": []string{"true"}},
 		},
@@ -45,14 +42,67 @@ func Delete(id string, opts *DeleteOpts) UpdateQuery {
 	return q
 }
 
-// UpdateQuery is the query to post a status update.
-type UpdateQuery struct {
+// Delete constructs a query to delete ("destroy") a tweet with the given ID.
+// This query requires user-context authorization.
+//
+// API: 1.1/statuses/destroy/:id.json
+func Delete(id string, opts *Options) Query {
+	return modQuery("1.1/statuses/destroy", id, opts)
+}
+
+// Retweet constructs a query to retweet a tweet with the given ID.
+// This query requires user-context authorization.
+//
+// API: 1.1/statuses/retweet/:id.json
+func Retweet(id string, opts *Options) Query {
+	return modQuery("1.1/statuses/retweet", id, opts)
+}
+
+// UnRetweet constructs a query to un-retweet a tweet with the given ID.
+// This query requires user-context authorization.
+//
+// API: 1.1/statuses/unretweet/:id.json
+func Unretweet(id string, opts *Options) Query {
+	return modQuery("1.1/statuses/unretweet", id, opts)
+}
+
+func likeQuery(path, id string, opts *Options) Query {
+	q := Query{
+		Request: &types.Request{
+			Method:     path + ".json",
+			HTTPMethod: "POST",
+			Params:     types.Params{"id": []string{id}},
+		},
+	}
+	opts.addQueryParams(&q)
+	q.Request.Params.Set("include_entities", strconv.FormatBool(q.opts.Entities))
+	return q
+}
+
+// Like constructs a query to like ("favorite") a tweet with the given ID.
+// This query requires user-context authorization.
+//
+// API: 1.1/favorites/create.json
+func Like(id string, opts *Options) Query {
+	return likeQuery("1.1/favorites/create", id, opts)
+}
+
+// UnLike constructs a query to un-like ("unfavorite") a tweet with the given ID.
+// This query requires user-context authorization.
+//
+// API: 1.1/favorites/destroy.json
+func UnLike(id string, opts *Options) Query {
+	return likeQuery("1.1/favorites/destroy", id, opts)
+}
+
+// Query is the query to post a status update.
+type Query struct {
 	*types.Request
 	opts types.TweetFields
 }
 
 // Invoke posts the update and reports the resulting tweet.
-func (o UpdateQuery) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) {
+func (o Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) {
 	data, err := cli.CallRaw(ctx, o.Request)
 	if err != nil {
 		return nil, err
@@ -84,7 +134,7 @@ type UpdateOpts struct {
 	Optional types.TweetFields
 }
 
-func (o *UpdateOpts) addQueryParams(q *UpdateQuery) {
+func (o *UpdateOpts) addQueryParams(q *Query) {
 	if o != nil {
 		if o.InReplyTo != "" {
 			q.Request.Params.Set("in_reply_to_status_id", o.InReplyTo)
@@ -103,19 +153,19 @@ func (o *UpdateOpts) addQueryParams(q *UpdateQuery) {
 	q.Request.Params = nil
 }
 
-// DeleteOpts provides parameters for tweet deletion. A nil *DeleteOpts
-// provides zero values for all fields.
-type DeleteOpts struct {
+// Options provides parameters for tweet modification. A nil *Options provides
+// zero values for all fields.
+type Options struct {
 	Optional types.TweetFields
 }
 
-func (o *DeleteOpts) addQueryParams(q *UpdateQuery) {
+func (o *Options) addQueryParams(q *Query) {
 	if o != nil {
 		q.opts = o.Optional
 	}
 }
 
-// A Reply is the response from an UpdateQuery.
+// A Reply is the response from an Query.
 type Reply struct {
 	Data  []byte
 	Tweet *types.Tweet

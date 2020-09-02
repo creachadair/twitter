@@ -71,6 +71,22 @@ func TestUserCall(t *testing.T) {
 		}
 	})
 
+	t.Run("Like", func(t *testing.T) {
+		rsp, err := ostatus.Like(createdID, nil).Invoke(ctx, cli)
+		if err != nil {
+			t.Fatalf("Like failed: %v", err)
+		}
+		t.Logf("Liked ID %s, text=%q", rsp.Tweet.ID, rsp.Tweet.Text)
+	})
+
+	t.Run("UnLike", func(t *testing.T) {
+		rsp, err := ostatus.UnLike(createdID, nil).Invoke(ctx, cli)
+		if err != nil {
+			t.Fatalf("UnLike failed: %v", err)
+		}
+		t.Logf("UnLiked ID %s, text=%q", rsp.Tweet.ID, rsp.Tweet.Text)
+	})
+
 	t.Run("Delete", func(t *testing.T) {
 		rsp, err := ostatus.Delete(createdID, nil).Invoke(ctx, cli)
 		if err != nil {
@@ -81,4 +97,5 @@ func TestUserCall(t *testing.T) {
 			t.Errorf("Unexpected message content:\ngot:  %q\nwant: %q", rsp.Tweet.Text, testMessage)
 		}
 	})
+
 }
