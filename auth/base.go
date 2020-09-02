@@ -1,7 +1,7 @@
 // Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
 
 // Package auth supports OAuth request signing and requests to generate
-// authorization tokens.
+// authorization tokens in the Twitter API.
 //
 // The core type in this package is Config, which carries the application and
 // user secrets. Methods of the Config type implement signing of requests and
