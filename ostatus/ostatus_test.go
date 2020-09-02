@@ -15,7 +15,10 @@ import (
 	"github.com/creachadair/twitter/types"
 )
 
-var doVerboseLog = flag.Bool("verbose-log", false, "Enable verbose client logging")
+var (
+	testCaseDelay = flag.Duration("pause", 0, "How long to pause between tests (for observation)")
+	doVerboseLog  = flag.Bool("verbose-log", false, "Enable verbose client logging")
+)
 
 func getOrSkip(t *testing.T, key string) string {
 	t.Helper()
@@ -24,6 +27,14 @@ func getOrSkip(t *testing.T, key string) string {
 		t.Skip("Missing " + key + " in environment; skipping this test")
 	}
 	return val
+}
+
+func pause(t *testing.T) {
+	t.Helper()
+	if *testCaseDelay > 0 {
+		t.Logf("Pausing %v before next test...", *testCaseDelay)
+		time.Sleep(*testCaseDelay)
+	}
 }
 
 func TestUserCall(t *testing.T) {
@@ -70,6 +81,7 @@ func TestUserCall(t *testing.T) {
 			t.Logf("Hashtag [%d..%d] %q", m.Start, m.End, m.Tag)
 		}
 	})
+	pause(t)
 
 	t.Run("Like", func(t *testing.T) {
 		rsp, err := ostatus.Like(createdID, nil).Invoke(ctx, cli)
@@ -78,6 +90,7 @@ func TestUserCall(t *testing.T) {
 		}
 		t.Logf("Liked ID %s, text=%q", rsp.Tweet.ID, rsp.Tweet.Text)
 	})
+	pause(t)
 
 	t.Run("UnLike", func(t *testing.T) {
 		rsp, err := ostatus.UnLike(createdID, nil).Invoke(ctx, cli)
@@ -86,6 +99,7 @@ func TestUserCall(t *testing.T) {
 		}
 		t.Logf("UnLiked ID %s, text=%q", rsp.Tweet.ID, rsp.Tweet.Text)
 	})
+	pause(t)
 
 	t.Run("Delete", func(t *testing.T) {
 		rsp, err := ostatus.Delete(createdID, nil).Invoke(ctx, cli)
