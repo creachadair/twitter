@@ -29,6 +29,6 @@ type User struct {
 
 // UserEntities describe entities found in a user's profile.
 type UserEntities struct {
-	URL         *Entities `json:"url"`
-	Description *Entities `json:"description"`
+	URL         Entities `json:"url"`
+	Description Entities `json:"description"`
 }
