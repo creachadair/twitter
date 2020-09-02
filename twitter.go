@@ -366,6 +366,13 @@ func (p Params) Set(name, value string) { p[name] = []string{value} }
 // Reset removes any existing values for the specified parameter.
 func (p Params) Reset(name string) { delete(p, name) }
 
+// Encode encodes p as a query string.
+func (p Params) Encode() string {
+	query := make(url.Values)
+	p.addQueryTerms(query)
+	return query.Encode()
+}
+
 func (p Params) addQueryTerms(query url.Values) {
 	for name, values := range p {
 		query.Set(name, strings.Join(values, ","))
@@ -376,7 +383,5 @@ func (req *Request) addQueryTerms(u *url.URL) {
 	if len(req.Params) == 0 {
 		return // nothing to do
 	}
-	query := make(url.Values)
-	req.Params.addQueryTerms(query)
-	u.RawQuery = query.Encode()
+	u.RawQuery = req.Params.Encode()
 }
