@@ -65,7 +65,7 @@ func Retweet(id string, opts *Options) Query {
 // This query requires user-context authorization.
 //
 // API: 1.1/statuses/unretweet/:id.json
-func Unretweet(id string, opts *Options) Query {
+func UnRetweet(id string, opts *Options) Query {
 	return modQuery("1.1/statuses/unretweet", id, opts)
 }
 
