@@ -1,3 +1,5 @@
+// Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
+
 // Package query defines a structured builder for search query strings.
 package query
 

@@ -1,3 +1,5 @@
+// Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
+
 // Package ostatus implements queries that operate on statuses (tweets)
 // using the Twitter API v1.1.
 package ostatus
