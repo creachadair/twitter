@@ -60,7 +60,7 @@ func (q RequestQuery) Invoke(ctx context.Context, cli *twitter.Client) (Token, e
 	}
 	tok, err := url.ParseQuery(string(data))
 	if err != nil {
-		return Token{}, &twitter.Error{Message: "parsing response", Err: err}
+		return Token{}, &jhttp.Error{Message: "parsing response", Err: err}
 	}
 	return Token{
 		Key:    tok.Get("oauth_token"),
@@ -111,7 +111,7 @@ func (a AccessQuery) Invoke(ctx context.Context, cli *twitter.Client) (AccessTok
 	}
 	tok, err := url.ParseQuery(string(data))
 	if err != nil {
-		return AccessToken{}, &twitter.Error{Message: "parsing response", Err: err}
+		return AccessToken{}, &jhttp.Error{Message: "parsing response", Err: err}
 	}
 	return AccessToken{
 		Token: Token{
@@ -186,7 +186,7 @@ func (q BearerQuery) Invoke(ctx context.Context, cli *twitter.Client) (Token, er
 		Token string `json:"access_token"`
 	}
 	if err := json.Unmarshal(data, &wrapper); err != nil {
-		return Token{}, &twitter.Error{Message: "decoding token", Err: err}
+		return Token{}, &jhttp.Error{Message: "decoding token", Err: err}
 	}
 	return Token{
 		Key:    wrapper.Type,

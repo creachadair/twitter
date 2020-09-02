@@ -104,7 +104,7 @@ type Query struct {
 func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) {
 	// Report a deferred error from encoding.
 	if q.encodeErr != nil {
-		return nil, &twitter.Error{Message: "encoding rule set", Err: q.encodeErr}
+		return nil, &jhttp.Error{Message: "encoding rule set", Err: q.encodeErr}
 	}
 	rsp, err := cli.Call(ctx, q.request)
 	if err != nil {
@@ -114,10 +114,10 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 	if len(rsp.Data) == 0 {
 		// no rules returned
 	} else if err := json.Unmarshal(rsp.Data, &out.Rules); err != nil {
-		return nil, &twitter.Error{Data: rsp.Data, Message: "decoding rules data", Err: err}
+		return nil, &jhttp.Error{Data: rsp.Data, Message: "decoding rules data", Err: err}
 	}
 	if err := json.Unmarshal(rsp.Meta, &out.Meta); err != nil {
-		return nil, &twitter.Error{Data: rsp.Meta, Message: "decoding rules metadata", Err: err}
+		return nil, &jhttp.Error{Data: rsp.Meta, Message: "decoding rules metadata", Err: err}
 	}
 	return out, nil
 }

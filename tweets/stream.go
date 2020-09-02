@@ -82,7 +82,7 @@ func (s Stream) Invoke(ctx context.Context, cli *twitter.Client) error {
 		nr++
 		var tweet types.Tweet
 		if err := json.Unmarshal(rsp.Data, &tweet); err != nil {
-			return &twitter.Error{Data: rsp.Data, Message: "decoding tweet data", Err: err}
+			return &jhttp.Error{Data: rsp.Data, Message: "decoding tweet data", Err: err}
 		}
 		if err := s.callback(&Reply{
 			Reply:  rsp,

@@ -110,7 +110,7 @@ func (o Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 	}
 	var rsp oldTweet
 	if err := json.Unmarshal(data, &rsp); err != nil {
-		return nil, &twitter.Error{Message: "decoding response body", Err: err}
+		return nil, &jhttp.Error{Message: "decoding response body", Err: err}
 	}
 	return &Reply{
 		Data:  data,

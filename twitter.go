@@ -123,7 +123,7 @@ func (c *Client) Stream(ctx context.Context, req *jhttp.Request, f Callback) err
 	return (*jhttp.Client)(c).Stream(ctx, req, func(body []byte) error {
 		var reply Reply
 		if err := json.Unmarshal(body, &reply); err != nil {
-			return &Error{Data: body, Message: "decoding stream response", Err: err}
+			return &jhttp.Error{Data: body, Message: "decoding stream response", Err: err}
 		}
 		return f(&reply)
 	})
