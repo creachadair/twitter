@@ -18,6 +18,7 @@ import (
 	"time"
 )
 
+//go:generate rm -fv -- generated.go
 //go:generate go run mkenum/mkenum.go -output generated.go
 
 // DateFormat defines the encoding format for timestamps.
