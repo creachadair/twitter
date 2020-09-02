@@ -99,9 +99,9 @@ import (
 //
 // API: 2/tweets
 func Lookup(id string, opts *LookupOpts) Query {
-	req := &twitter.Request{
+	req := &types.Request{
 		Method: "2/tweets",
-		Params: make(twitter.Params),
+		Params: make(types.Params),
 	}
 	req.Params.Add("ids", id)
 	opts.addRequestParams(req)
@@ -110,7 +110,7 @@ func Lookup(id string, opts *LookupOpts) Query {
 
 // A Query performs a lookup or search query.
 type Query struct {
-	*twitter.Request
+	*types.Request
 }
 
 // Invoke executes the query on the given context and client. If the reply
@@ -185,7 +185,7 @@ type LookupOpts struct {
 	Optional  []types.Fields // optional response fields, expansions
 }
 
-func (o *LookupOpts) addRequestParams(req *twitter.Request) {
+func (o *LookupOpts) addRequestParams(req *types.Request) {
 	if o == nil {
 		return // nothing to do
 	}

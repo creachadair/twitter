@@ -15,6 +15,7 @@ import (
 	"net/url"
 
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/types"
 )
 
 func clientWithAuth(cli *twitter.Client, auth twitter.Authorizer) *twitter.Client {
@@ -36,10 +37,10 @@ const UsePIN = "oob"
 //
 // API: oauth/request_token
 func (c Config) GetRequestToken(callback string, opts *RequestOpts) RequestQuery {
-	req := &twitter.Request{
+	req := &types.Request{
 		Method:     "oauth/request_token",
 		HTTPMethod: "POST",
-		Params:     twitter.Params{"oauth_callback": []string{callback}},
+		Params:     types.Params{"oauth_callback": []string{callback}},
 	}
 	opts.addRequestParams(req)
 	return RequestQuery{Request: req, authorize: c.Authorize}
@@ -47,7 +48,7 @@ func (c Config) GetRequestToken(callback string, opts *RequestOpts) RequestQuery
 
 // A RequestQuery is a query for an authorization ticket.
 type RequestQuery struct {
-	*twitter.Request
+	*types.Request
 	authorize twitter.Authorizer
 }
 
@@ -73,7 +74,7 @@ type RequestOpts struct {
 	AccessType string // access override; "read" or "write"
 }
 
-func (o *RequestOpts) addRequestParams(req *twitter.Request) {
+func (o *RequestOpts) addRequestParams(req *types.Request) {
 	if o != nil && o.AccessType != "" {
 		req.Params.Set("x_auth_access_type", o.AccessType)
 	}
@@ -86,10 +87,10 @@ func (o *RequestOpts) addRequestParams(req *twitter.Request) {
 //
 // API: oauth/access_token
 func (c Config) GetAccessToken(reqToken, verifier string, opts *AccessOpts) AccessQuery {
-	req := &twitter.Request{
+	req := &types.Request{
 		Method:     "oauth/access_token",
 		HTTPMethod: "POST",
-		Params: twitter.Params{
+		Params: types.Params{
 			"oauth_token":    []string{reqToken},
 			"oauth_verifier": []string{verifier},
 		},
@@ -99,7 +100,7 @@ func (c Config) GetAccessToken(reqToken, verifier string, opts *AccessOpts) Acce
 
 // An AccessQuery is a query for an access token.
 type AccessQuery struct {
-	*twitter.Request
+	*types.Request
 }
 
 // Invoke issues the query and returns the access Token.
@@ -146,10 +147,10 @@ type AccessToken struct {
 //
 // API: oauth2/token
 func (c Config) GetBearerToken(opts *BearerOpts) BearerQuery {
-	req := &twitter.Request{
+	req := &types.Request{
 		Method:     "oauth2/token",
 		HTTPMethod: "POST",
-		Params: twitter.Params{
+		Params: types.Params{
 			"grant_type": []string{"client_credentials"},
 			// This is the only grant type currently supported, but the parameter
 			// is required to be set.
@@ -162,7 +163,7 @@ func (c Config) GetBearerToken(opts *BearerOpts) BearerQuery {
 
 // A BearerQuery is a query for an OAuth 2 bearer token.
 type BearerQuery struct {
-	*twitter.Request
+	*types.Request
 	user, password string
 }
 

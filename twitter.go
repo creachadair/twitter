@@ -42,19 +42,14 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"net/url"
-	"path"
-	"strings"
+
+	"github.com/creachadair/twitter/types"
 )
 
 const (
 	// BaseURL is the default base URL for the production Twitter API.
 	// This is the default base URL if one is not given in the client.
 	BaseURL = "https://api.twitter.com"
-
-	// DefaultContentType is the default content-type reported when sending a
-	// request body.
-	DefaultContentType = "application/json"
 )
 
 // A Client serves as a client for the Twitter API v2.
@@ -110,14 +105,14 @@ func (c *Client) hasLog() bool { return c.Log != nil }
 // start issues the specified API request and returns its HTTP response.  The
 // caller is responsible for interpreting any errors or unexpected status codes
 // from the request.
-func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error) {
+func (c *Client) start(ctx context.Context, req *types.Request) (*http.Response, error) {
 	requestURL, err := req.URL(c.baseURL())
 	if err != nil {
 		return nil, &Error{Message: "invalid request URL", Err: err}
 	}
 	c.log("RequestURL", requestURL)
 
-	data, dlen, dtype := req.dataLen()
+	data, dlen, dtype := req.Body()
 	hreq, err := http.NewRequestWithContext(ctx, req.HTTPMethod, requestURL, data)
 	if err != nil {
 		return nil, &Error{Message: "invalid request", Err: err}
@@ -197,7 +192,7 @@ func (c *Client) receive(rsp *http.Response) ([]byte, error) {
 
 // Call issues the specified API request and returns the decoded reply.
 // Errors from Call have concrete type *twitter.Error.
-func (c *Client) Call(ctx context.Context, req *Request) (*Reply, error) {
+func (c *Client) Call(ctx context.Context, req *types.Request) (*Reply, error) {
 	hrsp, err := c.start(ctx, req)
 	if err != nil {
 		return nil, err
@@ -207,7 +202,7 @@ func (c *Client) Call(ctx context.Context, req *Request) (*Reply, error) {
 
 // CallRaw issues the specified API request and returns the raw response body
 // without decoding. Errors from CallRaw have concrete type *twitter.Error
-func (c *Client) CallRaw(ctx context.Context, req *Request) ([]byte, error) {
+func (c *Client) CallRaw(ctx context.Context, req *types.Request) ([]byte, error) {
 	hrsp, err := c.start(ctx, req)
 	if err != nil {
 		return nil, err
@@ -270,7 +265,7 @@ func (c *Client) stream(ctx context.Context, rsp *http.Response, f Callback) err
 
 // Stream issues the specified API request and streams results to the given
 // callback. Errors from Stream have concrete type *twitter.Error.
-func (c *Client) Stream(ctx context.Context, req *Request, f Callback) error {
+func (c *Client) Stream(ctx context.Context, req *types.Request, f Callback) error {
 	hrsp, err := c.start(ctx, req)
 	if err != nil {
 		return err
@@ -299,89 +294,4 @@ func BearerTokenAuthorizer(token string) Authorizer {
 		req.Header.Add("Authorization", authValue)
 		return nil
 	}
-}
-
-// A Request is the generic format for a Twitter API v2 request.
-type Request struct {
-	// The fully-expanded method path for the API to call, including parameters.
-	// For example: "tweets/12345678".
-	Method string
-
-	// Additional request parameters, including optional fields and expansions.
-	Params Params
-
-	// The HTTP method to use for the request; if unset the default is "GET".
-	HTTPMethod string
-
-	// If non-empty, send these data as the body of the request.
-	Data []byte
-
-	// If set, use this as the content-type for the request body.
-	// If unset, the value defaults to DefaultContentType (JSON).
-	// A content-type is only set if Data is non-empty.
-	ContentType string
-}
-
-// URL returns the complete request URL for r, using base as the base URL.
-func (r *Request) URL(base string) (string, error) {
-	u, err := url.Parse(base)
-	if err != nil {
-		return "", err
-	}
-	u.Path = path.Join(u.Path, r.Method)
-	r.addQueryTerms(u)
-	return u.String(), nil
-}
-
-func (r *Request) dataLen() (data io.Reader, size int64, ctype string) {
-	if len(r.Data) == 0 {
-		return nil, 0, ""
-	}
-	ctype = r.ContentType
-	if ctype == "" {
-		ctype = DefaultContentType
-	}
-
-	// N.B. Do not change the type of the reader without first reading the
-	// documentation for http.Request.GetBody.
-	return bytes.NewReader(r.Data), int64(len(r.Data)), ctype
-}
-
-// Params carries additional request parameters sent in the query URL.
-type Params map[string][]string
-
-// Add the given values for the specified parameter, in addition to any
-// previously-defined values for that name.
-func (p Params) Add(name string, values ...string) {
-	if len(values) == 0 {
-		return
-	}
-	p[name] = append(p[name], values...)
-}
-
-// Set sets the value of the specified parameter name, removing any
-// previously-defined values for that name.
-func (p Params) Set(name, value string) { p[name] = []string{value} }
-
-// Reset removes any existing values for the specified parameter.
-func (p Params) Reset(name string) { delete(p, name) }
-
-// Encode encodes p as a query string.
-func (p Params) Encode() string {
-	query := make(url.Values)
-	p.addQueryTerms(query)
-	return query.Encode()
-}
-
-func (p Params) addQueryTerms(query url.Values) {
-	for name, values := range p {
-		query.Set(name, strings.Join(values, ","))
-	}
-}
-
-func (req *Request) addQueryTerms(u *url.URL) {
-	if len(req.Params) == 0 {
-		return // nothing to do
-	}
-	u.RawQuery = req.Params.Encode()
 }

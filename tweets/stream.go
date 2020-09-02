@@ -14,9 +14,9 @@ import (
 //
 // API: 2/tweets/sample/stream
 func SampleStream(f Callback, opts *StreamOpts) Stream {
-	req := &twitter.Request{
+	req := &types.Request{
 		Method: "2/tweets/sample/stream",
-		Params: make(twitter.Params),
+		Params: make(types.Params),
 	}
 	opts.addRequestParams(req)
 	return Stream{Request: req, callback: f, maxResults: opts.maxResults()}
@@ -26,9 +26,9 @@ func SampleStream(f Callback, opts *StreamOpts) Stream {
 //
 // API: 2/tweets/search/stream
 func SearchStream(f Callback, opts *StreamOpts) Stream {
-	req := &twitter.Request{
+	req := &types.Request{
 		Method: "2/tweets/search/stream",
-		Params: make(twitter.Params),
+		Params: make(types.Params),
 	}
 	opts.addRequestParams(req)
 	return Stream{Request: req, callback: f, maxResults: opts.maxResults()}
@@ -36,7 +36,7 @@ func SearchStream(f Callback, opts *StreamOpts) Stream {
 
 // A Stream performs a streaming search or sampling query.
 type Stream struct {
-	*twitter.Request
+	*types.Request
 	callback   Callback
 	maxResults int
 }
@@ -51,7 +51,7 @@ type StreamOpts struct {
 	Optional []types.Fields
 }
 
-func (o *StreamOpts) addRequestParams(req *twitter.Request) {
+func (o *StreamOpts) addRequestParams(req *types.Request) {
 	if o == nil {
 		return // nothing to do
 	}

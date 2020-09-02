@@ -178,9 +178,9 @@ func TestMain(m *testing.M) {
 
 // Verify that the direct call plumbing works.
 func TestClientCall(t *testing.T) {
-	rsp, err := cli.Call(context.Background(), &twitter.Request{
+	rsp, err := cli.Call(context.Background(), &types.Request{
 		Method: "2/users/by/username/jack",
-		Params: twitter.Params{
+		Params: types.Params{
 			"user.fields": []string{
 				"created_at",
 				"description",
@@ -453,9 +453,9 @@ func TestCallRaw(t *testing.T) {
 	defer func() { cli.BaseURL = save }()
 	cli.BaseURL = "https://api.twitter.com/1.1"
 
-	req := &twitter.Request{
+	req := &types.Request{
 		Method: "statuses/show.json",
-		Params: twitter.Params{
+		Params: types.Params{
 			"id":         []string{"1297524288245895168"},
 			"tweet_mode": []string{"extended"},
 		},

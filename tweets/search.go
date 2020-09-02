@@ -6,7 +6,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/creachadair/twitter"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -18,9 +17,9 @@ import (
 //
 // API: 2/tweets/search/recent
 func SearchRecent(query string, opts *SearchOpts) Query {
-	req := &twitter.Request{
+	req := &types.Request{
 		Method: "2/tweets/search/recent",
-		Params: make(twitter.Params),
+		Params: make(types.Params),
 	}
 	req.Params.Set("query", query)
 	opts.addRequestParams(req)
@@ -61,7 +60,7 @@ type SearchOpts struct {
 	Optional []types.Fields
 }
 
-func (o *SearchOpts) addRequestParams(req *twitter.Request) {
+func (o *SearchOpts) addRequestParams(req *types.Request) {
 	if o == nil {
 		return // nothing to do
 	}

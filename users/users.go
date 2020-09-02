@@ -49,9 +49,9 @@ func LookupByName(name string, opts *LookupOpts) Query {
 }
 
 func newLookup(method, param, key string, opts *LookupOpts) Query {
-	req := &twitter.Request{
+	req := &types.Request{
 		Method: method,
-		Params: make(twitter.Params),
+		Params: make(types.Params),
 	}
 	req.Params.Add(param, key)
 	opts.addRequestParams(param, req)
@@ -60,7 +60,7 @@ func newLookup(method, param, key string, opts *LookupOpts) Query {
 
 // A Query performs a lookup query for one or more users.
 type Query struct {
-	*twitter.Request
+	*types.Request
 }
 
 // Invoke executes the query on the given context and client.
@@ -97,7 +97,7 @@ type LookupOpts struct {
 	Optional []types.Fields
 }
 
-func (o *LookupOpts) addRequestParams(param string, req *twitter.Request) {
+func (o *LookupOpts) addRequestParams(param string, req *types.Request) {
 	if o == nil {
 		return // nothing to do
 	}

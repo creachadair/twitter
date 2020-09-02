@@ -18,9 +18,9 @@ func TestStream(t *testing.T) {
 	}
 	ctx := context.Background()
 
-	req := &twitter.Request{
+	req := &types.Request{
 		Method: "2/tweets/sample/stream",
-		Params: twitter.Params{
+		Params: types.Params{
 			"tweet.fields": []string{"author_id", "entities"},
 		},
 	}
