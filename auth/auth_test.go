@@ -27,6 +27,13 @@ TestUserQuery:
   AUTHTEST_USER_TOKEN : the user's name and access token, in the format
      <username>:<token>:<secret>
 
+TestInvalidateAccess:
+  AUTHTEST_INVALIDATE_TOKEN  : the access token to invalidate
+  AUTHTEST_INVALIDATE_SECRET : the access token secret to invalidate
+
+TestInvalidateBearer:
+  AUTHTEST_INVALIDATE_BEARER : the bearer token to invalidate
+
 To generate user credentials:
 
 1. Run TestRequestFlow and use the URL logged in the test output to manually
@@ -179,6 +186,35 @@ func TestUserQuery(t *testing.T) {
 	for key, val := range lrsp.Tweets[0].NonPublicMetrics {
 		t.Logf("Non-public %-15s : %d", key, val)
 	}
+}
+
+func TestInvalidateAccess(t *testing.T) {
+	cfg := baseConfigOrSkip(t)
+	cfg.AccessToken = getOrSkip(t, "AUTHTEST_INVALIDATE_TOKEN")
+	cfg.AccessTokenSecret = getOrSkip(t, "AUTHTEST_INVALIDATE_SECRET")
+
+	cli := debugClient(t)
+	ctx := context.Background()
+
+	rsp, err := cfg.InvalidateAccessToken().Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("InvalidateAccessToken failed: %v", err)
+	}
+	t.Logf("Invalidated access token: %s", rsp)
+}
+
+func TestInvalidateBearer(t *testing.T) {
+	cfg := authConfigOrSkip(t)
+	bearer := getOrSkip(t, "AUTHTEST_INVALIDATE_BEARER")
+
+	cli := debugClient(t)
+	ctx := context.Background()
+
+	rsp, err := cfg.InvalidateBearerToken(bearer).Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("InvalidateBearerToken failed: %v", err)
+	}
+	t.Logf("Invalidated bearer token: %s", rsp)
 }
 
 // Test vectors from http://lti.tools/oauth/ to verify the basic computations.

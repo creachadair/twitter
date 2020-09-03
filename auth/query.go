@@ -2,10 +2,6 @@
 
 package auth
 
-// TODO:
-//  - oauth/invalidate_token
-//  - oauth2/invalidate_token
-//
 // See https://developer.twitter.com/en/docs/api-reference-index#platform
 
 import (
@@ -192,4 +188,64 @@ func (q BearerQuery) Invoke(ctx context.Context, cli *twitter.Client) (Token, er
 		Key:    wrapper.Type,
 		Secret: wrapper.Token,
 	}, nil
+}
+
+// InvalidateAccessToken constructs a query to invalidate an access token.
+// This query requires c.AccessToken and c.AccessTokenSecret to be set to the
+// token that is to be invalidated.
+//
+// API: oauth/invalidate_token
+func (c Config) InvalidateAccessToken() InvalidateQuery {
+	return InvalidateQuery{
+		Request: &jhttp.Request{
+			Method:     "1.1/oauth/invalidate_token",
+			HTTPMethod: "POST",
+		},
+		authorize: c.Authorize,
+	}
+}
+
+// InvalidateBearerToken constructs a query to invalidate a bearer token.
+//
+// This query requires c.AccessToken and c.AccessTokenSecret to be the access
+// token of the owner of the bearer token.
+//
+// API: oauth2/invalidate_token
+func (c Config) InvalidateBearerToken(bearerToken string) InvalidateQuery {
+	return InvalidateQuery{
+		Request: &jhttp.Request{
+			Method:     "oauth2/invalidate_token",
+			HTTPMethod: "POST",
+
+			// For reasons I don't fully understand, this query does not work with
+			// the token stored in the URL parameters; the server reports a 403.
+			// I thought it was maybe escaping, but unescaping and over-escaping
+			// didn't seem to help. The body works, though. 🤷
+
+			Data:        []byte("access_token=" + bearerToken),
+			ContentType: "application/x-www-form-urlencoded",
+		},
+		authorize: c.Authorize,
+	}
+}
+
+// InvalidateQuery is a query for a token invalidation request.
+type InvalidateQuery struct {
+	*jhttp.Request
+	authorize jhttp.Authorizer
+}
+
+// Invoke issues the query and returns the invalidated token.
+func (q InvalidateQuery) Invoke(ctx context.Context, cli *twitter.Client) (string, error) {
+	data, err := clientWithAuth(cli, q.authorize).CallRaw(ctx, q.Request)
+	if err != nil {
+		return "", err
+	}
+	var tok struct {
+		Token string `json:"access_token"`
+	}
+	if err := json.Unmarshal(data, &tok); err != nil {
+		return "", &jhttp.Error{Message: "decoding token", Err: err}
+	}
+	return tok.Token, nil
 }
