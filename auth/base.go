@@ -72,10 +72,6 @@ type Config struct {
 	// If set, use this function to generate a nonce.
 	// If unset, a non-cryptographic pseudorandom nonce will be used.
 	MakeNonce func() string
-
-	// If set, use this function to generate a timestamp.
-	// If unset, use time.Now.
-	Timestamp func() time.Time
 }
 
 // Authorizer returns a jhttp.Authorizer that uses the specified access token
@@ -237,12 +233,7 @@ func (c Config) makeNonce() string {
 }
 
 func (c Config) makeTimestamp() string {
-	var now time.Time
-	if c.Timestamp != nil {
-		now = c.Timestamp()
-	} else {
-		now = time.Now()
-	}
+	now := time.Now()
 	return strconv.FormatInt(int64(now.Unix()), 10)
 }
 
