@@ -39,6 +39,10 @@ To generate user credentials:
 1. Run TestRequestToken and use the URL logged in the test output to manually
    generate a verification PIN.
 
+   Note that a given URL will only work once, whether or not the resulting
+   verification is used for anything. Test caching may re-use a previous
+   result. To bypass this, add -count=1 to the test run.
+
 2. Run TestAccessGrant with the token and verifier from (1).
 
 3. Use the log output from (2) to construct the AUTHTEST_USER_TOKEN string.
