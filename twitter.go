@@ -9,7 +9,7 @@
 // invoke that query with a context on a client:
 //
 //    cli := twitter.NewClient(&twitter.ClientOpts{
-//       Authorize: twitter.BearerTokenAuthorizer(token),
+//       Authorize: jhttp.BearerTokenAuthorizer(token),
 //    })
 //
 //    ctx := context.Background()
@@ -72,21 +72,17 @@ type Client jhttp.Client
 // ClientOpts provide settings for a client. A nil *ClientOpts provides default
 // values for the production API.
 type ClientOpts struct {
-	// The HTTP client used to issue requests to the API.
-	// If nil, use http.DefaultClient.
+	// The HTTP client use; if nil, use *http.DefaultClient.
 	HTTPClient *http.Client
 
-	// If set, this is called prior to issuing the request to the API.  If it
-	// reports an error, the request is aborted and the error is returned to the
-	// caller.
-	Authorize func(*http.Request) error
+	// If set, this is used to authorize requests. See jhttp.Client.
+	Authorize jhttp.Authorizer
 
 	// If set, override the base URL for the API v2 endpoint.
-	// This is mainly useful for testing.
 	BaseURL string
 
-	// If set, this function is called to log interesting events during the
-	// transaction. See jhttp.Client for details.
+	// If set, this function is called to log events during a call.
+	// See jhttp.Client for details.
 	Log func(tag, message string)
 }
 
