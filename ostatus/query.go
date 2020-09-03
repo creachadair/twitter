@@ -18,7 +18,7 @@ import (
 // This query requires user-context authorization.
 //
 // API: 1.1/statuses/update.json
-func Create(text string, opts *UpdateOpts) Query {
+func Create(text string, opts *CreateOpts) Query {
 	q := Query{
 		Request: &jhttp.Request{
 			Method:     "1.1/statuses/update.json",
@@ -120,9 +120,9 @@ func (o Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 	}, nil
 }
 
-// UpdateOpts provides parameters for tweet creation. A nil *UpdateOpts
+// CreateOpts provides parameters for tweet creation. A nil *CreateOpts
 // provides zero values for all fields.
-type UpdateOpts struct {
+type CreateOpts struct {
 	// Record the update as a reply to this tweet ID.  This will be ignored
 	// unless the update text includes an @mention of the author of that tweet.
 	InReplyTo string
@@ -137,7 +137,7 @@ type UpdateOpts struct {
 	Optional types.TweetFields
 }
 
-func (o *UpdateOpts) addQueryParams(q *Query) {
+func (o *CreateOpts) addQueryParams(q *Query) {
 	if o != nil {
 		if o.InReplyTo != "" {
 			q.Request.Params.Set("in_reply_to_status_id", o.InReplyTo)
