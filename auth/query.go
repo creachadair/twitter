@@ -191,17 +191,16 @@ func (q BearerQuery) Invoke(ctx context.Context, cli *twitter.Client) (Token, er
 }
 
 // InvalidateAccessToken constructs a query to invalidate an access token.
-// This query requires c.AccessToken and c.AccessTokenSecret to be set to the
-// token that is to be invalidated.
+// This query does not use c.AccessToken or c.AccessTokenSecret.
 //
 // API: oauth/invalidate_token
-func (c Config) InvalidateAccessToken() InvalidateQuery {
+func (c Config) InvalidateAccessToken(token, secret string) InvalidateQuery {
 	return InvalidateQuery{
 		Request: &jhttp.Request{
 			Method:     "1.1/oauth/invalidate_token",
 			HTTPMethod: "POST",
 		},
-		authorize: c.Authorize,
+		authorize: c.Authorizer(token, secret),
 	}
 }
 

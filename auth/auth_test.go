@@ -190,13 +190,13 @@ func TestUserQuery(t *testing.T) {
 
 func TestInvalidateAccess(t *testing.T) {
 	cfg := baseConfigOrSkip(t)
-	cfg.AccessToken = getOrSkip(t, "AUTHTEST_INVALIDATE_TOKEN")
-	cfg.AccessTokenSecret = getOrSkip(t, "AUTHTEST_INVALIDATE_SECRET")
+	token := getOrSkip(t, "AUTHTEST_INVALIDATE_TOKEN")
+	secret := getOrSkip(t, "AUTHTEST_INVALIDATE_SECRET")
 
 	cli := debugClient(t)
 	ctx := context.Background()
 
-	rsp, err := cfg.InvalidateAccessToken().Invoke(ctx, cli)
+	rsp, err := cfg.InvalidateAccessToken(token, secret).Invoke(ctx, cli)
 	if err != nil {
 		t.Fatalf("InvalidateAccessToken failed: %v", err)
 	}
