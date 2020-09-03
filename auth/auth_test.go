@@ -36,7 +36,7 @@ TestInvalidateBearer:
 
 To generate user credentials:
 
-1. Run TestRequestFlow and use the URL logged in the test output to manually
+1. Run TestRequestToken and use the URL logged in the test output to manually
    generate a verification PIN.
 
 2. Run TestAccessGrant with the token and verifier from (1).
@@ -95,7 +95,7 @@ func authConfigOrSkip(t *testing.T) auth.Config {
 
 // This is a manual test that requires production credentials.
 // Skip the test if they are not set in the environment.
-func TestRequestFlow(t *testing.T) {
+func TestRequestToken(t *testing.T) {
 	cfg := authConfigOrSkip(t)
 	cli := debugClient(t)
 	ctx := context.Background()
