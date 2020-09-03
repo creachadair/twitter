@@ -150,10 +150,7 @@ func (o *UpdateOpts) addQueryParams(q *Query) {
 		}
 		q.opts = o.Optional
 	}
-	// Move parameters to the request body.
-	q.Request.Data = []byte(q.Request.Params.Encode())
-	q.Request.ContentType = "application/x-www-form-urlencoded"
-	q.Request.Params = nil
+	q.Request.SetBodyToParams()
 }
 
 // Options provides parameters for tweet modification. A nil *Options provides

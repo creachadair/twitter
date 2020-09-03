@@ -274,6 +274,14 @@ type Request struct {
 	ContentType string
 }
 
+// SetBodyToParams encodes r.Params in the request body.  This replaces the
+// Data and ContentType fields, and leaves r.Params set to nil.
+func (r *Request) SetBodyToParams() {
+	r.Data = []byte(r.Params.Encode())
+	r.ContentType = "application/x-www-form-urlencoded"
+	r.Params = nil
+}
+
 // URL returns the complete request URL for r, using base as the base URL.
 func (r *Request) URL(base string) (string, error) {
 	u, err := url.Parse(base)
@@ -322,7 +330,7 @@ func (p Params) Set(name, value string) { p[name] = []string{value} }
 // Reset removes any existing values for the specified parameter.
 func (p Params) Reset(name string) { delete(p, name) }
 
-// Encode encodes p as a query string.
+// Encode encodes p as a query string. If len(p) == 0, Encode returns "".
 func (p Params) Encode() string {
 	query := make(url.Values)
 	p.addQueryTerms(query)
