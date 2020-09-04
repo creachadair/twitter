@@ -160,7 +160,7 @@ func TestMain(m *testing.M) {
 	})
 	if *doVerboseLog {
 		log.Printf("Enabled verbose client logging")
-		cli.Log = func(tag, msg string) {
+		cli.Log = func(tag jhttp.LogTag, msg string) {
 			log.Printf("CLIENT :: %s | %s", tag, msg)
 		}
 	}

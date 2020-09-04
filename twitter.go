@@ -82,8 +82,8 @@ type ClientOpts struct {
 	BaseURL string
 
 	// If set, this function is called to log events during a call.
-	// See jhttp.Client for details.
-	Log func(tag, message string)
+	// See jhttp.LogFunc for details.
+	Log jhttp.LogFunc
 }
 
 // A Callback function is invoked for each reply received in a stream.  If the

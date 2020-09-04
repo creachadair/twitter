@@ -13,6 +13,7 @@ import (
 
 	"github.com/creachadair/twitter"
 	"github.com/creachadair/twitter/auth"
+	"github.com/creachadair/twitter/jhttp"
 	"github.com/creachadair/twitter/ostatus"
 	"github.com/creachadair/twitter/types"
 )
@@ -54,7 +55,7 @@ func TestUserCall(t *testing.T) {
 		Authorize: cfg.Authorizer(userToken[0], userToken[1]),
 	})
 	if *doVerboseLog {
-		cli.Log = func(tag, msg string) {
+		cli.Log = func(tag jhttp.LogTag, msg string) {
 			t.Logf("DEBUG :: %s | %s", tag, msg)
 		}
 	}
