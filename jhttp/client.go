@@ -35,6 +35,7 @@ import (
 	"net/http"
 	"net/url"
 	"path"
+	"strconv"
 	"strings"
 )
 
@@ -60,15 +61,10 @@ type Client struct {
 
 	// If set, this function is called to log interesting events during the
 	// transaction.
-	//
-	// Tags include:
-	//
-	//    RequestURL   -- the request URL sent to the server
-	//    HTTPStatus   -- the HTTP status string (e.g., "200 OK")
-	//    ResponseBody -- the body of the response sent by the server
-	//    StreamBody   -- the body of a stream response from the server
-	//
-	Log func(tag, message string)
+	Log LogFunc
+
+	// If non-zero, only log tags in this mask are sent to the log function.
+	LogMask LogTag
 }
 
 func (c *Client) httpClient() *http.Client {
@@ -78,13 +74,15 @@ func (c *Client) httpClient() *http.Client {
 	return http.DefaultClient
 }
 
-func (c *Client) log(tag, message string) {
-	if c.Log != nil {
+func (c *Client) log(tag LogTag, message string) {
+	if c.wantLog(tag) {
 		c.Log(tag, message)
 	}
 }
 
-func (c *Client) hasLog() bool { return c.Log != nil }
+func (c *Client) wantLog(tag LogTag) bool {
+	return c.Log != nil && (c.LogMask == 0 || c.LogMask&tag != 0)
+}
 
 // start issues the specified API request and returns its HTTP response.  The
 // caller is responsible for interpreting any errors or unexpected status codes
@@ -94,7 +92,7 @@ func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error
 	if err != nil {
 		return nil, &Error{Message: "invalid request URL", Err: err}
 	}
-	c.log("RequestURL", requestURL)
+	c.log(LogRequestURL, requestURL)
 
 	data, dlen, dtype := req.Body()
 	hreq, err := http.NewRequestWithContext(ctx, req.HTTPMethod, requestURL, data)
@@ -110,8 +108,8 @@ func (c *Client) start(ctx context.Context, req *Request) (*http.Response, error
 		if err := auth(hreq); err != nil {
 			return nil, &Error{Message: "attaching authorization", Err: err}
 		}
-		if c.hasLog() {
-			c.log("Authorization", hreq.Header.Get("authorization"))
+		if c.wantLog(LogAuthorization) {
+			c.log(LogAuthorization, hreq.Header.Get("authorization"))
 		}
 	}
 
@@ -143,9 +141,9 @@ func (c *Client) receive(rsp *http.Response) (http.Header, []byte, error) {
 	var body bytes.Buffer
 	io.Copy(&body, rsp.Body)
 	rsp.Body.Close()
-	c.log("HTTPStatus", rsp.Status)
-	if c.hasLog() {
-		c.log("ResponseBody", body.String())
+	c.log(LogHTTPStatus, rsp.Status)
+	if c.wantLog(LogResponseBody) {
+		c.log(LogResponseBody, body.String())
 	}
 	switch rsp.StatusCode {
 	case http.StatusOK, http.StatusCreated:
@@ -181,11 +179,11 @@ func (c *Client) stream(ctx context.Context, rsp *http.Response, f Callback) err
 	body := rsp.Body
 	defer body.Close()
 
-	c.log("HTTPStatus", rsp.Status)
+	c.log(LogHTTPStatus, rsp.Status)
 	if rsp.StatusCode != http.StatusOK {
 		data, _ := ioutil.ReadAll(body)
-		if c.hasLog() {
-			c.log("ResponseBody", string(data))
+		if c.wantLog(LogResponseBody) {
+			c.log(LogResponseBody, string(data))
 		}
 		return &Error{
 			Status:  rsp.StatusCode,
@@ -210,8 +208,8 @@ func (c *Client) stream(ctx context.Context, rsp *http.Response, f Callback) err
 		} else if err != nil {
 			return &Error{Message: "decoding message from stream", Err: err}
 		}
-		if c.hasLog() {
-			c.log("StreamBody", string(next))
+		if c.wantLog(LogStreamBody) {
+			c.log(LogStreamBody, string(next))
 		}
 		if err := f(next); err != nil {
 			return &Error{Message: "callback", Err: err}
@@ -348,4 +346,40 @@ func (req *Request) addQueryTerms(u *url.URL) {
 		return // nothing to do
 	}
 	u.RawQuery = req.Params.Encode()
+}
+
+// A LogFunc receives log messages from the client.
+type LogFunc func(tag LogTag, message string)
+
+// LogTag identifies the kind of log message being written to a logger.
+type LogTag int
+
+// Constants for LogTag. These may be combined as a bitmask to filter a log
+// function.
+const (
+	// The request URL sent to the server
+	LogRequestURL LogTag = 1 << iota
+	// The contents of the HTTP Authorization header
+	LogAuthorization
+	// The HTTP status string (e.g., "200 OK")
+	LogHTTPStatus
+	// The body of the response sent by the server
+	LogResponseBody
+	// The body of a stream response from the server
+	LogStreamBody
+)
+
+var tagNames = map[LogTag]string{
+	LogRequestURL:    "RequestURL",
+	LogAuthorization: "Authorization",
+	LogHTTPStatus:    "HTTPStatus",
+	LogResponseBody:  "ResponseBody",
+	LogStreamBody:    "StreamBody",
+}
+
+func (t LogTag) String() string {
+	if s, ok := tagNames[t]; ok {
+		return s
+	}
+	return "Tag" + strconv.Itoa(int(t))
 }
