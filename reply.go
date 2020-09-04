@@ -15,8 +15,8 @@ import (
 // A Reply is a wrapper for the reply object returned by successful calls to
 // the Twitter API v2.
 type Reply struct {
-	// The root reply object from the query.
-	Data json.RawMessage `json:"data"`
+	// The root reply object from a successful query.
+	Data json.RawMessage `json:"data,omitempty"`
 
 	// For expansions that generate attachments, a map of attachment type to
 	// JSON arrays of attachment objects.
