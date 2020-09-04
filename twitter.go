@@ -63,6 +63,7 @@ func NewClient(opts *ClientOpts) *Client {
 		Authorize:  opts.Authorize,
 		BaseURL:    base,
 		Log:        opts.Log,
+		LogMask:    opts.LogMask,
 	})
 }
 
@@ -84,6 +85,9 @@ type ClientOpts struct {
 	// If set, this function is called to log events during a call.
 	// See jhttp.LogFunc for details.
 	Log jhttp.LogFunc
+
+	// If non-zero, a filter mask for log messages.
+	LogMask jhttp.LogTag
 }
 
 // A Callback function is invoked for each reply received in a stream.  If the
