@@ -13,17 +13,13 @@ type Fields interface {
 }
 
 // MiscFields adapts an arbitrary label and values to the Fields interface.
-func MiscFields(label string, values []string) Fields {
-	return miscFields{label: label, values: values}
+type MiscFields struct {
+	Label_  string
+	Values_ []string
 }
 
-type miscFields struct {
-	label  string
-	values []string
-}
-
-func (m miscFields) Label() string    { return m.label }
-func (m miscFields) Values() []string { return m.values }
+func (m MiscFields) Label() string    { return m.Label_ }
+func (m MiscFields) Values() []string { return m.Values_ }
 
 // Expansions represents a set of object field expansions.
 type Expansions []string
