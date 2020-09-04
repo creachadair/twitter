@@ -9,8 +9,8 @@ import (
 	"encoding/json"
 	"strconv"
 
+	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
-	"github.com/creachadair/twitter/jhttp"
 	"github.com/creachadair/twitter/types"
 )
 

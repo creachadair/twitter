@@ -25,7 +25,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/creachadair/twitter/jhttp"
+	"github.com/creachadair/jhttp"
 )
 
 /*

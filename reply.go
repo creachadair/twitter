@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/creachadair/twitter/jhttp"
+	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter/types"
 )
 

@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
 	"github.com/creachadair/twitter/auth"
-	"github.com/creachadair/twitter/jhttp"
 	"github.com/creachadair/twitter/ostatus"
 	"github.com/creachadair/twitter/types"
 )

@@ -39,7 +39,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/creachadair/twitter/jhttp"
+	"github.com/creachadair/jhttp"
 )
 
 const (

@@ -10,8 +10,8 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
-	"github.com/creachadair/twitter/jhttp"
 )
 
 func clientWithAuth(cli *twitter.Client, auth jhttp.Authorizer) *twitter.Client {

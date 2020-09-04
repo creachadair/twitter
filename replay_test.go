@@ -16,8 +16,8 @@ import (
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
 
+	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
-	"github.com/creachadair/twitter/jhttp"
 	"github.com/creachadair/twitter/query"
 	"github.com/creachadair/twitter/rules"
 	"github.com/creachadair/twitter/tweets"
