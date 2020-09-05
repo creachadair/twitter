@@ -8,7 +8,7 @@
 // The general structure of an API call is to first construct a query, then
 // invoke that query with a context on a client:
 //
-//    cli := twitter.NewClient(&twitter.ClientOpts{
+//    cli := twitter.NewClient(&jhttp.Client{
 //       Authorize: jhttp.BearerTokenAuthorizer(token),
 //    })
 //
@@ -37,7 +37,6 @@ package twitter
 import (
 	"context"
 	"encoding/json"
-	"net/http"
 
 	"github.com/creachadair/jhttp"
 )
@@ -49,46 +48,20 @@ const (
 )
 
 // NewClient returns a new client for the Twitter API.
-// If opts == nil, the production API endpoint is used (BaseURL).
-func NewClient(opts *ClientOpts) *Client {
-	if opts == nil {
-		opts = new(ClientOpts)
+// If cli == nil, default client options are used targeting the production API
+// at BaseURL.
+func NewClient(cli *jhttp.Client) *Client {
+	if cli == nil {
+		cli = new(jhttp.Client)
 	}
-	base := opts.BaseURL
-	if base == "" {
-		base = BaseURL
+	if cli.BaseURL == "" {
+		cli.BaseURL = BaseURL
 	}
-	return (*Client)(&jhttp.Client{
-		HTTPClient: opts.HTTPClient,
-		Authorize:  opts.Authorize,
-		BaseURL:    base,
-		Log:        opts.Log,
-		LogMask:    opts.LogMask,
-	})
+	return (*Client)(cli)
 }
 
 // A Client serves as a client for the Twitter API v2.
 type Client jhttp.Client
-
-// ClientOpts provide settings for a client. A nil *ClientOpts provides default
-// values for the production API.
-type ClientOpts struct {
-	// The HTTP client use; if nil, use *http.DefaultClient.
-	HTTPClient *http.Client
-
-	// If set, this is used to authorize requests. See jhttp.Client.
-	Authorize jhttp.Authorizer
-
-	// If set, override the base URL for the API v2 endpoint.
-	BaseURL string
-
-	// If set, this function is called to log events during a call.
-	// See jhttp.LogFunc for details.
-	Log jhttp.LogFunc
-
-	// If non-zero, a filter mask for log messages.
-	LogMask jhttp.LogTag
-}
 
 // A Callback function is invoked for each reply received in a stream.  If the
 // callback reports a non-nil error, the stream is terminated. If the error is

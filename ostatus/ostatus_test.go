@@ -51,7 +51,7 @@ func TestUserCall(t *testing.T) {
 	}
 
 	ctx := context.Background()
-	cli := twitter.NewClient(&twitter.ClientOpts{
+	cli := twitter.NewClient(&jhttp.Client{
 		Authorize: cfg.Authorizer(userToken[0], userToken[1]),
 	})
 	if *doVerboseLog {

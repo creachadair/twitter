@@ -66,7 +66,7 @@ import (
 
 func debugClient(t *testing.T) *twitter.Client {
 	t.Helper()
-	return twitter.NewClient(&twitter.ClientOpts{
+	return twitter.NewClient(&jhttp.Client{
 		Log: func(tag jhttp.LogTag, msg string) {
 			t.Logf("DEBUG :: %s | %s", tag, msg)
 		},

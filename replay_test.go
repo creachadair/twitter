@@ -154,7 +154,7 @@ func TestMain(m *testing.M) {
 		})
 	}
 
-	cli = twitter.NewClient(&twitter.ClientOpts{
+	cli = twitter.NewClient(&jhttp.Client{
 		HTTPClient: &http.Client{Transport: rec},
 		Authorize:  auth,
 	})
