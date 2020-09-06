@@ -91,7 +91,7 @@ func (c *Client) CallRaw(ctx context.Context, req *jhttp.Request) ([]byte, error
 }
 
 // Stream issues the specified API request and streams results to the given
-// callback. Errors from Stream have concrete type *twitter.Error.
+// callback. Errors from Stream have concrete type *jhttp.Error.
 func (c *Client) Stream(ctx context.Context, req *jhttp.Request, f Callback) error {
 	return (*jhttp.Client)(c).Stream(ctx, req, func(body []byte) error {
 		var reply Reply
