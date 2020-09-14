@@ -12,7 +12,7 @@
 //      More: []string{id2, id3},
 //   })
 //
-// By default only the default fields are returned (see types.Tweet).  To
+// By default only the default fields are returned (see types.Tweet). To
 // request additional fields or expansions, include them in the options:
 //
 //   q := tweets.Lookup(id, &tweets.LookupOpts{
@@ -27,9 +27,12 @@
 //
 //   rsp, err := q.Invoke(ctx, cli)
 //
-// The Tweets field of the response contains the requested tweets.  In
-// addition, any attachments resulting from expansions can be fetched using
-// methods on the *Reply, e.g., rsp.IncludedTweets.
+// The Tweets field of the response contains the requested tweets. In addition,
+// any attachments resulting from expansions can be fetched using methods on
+// the *Reply, e.g., rsp.IncludedTweets. Note that tweet IDs that could not be
+// found or accessed (e.g., for deleted or protected tweets) are not reported
+// as an error. Instead. the caller should examine the ErrorDetail messages in
+// the Errors field of the Reply, if requested tweets are not listed.
 //
 // Search
 //
