@@ -140,12 +140,12 @@ type Reply struct {
 type Meta struct {
 	Sent    time.Time `json:"sent"`
 	Summary struct {
-		Created    int `json:"created"`
-		NotCreated int `json:"not_created"`
-		Deleted    int `json:"deleted"`
-		NotDeleted int `json:"not_deleted"`
-		Valid      int `json:"valid"`
-		Invalid    int `json:"invalid"`
+		Created    int `json:"created,omitempty"`
+		NotCreated int `json:"not_created,omitempty"`
+		Deleted    int `json:"deleted,omitempty"`
+		NotDeleted int `json:"not_deleted,omitempty"`
+		Valid      int `json:"valid,omitempty"`
+		Invalid    int `json:"invalid,omitempty"`
 	} `json:"summary,omitempty"`
 }
 
