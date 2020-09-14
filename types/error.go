@@ -10,12 +10,12 @@ package types
 type ErrorDetail struct {
 	// omitted: required_enrollment, registration_url
 
-	ClientID     string `json:"client_id"`     // e.g., "1011011"
-	Title        string `json:"title"`         // e.g., "Not Found Error"
-	Detail       string `json:"detail"`        // for human consumption
-	Parameter    string `json:"parameter"`     // e.g., "pinned_tweet_id"
-	Value        string `json:"value"`         // e.g., "12345"
-	Reason       string `json:"reason"`        // e.g., "client-not-enrolled"
-	ResourceType string `json:"resource_type"` // e.g., "tweet"
-	TypeURL      string `json:"type"`          // link to problem definition
+	ClientID     string `json:"client_id,omitempty"` // e.g., "1011011"
+	Title        string `json:"title"`               // e.g., "Not Found Error"
+	Detail       string `json:"detail"`              // for human consumption
+	Parameter    string `json:"parameter"`           // e.g., "pinned_tweet_id"
+	Value        string `json:"value"`               // e.g., "12345"
+	Reason       string `json:"reason,omitempty"`    // e.g., "client-not-enrolled"
+	ResourceType string `json:"resource_type"`       // e.g., "tweet"
+	TypeURL      string `json:"type"`                // link to problem definition
 }
