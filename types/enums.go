@@ -10,6 +10,10 @@ type Fields interface {
 
 	// Return the values selected for this field type.
 	Values() []string
+
+	// Report whether any of the field values requires user-context access.
+	// This method should return false if it is not possible to tell.
+	NeedUserContext() bool
 }
 
 // MiscFields adapts an arbitrary label and values to the Fields interface.
@@ -18,8 +22,9 @@ type MiscFields struct {
 	Values_ []string
 }
 
-func (m MiscFields) Label() string    { return m.Label_ }
-func (m MiscFields) Values() []string { return m.Values_ }
+func (m MiscFields) Label() string       { return m.Label_ }
+func (m MiscFields) Values() []string    { return m.Values_ }
+func (MiscFields) NeedUserContext() bool { return false }
 
 // Expansions represents a set of object field expansions.
 type Expansions []string
@@ -29,6 +34,9 @@ func (Expansions) Label() string { return "expansions" }
 
 // Values satisfies part of the Fields interface.
 func (e Expansions) Values() []string { return []string(e) }
+
+// NeedUserContext satisfies part of the Fields interface.
+func (Expansions) NeedUserContext() bool { return false }
 
 const (
 	// Expand_AuthorID returns a user object representing the Tweet’s author.
