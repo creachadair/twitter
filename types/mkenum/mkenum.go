@@ -101,6 +101,21 @@ func (f %[1]s) Values() []string {
 		fmt.Fprintf(w, "\tif f.%[1]s { values=append(values, %[2]q) }\n", f.fieldName, f.paramName)
 	}
 	fmt.Fprintln(w, "\treturn values\n}")
+
+	fmt.Fprintf(w, `// NeedUserContext reports whether any selected %[1]s fields require
+// user-context access.
+func (f %[2]s) NeedUserContext() bool {`, base, typeName)
+	var req []string
+	for _, f := range fields {
+		if f.userContext {
+			req = append(req, "f."+f.fieldName)
+		}
+	}
+	if len(req) == 0 {
+		fmt.Fprintln(w, " return false }")
+	} else {
+		fmt.Fprint(w, "\n\treturn ", strings.Join(req, " || "), "\n}\n")
+	}
 }
 
 func generateSearchableSlice(w io.Writer, base string, fields ...string) {
