@@ -78,14 +78,12 @@ func generateEnum(w io.Writer, base string, v interface{}) {
 	fields := fieldKeys(v)
 
 	// Order fields lexicographically by JSON name, for consistency.
-	var names []string
-	for key := range fields {
-		names = append(names, key)
-	}
-	sort.Strings(names)
+	sort.Slice(fields, func(i, j int) bool {
+		return fields[i].paramName < fields[j].paramName
+	})
 
-	for _, key := range names {
-		fmt.Fprintf(w, "\t%s bool\t// %s\n", fields[key], key)
+	for _, f := range fields {
+		fmt.Fprintf(w, "\t%s bool\t// %s\n", f.fieldName, f.paramName)
 	}
 	fmt.Fprint(w, "}\n\n")
 
@@ -99,8 +97,8 @@ func (%[2]s) Label() string { return %q }
 func (f %[1]s) Values() []string {
   var values []string
 `, typeName)
-	for _, key := range names {
-		fmt.Fprintf(w, "\tif f.%[1]s { values=append(values, %[2]q) }\n", fields[key], key)
+	for _, f := range fields {
+		fmt.Fprintf(w, "\tif f.%[1]s { values=append(values, %[2]q) }\n", f.fieldName, f.paramName)
 	}
 	fmt.Fprintln(w, "\treturn values\n}")
 }
@@ -129,16 +127,23 @@ func generateSearchableSlice(w io.Writer, base string, fields ...string) {
 	}
 }
 
+// fieldInfo records the name and details about a specific field.
+type fieldInfo struct {
+	fieldName   string
+	paramName   string
+	userContext bool
+}
+
 // fieldKeys returns a map of JSON field keys to the associated struct field
 // names, extracted from the struct tags of v, which must be of type *T for
 // some struct type T.  This function panics if v's type does not have this
 // form.
-func fieldKeys(v interface{}) map[string]string {
+func fieldKeys(v interface{}) []fieldInfo {
 	typ := reflect.TypeOf(v).Elem() // panics if not a pointer
 	if typ.Kind() != reflect.Struct {
 		panic("pointer target is not a struct")
 	}
-	tags := make(map[string]string)
+	var tags []fieldInfo
 	for i := 0; i < typ.NumField(); i++ {
 		next := typ.Field(i)
 		if isDefaultField(next.Tag) {
@@ -147,7 +152,11 @@ func fieldKeys(v interface{}) map[string]string {
 
 		name, ok := jsonFieldName(next.Tag)
 		if ok {
-			tags[name] = next.Name
+			tags = append(tags, fieldInfo{
+				fieldName:   next.Name,
+				paramName:   name,
+				userContext: isUserContextField(next.Tag),
+			})
 			continue
 		}
 
@@ -157,7 +166,11 @@ func fieldKeys(v interface{}) map[string]string {
 				sub := next.Type.Field(j)
 				name, ok := jsonFieldName(sub.Tag)
 				if ok {
-					tags[name] = sub.Name
+					tags = append(tags, fieldInfo{
+						fieldName:   sub.Name,
+						paramName:   name,
+						userContext: isUserContextField(sub.Tag),
+					})
 				}
 			}
 		}
@@ -174,9 +187,12 @@ func jsonFieldName(tag reflect.StructTag) (string, bool) {
 	return "", false
 }
 
-func isDefaultField(tag reflect.StructTag) bool {
+func isDefaultField(tag reflect.StructTag) bool     { return tagHasValue(tag, "default") }
+func isUserContextField(tag reflect.StructTag) bool { return tagHasValue(tag, "user-context") }
+
+func tagHasValue(tag reflect.StructTag, value string) bool {
 	for _, s := range strings.Split(tag.Get("twitter"), ",") {
-		if s == "default" {
+		if s == value {
 			return true
 		}
 	}
