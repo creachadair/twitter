@@ -15,7 +15,7 @@ All tests:
   AUTHTEST_API_KEY    : the application's API key ("consumer key")
   AUTHTEST_API_SECRET : the application's API secret ("consumer secret")
 
-TestRequestFlow:
+TestRequestToken:
   AUTHTEST_ACCESS_TOKEN        : the application's access token
   AUTHTEST_ACCESS_TOKEN_SECRET : the application's access token secret
 
