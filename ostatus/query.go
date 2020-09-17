@@ -11,6 +11,7 @@ import (
 
 	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/internal/otypes"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -110,13 +111,13 @@ func (o Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 	if err != nil {
 		return nil, err
 	}
-	var rsp oldTweet
+	var rsp otypes.Tweet
 	if err := json.Unmarshal(data, &rsp); err != nil {
 		return nil, &jhttp.Error{Message: "decoding response body", Err: err}
 	}
 	return &Reply{
 		Data:  data,
-		Tweet: rsp.toNewTweet(o.opts),
+		Tweet: rsp.ToTweetV2(o.opts),
 	}, nil
 }
 

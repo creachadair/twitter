@@ -1,6 +1,6 @@
 // Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
 
-package ostatus
+package otypes
 
 import (
 	"encoding/json"
@@ -9,40 +9,42 @@ import (
 	"github.com/creachadair/twitter/types"
 )
 
-const dateFormat = "Mon Jan _2 15:04:05 -0700 2006"
+// DateFormat is the timestamp format used by the Twitter v1.1 API.
+const DateFormat = "Mon Jan _2 15:04:05 -0700 2006"
 
-type dateTime time.Time
+// DateTime represents a timestamp encoded in JSON.
+type DateTime time.Time
 
-func (d dateTime) String() string { return time.Time(d).Format(dateFormat) }
+func (d DateTime) String() string { return time.Time(d).Format(DateFormat) }
 
-func (d *dateTime) UnmarshalJSON(data []byte) error {
+func (d *DateTime) UnmarshalJSON(data []byte) error {
 	var s string
 	if err := json.Unmarshal(data, &s); err != nil {
 		return err
 	}
-	ts, err := time.Parse(dateFormat, s)
+	ts, err := time.Parse(DateFormat, s)
 	if err != nil {
 		return err
 	}
-	*d = dateTime(ts)
+	*d = DateTime(ts)
 	return nil
 }
 
-// oldTweet captures a subset of the fields of the v1.1 API Tweet object, as
+// Tweet captures a subset of the fields of the v1.1 API Tweet object, as
 // needed to populate some of the essential fields of a v2 Tweet.
 //
 // See https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/overview/tweet-object
-type oldTweet struct {
-	CreatedAt       dateTime     `json:"created_at"`
-	ID              string       `json:"id_str"` // N.B. the "id" field is a number
-	Text            string       `json:"text"`
-	Source          string       `json:"source"`
-	Truncated       bool         `json:"truncated"`
-	InReplyToStatus string       `json:"in_reply_to_status_id_str"`
-	InReplyToUser   string       `json:"in_reply_to_user_id_str"`
-	Sensitive       bool         `json:"possibly_sensitive"`
-	Language        string       `json:"lang"`
-	Entities        *oldEntities `json:"entities"`
+type Tweet struct {
+	CreatedAt       DateTime  `json:"created_at"`
+	ID              string    `json:"id_str"` // N.B. the "id" field is a number
+	Text            string    `json:"text"`
+	Source          string    `json:"source"`
+	Truncated       bool      `json:"truncated"`
+	InReplyToStatus string    `json:"in_reply_to_status_id_str"`
+	InReplyToUser   string    `json:"in_reply_to_user_id_str"`
+	Sensitive       bool      `json:"possibly_sensitive"`
+	Language        string    `json:"lang"`
+	Entities        *Entities `json:"entities"`
 
 	// Public metrics
 	LikeCount    int `json:"favorite_count"` // note name difference
@@ -56,7 +58,8 @@ type oldTweet struct {
 	} `json:"user"`
 }
 
-func (o oldTweet) toNewTweet(opt types.TweetFields) *types.Tweet {
+// ToTweetV2 converts o into an approximately equivalent API v2 Tweet value.
+func (o Tweet) ToTweetV2(opt types.TweetFields) *types.Tweet {
 	t := &types.Tweet{
 		ID:        o.ID,
 		Text:      o.Text,
@@ -92,7 +95,7 @@ func (o oldTweet) toNewTweet(opt types.TweetFields) *types.Tweet {
 		}
 	}
 	if opt.Entities && o.Entities != nil {
-		t.Entities = o.Entities.toNewEntities()
+		t.Entities = o.Entities.ToEntitiesV2()
 	}
 
 	// TODO: Handle other fields.
@@ -111,21 +114,24 @@ func newSpan(zs []int) types.Span {
 	return out
 }
 
-type spanText struct {
+// SpanText represents a span of text.
+type SpanText struct {
 	Span []int  `json:"indices"`
 	Text string `json:"text"`
 }
 
-func (s spanText) toNewTag() *types.Tag {
+// ToTagV2 converts s into an equivalent API v2 Tag.
+func (s SpanText) ToTagV2() *types.Tag {
 	return &types.Tag{
 		Span: newSpan(s.Span),
 		Tag:  s.Text,
 	}
 }
 
-type oldEntities struct {
-	Hashtags []spanText `json:"hashtags"`
-	Cashtags []spanText `json:"symbols"`
+// Entities encodes a subset of API v1.1 Tweet entities.
+type Entities struct {
+	Hashtags []SpanText `json:"hashtags"`
+	Cashtags []SpanText `json:"symbols"`
 
 	URLs []struct {
 		Span     []int  `json:"indices"`
@@ -146,13 +152,14 @@ type oldEntities struct {
 	// Omitted: media, polls
 }
 
-func (e *oldEntities) toNewEntities() *types.Entities {
+// ToEntitiesV2 converts o into an approximately equivalent API v2 value.
+func (e *Entities) ToEntitiesV2() *types.Entities {
 	var out types.Entities
 	for _, v := range e.Hashtags {
-		out.HashTags = append(out.HashTags, v.toNewTag())
+		out.HashTags = append(out.HashTags, v.ToTagV2())
 	}
 	for _, v := range e.Cashtags {
-		out.CashTags = append(out.CashTags, v.toNewTag())
+		out.CashTags = append(out.CashTags, v.ToTagV2())
 	}
 	for _, u := range e.URLs {
 		out.URLs = append(out.URLs, &types.URL{
