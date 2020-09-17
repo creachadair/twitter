@@ -97,12 +97,12 @@ func TestUserCall(t *testing.T) {
 	})
 	pause(t)
 
-	t.Run("UnLike", func(t *testing.T) {
-		rsp, err := ostatus.UnLike(createdID, nil).Invoke(ctx, cli)
+	t.Run("Unlike", func(t *testing.T) {
+		rsp, err := ostatus.Unlike(createdID, nil).Invoke(ctx, cli)
 		if err != nil {
-			t.Fatalf("UnLike failed: %v", err)
+			t.Fatalf("Unlike failed: %v", err)
 		}
-		t.Logf("UnLiked ID %s, text=%q", rsp.Tweet.ID, rsp.Tweet.Text)
+		t.Logf("Unliked ID %s, text=%q", rsp.Tweet.ID, rsp.Tweet.Text)
 	})
 	pause(t)
 

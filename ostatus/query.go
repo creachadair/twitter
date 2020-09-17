@@ -62,11 +62,11 @@ func Retweet(id string, opts *Options) Query {
 	return modQuery("1.1/statuses/retweet", id, opts)
 }
 
-// UnRetweet constructs a query to un-retweet a tweet with the given ID.
+// Unretweet constructs a query to un-retweet a tweet with the given ID.
 // This query requires user-context authorization.
 //
 // API: 1.1/statuses/unretweet/:id.json
-func UnRetweet(id string, opts *Options) Query {
+func Unretweet(id string, opts *Options) Query {
 	return modQuery("1.1/statuses/unretweet", id, opts)
 }
 
@@ -91,11 +91,11 @@ func Like(id string, opts *Options) Query {
 	return likeQuery("1.1/favorites/create", id, opts)
 }
 
-// UnLike constructs a query to un-like ("unfavorite") a tweet with the given ID.
+// Unlike constructs a query to un-like ("unfavorite") a tweet with the given ID.
 // This query requires user-context authorization.
 //
 // API: 1.1/favorites/destroy.json
-func UnLike(id string, opts *Options) Query {
+func Unlike(id string, opts *Options) Query {
 	return likeQuery("1.1/favorites/destroy", id, opts)
 }
 
