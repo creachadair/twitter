@@ -83,12 +83,6 @@ func (f TweetFields) Values() []string {
 	return values
 }
 
-// NeedUserContext reports whether any selected Tweet fields require
-// user-context access.
-func (f TweetFields) NeedUserContext() bool {
-	return f.NonPublicMetrics || f.OrganicMetrics || f.PromotedMetrics
-}
-
 // Tweets is a searchable slice of Tweet values.
 type Tweets []*Tweet
 
@@ -158,10 +152,6 @@ func (f UserFields) Values() []string {
 	}
 	return values
 }
-
-// NeedUserContext reports whether any selected User fields require
-// user-context access.
-func (f UserFields) NeedUserContext() bool { return false }
 
 // Users is a searchable slice of User values.
 type Users []*User
@@ -235,12 +225,6 @@ func (f MediaFields) Values() []string {
 	return values
 }
 
-// NeedUserContext reports whether any selected Media fields require
-// user-context access.
-func (f MediaFields) NeedUserContext() bool {
-	return f.NonPublicMetrics || f.OrganicMetrics || f.PromotedMetrics
-}
-
 // Medias is a searchable slice of Media values.
 type Medias []*Media
 
@@ -282,10 +266,6 @@ func (f PollFields) Values() []string {
 	}
 	return values
 }
-
-// NeedUserContext reports whether any selected Poll fields require
-// user-context access.
-func (f PollFields) NeedUserContext() bool { return false }
 
 // Polls is a searchable slice of Poll values.
 type Polls []*Poll
@@ -340,10 +320,6 @@ func (f PlaceFields) Values() []string {
 	}
 	return values
 }
-
-// NeedUserContext reports whether any selected Place fields require
-// user-context access.
-func (f PlaceFields) NeedUserContext() bool { return false }
 
 // Places is a searchable slice of Place values.
 type Places []*Place
