@@ -102,7 +102,7 @@ type FollowOpts struct {
 	// If zero, use the server default (20).
 	PerPage int
 
-	// Optional tweet fields to report with a successful update.
+	// Optional user fields to report with a successful update.
 	Optional types.UserFields
 }
 
