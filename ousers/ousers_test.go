@@ -27,7 +27,7 @@ func getOrSkip(t *testing.T, key string) string {
 }
 
 func TestUserCall(t *testing.T) {
-	bearerToken := getOrSkip(t, "TWITTER_TOKEN")
+	bearerToken := getOrSkip(t, "OUSERS_TWITTER_TOKEN")
 	cli := twitter.NewClient(&jhttp.Client{
 		Authorize: jhttp.BearerTokenAuthorizer(bearerToken),
 	})
