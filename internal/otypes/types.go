@@ -177,3 +177,81 @@ func (e *Entities) ToEntitiesV2() *types.Entities {
 	}
 	return &out
 }
+
+// User captures a subset of the fields of the v1.1 API User object, as needed
+// to populate some of the essential fields of a v2 User.
+//
+// See https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/overview/user-object
+type User struct {
+	CreatedAt       DateTime `json:"created_at"`
+	Description     string   `json:"description"`
+	FuzzyLocation   string   `json:"location"`
+	ID              string   `json:"id_str"` // N.B. the "id" field is a number
+	Name            string   `json:"name"`
+	ProfileImageURL string   `json:"profile_image_url_https"`
+	ProfileURL      string   `json:"url"`
+	Protected       bool     `json:"protected"`
+	Username        string   `json:"screen_name"`
+	Verified        bool     `json:"verified"`
+
+	Entities struct {
+		URL  *Entities `json:"urls"`
+		Desc *Entities `json:"description"`
+	} `json:"entities"`
+
+	// Public metrics
+	FollowersCount int `json:"followers_count"`
+	FollowingCount int `json:"friends_count"`
+	ListedCount    int `json:"listed_count"`
+	TweetCount     int `json:"statuses_count"`
+
+	// TODO: Handle other fields.
+	// Pinned tweet?
+}
+
+// ToUserV2 converts o to an approximately-equivalent API v2 User value.
+func (o User) ToUserV2(opt types.UserFields) *types.User {
+	u := &types.User{
+		ID:        o.ID,
+		Name:      o.Name,
+		Username:  o.Username,
+		Protected: o.Protected,
+		Verified:  o.Verified,
+	}
+	if opt.CreatedAt && !time.Time(o.CreatedAt).IsZero() {
+		ts := time.Time(o.CreatedAt)
+		u.CreatedAt = &ts
+	}
+	if opt.Description {
+		u.Description = o.Description
+	}
+	if opt.Entities {
+		var ue types.UserEntities
+		if o.Entities.URL != nil {
+			ue.URL = *o.Entities.URL.ToEntitiesV2()
+			u.Entities = &ue
+		}
+		if o.Entities.Desc != nil {
+			ue.Description = *o.Entities.Desc.ToEntitiesV2()
+			u.Entities = &ue
+		}
+	}
+	if opt.FuzzyLocation {
+		u.FuzzyLocation = o.FuzzyLocation
+	}
+	if opt.ProfileImageURL {
+		u.ProfileImageURL = o.ProfileImageURL
+	}
+	if opt.PublicMetrics {
+		u.PublicMetrics = types.Metrics{
+			"followers_count": o.FollowersCount,
+			"following_count": o.FollowingCount,
+			"listed_count":    o.ListedCount,
+			"tweet_count":     o.TweetCount,
+		}
+	}
+	if opt.ProfileURL {
+		u.ProfileURL = o.ProfileURL
+	}
+	return u
+}
