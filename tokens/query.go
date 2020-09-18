@@ -1,5 +1,7 @@
 // Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
 
+// Package tokens defines queries to obtain and authorize access tokens for the
+// Twitter API.
 package tokens
 
 // See https://developer.twitter.com/en/docs/api-reference-index#platform
