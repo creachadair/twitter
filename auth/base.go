@@ -94,7 +94,7 @@ func (c Config) Authorize(req *http.Request) error {
 	}
 	q, err := url.ParseQuery(req.URL.RawQuery)
 	if err != nil {
-		return fmt.Errorf("invalid query: %v", err)
+		return fmt.Errorf("invalid query: %w", err)
 	}
 	sigURL := (&url.URL{
 		Scheme:  req.URL.Scheme,
