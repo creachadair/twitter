@@ -90,7 +90,7 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 }
 
 // FollowOpts provides parameters for follower/following queries.  A nil
-// *FolloOpts provides zero values for all fields.
+// *FollowOpts provides zero values for all fields.
 type FollowOpts struct {
 	// Look up following by user ID rather than username.
 	ByID bool
