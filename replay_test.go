@@ -304,7 +304,7 @@ func TestSearchPages(t *testing.T) {
 					t.Logf("Tweet %d: id=%s, text=%q", nr, tw.ID, tw.Text)
 				}
 
-				qpage := q.PageToken()
+				qpage := rsp.Meta.NextToken
 				t.Logf("Next page token: %q", qpage)
 
 				if mpage := rsp.Meta.NextToken; mpage != qpage {

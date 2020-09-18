@@ -161,15 +161,6 @@ func (q Query) HasMorePages() bool {
 	return !ok || v[0] != ""
 }
 
-// PageToken reports the query's current page token, or "".
-func (q Query) PageToken() string {
-	v, ok := q.Request.Params[nextTokenParam]
-	if ok && len(v) != 0 {
-		return v[0]
-	}
-	return ""
-}
-
 // ResetPageToken clears (resets) the query's current page token. Subsequently
 // invoking the query will then fetch the first page of results.
 func (q Query) ResetPageToken() { q.Request.Params.Reset(nextTokenParam) }
