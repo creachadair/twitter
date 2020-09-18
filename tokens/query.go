@@ -1,6 +1,6 @@
 // Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
 
-package auth
+package tokens
 
 // See https://developer.twitter.com/en/docs/api-reference-index#platform
 
@@ -11,6 +11,7 @@ import (
 	"net/url"
 
 	"github.com/creachadair/jhttp"
+	"github.com/creachadair/jhttp/auth"
 	"github.com/creachadair/twitter"
 )
 
@@ -24,15 +25,15 @@ func clientWithAuth(cli *twitter.Client, auth jhttp.Authorizer) *twitter.Client 
 // "out-of-band" or PIN based verification.
 const UsePIN = "oob"
 
-// GetRequestToken constructs a query to obtain an authorization request ticket
-// for the specified callback URL. Pass UsePIN for the callback to use PIN
-// based verification.
+// GetRequest constructs a query to obtain an authorization request ticket for
+// the specified callback URL. Pass UsePIN for the callback to use PIN based
+// verification.
 //
 // This query requires c.AccessToken and c.AccessTokenSecret to be set to the
 // application's own credentials.
 //
 // API: oauth/request_token
-func (c Config) GetRequestToken(callback string, opts *RequestOpts) RequestQuery {
+func GetRequest(c auth.Config, callback string, opts *RequestOpts) RequestQuery {
 	req := &jhttp.Request{
 		Method:     "oauth/request_token",
 		HTTPMethod: "POST",
@@ -76,13 +77,13 @@ func (o *RequestOpts) addRequestParams(req *jhttp.Request) {
 	}
 }
 
-// GetAccessToken constructs a query to obtain an access token from the given
+// GetAccess constructs a query to obtain an access token from the given
 // request token and verifier.
 //
 // This query does not require c.AccessToken or c.AccessTokenSecret.
 //
 // API: oauth/access_token
-func (c Config) GetAccessToken(reqToken, verifier string, opts *AccessOpts) AccessQuery {
+func GetAccess(c auth.Config, reqToken, verifier string, opts *AccessOpts) AccessQuery {
 	req := &jhttp.Request{
 		Method:     "oauth/access_token",
 		HTTPMethod: "POST",
@@ -136,13 +137,13 @@ type AccessToken struct {
 	Username string
 }
 
-// GetBearerToken constructs a query to obtain an OAuth2 bearer token.
+// GetBearer constructs a query to obtain an OAuth2 bearer token.
 //
 // Bearer token requests are authenticated using c.APIKey and c.APISecret.
 // This query does not require c.AccessToken or c.AccessTokenSecret.
 //
 // API: oauth2/token
-func (c Config) GetBearerToken(opts *BearerOpts) BearerQuery {
+func GetBearer(c auth.Config, opts *BearerOpts) BearerQuery {
 	req := &jhttp.Request{
 		Method:     "oauth2/token",
 		HTTPMethod: "POST",
@@ -190,11 +191,11 @@ func (q BearerQuery) Invoke(ctx context.Context, cli *twitter.Client) (Token, er
 	}, nil
 }
 
-// InvalidateAccessToken constructs a query to invalidate an access token.
+// InvalidateAccess constructs a query to invalidate an access token.
 // This query does not use c.AccessToken or c.AccessTokenSecret.
 //
 // API: oauth/invalidate_token
-func (c Config) InvalidateAccessToken(token, secret string) InvalidateQuery {
+func InvalidateAccess(c auth.Config, token, secret string) InvalidateQuery {
 	return InvalidateQuery{
 		Request: &jhttp.Request{
 			Method:     "1.1/oauth/invalidate_token",
@@ -204,13 +205,13 @@ func (c Config) InvalidateAccessToken(token, secret string) InvalidateQuery {
 	}
 }
 
-// InvalidateBearerToken constructs a query to invalidate a bearer token.
+// InvalidateBearer constructs a query to invalidate a bearer token.
 //
 // This query requires c.AccessToken and c.AccessTokenSecret to be the access
 // token of the owner of the bearer token.
 //
 // API: oauth2/invalidate_token
-func (c Config) InvalidateBearerToken(bearerToken string) InvalidateQuery {
+func InvalidateBearer(c auth.Config, bearerToken string) InvalidateQuery {
 	return InvalidateQuery{
 		Request: &jhttp.Request{
 			Method:     "oauth2/invalidate_token",

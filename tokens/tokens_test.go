@@ -1,6 +1,6 @@
 // Copyright (C) 2020 Michael J. Fromberger. All Rights Reserved.
 
-package auth_test
+package tokens_test
 
 /*
 About the tests in this file:
@@ -58,8 +58,9 @@ import (
 	"testing"
 
 	"github.com/creachadair/jhttp"
+	"github.com/creachadair/jhttp/auth"
 	"github.com/creachadair/twitter"
-	"github.com/creachadair/twitter/auth"
+	"github.com/creachadair/twitter/tokens"
 	"github.com/creachadair/twitter/tweets"
 	"github.com/creachadair/twitter/types"
 )
@@ -105,9 +106,9 @@ func TestRequestToken(t *testing.T) {
 	cli := debugClient(t)
 	ctx := context.Background()
 
-	tok, err := cfg.GetRequestToken(auth.UsePIN, nil).Invoke(ctx, cli)
+	tok, err := tokens.GetRequest(cfg, tokens.UsePIN, nil).Invoke(ctx, cli)
 	if err != nil {
-		t.Fatalf("GetRequestToken failed: %v", err)
+		t.Fatalf("GetRequest failed: %v", err)
 	}
 
 	t.Logf("Request token secret: %s", tok.Secret)
@@ -123,9 +124,9 @@ func TestAccessGrant(t *testing.T) {
 	cli := debugClient(t)
 	ctx := context.Background()
 
-	tok, err := cfg.GetAccessToken(reqToken, verifier, nil).Invoke(ctx, cli)
+	tok, err := tokens.GetAccess(cfg, reqToken, verifier, nil).Invoke(ctx, cli)
 	if err != nil {
-		t.Fatalf("GetAccessToken failed: %v", err)
+		t.Fatalf("GetAccess failed: %v", err)
 	}
 	t.Logf(`Access token:
 UserID:   %q
@@ -141,9 +142,9 @@ func TestBearerToken(t *testing.T) {
 	cli := debugClient(t)
 	ctx := context.Background()
 
-	tok, err := cfg.GetBearerToken(nil).Invoke(ctx, cli)
+	tok, err := tokens.GetBearer(cfg, nil).Invoke(ctx, cli)
 	if err != nil {
-		t.Fatalf("GetBearerToken failed: %v", err)
+		t.Fatalf("GetBearer failed: %v", err)
 	}
 	t.Logf(`Bearer token:
 Token:  %q
@@ -201,9 +202,9 @@ func TestInvalidateAccess(t *testing.T) {
 	cli := debugClient(t)
 	ctx := context.Background()
 
-	rsp, err := cfg.InvalidateAccessToken(token, secret).Invoke(ctx, cli)
+	rsp, err := tokens.InvalidateAccess(cfg, token, secret).Invoke(ctx, cli)
 	if err != nil {
-		t.Fatalf("InvalidateAccessToken failed: %v", err)
+		t.Fatalf("InvalidateAccess failed: %v", err)
 	}
 	t.Logf("Invalidated access token: %s", rsp)
 }
@@ -215,49 +216,9 @@ func TestInvalidateBearer(t *testing.T) {
 	cli := debugClient(t)
 	ctx := context.Background()
 
-	rsp, err := cfg.InvalidateBearerToken(bearer).Invoke(ctx, cli)
+	rsp, err := tokens.InvalidateBearer(cfg, bearer).Invoke(ctx, cli)
 	if err != nil {
-		t.Fatalf("InvalidateBearerToken failed: %v", err)
+		t.Fatalf("InvalidateBearer failed: %v", err)
 	}
 	t.Logf("Invalidated bearer token: %s", rsp)
-}
-
-// Test vectors from http://lti.tools/oauth/ to verify the basic computations.
-func TestKnownInputs(t *testing.T) {
-	// Example inputs
-	const (
-		requestURL = "http://photos.example.net/photos"
-		wantParams = `file=vacation.jpg&oauth_consumer_key=dpf43f3p2l4k3l03&oauth_nonce=kllo9940pd9333jh&` +
-			`oauth_signature_method=HMAC-SHA1&oauth_timestamp=1191242096&oauth_token=nnch734d00sl2jdk&` +
-			`oauth_version=1.0&size=original`
-		wantSig = `tR3+Ty81lMeYAr/Fid0kMTYa/WM=`
-
-		// N.B. This value has been redacted by removing newlines.
-		wantAuth = `OAuth oauth_consumer_key="dpf43f3p2l4k3l03", oauth_token="nnch734d00sl2jdk", ` +
-			`oauth_nonce="kllo9940pd9333jh", oauth_timestamp="1191242096", oauth_signature_method="HMAC-SHA1", ` +
-			`oauth_version="1.0", oauth_signature="tR3%2BTy81lMeYAr%2FFid0kMTYa%2FWM%3D"`
-	)
-
-	cfg := auth.Config{
-		APIKey:            "dpf43f3p2l4k3l03",
-		APISecret:         "kd94hf93k423kf44",
-		AccessToken:       "nnch734d00sl2jdk",
-		AccessTokenSecret: "pfkkdhi9sl3r4s00",
-	}
-	params := auth.Params{
-		"oauth_nonce":     "kllo9940pd9333jh",
-		"oauth_timestamp": "1191242096",
-		"size":            "original",
-		"file":            "vacation.jpg",
-	}
-	ad := cfg.Sign("GET", requestURL, params)
-	if got := ad.Params.Encode(); got != wantParams {
-		t.Errorf("Encoded parameters:\ngot:  %s\nwant: %s", got, wantParams)
-	}
-	if ad.Signature != wantSig {
-		t.Errorf("Signature:\ngot:  %s\nwant: %s", ad.Signature, wantSig)
-	}
-	if ad.Authorization != wantAuth {
-		t.Errorf("Authorization:\ngot:  %s\nwant: %s", ad.Authorization, wantAuth)
-	}
 }
