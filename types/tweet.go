@@ -121,17 +121,17 @@ type Metrics map[string]int
 type MetricSet struct {
 	// Metric totals that are available for anyone to access on Twitter, such as
 	// number of likes and number of retweets.
-	PublicMetrics Metrics `json:"public_metrics"`
+	PublicMetrics Metrics `json:"public_metrics,omitempty"`
 
 	// Metrics totals that are not available for anyone to view on Twitter, such
 	// as number of impressions and video view quartiles.
 	// Requires OAuth 1.0a User Context authentication.
-	NonPublicMetrics Metrics `json:"non_public_metrics" twitter:"user-context"`
+	NonPublicMetrics Metrics `json:"non_public_metrics,omitempty" twitter:"user-context"`
 
 	// A grouping of public and non-public metrics attributed to an organic
 	// context (posted and viewed in a regular manner).
 	// Requires OAuth 1.0a User Context authentication.
-	OrganicMetrics Metrics `json:"organic_metrics" twitter:"user-context"`
+	OrganicMetrics Metrics `json:"organic_metrics,omitempty" twitter:"user-context"`
 
 	// A grouping of public and non-public metrics attributed to a promoted
 	// context (posted or viewed as part of an Ads campaign).
@@ -145,7 +145,7 @@ type MetricSet struct {
 	// promotes their own Tweets in an Ads account for a specific handle, the
 	// admin for that account may add another Twitter user as an account user so
 	// this second account user can promote Tweets for the handle.
-	PromotedMetrics Metrics `json:"promoted_metrics" twitter:"user-context"`
+	PromotedMetrics Metrics `json:"promoted_metrics,omitempty" twitter:"user-context"`
 }
 
 // A Ref is a reference to another entity, giving its type and ID.
