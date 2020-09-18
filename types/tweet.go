@@ -14,20 +14,20 @@ type Tweet struct {
 	ID   string `json:"id" twitter:"default"`
 	Text string `json:"text" twitter:"default"`
 
-	AuthorID       string     `json:"author_id"`
-	ConversationID string     `json:"conversation_id"`
-	CreatedAt      *time.Time `json:"created_at"`
-	Entities       *Entities  `json:"entities"`
-	InReplyTo      string     `json:"in_reply_to_user_id"`
-	Language       string     `json:"lang"` // https://tools.ietf.org/html/bcp47
-	Location       *Location  `json:"geo"`
-	Sensitive      bool       `json:"possibly_sensitive"`
-	Referenced     []*Ref     `json:"referenced_tweets"`
-	Source         string     `json:"source"` // e.g., "Twitter Web App"
+	AuthorID       string     `json:"author_id,omitempty"`
+	ConversationID string     `json:"conversation_id,omitempty"`
+	CreatedAt      *time.Time `json:"created_at,omitempty"`
+	Entities       *Entities  `json:"entities,omitempty"`
+	InReplyTo      string     `json:"in_reply_to_user_id,omitempty"`
+	Language       string     `json:"lang,omitempty"` // https://tools.ietf.org/html/bcp47
+	Location       *Location  `json:"geo,omitempty"`
+	Sensitive      bool       `json:"possibly_sensitive,omitempty"`
+	Referenced     []*Ref     `json:"referenced_tweets,omitempty"`
+	Source         string     `json:"source,omitempty"` // e.g., "Twitter Web App"
 
-	ContextAnnotations []*ContextAnnotation `json:"context_annotations"`
-	Withheld           *Withholding         `json:"withheld"`
-	Attachments        `json:"attachments"`
+	ContextAnnotations []*ContextAnnotation `json:"context_annotations,omitempty"`
+	Withheld           *Withholding         `json:"withheld,omitempty"`
+	Attachments        `json:"attachments,omitempty"`
 	MetricSet
 }
 
