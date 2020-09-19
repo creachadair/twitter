@@ -73,8 +73,8 @@ func (Builder) IsRetweet() Query { return nsolo("is:retweet") }
 // IsVerified matches tweets whose authors are verified.
 func (Builder) IsVerified() Query { return nsolo("is:verified") }
 
-// HasHashtag matches tweets that contain at least one hashtag.
-func (Builder) HasHashtag() Query { return nsolo("has:hashtag") }
+// HasHashtags matches tweets that contain at least one hashtag.
+func (Builder) HasHashtags() Query { return nsolo("has:hashtags") }
 
 // HasLinks matches tweets that contain at least one link in its body.
 func (Builder) HasLinks() Query { return nsolo("has:links") }
