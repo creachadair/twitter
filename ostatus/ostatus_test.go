@@ -40,7 +40,8 @@ func pause(t *testing.T) {
 	}
 }
 
-func TestUserCall(t *testing.T) {
+func newTestClient(t *testing.T) (context.Context, string, *twitter.Client) {
+	t.Helper()
 	cfg := auth.Config{
 		APIKey:    getOrSkip(t, "AUTHTEST_API_KEY"),
 		APISecret: getOrSkip(t, "AUTHTEST_API_SECRET"),
@@ -50,6 +51,7 @@ func TestUserCall(t *testing.T) {
 		t.Fatal("Invalid user token format; want TOKEN:SECRET [redacted]")
 	}
 
+	userID := strings.SplitN(userToken[0], "-", 2)[0]
 	ctx := context.Background()
 	cli := twitter.NewClient(&jhttp.Client{
 		Authorize: cfg.Authorizer(userToken[0], userToken[1]),
@@ -59,6 +61,54 @@ func TestUserCall(t *testing.T) {
 			t.Logf("DEBUG :: %s | %s", tag, msg)
 		}
 	}
+	return ctx, userID, cli
+}
+
+func TestTimelines(t *testing.T) {
+	ctx, userID, cli := newTestClient(t)
+
+	t.Run("UserTimeline", func(t *testing.T) {
+		rsp, err := ostatus.UserTimeline(userID, &ostatus.TimelineOpts{
+			ByID: true,
+		}).Invoke(ctx, cli)
+		if err != nil {
+			t.Fatalf("UserTimeline failed: %v", err)
+		}
+		t.Logf("Found %d tweets in user timeline", len(rsp.Tweets))
+		for i, s := range rsp.Tweets {
+			t.Logf(" - Tweet %d: id=%s text=%q", i+1, s.ID, s.Text)
+		}
+	})
+
+	t.Run("HomeTimeline", func(t *testing.T) {
+		rsp, err := ostatus.HomeTimeline(userID, &ostatus.TimelineOpts{
+			ByID: true,
+		}).Invoke(ctx, cli)
+		if err != nil {
+			t.Fatalf("HomeTimeline failed: %v", err)
+		}
+		t.Logf("Found %d tweets in home timeline", len(rsp.Tweets))
+		for i, s := range rsp.Tweets {
+			t.Logf(" - Tweet %d: id=%s text=%q", i+1, s.ID, s.Text)
+		}
+	})
+
+	t.Run("MentionsTimeline", func(t *testing.T) {
+		rsp, err := ostatus.MentionsTimeline(userID, &ostatus.TimelineOpts{
+			ByID: true,
+		}).Invoke(ctx, cli)
+		if err != nil {
+			t.Fatalf("HomeTimeline failed: %v", err)
+		}
+		t.Logf("Found %d tweets in mentions timeline", len(rsp.Tweets))
+		for i, s := range rsp.Tweets {
+			t.Logf(" - Tweet %d: id=%s text=%q", i+1, s.ID, s.Text)
+		}
+	})
+}
+
+func TestUserCall(t *testing.T) {
+	ctx, _, cli := newTestClient(t)
 
 	// Create a status and then delete it.  Since you cannot post two statuses
 	// with the same content too nearby in time, embed a timestamp in the text
@@ -78,11 +128,11 @@ func TestUserCall(t *testing.T) {
 		if err != nil {
 			t.Fatalf("Update failed: %v", err)
 		}
+		c := rsp.Tweets[0]
 		t.Logf("Created ID %s, author=%s, lang=%q, date=%s, text=%q",
-			rsp.Tweet.ID, rsp.Tweet.AuthorID, rsp.Tweet.Language, rsp.Tweet.CreatedAt,
-			rsp.Tweet.Text)
-		createdID = rsp.Tweet.ID
-		for _, m := range rsp.Tweet.Entities.HashTags {
+			c.ID, c.AuthorID, c.Language, c.CreatedAt, c.Text)
+		createdID = c.ID
+		for _, m := range c.Entities.HashTags {
 			t.Logf("Hashtag [%d..%d] %q", m.Start, m.End, m.Tag)
 		}
 	})
@@ -93,7 +143,7 @@ func TestUserCall(t *testing.T) {
 		if err != nil {
 			t.Fatalf("Like failed: %v", err)
 		}
-		t.Logf("Liked ID %s, text=%q", rsp.Tweet.ID, rsp.Tweet.Text)
+		t.Logf("Liked ID %s, text=%q", rsp.Tweets[0].ID, rsp.Tweets[0].Text)
 	})
 	pause(t)
 
@@ -102,7 +152,8 @@ func TestUserCall(t *testing.T) {
 		if err != nil {
 			t.Fatalf("Unlike failed: %v", err)
 		}
-		t.Logf("Unliked ID %s, text=%q", rsp.Tweet.ID, rsp.Tweet.Text)
+		c := rsp.Tweets[0]
+		t.Logf("Unliked ID %s, text=%q", c.ID, c.Text)
 	})
 	pause(t)
 
@@ -111,9 +162,10 @@ func TestUserCall(t *testing.T) {
 		if err != nil {
 			t.Fatalf("Delete failed: %v", err)
 		}
-		t.Logf("Deleted ID %s, text=%q", rsp.Tweet.ID, rsp.Tweet.Text)
-		if rsp.Tweet.Text != testMessage {
-			t.Errorf("Unexpected message content:\ngot:  %q\nwant: %q", rsp.Tweet.Text, testMessage)
+		c := rsp.Tweets[0]
+		t.Logf("Deleted ID %s, text=%q", c.ID, c.Text)
+		if rsp.Tweets[0].Text != testMessage {
+			t.Errorf("Unexpected message content:\ngot:  %q\nwant: %q", rsp.Tweets[0].Text, testMessage)
 		}
 	})
 
