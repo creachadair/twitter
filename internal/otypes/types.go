@@ -154,6 +154,9 @@ type Entities struct {
 
 // ToEntitiesV2 converts o into an approximately equivalent API v2 value.
 func (e *Entities) ToEntitiesV2() *types.Entities {
+	if e == nil {
+		return nil
+	}
 	var out types.Entities
 	for _, v := range e.Hashtags {
 		out.HashTags = append(out.HashTags, v.ToTagV2())
