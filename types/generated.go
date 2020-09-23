@@ -83,6 +83,50 @@ func (f TweetFields) Values() []string {
 	return values
 }
 
+// Set sets the selected field of f to value, by its parameter name.
+// It reports whether name is a known pparameter of f.
+func (f *TweetFields) Set(name string, value bool) bool {
+	switch name {
+	case "attachments":
+		f.Attachments = value
+	case "author_id":
+		f.AuthorID = value
+	case "context_annotations":
+		f.ContextAnnotations = value
+	case "conversation_id":
+		f.ConversationID = value
+	case "created_at":
+		f.CreatedAt = value
+	case "entities":
+		f.Entities = value
+	case "geo":
+		f.Location = value
+	case "in_reply_to_user_id":
+		f.InReplyTo = value
+	case "lang":
+		f.Language = value
+	case "non_public_metrics":
+		f.NonPublicMetrics = value
+	case "organic_metrics":
+		f.OrganicMetrics = value
+	case "possibly_sensitive":
+		f.Sensitive = value
+	case "promoted_metrics":
+		f.PromotedMetrics = value
+	case "public_metrics":
+		f.PublicMetrics = value
+	case "referenced_tweets":
+		f.Referenced = value
+	case "source":
+		f.Source = value
+	case "withheld":
+		f.Withheld = value
+	default:
+		return false
+	}
+	return true
+}
+
 // Tweets is a searchable slice of Tweet values.
 type Tweets []*Tweet
 
@@ -151,6 +195,38 @@ func (f UserFields) Values() []string {
 		values = append(values, "withheld")
 	}
 	return values
+}
+
+// Set sets the selected field of f to value, by its parameter name.
+// It reports whether name is a known pparameter of f.
+func (f *UserFields) Set(name string, value bool) bool {
+	switch name {
+	case "created_at":
+		f.CreatedAt = value
+	case "description":
+		f.Description = value
+	case "entities":
+		f.Entities = value
+	case "location":
+		f.FuzzyLocation = value
+	case "pinned_tweet_id":
+		f.PinnedTweetID = value
+	case "profile_image_url":
+		f.ProfileImageURL = value
+	case "protected":
+		f.Protected = value
+	case "public_metrics":
+		f.PublicMetrics = value
+	case "url":
+		f.ProfileURL = value
+	case "verified":
+		f.Verified = value
+	case "withheld":
+		f.Withheld = value
+	default:
+		return false
+	}
+	return true
 }
 
 // Users is a searchable slice of User values.
@@ -225,6 +301,34 @@ func (f MediaFields) Values() []string {
 	return values
 }
 
+// Set sets the selected field of f to value, by its parameter name.
+// It reports whether name is a known pparameter of f.
+func (f *MediaFields) Set(name string, value bool) bool {
+	switch name {
+	case "attachments":
+		f.Attachments = value
+	case "duration_ms":
+		f.Duration = value
+	case "height":
+		f.Height = value
+	case "non_public_metrics":
+		f.NonPublicMetrics = value
+	case "organic_metrics":
+		f.OrganicMetrics = value
+	case "preview_image_url":
+		f.PreviewImageURL = value
+	case "promoted_metrics":
+		f.PromotedMetrics = value
+	case "public_metrics":
+		f.PublicMetrics = value
+	case "width":
+		f.Width = value
+	default:
+		return false
+	}
+	return true
+}
+
 // Medias is a searchable slice of Media values.
 type Medias []*Media
 
@@ -265,6 +369,24 @@ func (f PollFields) Values() []string {
 		values = append(values, "voting_status")
 	}
 	return values
+}
+
+// Set sets the selected field of f to value, by its parameter name.
+// It reports whether name is a known pparameter of f.
+func (f *PollFields) Set(name string, value bool) bool {
+	switch name {
+	case "attachments":
+		f.Attachments = value
+	case "duration_minutes":
+		f.Duration = value
+	case "end_datetime":
+		f.EndTime = value
+	case "voting_status":
+		f.VotingStatus = value
+	default:
+		return false
+	}
+	return true
 }
 
 // Polls is a searchable slice of Poll values.
@@ -319,6 +441,30 @@ func (f PlaceFields) Values() []string {
 		values = append(values, "place_type")
 	}
 	return values
+}
+
+// Set sets the selected field of f to value, by its parameter name.
+// It reports whether name is a known pparameter of f.
+func (f *PlaceFields) Set(name string, value bool) bool {
+	switch name {
+	case "attachments":
+		f.Attachments = value
+	case "contained_within":
+		f.ContainedIn = value
+	case "country":
+		f.CountryName = value
+	case "country_code":
+		f.CountryCode = value
+	case "geo":
+		f.Location = value
+	case "name":
+		f.Name = value
+	case "place_type":
+		f.Type = value
+	default:
+		return false
+	}
+	return true
 }
 
 // Places is a searchable slice of Place values.
