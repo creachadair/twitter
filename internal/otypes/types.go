@@ -152,9 +152,13 @@ type Entities struct {
 	// Omitted: media, polls
 }
 
+func (e *Entities) isEmpty() bool {
+	return e == nil || (len(e.Hashtags) == 0 && len(e.Cashtags) == 0 && len(e.URLs) == 0 && len(e.Mentions) == 0)
+}
+
 // ToEntitiesV2 converts o into an approximately equivalent API v2 value.
 func (e *Entities) ToEntitiesV2() *types.Entities {
-	if e == nil {
+	if e.isEmpty() {
 		return nil
 	}
 	var out types.Entities
