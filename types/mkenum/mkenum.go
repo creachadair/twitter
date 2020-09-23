@@ -101,6 +101,16 @@ func (f %[1]s) Values() []string {
 		fmt.Fprintf(w, "\tif f.%[1]s { values=append(values, %[2]q) }\n", f.fieldName, f.paramName)
 	}
 	fmt.Fprintln(w, "\treturn values\n}")
+
+	fmt.Fprintf(w, `// Set sets the selected field of f to value, by its parameter name.
+// It reports whether name is a known pparameter of f.
+func (f *%[1]s) Set(name string, value bool) bool {
+  switch name {`, typeName)
+	for _, f := range fields {
+		fmt.Fprintf(w, "\tcase %[1]q:\n\t\tf.%[2]s = value\n", f.paramName, f.fieldName)
+	}
+	fmt.Fprint(w, "\tdefault:\n\t\treturn false\n")
+	fmt.Fprintln(w, "}\n\treturn true\n}")
 }
 
 func generateSearchableSlice(w io.Writer, base string, fields ...string) {
