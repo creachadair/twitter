@@ -139,6 +139,7 @@ type CreateOpts struct {
 }
 
 func (o *CreateOpts) addQueryParams(q *Query) {
+	q.Request.Params.Set("tweet_mode", "extended")
 	if o != nil {
 		if o.InReplyTo != "" {
 			q.Request.Params.Set("in_reply_to_status_id", o.InReplyTo)
@@ -245,6 +246,7 @@ func (o *TimelineOpts) keyField() string {
 func (o *TimelineOpts) addQueryParams(key string, q *TimelineQuery) {
 	q.Request.Params.Set(o.keyField(), key)
 	q.Request.Params.Set("trim_user", "true")
+	q.Request.Params.Set("tweet_mode", "extended")
 	if o == nil {
 		return
 	}

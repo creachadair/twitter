@@ -38,6 +38,7 @@ type Tweet struct {
 	CreatedAt       DateTime  `json:"created_at"`
 	ID              string    `json:"id_str"` // N.B. the "id" field is a number
 	Text            string    `json:"text"`
+	FullText        string    `json:"full_text"` // requires tweet_mode=extended
 	Source          string    `json:"source"`
 	Truncated       bool      `json:"truncated"`
 	InReplyToStatus string    `json:"in_reply_to_status_id_str"`
@@ -64,6 +65,9 @@ func (o Tweet) ToTweetV2(opt types.TweetFields) *types.Tweet {
 		ID:        o.ID,
 		Text:      o.Text,
 		Sensitive: o.Sensitive,
+	}
+	if o.FullText != "" {
+		t.Text = o.FullText
 	}
 	if opt.AuthorID && o.User != nil {
 		t.AuthorID = o.User.ID
