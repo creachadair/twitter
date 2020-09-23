@@ -68,11 +68,11 @@ type Span struct {
 
 // Entities captures annotations and other embedded entities in a text.
 type Entities struct {
-	Annotations []*Annotation `json:"annotations"`
-	CashTags    []*Tag        `json:"cashtags"`
-	HashTags    []*Tag        `json:"hashtags"`
-	Mentions    []*Mention    `json:"mentions"`
-	URLs        []*URL        `json:"urls"`
+	Annotations []*Annotation `json:"annotations,omitempty"`
+	CashTags    []*Tag        `json:"cashtags,omitempty"`
+	HashTags    []*Tag        `json:"hashtags,omitempty"`
+	Mentions    []*Mention    `json:"mentions,omitempty"`
+	URLs        []*URL        `json:"urls,omitempty"`
 }
 
 // An Annotation records the location, and type of a programmatic annotation.
@@ -101,10 +101,10 @@ type URL struct {
 	URL         string `json:"url"`
 	Expanded    string `json:"expanded_url"`
 	Display     string `json:"display_url"`
-	Unwound     string `json:"unwound_url"`
-	HTTPStatus  int    `json:"status"` // e.g., 200
-	Title       string `json:"title"`
-	Description string `json:"description"`
+	Unwound     string `json:"unwound_url,omitempty"`
+	HTTPStatus  int    `json:"status,omitempty"` // e.g., 200
+	Title       string `json:"title,omitempty"`
+	Description string `json:"description,omitempty"`
 }
 
 // A Location carries the content of a place ("geo"). The payload is encoded as
