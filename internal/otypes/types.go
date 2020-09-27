@@ -42,6 +42,7 @@ type Tweet struct {
 	Source          string    `json:"source"`
 	Truncated       bool      `json:"truncated"`
 	InReplyToStatus string    `json:"in_reply_to_status_id_str"`
+	QuotedStatusID  string    `json:"quoted_status_id_str"`
 	InReplyToUser   string    `json:"in_reply_to_user_id_str"`
 	Sensitive       bool      `json:"possibly_sensitive"`
 	Language        string    `json:"lang"`
@@ -95,6 +96,12 @@ func (o Tweet) ToTweetV2(opt types.TweetFields) *types.Tweet {
 			t.Referenced = append(t.Referenced, &types.Ref{
 				Type: "replied_to",
 				ID:   o.InReplyToStatus,
+			})
+		}
+		if o.QuotedStatusID != "" {
+			t.Referenced = append(t.Referenced, &types.Ref{
+				Type: "quoted",
+				ID:   o.QuotedStatusID,
 			})
 		}
 	}
