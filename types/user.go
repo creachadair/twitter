@@ -12,23 +12,23 @@ type User struct {
 	Name     string `json:"name" twitter:"default"`     // e.g., "User McJones"
 	Username string `json:"username" twitter:"default"` // e.g., "mcjonesey"
 
-	CreatedAt       *time.Time    `json:"created_at"`
-	Description     string        `json:"description"` // profile bio
-	ProfileURL      string        `json:"url"`
-	Entities        *UserEntities `json:"entities"`
-	FuzzyLocation   string        `json:"location"` // human-readable
-	PinnedTweetID   string        `json:"pinned_tweet_id"`
-	ProfileImageURL string        `json:"profile_image_url"`
+	CreatedAt       *time.Time    `json:"created_at,omitempty"`
+	Description     string        `json:"description,omitempty"` // profile bio
+	ProfileURL      string        `json:"url,omitempty"`
+	Entities        *UserEntities `json:"entities,omitempty"`
+	FuzzyLocation   string        `json:"location,omitempty"` // human-readable
+	PinnedTweetID   string        `json:"pinned_tweet_id,omitempty"`
+	ProfileImageURL string        `json:"profile_image_url,omitempty"`
 
-	Protected bool `json:"protected"`
-	Verified  bool `json:"verified"`
+	Protected bool `json:"protected,omitempty"`
+	Verified  bool `json:"verified,omitempty"`
 
-	PublicMetrics Metrics      `json:"public_metrics"`
-	Withheld      *Withholding `json:"withheld"`
+	PublicMetrics Metrics      `json:"public_metrics,omitempty"`
+	Withheld      *Withholding `json:"withheld,omitempty"`
 }
 
 // UserEntities describe entities found in a user's profile.
 type UserEntities struct {
-	URL         Entities `json:"url"`
-	Description Entities `json:"description"`
+	URL         Entities `json:"url,omitempty"`
+	Description Entities `json:"description,omitempty"`
 }
