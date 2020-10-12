@@ -4,6 +4,7 @@ package otypes
 
 import (
 	"encoding/json"
+	"strings"
 	"time"
 
 	"github.com/creachadair/twitter/types"
@@ -39,7 +40,7 @@ type Tweet struct {
 	ID              string    `json:"id_str"` // N.B. the "id" field is a number
 	Text            string    `json:"text"`
 	FullText        string    `json:"full_text"` // requires tweet_mode=extended
-	Source          string    `json:"source"`
+	Source          string    `json:"source"`    // in HTML anchor form
 	Truncated       bool      `json:"truncated"`
 	InReplyToStatus string    `json:"in_reply_to_status_id_str"`
 	QuotedStatusID  string    `json:"quoted_status_id_str"`
@@ -107,6 +108,17 @@ func (o Tweet) ToTweetV2(opt types.TweetFields) *types.Tweet {
 	}
 	if opt.Entities && o.Entities != nil {
 		t.Entities = o.Entities.ToEntitiesV2()
+	}
+	if opt.Source {
+		//                  ↓ split 1
+		// <a href="..." ...>SOURCE</a>
+		//                         ↑ split 2
+		ps := strings.SplitN(o.Source, ">", 2)
+		if len(ps) == 1 {
+			t.Source = o.Source
+		} else {
+			t.Source = strings.SplitN(ps[1], "<", 2)[0]
+		}
 	}
 
 	// TODO: Handle other fields.
