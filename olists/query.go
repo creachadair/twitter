@@ -6,12 +6,11 @@ package olists
 
 import (
 	"context"
-	"encoding/json"
 	"strconv"
 
 	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
-	"github.com/creachadair/twitter/internal/otypes"
+	"github.com/creachadair/twitter/internal/ocall"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -51,43 +50,18 @@ type Query struct {
 	opts types.UserFields
 }
 
-const nextTokenParam = "cursor"
-
 // HasMorePages reports whether the query has more pages to fetch.  This is
 // true for a freshly-constructed query, and for an invoked query where the
 // server not reported a next-page token.
-func (q Query) HasMorePages() bool {
-	v, ok := q.Request.Params[nextTokenParam]
-	return !ok || (v[0] != "" && v[0] != "0")
-}
+func (q Query) HasMorePages() bool { return ocall.HasMorePages(q.Request) }
 
 // ResetPageToekn resets (clears) the query's current page token.  Subsequently
 // invoking the query will then fetch the first page of results.
-func (q Query) ResetPageToken() { q.Request.Params.Reset(nextTokenParam) }
+func (q Query) ResetPageToken() { ocall.ResetPageToken(q.Request) }
 
-// Invoke posts the update and reports the resulting tweet.
+// Invoke executes the query and returns the matching users.
 func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) {
-	data, err := cli.CallRaw(ctx, q.Request)
-	if err != nil {
-		return nil, err
-	}
-	var rsp struct {
-		U []*otypes.User `json:"users"`
-		C string         `json:"next_cursor_str"` // N.B. abbreviated
-	}
-	if err := json.Unmarshal(data, &rsp); err != nil {
-		return nil, &jhttp.Error{Message: "decoding response body", Err: err}
-	}
-	nextPage := rsp.C
-	if nextPage == "0" {
-		nextPage = ""
-	}
-	q.Request.Params.Set(nextTokenParam, nextPage)
-	out := &Reply{Data: data, NextToken: nextPage}
-	for _, u := range rsp.U {
-		out.Users = append(out.Users, u.ToUserV2(q.opts))
-	}
-	return out, nil
+	return ocall.GetUsers(ctx, q.Request, q.opts, cli)
 }
 
 // ListOpts provides parameters for list queries.  A nil *ListOpts provides
@@ -120,8 +94,4 @@ func (o *ListOpts) addQueryParams(q *Query) {
 }
 
 // A Reply is the response from a Query.
-type Reply struct {
-	Data      []byte
-	Users     []*types.User
-	NextToken string
-}
+type Reply = ocall.UsersReply
