@@ -53,13 +53,13 @@ that the API will not grant without user context.
 
 import (
 	"context"
-	"os"
 	"strings"
 	"testing"
 
 	"github.com/creachadair/jhttp"
 	"github.com/creachadair/jhttp/auth"
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/internal/otest"
 	"github.com/creachadair/twitter/tokens"
 	"github.com/creachadair/twitter/tweets"
 	"github.com/creachadair/twitter/types"
@@ -74,28 +74,19 @@ func debugClient(t *testing.T) *twitter.Client {
 	})
 }
 
-func getOrSkip(t *testing.T, key string) string {
-	t.Helper()
-	val := os.Getenv(key)
-	if val == "" {
-		t.Skip("Missing " + key + " in environment; skipping this test")
-	}
-	return val
-}
-
 func baseConfigOrSkip(t *testing.T) auth.Config {
 	t.Helper()
 	return auth.Config{
-		APIKey:    getOrSkip(t, "AUTHTEST_API_KEY"),
-		APISecret: getOrSkip(t, "AUTHTEST_API_SECRET"),
+		APIKey:    otest.GetOrSkip(t, "AUTHTEST_API_KEY"),
+		APISecret: otest.GetOrSkip(t, "AUTHTEST_API_SECRET"),
 	}
 }
 
 func authConfigOrSkip(t *testing.T) auth.Config {
 	t.Helper()
 	cfg := baseConfigOrSkip(t)
-	cfg.AccessToken = getOrSkip(t, "AUTHTEST_ACCESS_TOKEN")
-	cfg.AccessTokenSecret = getOrSkip(t, "AUTHTEST_ACCESS_TOKEN_SECRET")
+	cfg.AccessToken = otest.GetOrSkip(t, "AUTHTEST_ACCESS_TOKEN")
+	cfg.AccessTokenSecret = otest.GetOrSkip(t, "AUTHTEST_ACCESS_TOKEN_SECRET")
 	return cfg
 }
 
@@ -119,8 +110,8 @@ func TestRequestToken(t *testing.T) {
 // Skip the test if they are not set in the environment.
 func TestAccessGrant(t *testing.T) {
 	cfg := authConfigOrSkip(t)
-	reqToken := getOrSkip(t, "AUTHTEST_REQUEST_TOKEN")
-	verifier := getOrSkip(t, "AUTHTEST_REQUEST_VERIFIER")
+	reqToken := otest.GetOrSkip(t, "AUTHTEST_REQUEST_TOKEN")
+	verifier := otest.GetOrSkip(t, "AUTHTEST_REQUEST_VERIFIER")
 	cli := debugClient(t)
 	ctx := context.Background()
 
@@ -155,7 +146,7 @@ Secret: %q`, tok.Key, tok.Secret)
 // Skip the test if they are not set in the environment.
 func TestUserQuery(t *testing.T) {
 	cfg := baseConfigOrSkip(t)
-	creds := strings.SplitN(getOrSkip(t, "AUTHTEST_USER_TOKEN"), ":", 3)
+	creds := strings.SplitN(otest.GetOrSkip(t, "AUTHTEST_USER_TOKEN"), ":", 3)
 	if len(creds) != 3 {
 		t.Fatal("Invalid AUTHTEST_USER_TOKEN; want user:token:secret")
 	}
@@ -196,8 +187,8 @@ func TestUserQuery(t *testing.T) {
 
 func TestInvalidateAccess(t *testing.T) {
 	cfg := baseConfigOrSkip(t)
-	token := getOrSkip(t, "AUTHTEST_INVALIDATE_TOKEN")
-	secret := getOrSkip(t, "AUTHTEST_INVALIDATE_SECRET")
+	token := otest.GetOrSkip(t, "AUTHTEST_INVALIDATE_TOKEN")
+	secret := otest.GetOrSkip(t, "AUTHTEST_INVALIDATE_SECRET")
 
 	cli := debugClient(t)
 	ctx := context.Background()
@@ -211,7 +202,7 @@ func TestInvalidateAccess(t *testing.T) {
 
 func TestInvalidateBearer(t *testing.T) {
 	cfg := authConfigOrSkip(t)
-	bearer := getOrSkip(t, "AUTHTEST_INVALIDATE_BEARER")
+	bearer := otest.GetOrSkip(t, "AUTHTEST_INVALIDATE_BEARER")
 
 	cli := debugClient(t)
 	ctx := context.Background()
