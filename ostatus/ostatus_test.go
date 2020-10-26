@@ -6,7 +6,6 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"os"
 	"strings"
 	"testing"
 	"time"
@@ -14,23 +13,14 @@ import (
 	"github.com/creachadair/jhttp"
 	"github.com/creachadair/jhttp/auth"
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/internal/otest"
 	"github.com/creachadair/twitter/ostatus"
 	"github.com/creachadair/twitter/types"
 )
 
 var (
 	testCaseDelay = flag.Duration("pause", 0, "How long to pause between tests (for observation)")
-	doVerboseLog  = flag.Bool("verbose-log", false, "Enable verbose client logging")
 )
-
-func getOrSkip(t *testing.T, key string) string {
-	t.Helper()
-	val := os.Getenv(key)
-	if val == "" {
-		t.Skip("Missing " + key + " in environment; skipping this test")
-	}
-	return val
-}
 
 func pause(t *testing.T) {
 	t.Helper()
@@ -43,24 +33,19 @@ func pause(t *testing.T) {
 func newTestClient(t *testing.T) (context.Context, string, *twitter.Client) {
 	t.Helper()
 	cfg := auth.Config{
-		APIKey:    getOrSkip(t, "AUTHTEST_API_KEY"),
-		APISecret: getOrSkip(t, "AUTHTEST_API_SECRET"),
+		APIKey:    otest.GetOrSkip(t, "AUTHTEST_API_KEY"),
+		APISecret: otest.GetOrSkip(t, "AUTHTEST_API_SECRET"),
 	}
-	userToken := strings.SplitN(getOrSkip(t, "OSTATUSTEST_USER_TOKEN"), ":", 2)
+	userToken := strings.SplitN(otest.GetOrSkip(t, "OSTATUSTEST_USER_TOKEN"), ":", 2)
 	if len(userToken) != 2 {
 		t.Fatal("Invalid user token format; want TOKEN:SECRET [redacted]")
 	}
 
 	userID := strings.SplitN(userToken[0], "-", 2)[0]
 	ctx := context.Background()
-	cli := twitter.NewClient(&jhttp.Client{
+	cli := otest.NewClient(t, &jhttp.Client{
 		Authorize: cfg.Authorizer(userToken[0], userToken[1]),
 	})
-	if *doVerboseLog {
-		cli.Log = func(tag jhttp.LogTag, msg string) {
-			t.Logf("DEBUG :: %s | %s", tag, msg)
-		}
-	}
 	return ctx, userID, cli
 }
 

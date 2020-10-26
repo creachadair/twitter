@@ -4,39 +4,19 @@ package ousers_test
 
 import (
 	"context"
-	"flag"
-	"os"
 	"testing"
 
 	"github.com/creachadair/jhttp"
-	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/internal/otest"
 	"github.com/creachadair/twitter/ousers"
 )
 
-var (
-	doVerboseLog = flag.Bool("verbose-log", false, "Enable verbose client logging")
-)
-
-func getOrSkip(t *testing.T, key string) string {
-	t.Helper()
-	val := os.Getenv(key)
-	if val == "" {
-		t.Skip("Missing " + key + " in environment; skipping this test")
-	}
-	return val
-}
-
 func TestUserCall(t *testing.T) {
-	bearerToken := getOrSkip(t, "OUSERS_TWITTER_TOKEN")
-	cli := twitter.NewClient(&jhttp.Client{
+	bearerToken := otest.GetOrSkip(t, "OUSERS_TWITTER_TOKEN")
+	cli := otest.NewClient(t, &jhttp.Client{
 		Authorize: jhttp.BearerTokenAuthorizer(bearerToken),
 	})
 	ctx := context.Background()
-	if *doVerboseLog {
-		cli.Log = func(tag jhttp.LogTag, msg string) {
-			t.Logf("DEBUG :: %s | %s", tag, msg)
-		}
-	}
 
 	// Read a couple of pages to test pagination, but don't pull too many as the
 	// app rate limit is only 30/15m at these endpoints.
