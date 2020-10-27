@@ -103,7 +103,7 @@ func (f %[1]s) Values() []string {
 	fmt.Fprintln(w, "\treturn values\n}")
 
 	fmt.Fprintf(w, `// Set sets the selected field of f to value, by its parameter name.
-// It reports whether name is a known pparameter of f.
+// It reports whether name is a known parameter of f.
 func (f *%[1]s) Set(name string, value bool) bool {
   switch name {`, typeName)
 	for _, f := range fields {
