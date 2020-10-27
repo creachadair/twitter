@@ -22,50 +22,102 @@ func (m MiscFields) Label() string    { return m.Label_ }
 func (m MiscFields) Values() []string { return m.Values_ }
 
 // Expansions represents a set of object field expansions.
-type Expansions []string
+type Expansions struct {
+	// Return a user object representing the Tweet’s author.
+	AuthorID bool `json:"author_id"`
 
-// Label satisfies part of the Fields interface.
+	// Return a Tweet object that this Tweet is referencing (either as a
+	// Retweet, Quoted Tweet, or reply).
+	ReferencedTweetID bool `json:"referenced_tweets.id"`
+
+	// Return a user object representing the Tweet author this requested Tweet
+	// is a reply of.
+	InReplyTo bool `json:"in_reply_to_user_id"`
+
+	// Return a media object representing the images, videos, GIFs included in
+	// the Tweet.
+	MediaKeys bool `json:"attachments.media_keys"`
+
+	// Return a poll object containing metadata for the poll included in the Tweet.
+	PollID bool `json:"attachments.poll_ids"`
+
+	// Return a place object containing metadata for the location tagged in the Tweet.
+	PlaceID bool `json:"geo.place_id"`
+
+	// Return a user object for the user mentioned in the Tweet.
+	MentionUsername bool `json:"entities.mentions.username"`
+
+	// Return a user object for the author of the referenced Tweet.
+	ReferencedAuthorID bool `json:"referenced_tweets.id.author_id"`
+
+	// Return a Tweet object representing the Tweet pinned to the top of the
+	// user’s profile.
+	PinnedTweetID bool `json:"pinned_tweet_id"`
+}
+
+// Label returns the parameter tag for optional expansions.
 func (Expansions) Label() string { return "expansions" }
 
-// Values satisfies part of the Fields interface.
-func (e Expansions) Values() []string { return []string(e) }
+// Values returns a slice of the selected expansions from e.
+func (e Expansions) Values() []string {
+	var values []string
+	if e.AuthorID {
+		values = append(values, "author_id")
+	}
+	if e.ReferencedTweetID {
+		values = append(values, "referenced_tweets.id")
+	}
+	if e.InReplyTo {
+		values = append(values, "in_reply_to_user_id")
+	}
+	if e.MediaKeys {
+		values = append(values, "attachments.media_keys")
+	}
+	if e.PollID {
+		values = append(values, "attachments.poll_ids")
+	}
+	if e.PlaceID {
+		values = append(values, "geo.place_id")
+	}
+	if e.MentionUsername {
+		values = append(values, "entities.mentions.username")
+	}
+	if e.ReferencedAuthorID {
+		values = append(values, "referenced_tweets.id.author_id")
+	}
+	if e.PinnedTweetID {
+		values = append(values, "pinned_tweet_id")
+	}
+	return values
+}
 
-const (
-	// Expand_AuthorID returns a user object representing the Tweet’s author.
-	Expand_AuthorID = "author_id"
-
-	// Expand_ReferencedTweetID returns a Tweet object that this Tweet is
-	// referencing (either as a Retweet, Quoted Tweet, or reply).
-	Expand_ReferencedTweetID = "referenced_tweets.id"
-
-	// Expand_InReplyTo returns a user object representing the Tweet author this
-	// requested Tweet is a reply of.
-	Expand_InReplyTo = "in_reply_to_user_id"
-
-	// Expand_MediaKeys returns a media object representing the images, videos,
-	// GIFs included in the Tweet.
-	Expand_MediaKeys = "attachments.media_keys"
-
-	// Expand_PollID returns a poll object containing metadata for the poll
-	// included in the Tweet.
-	Expand_PollID = "attachments.poll_ids"
-
-	// Expand_PlaceID returns a place object containing metadata for the
-	// location tagged in the Tweet.
-	Expand_PlaceID = "geo.place_id"
-
-	// Expand_MentionUsername returns a user object for the user mentioned in
-	// the Tweet.
-	Expand_MentionUsername = "entities.mentions.username"
-
-	// Expand_ReferencedAuthorID returns a user object for the author of the
-	// referenced Tweet.
-	Expand_ReferencedAuthorID = "referenced_tweets.id.author_id"
-
-	// Expand_PinnedTweetID returns a Tweet object representing the Tweet pinned
-	// to the top of the user’s profile.
-	Expand_PinnedTweetID = "pinned_tweet_id"
-)
+// Set sets the selected expansion of e to value, by its parameter name.
+// It reports whether name is a known parameter of e.
+func (e *Expansions) Set(name string, value bool) bool {
+	switch name {
+	case "author_id":
+		e.AuthorID = value
+	case "referenced_tweets.id":
+		e.ReferencedTweetID = value
+	case "in_reply_to_user_id":
+		e.InReplyTo = value
+	case "attachments.media_keys":
+		e.MediaKeys = value
+	case "attachments.poll_ids":
+		e.PollID = value
+	case "geo.place_id":
+		e.PlaceID = value
+	case "entities.mentions.username":
+		e.MentionUsername = value
+	case "referenced_tweets.id.author_id":
+		e.ReferencedAuthorID = value
+	case "pinned_tweet_id":
+		e.PinnedTweetID = value
+	default:
+		return false
+	}
+	return true
+}
 
 // Constants for the names of various metrics reported in a Metrics map.  The
 // comment beside each constant describes its visibility.
