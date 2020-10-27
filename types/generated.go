@@ -84,7 +84,7 @@ func (f TweetFields) Values() []string {
 }
 
 // Set sets the selected field of f to value, by its parameter name.
-// It reports whether name is a known pparameter of f.
+// It reports whether name is a known parameter of f.
 func (f *TweetFields) Set(name string, value bool) bool {
 	switch name {
 	case "attachments":
@@ -198,7 +198,7 @@ func (f UserFields) Values() []string {
 }
 
 // Set sets the selected field of f to value, by its parameter name.
-// It reports whether name is a known pparameter of f.
+// It reports whether name is a known parameter of f.
 func (f *UserFields) Set(name string, value bool) bool {
 	switch name {
 	case "created_at":
@@ -302,7 +302,7 @@ func (f MediaFields) Values() []string {
 }
 
 // Set sets the selected field of f to value, by its parameter name.
-// It reports whether name is a known pparameter of f.
+// It reports whether name is a known parameter of f.
 func (f *MediaFields) Set(name string, value bool) bool {
 	switch name {
 	case "attachments":
@@ -372,7 +372,7 @@ func (f PollFields) Values() []string {
 }
 
 // Set sets the selected field of f to value, by its parameter name.
-// It reports whether name is a known pparameter of f.
+// It reports whether name is a known parameter of f.
 func (f *PollFields) Set(name string, value bool) bool {
 	switch name {
 	case "attachments":
@@ -444,7 +444,7 @@ func (f PlaceFields) Values() []string {
 }
 
 // Set sets the selected field of f to value, by its parameter name.
-// It reports whether name is a known pparameter of f.
+// It reports whether name is a known parameter of f.
 func (f *PlaceFields) Set(name string, value bool) bool {
 	switch name {
 	case "attachments":
