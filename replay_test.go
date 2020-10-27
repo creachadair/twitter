@@ -188,7 +188,7 @@ func TestClientCall(t *testing.T) {
 				"public_metrics",
 				"verified",
 			},
-			"expansions": []string{types.Expand_PinnedTweetID},
+			"expansions": []string{"pinned_tweet_id"},
 		},
 	})
 	if err != nil {
@@ -214,7 +214,7 @@ func TestTweetLookup(t *testing.T) {
 				Entities:  true,
 				AuthorID:  true,
 			},
-			types.Expansions{types.Expand_MentionUsername},
+			types.Expansions{MentionUsername: true},
 		},
 	})
 	if !query.HasMorePages() {
