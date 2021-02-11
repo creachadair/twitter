@@ -65,8 +65,8 @@ const fakeAuthToken = "this-is-a-fake-auth-token-for-testing"
 // This test uses the go-vcr module to replay recorded HTTP interactions,
 // captured from the live Twitter API.
 //
-// For ordinary use, run "go test", which will use the test-data.yaml file
-// checked in at the root of the repository.
+// For ordinary use, run "go test", which will use the test-record.yaml file
+// checked in under the testdata directory.
 //
 // To record a new file, run "go test -mode=record". Don't forget to check in any
 // changes you obtain in this way.
