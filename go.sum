@@ -1,5 +1,5 @@
-github.com/creachadair/jhttp v0.0.0-20201101031238-fadd981e84db h1:ZJv9zDVucp/nKeamCrdMPCRlox6E15hc0MZOqD6l/gk=
-github.com/creachadair/jhttp v0.0.0-20201101031238-fadd981e84db/go.mod h1:mI3XdRNp8s5QEb2mZtf9WwGHXXZE7melnCwwvpxV+Nc=
+github.com/creachadair/jhttp v0.0.0-20210919181111-cbdababa237c h1:XNdm9XmtSVcUeOLGqeJOW9Du/2YwR8U754fmctYJl4g=
+github.com/creachadair/jhttp v0.0.0-20210919181111-cbdababa237c/go.mod h1:65J0yhuD3EL1u5/63Gn23BJmRuzAaA64wLijV6Pt4AU=
 github.com/dnaeon/go-vcr v1.0.1 h1:r8L/HqC0Hje5AXMu1ooW8oyQyOFv4GxqpL0nRP7SLLY=
 github.com/dnaeon/go-vcr v1.0.1/go.mod h1:aBB1+wY4s93YsC3HHjMBMrwTj2R9FHDzUr9KyGc8n1E=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=

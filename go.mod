@@ -1,9 +1,9 @@
 module github.com/creachadair/twitter
 
-go 1.15
+go 1.17
 
 require (
-	github.com/creachadair/jhttp v0.0.0-20201101031238-fadd981e84db
+	github.com/creachadair/jhttp v0.0.0-20210919181111-cbdababa237c
 	github.com/dnaeon/go-vcr v1.0.1
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )
