@@ -12,15 +12,6 @@ type Fields interface {
 	Values() []string
 }
 
-// MiscFields adapts an arbitrary label and values to the Fields interface.
-type MiscFields struct {
-	Label_  string
-	Values_ []string
-}
-
-func (m MiscFields) Label() string    { return m.Label_ }
-func (m MiscFields) Values() []string { return m.Values_ }
-
 // Expansions represents a set of object field expansions.
 type Expansions struct {
 	// Return a user object representing the Tweet’s author.
