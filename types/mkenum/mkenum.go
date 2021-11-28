@@ -46,6 +46,8 @@ func main() {
 	generateSearchableSlice(&code, "Poll", "ID")
 	generateEnum(&code, "Place", (*types.Place)(nil))
 	generateSearchableSlice(&code, "Place", "ID")
+	generateFieldsMethods(&code, "Expansions", "Expansions", "expansions",
+		fieldKeys((*types.Expansions)(nil)))
 
 	clean, err := format.Source(code.Bytes())
 	if err != nil {
@@ -87,30 +89,7 @@ func generateEnum(w io.Writer, base string, v interface{}) {
 	}
 	fmt.Fprint(w, "}\n\n")
 
-	// Support methods.
-	fmt.Fprintf(w, `// Label returns the parameter tag for optional %[1]s fields.
-func (%[2]s) Label() string { return %q }
-
-`, base, typeName, typeLabel)
-
-	fmt.Fprintf(w, `// Values returns a slice of the selected field names from f.
-func (f %[1]s) Values() []string {
-  var values []string
-`, typeName)
-	for _, f := range fields {
-		fmt.Fprintf(w, "\tif f.%[1]s { values=append(values, %[2]q) }\n", f.fieldName, f.paramName)
-	}
-	fmt.Fprintln(w, "\treturn values\n}")
-
-	fmt.Fprintf(w, `// Set sets the selected field of f to value, by its parameter name.
-// It reports whether name is a known parameter of f.
-func (f *%[1]s) Set(name string, value bool) bool {
-  switch name {`, typeName)
-	for _, f := range fields {
-		fmt.Fprintf(w, "\tcase %[1]q:\n\t\tf.%[2]s = value\n", f.paramName, f.fieldName)
-	}
-	fmt.Fprint(w, "\tdefault:\n\t\treturn false\n")
-	fmt.Fprintln(w, "}\n\treturn true\n}")
+	generateFieldsMethods(w, base, typeName, typeLabel, fields)
 }
 
 func generateSearchableSlice(w io.Writer, base string, fields ...string) {
@@ -135,6 +114,35 @@ func generateSearchableSlice(w io.Writer, base string, fields ...string) {
 }
 `, recvName, typeName, field, funcName, paramName, base)
 	}
+}
+
+func generateFieldsMethods(w io.Writer, base, typeName, label string, fields []fieldInfo) {
+	// Label method, returning the query field label.
+	fmt.Fprintf(w, `// Label returns the parameter tag for optional %[1]s fields.
+func (%[2]s) Label() string { return %q }
+
+`, base, typeName, label)
+
+	// Values method, returning the selected field names.
+	fmt.Fprintf(w, `// Values returns a slice of the selected field names from f.
+func (f %[1]s) Values() []string {
+  var values []string
+`, typeName)
+	for _, f := range fields {
+		fmt.Fprintf(w, "\tif f.%[1]s { values=append(values, %[2]q) }\n", f.fieldName, f.paramName)
+	}
+	fmt.Fprintln(w, "\treturn values\n}")
+
+	// Set method, set or clear fields dynamically by JSON name.
+	fmt.Fprintf(w, `// Set sets the selected field of f to value, by its parameter name.
+// It reports whether name is a known parameter of f.
+func (f *%[1]s) Set(name string, value bool) bool {
+  switch name {`, typeName)
+	for _, f := range fields {
+		fmt.Fprintf(w, "\tcase %[1]q:\n\t\tf.%[2]s = value\n", f.paramName, f.fieldName)
+	}
+	fmt.Fprint(w, "\tdefault:\n\t\treturn false\n")
+	fmt.Fprintln(w, "}\n\treturn true\n}")
 }
 
 // fieldInfo records the name and details about a specific field.
