@@ -479,3 +479,67 @@ func (ps Places) FindByID(id string) *Place {
 	}
 	return nil
 }
+
+// Label returns the parameter tag for optional Expansions fields.
+func (Expansions) Label() string { return "expansions" }
+
+// Values returns a slice of the selected field names from f.
+func (f Expansions) Values() []string {
+	var values []string
+	if f.AuthorID {
+		values = append(values, "author_id")
+	}
+	if f.ReferencedTweetID {
+		values = append(values, "referenced_tweets.id")
+	}
+	if f.InReplyTo {
+		values = append(values, "in_reply_to_user_id")
+	}
+	if f.MediaKeys {
+		values = append(values, "attachments.media_keys")
+	}
+	if f.PollID {
+		values = append(values, "attachments.poll_ids")
+	}
+	if f.PlaceID {
+		values = append(values, "geo.place_id")
+	}
+	if f.MentionUsername {
+		values = append(values, "entities.mentions.username")
+	}
+	if f.ReferencedAuthorID {
+		values = append(values, "referenced_tweets.id.author_id")
+	}
+	if f.PinnedTweetID {
+		values = append(values, "pinned_tweet_id")
+	}
+	return values
+}
+
+// Set sets the selected field of f to value, by its parameter name.
+// It reports whether name is a known parameter of f.
+func (f *Expansions) Set(name string, value bool) bool {
+	switch name {
+	case "author_id":
+		f.AuthorID = value
+	case "referenced_tweets.id":
+		f.ReferencedTweetID = value
+	case "in_reply_to_user_id":
+		f.InReplyTo = value
+	case "attachments.media_keys":
+		f.MediaKeys = value
+	case "attachments.poll_ids":
+		f.PollID = value
+	case "geo.place_id":
+		f.PlaceID = value
+	case "entities.mentions.username":
+		f.MentionUsername = value
+	case "referenced_tweets.id.author_id":
+		f.ReferencedAuthorID = value
+	case "pinned_tweet_id":
+		f.PinnedTweetID = value
+	default:
+		return false
+	}
+	return true
+}
