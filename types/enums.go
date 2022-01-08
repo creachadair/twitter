@@ -44,6 +44,9 @@ type Expansions struct {
 	// Return a Tweet object representing the Tweet pinned to the top of the
 	// user’s profile.
 	PinnedTweetID bool `json:"pinned_tweet_id"`
+
+	// Return a user object representing a list's owner.
+	OwnerID bool `json:"owner_id"`
 }
 
 // Constants for the names of various metrics reported in a Metrics map.  The

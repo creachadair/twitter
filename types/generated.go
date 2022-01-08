@@ -585,6 +585,9 @@ func (f Expansions) Values() []string {
 	if f.PinnedTweetID {
 		values = append(values, "pinned_tweet_id")
 	}
+	if f.OwnerID {
+		values = append(values, "owner_id")
+	}
 	return values
 }
 
@@ -610,6 +613,8 @@ func (f *Expansions) Set(name string, value bool) bool {
 		f.ReferencedAuthorID = value
 	case "pinned_tweet_id":
 		f.PinnedTweetID = value
+	case "owner_id":
+		f.OwnerID = value
 	default:
 		return false
 	}
