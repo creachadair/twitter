@@ -18,6 +18,7 @@ import (
 
 	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/lists"
 	"github.com/creachadair/twitter/query"
 	"github.com/creachadair/twitter/rules"
 	"github.com/creachadair/twitter/tweets"
@@ -274,6 +275,52 @@ func TestUsernameLookup(t *testing.T) {
 	for i, v := range rsp.Users {
 		t.Logf("User %d: id=%s, username=%q, name=%q", i+1, v.ID, v.Username, v.Name)
 		t.Logf("User %d public metrics: %+v", i+1, v.PublicMetrics)
+	}
+}
+
+func TestListsLookup(t *testing.T) {
+	ctx := context.Background()
+	rsp, err := lists.Lookup("1318922483496591360", &lists.ListOpts{
+		Optional: []types.Fields{
+			types.ListFields{
+				CreatedAt:   true,
+				Description: true,
+				Followers:   true,
+				Members:     true,
+			},
+		},
+	}).Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("Lookup failed: %v", err)
+	}
+	t.Logf("Lookup request returned %d bytes", len(rsp.Reply.Data))
+
+	for i, v := range rsp.Lists {
+		t.Logf("List %d: id=%s, name=%s, description=%q, members=%d, followers=%d",
+			i+1, v.ID, v.Name, v.Description, v.Members, v.Followers)
+	}
+}
+
+func TestListsOwnedBy(t *testing.T) {
+	ctx := context.Background()
+	rsp, err := lists.OwnedBy("1242605009205956608", &lists.ListOpts{ // @inlieuoffunshow
+		Optional: []types.Fields{
+			types.ListFields{
+				CreatedAt:   true,
+				Description: true,
+				Followers:   true,
+				Members:     true,
+			},
+		},
+	}).Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("Lookup failed: %v", err)
+	}
+	t.Logf("Lookup request returned %d bytes", len(rsp.Reply.Data))
+
+	for i, v := range rsp.Lists {
+		t.Logf("List %d: id=%s, name=%s, description=%q, members=%d, followers=%d",
+			i+1, v.ID, v.Name, v.Description, v.Members, v.Followers)
 	}
 }
 
