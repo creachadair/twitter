@@ -6,6 +6,7 @@ package lists
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
@@ -57,6 +58,17 @@ func Create(name, description string, private bool) Query {
 	return Query{Request: req, encodeErr: err}
 }
 
+// Delete constructs a query to delete an existing list.
+//
+// API: PUT 2/lists
+func Delete(id string) Edit {
+	req := &jhttp.Request{
+		Method:     "2/lists/" + id,
+		HTTPMethod: "DELETE",
+	}
+	return Edit{Request: req, tag: "deleted"}
+}
+
 // A Query performs a query for list metadata.
 type Query struct {
 	*jhttp.Request
@@ -91,6 +103,29 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 		Reply: rsp,
 		Lists: lists,
 	}, nil
+}
+
+// An Edit is a query to edit or delete a list.
+type Edit struct {
+	*jhttp.Request
+	tag string
+}
+
+// Invoke executes the query on the given context and client. A successful
+// response reports whether the edit took effect.
+func (e Edit) Invoke(ctx context.Context, cli *twitter.Client) (bool, error) {
+	rsp, err := cli.Call(ctx, e.Request)
+	if err != nil {
+		return false, err
+	}
+	m := make(map[string]*bool)
+	if err := json.Unmarshal(rsp.Data, &m); err != nil {
+		return false, &jhttp.Error{Data: rsp.Data, Message: "decoding response", Err: err}
+	}
+	if v := m[e.tag]; v != nil {
+		return *v, nil
+	}
+	return false, fmt.Errorf("tag %q not found", e.tag)
 }
 
 // A Reply is the response from a Query.
