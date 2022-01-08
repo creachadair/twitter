@@ -252,6 +252,78 @@ func (us Users) FindByUsername(username string) *User {
 	return nil
 }
 
+// ListFields defines optional List field parameters.
+type ListFields struct {
+	CreatedAt   bool // created_at
+	Description bool // description
+	Followers   bool // follower_count
+	Members     bool // member_count
+	OwnerID     bool // owner_id
+	Private     bool // private
+}
+
+// Label returns the parameter tag for optional List fields.
+func (ListFields) Label() string { return "list.fields" }
+
+// Values returns a slice of the selected field names from f.
+func (f ListFields) Values() []string {
+	var values []string
+	if f.CreatedAt {
+		values = append(values, "created_at")
+	}
+	if f.Description {
+		values = append(values, "description")
+	}
+	if f.Followers {
+		values = append(values, "follower_count")
+	}
+	if f.Members {
+		values = append(values, "member_count")
+	}
+	if f.OwnerID {
+		values = append(values, "owner_id")
+	}
+	if f.Private {
+		values = append(values, "private")
+	}
+	return values
+}
+
+// Set sets the selected field of f to value, by its parameter name.
+// It reports whether name is a known parameter of f.
+func (f *ListFields) Set(name string, value bool) bool {
+	switch name {
+	case "created_at":
+		f.CreatedAt = value
+	case "description":
+		f.Description = value
+	case "follower_count":
+		f.Followers = value
+	case "member_count":
+		f.Members = value
+	case "owner_id":
+		f.OwnerID = value
+	case "private":
+		f.Private = value
+	default:
+		return false
+	}
+	return true
+}
+
+// Lists is a searchable slice of List values.
+type Lists []*List
+
+// FindByID returns the first List in ls whose ID matches, or nil.
+func (ls Lists) FindByID(id string) *List {
+	for _, v := range ls {
+		if v.ID == id {
+			return v
+		}
+	}
+	return nil
+}
+
 // MediaFields defines optional Media field parameters.
 type MediaFields struct {
 	Attachments      bool // attachments

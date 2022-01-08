@@ -40,6 +40,8 @@ func main() {
 	generateSearchableSlice(&code, "Tweet", "ID")
 	generateEnum(&code, "User", (*types.User)(nil))
 	generateSearchableSlice(&code, "User", "ID", "Username")
+	generateEnum(&code, "List", (*types.List)(nil))
+	generateSearchableSlice(&code, "List", "ID")
 	generateEnum(&code, "Media", (*types.Media)(nil))
 	generateSearchableSlice(&code, "Media", "Key")
 	generateEnum(&code, "Poll", (*types.Poll)(nil))
