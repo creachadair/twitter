@@ -13,7 +13,7 @@ import (
 )
 
 // Lookup constructs a query for the metadata of a list by ID.  A successful
-// response will contain exactly one list.
+// reply contains a single List value for the matching list.
 //
 // API: 2/lists
 func Lookup(id string, opts *ListOpts) Query {
@@ -38,13 +38,36 @@ func OwnedBy(userID string, opts *ListOpts) Query {
 	return Query{Request: req}
 }
 
+// Create constructs a query to create a new list. A successful reply contains
+// a single List value for the created list.
+//
+// API: POST 2/lists
+func Create(name, description string, private bool) Query {
+	req := &jhttp.Request{
+		Method:     "2/lists",
+		HTTPMethod: "POST",
+	}
+	body, err := json.Marshal(struct {
+		Name    string `json:"name"`
+		Desc    string `json:"description,omitempty"`
+		Private bool   `json:"private,omitempty"`
+	}{Name: name, Desc: description, Private: private})
+	req.Data = body
+	req.ContentType = "application/json"
+	return Query{Request: req, encodeErr: err}
+}
+
 // A Query performs a query for list metadata.
 type Query struct {
 	*jhttp.Request
+	encodeErr error
 }
 
 // Invoke executes the query on the given context and client.
 func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) {
+	if q.encodeErr != nil {
+		return nil, q.encodeErr // deferred encoding error
+	}
 	rsp, err := cli.Call(ctx, q.Request)
 	if err != nil {
 		return nil, err
