@@ -93,5 +93,74 @@ func (o *ListOpts) addQueryParams(q *Query) {
 	q.opts = o.Optional
 }
 
+// Followers constructs a query for the followers of a user.
+//
+// API: 1.1/followers/list
+func Followers(user string, opts *FollowOpts) Query {
+	q := Query{
+		Request: &jhttp.Request{
+			Method: "1.1/followers/list.json",
+			Params: make(jhttp.Params),
+		},
+	}
+	opts.addQueryParams(user, &q)
+	return q
+}
+
+// Following constructs a query for the "friends" of a user, which are those
+// accounts the user is following.
+//
+// API: 1.1/friends/list
+func Following(user string, opts *FollowOpts) Query {
+	q := Query{
+		Request: &jhttp.Request{
+			Method: "1.1/friends/list.json",
+			Params: make(jhttp.Params),
+		},
+	}
+	opts.addQueryParams(user, &q)
+	return q
+}
+
+// FollowOpts provides parameters for follower/following queries.  A nil
+// *FollowOpts provides zero values for all fields.
+type FollowOpts struct {
+	// Look up following by user ID rather than username.
+	ByID bool
+
+	// A pagination token provided by the server.
+	PageToken string
+
+	// The number of results to return per page (maximum 200).
+	// If zero, use the server default (20).
+	PerPage int
+
+	// Optional user fields to report with a successful update.
+	Optional types.UserFields
+}
+
+func (o *FollowOpts) keyField() string {
+	if o != nil && o.ByID {
+		return "user_id"
+	}
+	return "screen_name"
+}
+
+func (o *FollowOpts) addQueryParams(key string, q *Query) {
+	q.Request.Params.Set(o.keyField(), key)
+	if o == nil {
+		return
+	}
+	q.Request.Params.Set("skip_status", "true") // don't return tweets
+	q.Request.Params.Set("include_user_entities", strconv.FormatBool(o.Optional.Entities))
+	if o.PageToken != "" {
+		q.Request.Params.Set("cursor", o.PageToken)
+	}
+	if o.PerPage > 0 {
+		q.Request.Params.Set("count", strconv.Itoa(o.PerPage))
+	}
+	q.opts = o.Optional
+}
+
 // A Reply is the response from a Query.
 type Reply = ocall.UsersReply

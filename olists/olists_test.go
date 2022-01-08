@@ -57,4 +57,40 @@ func TestUserCall(t *testing.T) {
 			t.Logf("Next page token: %q", rsp.NextToken)
 		}
 	})
+
+	t.Run("Followers", func(t *testing.T) {
+		q := olists.Followers("jack", &olists.FollowOpts{
+			PerPage: 10,
+		})
+
+		for p := 0; p < maxPagesToRead && q.HasMorePages(); p++ {
+			rsp, err := q.Invoke(ctx, cli)
+			if err != nil {
+				t.Fatalf("Invoke failed: %v", err)
+			}
+			for _, u := range rsp.Users {
+				t.Logf("User id=%s username=%q name=%q", u.ID, u.Username, u.Name)
+			}
+
+			t.Logf("Next page token: %q", rsp.NextToken)
+		}
+	})
+
+	t.Run("Following", func(t *testing.T) {
+		q := olists.Following("jack", &olists.FollowOpts{
+			PerPage: 10,
+		})
+
+		for p := 0; p < maxPagesToRead && q.HasMorePages(); p++ {
+			rsp, err := q.Invoke(ctx, cli)
+			if err != nil {
+				t.Fatalf("Invoke failed: %v", err)
+			}
+			for _, u := range rsp.Users {
+				t.Logf("User id=%s username=%q name=%q", u.ID, u.Username, u.Name)
+			}
+
+			t.Logf("Next page token: %q", rsp.NextToken)
+		}
+	})
 }
