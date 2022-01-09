@@ -48,6 +48,12 @@ func TestSearchStream(t *testing.T) {
 	}
 	ctx := context.Background()
 
+	if *testMode == "record" {
+		t.Log(`
+WARNING: This test may take a while (minutes) to complete in record mode.
+         Be patient, it is waiting for live data from a search query.
+`)
+	}
 	r := rules.Adds{{Query: `cat has:images lang:en`}}
 	rsp, err := rules.Update(r).Invoke(ctx, cli)
 	if err != nil {

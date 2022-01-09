@@ -67,10 +67,14 @@ const fakeAuthToken = "this-is-a-fake-auth-token-for-testing"
 // captured from the live Twitter API.
 //
 // For ordinary use, run "go test", which will use the test-record.yaml file
-// checked in under the testdata directory.
+// checked in under the testdata directory. This is equivalent to -mode=replay.
 //
-// To record a new file, run "go test -mode=record". Don't forget to check in any
-// changes you obtain in this way.
+// To run tests against production, put a Twitter API v2 bearer token in the
+// TWITTER_TOKEN environment variable and run go test -mode=run. You may want
+// to filter which tests you run via -run <regexp>.
+//
+// To record a new testdata file, run "go test -mode=record". Don't forget to
+// check in any changes you obtain in this way.
 //
 // Use the -testdata flag to specify the location of the test data file.
 //
