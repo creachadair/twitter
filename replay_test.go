@@ -345,18 +345,27 @@ func TestListsMemberOf(t *testing.T) {
 
 func TestListsMembers(t *testing.T) {
 	ctx := context.Background()
-	rsp, err := lists.Members("1103846010294394881", &lists.ListOpts{
+	q := lists.Members("1103846010294394881", &lists.ListOpts{
+		MaxResults: 5,
 		Optional: []types.Fields{
 			types.UserFields{FuzzyLocation: true},
 		},
-	}).Invoke(ctx, cli)
-	if err != nil {
-		t.Fatalf("Members failed: %v", err)
-	}
-	t.Logf("Members request returned %d bytes", len(rsp.Reply.Data))
+	})
+	for nr := 0; q.HasMorePages(); nr++ {
+		// Safety check: If we get "too many" pages assume something is broken.
+		// If you choose a big list, you might have to increase this or the page size.
+		if nr > 20 {
+			t.Fatalf("Still receiving more pages after %d requests; giving up", nr)
+		}
+		rsp, err := q.Invoke(ctx, cli)
+		if err != nil {
+			t.Fatalf("Members failed: %v", err)
+		}
+		t.Logf("Members request %d returned %d bytes", nr+1, len(rsp.Reply.Data))
 
-	for i, v := range rsp.Users {
-		t.Logf("User %d: id=%s, name=%q, loc=%q", i+1, v.ID, v.Name, v.FuzzyLocation)
+		for i, v := range rsp.Users {
+			t.Logf("User %d: id=%s, name=%q, loc=%q", i+1, v.ID, v.Name, v.FuzzyLocation)
+		}
 	}
 }
 
