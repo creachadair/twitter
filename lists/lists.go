@@ -75,6 +75,7 @@ func Create(name, description string, private bool) Query {
 	req := &jhttp.Request{
 		Method:     "2/lists",
 		HTTPMethod: "POST",
+		Params:     make(jhttp.Params),
 	}
 	body, err := json.Marshal(struct {
 		Name    string `json:"name"`
