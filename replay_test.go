@@ -343,6 +343,21 @@ func TestListsMemberOf(t *testing.T) {
 	}
 }
 
+func TestListsFollowers(t *testing.T) {
+	ctx := context.Background()
+	rsp, err := lists.Followers("110594012", &lists.ListOpts{
+		MaxResults: 5,
+	}).Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("Followers failed: %v", err)
+	}
+	t.Logf("Followers returned %d bytes", len(rsp.Reply.Data))
+
+	for i, v := range rsp.Users {
+		t.Logf("User %d: id=%s name=%q", i+1, v.ID, v.Name)
+	}
+}
+
 func TestListsMembers(t *testing.T) {
 	ctx := context.Background()
 	q := lists.Members("1103846010294394881", &lists.ListOpts{

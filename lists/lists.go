@@ -138,6 +138,19 @@ func Members(listID string, opts *ListOpts) users.Query {
 	return users.Query{Request: req}
 }
 
+// Followers constructs a query to list the followers of a list. Note that the
+// query reply contains user data, not lists.
+//
+// API: 2/lists/:id/followers
+func Followers(listID string, opts *ListOpts) users.Query {
+	req := &jhttp.Request{
+		Method: "2/lists/" + listID + "/followers",
+		Params: make(jhttp.Params),
+	}
+	opts.addRequestParams(req)
+	return users.Query{Request: req}
+}
+
 // A Query performs a query for list metadata.
 type Query struct {
 	*jhttp.Request
