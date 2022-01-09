@@ -164,15 +164,37 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 		// multiple-value return
 		err = json.Unmarshal(rsp.Data, &lists)
 	}
-
 	if err != nil {
 		return nil, &jhttp.Error{Data: rsp.Data, Message: "decoding lists data", Err: err}
 	}
-	return &Reply{
-		Reply: rsp,
-		Lists: lists,
-	}, nil
+	out := &Reply{Reply: rsp, Lists: lists}
+	q.Request.Params.Set(nextTokenParam, "")
+	if len(rsp.Meta) != 0 {
+		if err := json.Unmarshal(rsp.Meta, &out.Meta); err != nil {
+			return nil, &jhttp.Error{Data: rsp.Meta, Message: "decoding response metadata", Err: err}
+		}
+		// Update the query page token. Do this even if next_token is empty; the
+		// HasMorePages method uses the presence of the parameter to distinguish
+		// a fresh query from end-of-pages.
+		q.Request.Params.Set(nextTokenParam, out.Meta.NextToken)
+	}
+	return out, nil
 }
+
+// nextTokenParam is the name of the pagination tokenq uery parameter.
+const nextTokenParam = "pagination_token"
+
+// HasMorePages reports whether the query has more pages to fetch. This is true
+// for a freshly-constructed query, and for an invoked query where the server
+// has not reported a next-page token.
+func (q Query) HasMorePages() bool {
+	v, ok := q.Request.Params[nextTokenParam]
+	return !ok || v[0] != ""
+}
+
+// ResetPageToken clears (resets) the query's current page token. Subsequently
+// invoking the query will then fetch the first page of results.
+func (q Query) ResetPageToken() { q.Request.Params.Reset(nextTokenParam) }
 
 // An Edit is a query to edit or delete a list.
 type Edit struct {
@@ -205,6 +227,13 @@ func (e Edit) Invoke(ctx context.Context, cli *twitter.Client) (bool, error) {
 type Reply struct {
 	*twitter.Reply
 	Lists types.Lists
+	Meta  *Meta
+}
+
+// Meta records server metadata reported in a user reply.
+type Meta struct {
+	ResultCount int    `json:"result_count"`
+	NextToken   string `json:"next_token"`
 }
 
 // ListOpts provide parameters for list queries.  A nil *ListOpts provides
@@ -226,7 +255,7 @@ func (o *ListOpts) addRequestParams(req *jhttp.Request) {
 		return // nothing to do
 	}
 	if o.PageToken != "" {
-		req.Params.Set(users.NextTokenParam, o.PageToken)
+		req.Params.Set(nextTokenParam, o.PageToken)
 	}
 	if o.MaxResults > 0 {
 		req.Params.Set("max_results", strconv.Itoa(o.MaxResults))
