@@ -343,6 +343,19 @@ func TestListsMemberOf(t *testing.T) {
 	}
 }
 
+func TestListsFollowedBy(t *testing.T) {
+	ctx := context.Background()
+	rsp, err := lists.FollowedBy("186667011", nil).Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("FollowedBy failed: %v", err)
+	}
+	t.Logf("FollowedBy request returned %d bytes", len(rsp.Reply.Data))
+
+	for i, v := range rsp.Lists {
+		t.Logf("List %d: id=%s, name=%q", i+1, v.ID, v.Name)
+	}
+}
+
 func TestListsFollowers(t *testing.T) {
 	ctx := context.Background()
 	rsp, err := lists.Followers("110594012", &lists.ListOpts{

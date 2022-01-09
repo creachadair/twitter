@@ -41,6 +41,19 @@ func OwnedBy(userID string, opts *ListOpts) Query {
 	return Query{Request: req}
 }
 
+// FollowedBy constructs a query for the metadata of lists followed by the
+// specified user ID.
+//
+// API: 2/users/:id/followed_lists
+func FollowedBy(userID string, opts *ListOpts) Query {
+	req := &jhttp.Request{
+		Method: "2/users/" + userID + "/followed_lists",
+		Params: make(jhttp.Params),
+	}
+	opts.addRequestParams(req)
+	return Query{Request: req}
+}
+
 // MemberOf constructs a query for the metadata of lists the specified user ID
 // belongs to.
 //
