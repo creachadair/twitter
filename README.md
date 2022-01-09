@@ -20,4 +20,4 @@ I plan to improve on all of these, but in the meantime I do not recommend using
 this library for serious work. Please feel free to file issues, however.  The
 library API is very much subject to change.
 
-[tv2]: https://developer.twitter.com/en/docs/twitter-api/early-access
+[tv2]: https://developer.twitter.com/en/docs/twitter-api
