@@ -115,6 +115,7 @@ func Lookup(id string, opts *LookupOpts) Query {
 // A Query performs a lookup or search query.
 type Query struct {
 	*jhttp.Request
+	encodeErr error
 }
 
 func (q Query) nextTokenParam() string {
@@ -130,6 +131,9 @@ func (q Query) nextTokenParam() string {
 // contains a pagination token, q is updated in-place so that invoking the
 // query again will fetch the next page.
 func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) {
+	if q.encodeErr != nil {
+		return nil, q.encodeErr // deferred encoding error
+	}
 	rsp, err := cli.Call(ctx, q.Request)
 	if err != nil {
 		return nil, err
