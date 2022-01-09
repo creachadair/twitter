@@ -45,6 +45,10 @@ const (
 	// BaseURL is the default base URL for the production Twitter API.
 	// This is the default base URL if one is not given in the client.
 	BaseURL = "https://api.twitter.com"
+
+	// NextTokenParam is the name of the query parameter used to send a page
+	// token to the service.
+	NextTokenParam = "pagination_token"
 )
 
 // NewClient returns a new client for the Twitter API.

@@ -77,7 +77,7 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 		return nil, &jhttp.Error{Data: rsp.Data, Message: "decoding users data", Err: err}
 	}
 	out := &Reply{Reply: rsp, Users: users}
-	q.Request.Params.Set(nextTokenParam, "")
+	q.Request.Params.Set(twitter.NextTokenParam, "")
 	if len(rsp.Meta) != 0 {
 		if err := json.Unmarshal(rsp.Meta, &out.Meta); err != nil {
 			return nil, &jhttp.Error{Data: rsp.Meta, Message: "decoding response metadata", Err: err}
@@ -85,25 +85,22 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 		// Update the query page token. Do this even if next_token is empty; the
 		// HasMorePages method uses the presence of the parameter to distinguish
 		// a fresh query from end-of-pages.
-		q.Request.Params.Set(nextTokenParam, out.Meta.NextToken)
+		q.Request.Params.Set(twitter.NextTokenParam, out.Meta.NextToken)
 	}
 	return out, nil
 }
-
-// nextTokenParam is the name of the pagination token query parameter.
-const nextTokenParam = "pagination_token"
 
 // HasMorePages reports whether the query has more pages to fetch. This is true
 // for a freshly-constructed query, and for an invoked query where the server
 // has not reported a next-page token.
 func (q Query) HasMorePages() bool {
-	v, ok := q.Request.Params[nextTokenParam]
+	v, ok := q.Request.Params[twitter.NextTokenParam]
 	return !ok || v[0] != ""
 }
 
 // ResetPageToken clears (resets) the query's current page token. Subsequently
 // invoking the query will then fetch the first page of results.
-func (q Query) ResetPageToken() { q.Request.Params.Reset(nextTokenParam) }
+func (q Query) ResetPageToken() { q.Request.Params.Reset(twitter.NextTokenParam) }
 
 // A Reply is the response from a Query.
 type Reply struct {

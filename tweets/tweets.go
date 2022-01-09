@@ -117,6 +117,15 @@ type Query struct {
 	*jhttp.Request
 }
 
+func (q Query) nextTokenParam() string {
+	// N.B. For some reason the "search recent" API uses a different pagination
+	// token parameter the rest of the API.
+	if q.Request.Method == "2/tweets/search/recent" {
+		return "next_token"
+	}
+	return twitter.NextTokenParam
+}
+
 // Invoke executes the query on the given context and client. If the reply
 // contains a pagination token, q is updated in-place so that invoking the
 // query again will fetch the next page.
@@ -132,7 +141,7 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 		return nil, &jhttp.Error{Data: rsp.Data, Message: "decoding tweet data", Err: err}
 	}
 	// Maintain the flag validity for lookup queries.
-	q.Request.Params.Set(nextTokenParam, "")
+	q.Request.Params.Set(q.nextTokenParam(), "")
 	if len(rsp.Meta) != 0 {
 		if err := json.Unmarshal(rsp.Meta, &out.Meta); err != nil {
 			return nil, &jhttp.Error{Data: rsp.Meta, Message: "decoding response metadata", Err: err}
@@ -140,30 +149,28 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 		// Update the query page token. Do this even if next_token is empty; the
 		// HasMorePages method uses the presence of the parameter to distinguish
 		// a fresh query from end-of-pages.
-		q.Request.Params.Set(nextTokenParam, out.Meta.NextToken)
+		q.Request.Params.Set(q.nextTokenParam(), out.Meta.NextToken)
 	}
 	return out, nil
 }
-
-const nextTokenParam = "next_token"
 
 // HasMorePages reports whether the query has more pages to fetch. This is true
 // for a freshly-constructed query, and for an invoked query where the server
 // has not reported a next-page token.
 func (q Query) HasMorePages() bool {
 	// To distinguish a fresh query from a query that has exhausted all pages,
-	// we use the presence of nextTokenParam in the parameter map.
+	// we use the presence of the next token parameter in the parameter map.
 	//
 	// If it's there but empty, there are no more pages.
 	// If it's there but nonempty, there are more pages.
 	// If it's not there, this is a fresh query.
-	v, ok := q.Request.Params[nextTokenParam]
+	v, ok := q.Request.Params[q.nextTokenParam()]
 	return !ok || v[0] != ""
 }
 
 // ResetPageToken clears (resets) the query's current page token. Subsequently
 // invoking the query will then fetch the first page of results.
-func (q Query) ResetPageToken() { q.Request.Params.Reset(nextTokenParam) }
+func (q Query) ResetPageToken() { q.Request.Params.Reset(q.nextTokenParam()) }
 
 // A Reply is the response from a Query.
 type Reply struct {
