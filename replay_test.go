@@ -356,21 +356,6 @@ func TestListsFollowedBy(t *testing.T) {
 	}
 }
 
-func TestListsFollowers(t *testing.T) {
-	ctx := context.Background()
-	rsp, err := lists.Followers("110594012", &lists.ListOpts{
-		MaxResults: 5,
-	}).Invoke(ctx, cli)
-	if err != nil {
-		t.Fatalf("Followers failed: %v", err)
-	}
-	t.Logf("Followers returned %d bytes", len(rsp.Reply.Data))
-
-	for i, v := range rsp.Users {
-		t.Logf("User %d: id=%s name=%q", i+1, v.ID, v.Name)
-	}
-}
-
 func TestListsMembers(t *testing.T) {
 	ctx := context.Background()
 	q := lists.Members("1103846010294394881", &lists.ListOpts{
@@ -394,6 +379,36 @@ func TestListsMembers(t *testing.T) {
 		for i, v := range rsp.Users {
 			t.Logf("User %d: id=%s, name=%q, loc=%q", i+1, v.ID, v.Name, v.FuzzyLocation)
 		}
+	}
+}
+
+func TestListsFollowers(t *testing.T) {
+	ctx := context.Background()
+	rsp, err := lists.Followers("110594012", &lists.ListOpts{
+		MaxResults: 5,
+	}).Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("Followers failed: %v", err)
+	}
+	t.Logf("Followers returned %d bytes", len(rsp.Reply.Data))
+
+	for i, v := range rsp.Users {
+		t.Logf("User %d: id=%s name=%q", i+1, v.ID, v.Name)
+	}
+}
+
+func TestListsTweets(t *testing.T) {
+	ctx := context.Background()
+	rsp, err := lists.Tweets("1318922483496591360", &lists.ListOpts{
+		MaxResults: 5,
+	}).Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("Tweets failed: %v", err)
+	}
+	t.Logf("Tweets returned %d bytes", len(rsp.Reply.Data))
+
+	for i, v := range rsp.Tweets {
+		t.Logf("Tweet %d: id=%s text=%q", i+1, v.ID, v.Text)
 	}
 }
 

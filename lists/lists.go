@@ -11,6 +11,7 @@ import (
 
 	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/tweets"
 	"github.com/creachadair/twitter/types"
 	"github.com/creachadair/twitter/users"
 )
@@ -162,6 +163,19 @@ func Followers(listID string, opts *ListOpts) users.Query {
 	}
 	opts.addRequestParams(req)
 	return users.Query{Request: req}
+}
+
+// Tweets constructs a query for the tweets by members of a list. Note that the
+// query reply contains tweets, not lists.
+//
+// API: 2/lists/:id/tweets
+func Tweets(listID string, opts *ListOpts) tweets.Query {
+	req := &jhttp.Request{
+		Method: "2/lists/" + listID + "/tweets",
+		Params: make(jhttp.Params),
+	}
+	opts.addRequestParams(req)
+	return tweets.Query{Request: req}
 }
 
 // A Query performs a query for list metadata.
