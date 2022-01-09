@@ -278,6 +278,22 @@ func TestUsernameLookup(t *testing.T) {
 	}
 }
 
+func TestUsersFollowers(t *testing.T) {
+	ctx := context.Background()
+	rsp, err := users.Followers("12", &users.ListOpts{ // @jack
+		MaxResults: 5,
+		Optional:   []types.Fields{types.UserFields{Verified: true}},
+	}).Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("Followers failed: %v", err)
+	}
+	t.Logf("Followers request returned %d bytes", len(rsp.Reply.Data))
+
+	for i, v := range rsp.Users {
+		t.Logf("User %d: id=%s, username=%q, verified=%v", i+1, v.ID, v.Username, v.Verified)
+	}
+}
+
 func TestListsLookup(t *testing.T) {
 	ctx := context.Background()
 	rsp, err := lists.Lookup("1318922483496591360", &lists.ListOpts{

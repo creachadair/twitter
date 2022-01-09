@@ -27,6 +27,7 @@ package users
 import (
 	"context"
 	"encoding/json"
+	"strconv"
 
 	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
@@ -56,6 +57,16 @@ func newLookup(method, param, key string, opts *LookupOpts) Query {
 	}
 	req.Params.Add(param, key)
 	opts.addRequestParams(param, req)
+	return Query{Request: req}
+}
+
+// Followers returns a query for the followers of the specified user ID.
+func Followers(userID string, opts *ListOpts) Query {
+	req := &jhttp.Request{
+		Method: "2/users/" + userID + "/followers",
+		Params: make(jhttp.Params),
+	}
+	opts.addRequestParams(req)
 	return Query{Request: req}
 }
 
@@ -124,6 +135,37 @@ func (o *LookupOpts) addRequestParams(param string, req *jhttp.Request) {
 		return // nothing to do
 	}
 	req.Params.Add(param, o.More...)
+	for _, fs := range o.Optional {
+		if vs := fs.Values(); len(vs) != 0 {
+			req.Params.Add(fs.Label(), vs...)
+		}
+	}
+}
+
+// ListOpts provide parameters for listing user memberships. A nil *ListOpts
+// provides empty values for all fields.
+type ListOpts struct {
+	// A pagination token provided by the server.
+	PageToken string
+
+	// The maximum number of results to return; 0 means let the server choose.
+	// The service will accept values up to 100.
+	MaxResults int
+
+	// Optional response fields and expansions.
+	Optional []types.Fields
+}
+
+func (o *ListOpts) addRequestParams(req *jhttp.Request) {
+	if o == nil {
+		return // nothing to do
+	}
+	if o.PageToken != "" {
+		req.Params.Set(twitter.NextTokenParam, o.PageToken)
+	}
+	if o.MaxResults > 0 {
+		req.Params.Set("max_results", strconv.Itoa(o.MaxResults))
+	}
 	for _, fs := range o.Optional {
 		if vs := fs.Values(); len(vs) != 0 {
 			req.Params.Add(fs.Label(), vs...)
