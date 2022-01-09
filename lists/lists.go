@@ -11,6 +11,7 @@ import (
 	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
 	"github.com/creachadair/twitter/types"
+	"github.com/creachadair/twitter/users"
 )
 
 // Lookup constructs a query for the metadata of a list by ID.  A successful
@@ -121,6 +122,19 @@ func DeleteMember(listID, userID string) Edit {
 		HTTPMethod: "DELETE",
 	}
 	return Edit{Request: req, tag: "is_member"}
+}
+
+// Members constructs a query to list the members of a list.  Note that the
+// query reply contains user data, not lists.
+//
+// API: 2/lists/:id/members
+func Members(listID string, opts *ListOpts) users.Query {
+	req := &jhttp.Request{
+		Method: "2/lists/" + listID + "/members",
+		Params: make(jhttp.Params),
+	}
+	opts.addRequestParams(req)
+	return users.Query{Request: req}
 }
 
 // A Query performs a query for list metadata.

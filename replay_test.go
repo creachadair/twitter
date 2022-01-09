@@ -343,6 +343,23 @@ func TestListsMemberOf(t *testing.T) {
 	}
 }
 
+func TestListsMembers(t *testing.T) {
+	ctx := context.Background()
+	rsp, err := lists.Members("1103846010294394881", &lists.ListOpts{
+		Optional: []types.Fields{
+			types.UserFields{FuzzyLocation: true},
+		},
+	}).Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("Members failed: %v", err)
+	}
+	t.Logf("Members request returned %d bytes", len(rsp.Reply.Data))
+
+	for i, v := range rsp.Users {
+		t.Logf("User %d: id=%s, name=%q, loc=%q", i+1, v.ID, v.Name, v.FuzzyLocation)
+	}
+}
+
 func TestSearchPages(t *testing.T) {
 	ctx := context.Background()
 
