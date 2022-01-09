@@ -61,9 +61,23 @@ func newLookup(method, param, key string, opts *LookupOpts) Query {
 }
 
 // Followers returns a query for the followers of the specified user ID.
+//
+// API: 2/users/:id/followers
 func Followers(userID string, opts *ListOpts) Query {
 	req := &jhttp.Request{
 		Method: "2/users/" + userID + "/followers",
+		Params: make(jhttp.Params),
+	}
+	opts.addRequestParams(req)
+	return Query{Request: req}
+}
+
+// Following returns a query for those the specified user ID is following.
+//
+// API: 2/users/:id/following
+func Following(userID string, opts *ListOpts) Query {
+	req := &jhttp.Request{
+		Method: "2/users/" + userID + "/following",
 		Params: make(jhttp.Params),
 	}
 	opts.addRequestParams(req)
