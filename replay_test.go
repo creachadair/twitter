@@ -296,7 +296,7 @@ func TestListsLookup(t *testing.T) {
 	t.Logf("Lookup request returned %d bytes", len(rsp.Reply.Data))
 
 	for i, v := range rsp.Lists {
-		t.Logf("List %d: id=%s, name=%s, description=%q, members=%d, followers=%d",
+		t.Logf("List %d: id=%s, name=%q, description=%q, members=%d, followers=%d",
 			i+1, v.ID, v.Name, v.Description, v.Members, v.Followers)
 	}
 }
@@ -314,13 +314,32 @@ func TestListsOwnedBy(t *testing.T) {
 		},
 	}).Invoke(ctx, cli)
 	if err != nil {
-		t.Fatalf("Lookup failed: %v", err)
+		t.Fatalf("OwnedBy failed: %v", err)
 	}
-	t.Logf("Lookup request returned %d bytes", len(rsp.Reply.Data))
+	t.Logf("OwnedBy request returned %d bytes", len(rsp.Reply.Data))
 
 	for i, v := range rsp.Lists {
-		t.Logf("List %d: id=%s, name=%s, description=%q, members=%d, followers=%d",
+		t.Logf("List %d: id=%s, name=%q, description=%q, members=%d, followers=%d",
 			i+1, v.ID, v.Name, v.Description, v.Members, v.Followers)
+	}
+}
+
+func TestListsMemberOf(t *testing.T) {
+	ctx := context.Background()
+	rsp, err := lists.MemberOf("16431281", &lists.ListOpts{
+		Optional: []types.Fields{
+			types.ListFields{OwnerID: true},
+			types.UserFields{FuzzyLocation: true},
+			types.Expansions{OwnerID: true},
+		},
+	}).Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("MemberOf failed: %v", err)
+	}
+	t.Logf("MemberOf request returned %d bytes", len(rsp.Reply.Data))
+
+	for i, v := range rsp.Lists {
+		t.Logf("List %d: id=%s, name=%q, owner=%q", i+1, v.ID, v.Name, v.OwnerID)
 	}
 }
 

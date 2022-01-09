@@ -39,6 +39,19 @@ func OwnedBy(userID string, opts *ListOpts) Query {
 	return Query{Request: req}
 }
 
+// MemberOf constructs a query for the metadata of lists the specified user ID
+// belongs to.
+//
+// API: 2/users/:id/list_memberships
+func MemberOf(userID string, opts *ListOpts) Query {
+	req := &jhttp.Request{
+		Method: "2/users/" + userID + "/list_memberships",
+		Params: make(jhttp.Params),
+	}
+	opts.addRequestParams(req)
+	return Query{Request: req}
+}
+
 // Create constructs a query to create a new list. A successful reply contains
 // a single List value for the created list.
 //
