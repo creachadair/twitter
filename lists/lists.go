@@ -96,6 +96,33 @@ func Update(id string, opts UpdateOpts) Edit {
 	return Edit{Request: req, tag: "updated", encodeErr: err}
 }
 
+// AddMember constructs a query to add a member to an existing list.
+//
+// API: POST 2/lists/:id/members
+func AddMember(listID, userID string) Edit {
+	req := &jhttp.Request{
+		Method:     "2/lists/" + listID + "/members",
+		HTTPMethod: "POST",
+	}
+	body, err := json.Marshal(struct {
+		U string `json:"user_id"`
+	}{U: userID})
+	req.Data = body
+	req.ContentType = "application/json"
+	return Edit{Request: req, tag: "is_member", encodeErr: err}
+}
+
+// DeleteMember constructs a query to remove a member from a list.
+//
+// API: DELETE 2/lists/:id/members/:userid
+func DeleteMember(listID, userID string) Edit {
+	req := &jhttp.Request{
+		Method:     "2/lists/" + listID + "/members/" + userID,
+		HTTPMethod: "DELETE",
+	}
+	return Edit{Request: req, tag: "is_member"}
+}
+
 // A Query performs a query for list metadata.
 type Query struct {
 	*jhttp.Request
