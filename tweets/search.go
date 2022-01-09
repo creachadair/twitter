@@ -27,14 +27,6 @@ func SearchRecent(query string, opts *SearchOpts) Query {
 	return Query{Request: req}
 }
 
-// Meta records server metadata reported in a search reply.
-type Meta struct {
-	ResultCount int    `json:"result_count"`
-	NewestID    string `json:"newest_id"`
-	OldestID    string `json:"oldest_id"`
-	NextToken   string `json:"next_token"`
-}
-
 // SearchOpts provides parameters for tweet search. A nil *SearchOpts provides
 // empty or zero values for all fields.
 type SearchOpts struct {

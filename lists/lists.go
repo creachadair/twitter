@@ -227,13 +227,7 @@ func (e Edit) Invoke(ctx context.Context, cli *twitter.Client) (bool, error) {
 type Reply struct {
 	*twitter.Reply
 	Lists types.Lists
-	Meta  *Meta
-}
-
-// Meta records server metadata reported in a user reply.
-type Meta struct {
-	ResultCount int    `json:"result_count"`
-	NextToken   string `json:"next_token"`
+	Meta  *twitter.Pagination
 }
 
 // ListOpts provide parameters for list queries.  A nil *ListOpts provides

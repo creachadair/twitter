@@ -129,3 +129,9 @@ func decodeRateLimits(h http.Header) *RateLimit {
 	}
 	return out
 }
+
+// Pagination records metadata about pagination of results.
+type Pagination struct {
+	ResultCount int    `json:"result_count"`
+	NextToken   string `json:"next_token"`
+}

@@ -109,13 +109,7 @@ func (q Query) ResetPageToken() { q.Request.Params.Reset(nextTokenParam) }
 type Reply struct {
 	*twitter.Reply
 	Users types.Users
-	Meta  *Meta
-}
-
-// Meta records server metadata reported in a user reply.
-type Meta struct {
-	ResultCount int    `json:"result_count"`
-	NextToken   string `json:"next_token"`
+	Meta  *twitter.Pagination
 }
 
 // LookupOpts provide parameters for user lookup. A nil *LookupOpts provides

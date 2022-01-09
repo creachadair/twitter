@@ -434,8 +434,7 @@ func TestSearchRecent(t *testing.T) {
 		t.Fatalf("SearchRecent failed: %v", err)
 	}
 	if rsp.Meta != nil {
-		t.Logf("Response metadata: count=%d, oldest=%s, newest=%s",
-			rsp.Meta.ResultCount, rsp.Meta.OldestID, rsp.Meta.NewestID)
+		t.Logf("Response metadata: count=%d, next=%q", rsp.Meta.ResultCount, rsp.Meta.NextToken)
 	}
 
 	if len(rsp.Tweets) == 0 {

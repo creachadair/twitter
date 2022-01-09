@@ -169,7 +169,7 @@ func (q Query) ResetPageToken() { q.Request.Params.Reset(nextTokenParam) }
 type Reply struct {
 	*twitter.Reply
 	Tweets types.Tweets
-	Meta   *Meta
+	Meta   *twitter.Pagination
 }
 
 // LookupOpts provides parameters for tweet lookup. A nil *LookupOpts provides
