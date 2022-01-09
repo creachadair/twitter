@@ -11,7 +11,7 @@ import (
 	"github.com/creachadair/twitter"
 )
 
-// An Edit is a query to edit or delete a list.
+// An Edit is a query to edit or delete a list or list membership.
 type Edit struct {
 	*jhttp.Request
 	tag       string
@@ -79,10 +79,10 @@ func AddMember(listID, userID string) Edit {
 	return Edit{Request: req, tag: "is_member", encodeErr: err}
 }
 
-// DeleteMember constructs a query to remove a member from a list.
+// RemoveMember constructs a query to remove a member from a list.
 //
 // API: DELETE 2/lists/:id/members/:userid
-func DeleteMember(listID, userID string) Edit {
+func RemoveMember(listID, userID string) Edit {
 	req := &jhttp.Request{
 		Method:     "2/lists/" + listID + "/members/" + userID,
 		HTTPMethod: "DELETE",
