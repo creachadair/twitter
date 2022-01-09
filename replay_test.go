@@ -74,7 +74,8 @@ const fakeAuthToken = "this-is-a-fake-auth-token-for-testing"
 // to filter which tests you run via -run <regexp>.
 //
 // To record a new testdata file, run "go test -mode=record". Don't forget to
-// check in any changes you obtain in this way.
+// check in any changes you obtain in this way. This mode also requires a real
+// bearer token in the TWITTER_TOKEN environment.
 //
 // Use the -testdata flag to specify the location of the test data file.
 //
@@ -210,7 +211,7 @@ func TestClientCall(t *testing.T) {
 	}
 }
 
-func TestTweetLookup(t *testing.T) {
+func TestTweetsLookup(t *testing.T) {
 	ctx := context.Background()
 	query := tweets.Lookup("1297524288245895168", &tweets.LookupOpts{
 		Optional: []types.Fields{
@@ -246,7 +247,7 @@ func TestTweetLookup(t *testing.T) {
 	}
 }
 
-func TestUserIDLookup(t *testing.T) {
+func TestUsersLookup(t *testing.T) {
 	ctx := context.Background()
 	rsp, err := users.Lookup("12", nil).Invoke(ctx, cli) // @jack
 	if err != nil {
@@ -259,7 +260,7 @@ func TestUserIDLookup(t *testing.T) {
 	}
 }
 
-func TestUsernameLookup(t *testing.T) {
+func TestUsersLookupByName(t *testing.T) {
 	ctx := context.Background()
 	rsp, err := users.LookupByName("kanyewest", &users.LookupOpts{
 		More: []string{"jack", "Popehat"},
@@ -447,7 +448,7 @@ func TestListsTweets(t *testing.T) {
 	}
 }
 
-func TestSearchPages(t *testing.T) {
+func TestTweetsSearchRecent_pages(t *testing.T) {
 	ctx := context.Background()
 
 	const maxResults = 25
@@ -493,7 +494,7 @@ func TestSearchPages(t *testing.T) {
 	}
 }
 
-func TestSearchRecent(t *testing.T) {
+func TestTweetsSearchRecent_unpaged(t *testing.T) {
 	ctx := context.Background()
 
 	// N.B. Don't set timestamps in the search options. Twitter only provides
