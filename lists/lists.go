@@ -226,7 +226,7 @@ func (o *ListOpts) addRequestParams(req *jhttp.Request) {
 		return // nothing to do
 	}
 	if o.PageToken != "" {
-		req.Params.Set("pagination_token", o.PageToken)
+		req.Params.Set(users.NextTokenParam, o.PageToken)
 	}
 	if o.MaxResults > 0 {
 		req.Params.Set("max_results", strconv.Itoa(o.MaxResults))
