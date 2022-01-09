@@ -32,6 +32,9 @@
 //
 // Queries to read or update search rules are defined in package "rules".
 //
+// Queries to create, edit, delete, and show the contents of lists are defined
+// in package "lists".
+//
 package twitter
 
 import (
