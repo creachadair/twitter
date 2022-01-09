@@ -7,6 +7,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"strconv"
 
 	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
@@ -209,6 +210,13 @@ type Reply struct {
 // ListOpts provide parameters for list queries.  A nil *ListOpts provides
 // empty values for all fields.
 type ListOpts struct {
+	// A pagination token provided by the server.
+	PageToken string
+
+	// The maximum number of results to return; 0 means let the server choose.
+	// The service will accept values up to 100.
+	MaxResults int
+
 	// Optional response fields and expansions.
 	Optional []types.Fields
 }
@@ -216,6 +224,12 @@ type ListOpts struct {
 func (o *ListOpts) addRequestParams(req *jhttp.Request) {
 	if o == nil {
 		return // nothing to do
+	}
+	if o.PageToken != "" {
+		req.Params.Set("pagination_token", o.PageToken)
+	}
+	if o.MaxResults > 0 {
+		req.Params.Set("max_results", strconv.Itoa(o.MaxResults))
 	}
 	for _, fs := range o.Optional {
 		if vs := fs.Values(); len(vs) != 0 {
