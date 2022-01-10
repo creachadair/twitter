@@ -10,10 +10,10 @@ import (
 	"github.com/creachadair/twitter/types"
 )
 
-// Post constructs a query to create a new tweet from the given settings.
+// Create constructs a query to create a new tweet from the given settings.
 //
 // API: POST 2/tweets
-func Post(opts PostOpts) Query {
+func Create(opts CreateOpts) Query {
 	req := &jhttp.Request{
 		Method:     "2/tweets",
 		HTTPMethod: "POST",
@@ -36,8 +36,8 @@ func Post(opts PostOpts) Query {
 	return Query{Request: req, encodeErr: err}
 }
 
-// PostOpts are the settings needed to post a new tweet.
-type PostOpts struct {
+// CreateOpts are the settings needed to create a new tweet.
+type CreateOpts struct {
 	Text         string        // the text of the tweet (required)
 	QuoteOf      string        // the ID of a tweet to quote
 	InReplyTo    string        // the ID of a tweet to reply to

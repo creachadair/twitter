@@ -141,9 +141,16 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 	out := &Reply{Reply: rsp}
 	if len(rsp.Data) == 0 {
 		// no results
-	} else if err := json.Unmarshal(rsp.Data, &out.Tweets); err != nil {
+	} else if rsp.Data[0] == '{' {
+		out.Tweets = append(out.Tweets, new(types.Tweet))
+		err = json.Unmarshal(rsp.Data, out.Tweets[0])
+	} else {
+		err = json.Unmarshal(rsp.Data, &out.Tweets)
+	}
+	if err != nil {
 		return nil, &jhttp.Error{Data: rsp.Data, Message: "decoding tweet data", Err: err}
 	}
+
 	// Maintain the flag validity for lookup queries.
 	q.Request.Params.Set(q.nextTokenParam(), "")
 	if len(rsp.Meta) != 0 {
