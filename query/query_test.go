@@ -18,12 +18,13 @@ func Example() {
 		),
 		b.HasImages(),
 		b.Not(b.IsRetweet()),
+		b.IsReply(),
 	)
 
 	fmt.Printf("Valid: %v\nQuery: %s\n", q.Valid(), q.String())
 	// Output:
 	// Valid: true
-	// Query: ((red green blue) OR black OR white) has:images -is:retweet
+	// Query: ((red green blue) OR black OR white) has:images -is:retweet is:reply
 }
 
 func TestValidQueries(t *testing.T) {
@@ -125,6 +126,7 @@ func TestInvalidQueries(t *testing.T) {
 			b.IsRetweet(),
 			b.Not(b.HasVideos()),
 		)),
+		b.Not(b.IsReply()),
 		b.And(), // empty
 		b.Or(),  // empty
 	}

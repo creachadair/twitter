@@ -67,6 +67,9 @@ func (Builder) Entity(s string) Query { return solo("entity:" + s) }
 // InThread matches tweets with the specified conversation ID.
 func (Builder) InThread(s string) Query { return solo("conversation_id:" + s) }
 
+// IsReply matches only tweets that are replies (without specifying to whom).
+func (Builder) IsReply() Query { return nsolo("is:reply") }
+
 // IsRetweet matches "natural" retweets (not quoted).
 func (Builder) IsRetweet() Query { return nsolo("is:retweet") }
 
