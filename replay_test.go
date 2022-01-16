@@ -504,7 +504,7 @@ func TestTweetsSearchRecent_unpaged(t *testing.T) {
 	// TODO: See about writing a matcher to ignore the time fields.
 
 	var b query.Builder
-	query := b.And(b.From("benjaminwittes"), b.Word("Today on @inlieuoffunshow"))
+	query := b.And(b.Word("wordle"), b.HasImages())
 	rsp, err := tweets.SearchRecent(query.String(), &tweets.SearchOpts{
 		MaxResults: 10,
 		Optional:   []types.Fields{types.TweetFields{AuthorID: true, Entities: true}},
