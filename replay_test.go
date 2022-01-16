@@ -247,6 +247,33 @@ func TestTweetsLookup(t *testing.T) {
 	}
 }
 
+func TestTweetsLikedBy(t *testing.T) {
+	ctx := context.Background()
+	query := tweets.LikedBy("12", &tweets.ListOpts{
+		MaxResults: 10,
+		Optional: []types.Fields{
+			types.TweetFields{AuthorID: true},
+			types.Expansions{AuthorID: true},
+		},
+	})
+
+	rsp, err := query.Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("LikedBy failed: %v", err)
+	}
+
+	for j, v := range rsp.Tweets {
+		t.Logf("Tweet %d: id=%s, author=%s", j+1, v.ID, v.AuthorID)
+	}
+	ius, err := rsp.IncludedUsers()
+	if err != nil {
+		t.Fatalf("Decoding included users: %v", err)
+	}
+	for i, v := range ius {
+		t.Logf("User %d: id=%s, username=%q, name=%q", i+1, v.ID, v.Username, v.Name)
+	}
+}
+
 func TestUsersLookup(t *testing.T) {
 	ctx := context.Background()
 	rsp, err := users.Lookup("12", nil).Invoke(ctx, cli) // @jack
