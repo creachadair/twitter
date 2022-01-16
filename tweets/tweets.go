@@ -92,6 +92,7 @@ package tweets
 import (
 	"context"
 	"encoding/json"
+	"strconv"
 
 	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
@@ -108,6 +109,18 @@ func Lookup(id string, opts *LookupOpts) Query {
 		Params: make(jhttp.Params),
 	}
 	req.Params.Add("ids", id)
+	opts.addRequestParams(req)
+	return Query{Request: req}
+}
+
+// LikedBy constructs a query for the tweets liked by a given user.
+//
+// API: 2/users/:id/liked_tweets
+func LikedBy(userID string, opts *ListOpts) Query {
+	req := &jhttp.Request{
+		Method: "2/users/" + userID + "/liked_tweets",
+		Params: make(jhttp.Params),
+	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
 }
@@ -206,6 +219,37 @@ func (o *LookupOpts) addRequestParams(req *jhttp.Request) {
 		req.Params.Set("next_token", o.PageToken)
 	}
 	req.Params.Add("ids", o.More...)
+	for _, fs := range o.Optional {
+		if vs := fs.Values(); len(vs) != 0 {
+			req.Params.Add(fs.Label(), vs...)
+		}
+	}
+}
+
+// ListOpts provide parameters for listing tweets. A nil *ListOpts provides
+// empty values for all fields.
+type ListOpts struct {
+	// A pagination token provided by the server.
+	PageToken string
+
+	// The maximum number of results to return; 0 means let the server choose.
+	// The service will accept values up to 100.
+	MaxResults int
+
+	// Optional response fields and expansions.
+	Optional []types.Fields
+}
+
+func (o *ListOpts) addRequestParams(req *jhttp.Request) {
+	if o == nil {
+		return // nothing to do
+	}
+	if o.PageToken != "" {
+		req.Params.Set(twitter.NextTokenParam, o.PageToken)
+	}
+	if o.MaxResults > 0 {
+		req.Params.Set("max_results", strconv.Itoa(o.MaxResults))
+	}
 	for _, fs := range o.Optional {
 		if vs := fs.Values(); len(vs) != 0 {
 			req.Params.Add(fs.Label(), vs...)
