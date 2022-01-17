@@ -97,6 +97,7 @@ import (
 	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
 	"github.com/creachadair/twitter/types"
+	"github.com/creachadair/twitter/users"
 )
 
 // Lookup constructs a lookup query for one or more tweet IDs.  To look up
@@ -123,6 +124,24 @@ func LikedBy(userID string, opts *ListOpts) Query {
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
+}
+
+// Likers constructs a query for the users who like a given tweet ID.
+// Note that the query reply contains user data, not tweets.
+//
+// API: 2/tweets/:id/liking_users
+//
+// BUG: The service does not understand pagination for this endpoint.
+// It appears to return a fixed number of responses regardless how many there
+// actually are. If you set MaxResults or PageToken in the options, the request
+// will report an error.
+func Likers(id string, opts *ListOpts) users.Query {
+	req := &jhttp.Request{
+		Method: "2/tweets/" + id + "/liking_users",
+		Params: make(jhttp.Params),
+	}
+	opts.addRequestParams(req)
+	return users.Query{Request: req}
 }
 
 // A Query performs a lookup or search query.

@@ -274,6 +274,23 @@ func TestTweetsLikedBy(t *testing.T) {
 	}
 }
 
+func TestTweetsLikers(t *testing.T) {
+	ctx := context.Background()
+	rsp, err := tweets.Likers("1039602865831010305", nil).Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("Likers failed: %v", err)
+	}
+	t.Logf("Received %d matching users", len(rsp.Users))
+
+	for i, v := range rsp.Users {
+		t.Logf("User %d: id=%s, username=%q, name=%q", i+1, v.ID, v.Username, v.Name)
+		if i > 5 {
+			t.Log("[and more]")
+			break
+		}
+	}
+}
+
 func TestUsersLookup(t *testing.T) {
 	ctx := context.Background()
 	rsp, err := users.Lookup("12", nil).Invoke(ctx, cli) // @jack
