@@ -13,8 +13,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/dnaeon/go-vcr/cassette"
-	"github.com/dnaeon/go-vcr/recorder"
+	"github.com/dnaeon/go-vcr/v2/cassette"
+	"github.com/dnaeon/go-vcr/v2/recorder"
 
 	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
