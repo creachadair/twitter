@@ -20,3 +20,36 @@ this library for serious work. Please feel free to file issues, however.  The
 library API is very much subject to change.
 
 [tv2]: https://developer.twitter.com/en/docs/twitter-api
+
+## API Index
+
+The following v2 API endpoints are currently implemented:
+
+| Method | Path                                       |
+|--------|--------------------------------------------|
+| DELETE | 2/lists/:id                                |
+| DELETE | 2/lists/:id/members/:userid                |
+| GET    | 2/lists                                    |
+| GET    | 2/lists/:id/followers                      |
+| GET    | 2/lists/:id/members                        |
+| GET    | 2/lists/:id/tweets                         |
+| POST   | 2/lists                                    |
+| POST   | 2/lists/:id/members                        |
+| PUT    | 2/lists/:id                                |
+| GET    | 2/tweets                                   |
+| GET    | 2/tweets/:id/liking_users                  |
+| GET    | 2/tweets/sample/stream                     |
+| GET    | 2/tweets/search/recent                     |
+| GET    | 2/tweets/search/stream                     |
+| GET    | 2/tweets/search/stream/rules               |
+| POST   | 2/tweets                                   |
+| POST   | 2/tweets/search/stream/rules               |
+| POST   | 2/tweets/search/stream/rules, dry_run=true |
+| GET    | 2/users                                    |
+| GET    | 2/users/:id/followed_lists                 |
+| GET    | 2/users/:id/followers                      |
+| GET    | 2/users/:id/following                      |
+| GET    | 2/users/:id/liked_tweets                   |
+| GET    | 2/users/:id/list_memberships               |
+| GET    | 2/users/:id/owned_lists                    |
+| GET    | 2/users/by                                 |
