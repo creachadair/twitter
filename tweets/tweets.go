@@ -156,6 +156,30 @@ func Quotes(id string, opts *ListOpts) Query {
 	return Query{Request: req}
 }
 
+// MentioningUser constructs a query for tweets that mention the given user ID.
+//
+// API: 2/users/:id/mentions
+func MentioningUser(userID string, opts *ListOpts) Query {
+	req := &jhttp.Request{
+		Method: "2/users/" + userID + "/mentions",
+		Params: make(jhttp.Params),
+	}
+	opts.addRequestParams(req)
+	return Query{Request: req}
+}
+
+// FromUser constructs a query for tweets posted by the given user ID.
+//
+// API: 2/users/:id/tweets
+func FromUser(userID string, opts *ListOpts) Query {
+	req := &jhttp.Request{
+		Method: "2/users/" + userID + "/tweets",
+		Params: make(jhttp.Params),
+	}
+	opts.addRequestParams(req)
+	return Query{Request: req}
+}
+
 // A Query performs a lookup or search query.
 type Query struct {
 	*jhttp.Request
