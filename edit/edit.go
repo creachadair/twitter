@@ -13,6 +13,8 @@ import (
 )
 
 // DeleteTweet constructs a query to delete the given tweet ID.
+//
+// API: DELETE 2/tweets/:tid
 func DeleteTweet(tweetID string) Query {
 	return Query{
 		Request: &jhttp.Request{
@@ -23,7 +25,7 @@ func DeleteTweet(tweetID string) Query {
 	}
 }
 
-// An Edit is a query to modify the contents or properties of tweets.
+// A Query is a query to modify the contents or properties of tweets.
 type Query struct {
 	*jhttp.Request
 	tag       string
