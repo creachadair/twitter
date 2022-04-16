@@ -324,9 +324,9 @@ func TestTweetsLikedBy(t *testing.T) {
 	}
 }
 
-func TestTweetsLikers(t *testing.T) {
+func TestTweetsLikersOf(t *testing.T) {
 	ctx := context.Background()
-	rsp, err := tweets.Likers("1039602865831010305", nil).Invoke(ctx, cli)
+	rsp, err := tweets.LikersOf("1039602865831010305", nil).Invoke(ctx, cli)
 	if err != nil {
 		t.Fatalf("Likers failed: %v", err)
 	}

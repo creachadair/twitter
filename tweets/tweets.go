@@ -126,7 +126,7 @@ func LikedBy(userID string, opts *ListOpts) Query {
 	return Query{Request: req}
 }
 
-// Likers constructs a query for the users who like a given tweet ID.
+// LikersOf constructs a query for the users who like a given tweet ID.
 // Note that the query reply contains user data, not tweets.
 //
 // API: 2/tweets/:id/liking_users
@@ -135,7 +135,7 @@ func LikedBy(userID string, opts *ListOpts) Query {
 // It appears to return a fixed number of responses regardless how many there
 // actually are. If you set MaxResults or PageToken in the options, the request
 // will report an error.
-func Likers(id string, opts *ListOpts) users.Query {
+func LikersOf(id string, opts *ListOpts) users.Query {
 	req := &jhttp.Request{
 		Method: "2/tweets/" + id + "/liking_users",
 		Params: make(jhttp.Params),
