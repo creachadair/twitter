@@ -20,7 +20,6 @@ func Create(opts CreateOpts) Query {
 	req := &jhttp.Request{
 		Method:     "2/tweets",
 		HTTPMethod: "POST",
-		Params:     make(jhttp.Params),
 	}
 	tweet := &postTweet{Text: opts.Text, QuotedID: opts.QuoteOf}
 	if opts.InReplyTo != "" {
