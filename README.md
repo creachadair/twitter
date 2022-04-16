@@ -39,7 +39,7 @@ Here is the current status of v2 API endpoint implementations.
 
 ### Tweets
 
-- [ ] PUT 2/tweets/:id/hidden
+- [x] PUT 2/tweets/:id/hidden
 - [x] GET 2/tweets/:id/liking_users
 - [x] GET 2/tweets/:id/quote_tweets
 - [ ] DELETE 2/tweets/:id
