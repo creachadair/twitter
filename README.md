@@ -52,6 +52,7 @@ Here is the current status of v2 API endpoint implementations.
 
 - [x] GET 2/tweets/search/stream/rules
 - [x] POST 2/tweets/search/stream/rules
+- [x] POST 2/tweets/search/stream/rules, dry_run=true
 
 ### Tweets
 
@@ -62,7 +63,6 @@ Here is the current status of v2 API endpoint implementations.
 - [x] GET 2/tweets/sample/stream
 - [x] GET 2/tweets/search/recent
 - [x] GET 2/tweets/search/stream
-- [x] POST 2/tweets/search/stream/rules, dry_run=true
 - [ ] GET 2/tweets/count/all (requires academic access)
 - [ ] GET 2/tweets/count/recent
 - [ ] GET 2/tweets/search/all (requires academic access)
