@@ -67,11 +67,11 @@ Here is the current status of v2 API endpoint implementations.
 - [ ] DELETE 2/users/:id/likes/:tid
 - [ ] POST 2/users/:id/likes
 - [x] GET 2/users/:id/list_memberships
-- [ ] GET 2/users/:id/mentions
+- [x] GET 2/users/:id/mentions
 - [x] GET 2/users/:id/owned_lists
 - [ ] GET 2/users/:id/retweeted_by
 - [ ] DELETE 2/users/:id/retweets/:tid
 - [ ] GET 2/users/:id/retweets
-- [ ] GET 2/users/:id/tweets
+- [x] GET 2/users/:id/tweets
 - [x] GET 2/users/by
 - [x] GET 2/users
