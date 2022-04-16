@@ -266,6 +266,37 @@ func TestTweetsQuotes(t *testing.T) {
 	}
 }
 
+func TestTweetsFromUser(t *testing.T) {
+	ctx := context.Background()
+	query := tweets.FromUser("916533386352537601", &tweets.ListOpts{
+		MaxResults: 5,
+	})
+	rsp, err := query.Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("FromUser failed: %v", err)
+	}
+
+	for i, v := range rsp.Tweets {
+		t.Logf("Tweet %d: id=%s, text=%q", i+1, v.ID, v.Text)
+	}
+}
+
+func TestTweetsMentioningUser(t *testing.T) {
+	ctx := context.Background()
+	query := tweets.MentioningUser("2805856351", &tweets.ListOpts{
+		MaxResults: 5,
+		Optional:   []types.Fields{types.TweetFields{AuthorID: true}},
+	})
+	rsp, err := query.Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("FromUser failed: %v", err)
+	}
+
+	for i, v := range rsp.Tweets {
+		t.Logf("Tweet %d: id=%s, author=%s, text=%q", i+1, v.ID, v.AuthorID, v.Text)
+	}
+}
+
 func TestTweetsLikedBy(t *testing.T) {
 	ctx := context.Background()
 	query := tweets.LikedBy("12", &tweets.ListOpts{
