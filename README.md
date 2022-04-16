@@ -25,17 +25,28 @@ library API is very much subject to change.
 
 Here is the current status of v2 API endpoint implementations.
 
+### Edits
+
+- [x] DELETE 2/tweets/:id
+- [x] PUT 2/tweets/:id/hidden
+- [x] POST 2/users/:id/bookmarks
+- [x] DELETE 2/users/:id/bookmarks/:tid
+- [x] POST 2/users/:id/likes
+- [x] DELETE 2/users/:id/likes/:tid
+- [x] POST 2/users/:id/retweets
+- [x] DELETE 2/users/:id/retweets/:tid
+
 ### Lists
 
-- [x] GET 2/lists/:id/followers
-- [x] DELETE 2/lists/:id/members/:userid
-- [x] GET 2/lists/:id/members
-- [x] POST 2/lists/:id/members
-- [x] GET 2/lists/:id/tweets
-- [x] DELETE 2/lists/:id
-- [x] PUT 2/lists/:id
 - [x] GET 2/lists
 - [x] POST 2/lists
+- [x] DELETE 2/lists/:id
+- [x] PUT 2/lists/:id
+- [x] GET 2/lists/:id/followers
+- [x] GET 2/lists/:id/members
+- [x] POST 2/lists/:id/members
+- [x] DELETE 2/lists/:id/members/:userid
+- [x] GET 2/lists/:id/tweets
 
 ### Rules
 
@@ -44,37 +55,29 @@ Here is the current status of v2 API endpoint implementations.
 
 ### Tweets
 
-- [x] PUT 2/tweets/:id/hidden
-- [x] GET 2/tweets/:id/liking_users
-- [x] GET 2/tweets/:id/quote_tweets
-- [x] DELETE 2/tweets/:id
-- [ ] GET 2/tweets/count/all (requires academic access)
-- [ ] GET 2/tweets/count/recent
-- [x] GET 2/tweets/sample/stream
-- [ ] GET 2/tweets/search/all (requires academic access)
-- [x] GET 2/tweets/search/recent
-- [x] POST 2/tweets/search/stream/rules, dry_run=true
-- [x] GET 2/tweets/search/stream
 - [x] GET 2/tweets
 - [x] POST 2/tweets
+- [x] GET 2/tweets/:id/liking_users
+- [x] GET 2/tweets/:id/quote_tweets
+- [x] GET 2/tweets/sample/stream
+- [x] GET 2/tweets/search/recent
+- [x] GET 2/tweets/search/stream
+- [x] POST 2/tweets/search/stream/rules, dry_run=true
+- [ ] GET 2/tweets/count/all (requires academic access)
+- [ ] GET 2/tweets/count/recent
+- [ ] GET 2/tweets/search/all (requires academic access)
 
 ### Users
 
-- [x] DELETE 2/users/:id/bookmarks/:tid
-- [ ] GET 2/users/:id/bookmarks
-- [x] POST 2/users/:id/bookmarks
+- [x] GET 2/users
 - [x] GET 2/users/:id/followed_lists
 - [x] GET 2/users/:id/followers
 - [x] GET 2/users/:id/following
 - [x] GET 2/users/:id/liked_tweets
-- [x] DELETE 2/users/:id/likes/:tid
-- [x] POST 2/users/:id/likes
 - [x] GET 2/users/:id/list_memberships
 - [x] GET 2/users/:id/mentions
 - [x] GET 2/users/:id/owned_lists
 - [x] GET 2/users/:id/retweeted_by
-- [x] DELETE 2/users/:id/retweets/:tid
-- [x] POST 2/users/:id/retweets
 - [x] GET 2/users/:id/tweets
 - [x] GET 2/users/by
-- [x] GET 2/users
+- [ ] GET 2/users/:id/bookmarks
