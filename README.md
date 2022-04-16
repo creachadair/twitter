@@ -60,9 +60,9 @@ Here is the current status of v2 API endpoint implementations.
 
 ### Users
 
-- [ ] DELETE 2/users/:id/bookmarks/:tid
+- [x] DELETE 2/users/:id/bookmarks/:tid
 - [ ] GET 2/users/:id/bookmarks
-- [ ] POST 2/users/:id/bookmarks
+- [x] POST 2/users/:id/bookmarks
 - [x] GET 2/users/:id/followed_lists
 - [x] GET 2/users/:id/followers
 - [x] GET 2/users/:id/following

@@ -67,6 +67,17 @@ type replyOpts struct {
 	Exclude   []string `json:"exclude_reply_user_ids,omitempty"`
 }
 
+// Delete constructs a query to delete the given tweet ID.
+func Delete(tweetID string) Edit {
+	return Edit{
+		Request: &jhttp.Request{
+			Method:     "2/tweets/" + tweetID,
+			HTTPMethod: "DELETE",
+		},
+		tag: "deleted",
+	}
+}
+
 // An Edit is a query to modify the contents or properties of tweets.
 type Edit struct {
 	*jhttp.Request
@@ -113,6 +124,8 @@ func SetHidden(tweetID string, hidden bool) Edit {
 }
 
 // Like constructs a query for the given user ID to like the given tweet ID.
+//
+// API: POST 2/users/:id/likes
 func Like(userID, tweetID string) Edit {
 	body, err := json.Marshal(struct {
 		ID string `json:"tweet_id"`
@@ -130,6 +143,8 @@ func Like(userID, tweetID string) Edit {
 }
 
 // Unlike constructs a query for the given user ID to un-like the given tweet ID.
+//
+// API: DELETE 2/users/:id/likes/:tid
 func Unlike(userID, tweetID string) Edit {
 	return Edit{
 		Request: &jhttp.Request{
@@ -140,13 +155,36 @@ func Unlike(userID, tweetID string) Edit {
 	}
 }
 
-// Delete constructs a query to delete the given tweet ID.
-func Delete(tweetID string) Edit {
+// Bookmark constructs a query for the given user ID to bookmark the given
+// tweet ID.
+//
+// API: 2/users/:id/bookmarks
+func Bookmark(userID, tweetID string) Edit {
+	body, err := json.Marshal(struct {
+		ID string `json:"tweet_id"`
+	}{ID: tweetID})
 	return Edit{
 		Request: &jhttp.Request{
-			Method:     "2/tweets/" + tweetID,
+			Method:      "2/users/" + userID + "/bookmarks",
+			HTTPMethod:  "POST",
+			ContentType: "application/json",
+			Data:        body,
+		},
+		tag:       "bookmarked",
+		encodeErr: err,
+	}
+}
+
+// Unbookmark constructs a query for the given user ID to un-like the given
+// tweet ID.
+//
+// API: DELETE 2/users/:id/bookmarks/:tid
+func Unbookmark(userID, tweetID string) Edit {
+	return Edit{
+		Request: &jhttp.Request{
+			Method:     "2/users/" + userID + "/bookmarks/" + tweetID,
 			HTTPMethod: "DELETE",
 		},
-		tag: "deleted",
+		tag: "bookmarked",
 	}
 }
