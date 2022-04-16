@@ -97,16 +97,47 @@ func (e Edit) Invoke(ctx context.Context, cli *twitter.Client) (bool, error) {
 // SetHidden constructs a query to set whether replies to the given tweet ID
 // should (hidden == true) or should not (hidden == false) be hidden.
 func SetHidden(tweetID string, hidden bool) Edit {
-	req := &jhttp.Request{
-		Method:     "2/tweets/" + tweetID + "/hidden",
-		HTTPMethod: "PUT",
-	}
 	body, err := json.Marshal(struct {
 		H bool `json:"hidden"`
 	}{H: hidden})
-	req.Data = body
-	req.ContentType = "application/json"
-	return Edit{Request: req, tag: "hidden", encodeErr: err}
+	return Edit{
+		Request: &jhttp.Request{
+			Method:      "2/tweets/" + tweetID + "/hidden",
+			HTTPMethod:  "PUT",
+			ContentType: "application/json",
+			Data:        body,
+		},
+		tag:       "hidden",
+		encodeErr: err,
+	}
+}
+
+// Like constructs a query for the given user ID to like the given tweet ID.
+func Like(userID, tweetID string) Edit {
+	body, err := json.Marshal(struct {
+		ID string `json:"tweet_id"`
+	}{ID: tweetID})
+	return Edit{
+		Request: &jhttp.Request{
+			Method:      "2/users/" + userID + "/likes",
+			HTTPMethod:  "POST",
+			ContentType: "application/json",
+			Data:        body,
+		},
+		tag:       "liked",
+		encodeErr: err,
+	}
+}
+
+// Unlike constructs a query for the given user ID to un-like the given tweet ID.
+func Unlike(userID, tweetID string) Edit {
+	return Edit{
+		Request: &jhttp.Request{
+			Method:     "2/users/" + userID + "/likes/" + tweetID,
+			HTTPMethod: "DELETE",
+		},
+		tag: "liked",
+	}
 }
 
 // Delete constructs a query to delete the given tweet ID.
