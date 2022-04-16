@@ -67,8 +67,8 @@ Here is the current status of v2 API endpoint implementations.
 - [x] GET 2/users/:id/followers
 - [x] GET 2/users/:id/following
 - [x] GET 2/users/:id/liked_tweets
-- [ ] DELETE 2/users/:id/likes/:tid
-- [ ] POST 2/users/:id/likes
+- [x] DELETE 2/users/:id/likes/:tid
+- [x] POST 2/users/:id/likes
 - [x] GET 2/users/:id/list_memberships
 - [x] GET 2/users/:id/mentions
 - [x] GET 2/users/:id/owned_lists
