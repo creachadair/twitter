@@ -27,51 +27,51 @@ Here is the current status of v2 API endpoint implementations.
 
 ### Lists
 
-- [x] `GET` `2/lists/:id/followers`
-- [x] `DELETE` `2/lists/:id/members/:userid`
-- [x] `GET` `2/lists/:id/members`
-- [x] `POST` `2/lists/:id/members`
-- [x] `GET` `2/lists/:id/tweets`
-- [x] `DELETE` `2/lists/:id`
-- [x] `PUT` `2/lists/:id`
-- [x] `GET` `2/lists`
-- [x] `POST` `2/lists`
+- [x] GET 2/lists/:id/followers
+- [x] DELETE 2/lists/:id/members/:userid
+- [x] GET 2/lists/:id/members
+- [x] POST 2/lists/:id/members
+- [x] GET 2/lists/:id/tweets
+- [x] DELETE 2/lists/:id
+- [x] PUT 2/lists/:id
+- [x] GET 2/lists
+- [x] POST 2/lists
 
 ### Tweets
 
-- [ ] `PUT` `2/tweets/:id/hidden`
-- [x] `GET` `2/tweets/:id/liking_users`
-- [ ] `GET` `2/tweets/:id/quote_tweets`
-- [ ] `DELETE` `2/tweets/:id`
-- [ ] `GET` `2/tweets/count/all`
-- [ ] `GET` `2/tweets/count/recent`
-- [x] `GET` `2/tweets/sample/stream`
-- [ ] `GET` `2/tweets/search/all`
-- [x] `GET` `2/tweets/search/recent`
-- [x] `POST` `2/tweets/search/stream/rules, dry_run=true`
-- [x] `GET` `2/tweets/search/stream/rules`
-- [x] `POST` `2/tweets/search/stream/rules`
-- [x] `GET` `2/tweets/search/stream`
-- [x] `GET` `2/tweets`
-- [x] `POST` `2/tweets`
+- [ ] PUT 2/tweets/:id/hidden
+- [x] GET 2/tweets/:id/liking_users
+- [ ] GET 2/tweets/:id/quote_tweets
+- [ ] DELETE 2/tweets/:id
+- [ ] GET 2/tweets/count/all
+- [ ] GET 2/tweets/count/recent
+- [x] GET 2/tweets/sample/stream
+- [ ] GET 2/tweets/search/all
+- [x] GET 2/tweets/search/recent
+- [x] POST 2/tweets/search/stream/rules, dry_run=true
+- [x] GET 2/tweets/search/stream/rules
+- [x] POST 2/tweets/search/stream/rules
+- [x] GET 2/tweets/search/stream
+- [x] GET 2/tweets
+- [x] POST 2/tweets
 
 ### Users
 
-- [ ] `DELETE` `2/users/:id/bookmarks/:tid`
-- [ ] `GET` `2/users/:id/bookmarks`
-- [ ] `POST` `2/users/:id/bookmarks`
-- [x] `GET` `2/users/:id/followed_lists`
-- [x] `GET` `2/users/:id/followers`
-- [x] `GET` `2/users/:id/following`
-- [x] `GET` `2/users/:id/liked_tweets`
-- [ ] `DELETE` `2/users/:id/likes/:tid`
-- [ ] `POST` `2/users/:id/likes`
-- [x] `GET` `2/users/:id/list_memberships`
-- [ ] `GET` `2/users/:id/mentions`
-- [x] `GET` `2/users/:id/owned_lists`
-- [ ] `GET` `2/users/:id/retweeted_by`
-- [ ] `DELETE` `2/users/:id/retweets/:tid`
-- [ ] `GET` `2/users/:id/retweets`
-- [ ] `GET` `2/users/:id/tweets`
-- [x] `GET` `2/users/by`
-- [x] `GET` `2/users`
+- [ ] DELETE 2/users/:id/bookmarks/:tid
+- [ ] GET 2/users/:id/bookmarks
+- [ ] POST 2/users/:id/bookmarks
+- [x] GET 2/users/:id/followed_lists
+- [x] GET 2/users/:id/followers
+- [x] GET 2/users/:id/following
+- [x] GET 2/users/:id/liked_tweets
+- [ ] DELETE 2/users/:id/likes/:tid
+- [ ] POST 2/users/:id/likes
+- [x] GET 2/users/:id/list_memberships
+- [ ] GET 2/users/:id/mentions
+- [x] GET 2/users/:id/owned_lists
+- [ ] GET 2/users/:id/retweeted_by
+- [ ] DELETE 2/users/:id/retweets/:tid
+- [ ] GET 2/users/:id/retweets
+- [ ] GET 2/users/:id/tweets
+- [x] GET 2/users/by
+- [x] GET 2/users
