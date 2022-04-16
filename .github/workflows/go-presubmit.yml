@@ -20,7 +20,7 @@ jobs:
     - uses: actions/setup-go@v2
       with:
         go-version: ${{ matrix.go-version }}
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: creachadair/go-presubmit-action@default
       with:
         go-test-cpu: 2
