@@ -101,7 +101,6 @@ func SetHidden(tweetID string, hidden bool) Edit {
 	req := &jhttp.Request{
 		Method:     "2/tweets/" + tweetID + "/hidden",
 		HTTPMethod: "PUT",
-		Params:     jhttp.Params{"id": {tweetID}},
 	}
 	body, err := json.Marshal(struct {
 		H bool `json:"hidden"`
