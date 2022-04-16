@@ -43,10 +43,10 @@ Here is the current status of v2 API endpoint implementations.
 - [x] GET 2/tweets/:id/liking_users
 - [x] GET 2/tweets/:id/quote_tweets
 - [ ] DELETE 2/tweets/:id
-- [ ] GET 2/tweets/count/all
+- [ ] GET 2/tweets/count/all (requires academic access)
 - [ ] GET 2/tweets/count/recent
 - [x] GET 2/tweets/sample/stream
-- [ ] GET 2/tweets/search/all
+- [ ] GET 2/tweets/search/all (requires academic access)
 - [x] GET 2/tweets/search/recent
 - [x] POST 2/tweets/search/stream/rules, dry_run=true
 - [x] GET 2/tweets/search/stream/rules
