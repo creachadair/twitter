@@ -53,3 +53,24 @@ The following v2 API endpoints are currently implemented:
 | GET    | 2/users/:id/list_memberships               |
 | GET    | 2/users/:id/owned_lists                    |
 | GET    | 2/users/by                                 |
+
+### Not Yet Implemented
+
+| Method | Path                       |
+|--------|----------------------------|
+| DELETE | 2/tweets/:id               |
+| GET    | 2/users/:id/tweets         |
+| GET    | 2/users/:id/mentions       |
+| GET    | 2/tweets/search/all        |
+| GET    | 2/tweets/count/recent      |
+| GET    | 2/tweets/count/all         |
+| GET    | 2/users/:id/retweeted_by   |
+| GET    | 2/users/:id/retweets       |
+| DELETE | 2/users/:id/retweets/:tid  |
+| GET    | 2/tweets/:id/quote_tweets  |
+| POST   | 2/users/:id/likes          |
+| DELETE | 2/users/:id/likes/:tid     |
+| GET    | 2/users/:id/bookmarks      |
+| POST   | 2/users/:id/bookmarks      |
+| DELETE | 2/users/:id/bookmarks/:tid |
+| PUT    | 2/tweets/:id/hidden        |
