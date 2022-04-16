@@ -408,6 +408,21 @@ func TestUsersFollowing(t *testing.T) {
 	}
 }
 
+func TestUsersRetweeting(t *testing.T) {
+	ctx := context.Background()
+	rsp, err := users.Retweeting("1480745523309019136", &users.ListOpts{
+		MaxResults: 10,
+	}).Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("Retweeting failed: %v", err)
+	}
+	t.Logf("Retweeting request returned %d bytes", len(rsp.Reply.Data))
+
+	for i, v := range rsp.Users {
+		t.Logf("User %d: id=%s, username=%q, name=%q", i+1, v.ID, v.Username, v.Name)
+	}
+}
+
 func TestListsLookup(t *testing.T) {
 	ctx := context.Background()
 	rsp, err := lists.Lookup("1318922483496591360", &lists.ListOpts{
