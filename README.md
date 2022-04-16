@@ -23,54 +23,47 @@ library API is very much subject to change.
 
 ## API Index
 
-The following v2 API endpoints are currently implemented:
+Here is the current status of v2 API endpoint implementations.
 
-| Method | Path                                       |
-|--------|--------------------------------------------|
-| DELETE | 2/lists/:id                                |
-| DELETE | 2/lists/:id/members/:userid                |
-| GET    | 2/lists                                    |
-| GET    | 2/lists/:id/followers                      |
-| GET    | 2/lists/:id/members                        |
-| GET    | 2/lists/:id/tweets                         |
-| POST   | 2/lists                                    |
-| POST   | 2/lists/:id/members                        |
-| PUT    | 2/lists/:id                                |
-| GET    | 2/tweets                                   |
-| GET    | 2/tweets/:id/liking_users                  |
-| GET    | 2/tweets/sample/stream                     |
-| GET    | 2/tweets/search/recent                     |
-| GET    | 2/tweets/search/stream                     |
-| GET    | 2/tweets/search/stream/rules               |
-| POST   | 2/tweets                                   |
-| POST   | 2/tweets/search/stream/rules               |
-| POST   | 2/tweets/search/stream/rules, dry_run=true |
-| GET    | 2/users                                    |
-| GET    | 2/users/:id/followed_lists                 |
-| GET    | 2/users/:id/followers                      |
-| GET    | 2/users/:id/following                      |
-| GET    | 2/users/:id/liked_tweets                   |
-| GET    | 2/users/:id/list_memberships               |
-| GET    | 2/users/:id/owned_lists                    |
-| GET    | 2/users/by                                 |
-
-### Not Yet Implemented
-
-| Method | Path                       |
-|--------|----------------------------|
-| DELETE | 2/tweets/:id               |
-| GET    | 2/users/:id/tweets         |
-| GET    | 2/users/:id/mentions       |
-| GET    | 2/tweets/search/all        |
-| GET    | 2/tweets/count/recent      |
-| GET    | 2/tweets/count/all         |
-| GET    | 2/users/:id/retweeted_by   |
-| GET    | 2/users/:id/retweets       |
-| DELETE | 2/users/:id/retweets/:tid  |
-| GET    | 2/tweets/:id/quote_tweets  |
-| POST   | 2/users/:id/likes          |
-| DELETE | 2/users/:id/likes/:tid     |
-| GET    | 2/users/:id/bookmarks      |
-| POST   | 2/users/:id/bookmarks      |
-| DELETE | 2/users/:id/bookmarks/:tid |
-| PUT    | 2/tweets/:id/hidden        |
+- [ ] `DELETE 2/tweets/:id`
+- [ ] `DELETE 2/users/:id/bookmarks/:tid`
+- [ ] `DELETE 2/users/:id/likes/:tid`
+- [ ] `DELETE 2/users/:id/retweets/:tid`
+- [ ] `GET    2/tweets/:id/quote_tweets`
+- [ ] `GET    2/tweets/count/all`
+- [ ] `GET    2/tweets/count/recent`
+- [ ] `GET    2/tweets/search/all`
+- [ ] `GET    2/users/:id/bookmarks`
+- [ ] `GET    2/users/:id/mentions`
+- [ ] `GET    2/users/:id/retweeted_by`
+- [ ] `GET    2/users/:id/retweets`
+- [ ] `GET    2/users/:id/tweets`
+- [ ] `POST   2/users/:id/bookmarks`
+- [ ] `POST   2/users/:id/likes`
+- [ ] `PUT    2/tweets/:id/hidden`
+- [x] `DELETE 2/lists/:id/members/:userid`
+- [x] `DELETE 2/lists/:id`
+- [x] `GET    2/lists/:id/followers`
+- [x] `GET    2/lists/:id/members`
+- [x] `GET    2/lists/:id/tweets`
+- [x] `GET    2/lists`
+- [x] `GET    2/tweets/:id/liking_users`
+- [x] `GET    2/tweets/sample/stream`
+- [x] `GET    2/tweets/search/recent`
+- [x] `GET    2/tweets/search/stream/rules`
+- [x] `GET    2/tweets/search/stream`
+- [x] `GET    2/tweets`
+- [x] `GET    2/users/:id/followed_lists`
+- [x] `GET    2/users/:id/followers`
+- [x] `GET    2/users/:id/following`
+- [x] `GET    2/users/:id/liked_tweets`
+- [x] `GET    2/users/:id/list_memberships`
+- [x] `GET    2/users/:id/owned_lists`
+- [x] `GET    2/users/by`
+- [x] `GET    2/users`
+- [x] `POST   2/lists/:id/members`
+- [x] `POST   2/lists`
+- [x] `POST   2/tweets/search/stream/rules, dry_run=true`
+- [x] `POST   2/tweets/search/stream/rules`
+- [x] `POST   2/tweets`
+- [x] `PUT    2/lists/:id`
