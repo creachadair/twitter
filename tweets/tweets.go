@@ -144,6 +144,18 @@ func Likers(id string, opts *ListOpts) users.Query {
 	return users.Query{Request: req}
 }
 
+// Quotes consstructs a query for the quotes of a given tweet ID.
+//
+// API: 2/tweets/:id/quote_tweets
+func Quotes(id string, opts *ListOpts) Query {
+	req := &jhttp.Request{
+		Method: "2/tweets/" + id + "/quote_tweets",
+		Params: make(jhttp.Params),
+	}
+	opts.addRequestParams(req)
+	return Query{Request: req}
+}
+
 // A Query performs a lookup or search query.
 type Query struct {
 	*jhttp.Request
