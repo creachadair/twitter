@@ -188,3 +188,36 @@ func Unbookmark(userID, tweetID string) Edit {
 		tag: "bookmarked",
 	}
 }
+
+// Retweet constructs a query for the given user ID to retweet the given tweet ID.
+//
+// API: POST 2/users/:id/retweets
+func Retweet(userID, tweetID string) Edit {
+	body, err := json.Marshal(struct {
+		ID string `json:"tweet_id"`
+	}{ID: tweetID})
+	return Edit{
+		Request: &jhttp.Request{
+			Method:      "2/users/" + userID + "/retweets",
+			HTTPMethod:  "POST",
+			ContentType: "application/json",
+			Data:        body,
+		},
+		tag:       "retweeted",
+		encodeErr: err,
+	}
+}
+
+// Unretweet constructs a query for the given user ID to un-retweet the given
+// tweet ID.
+//
+// API: DELETE 2/users/:id/retweets/:tid
+func Unretweet(userID, tweetID string) Edit {
+	return Edit{
+		Request: &jhttp.Request{
+			Method:     "2/users/" + userID + "/retweets/" + tweetID,
+			HTTPMethod: "DELETE",
+		},
+		tag: "retweeted",
+	}
+}

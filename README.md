@@ -73,8 +73,8 @@ Here is the current status of v2 API endpoint implementations.
 - [x] GET 2/users/:id/mentions
 - [x] GET 2/users/:id/owned_lists
 - [x] GET 2/users/:id/retweeted_by
-- [ ] DELETE 2/users/:id/retweets/:tid
-- [ ] POST 2/users/:id/retweets
+- [x] DELETE 2/users/:id/retweets/:tid
+- [x] POST 2/users/:id/retweets
 - [x] GET 2/users/:id/tweets
 - [x] GET 2/users/by
 - [x] GET 2/users
