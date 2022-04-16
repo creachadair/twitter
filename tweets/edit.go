@@ -109,3 +109,14 @@ func SetHidden(tweetID string, hidden bool) Edit {
 	req.ContentType = "application/json"
 	return Edit{Request: req, tag: "hidden", encodeErr: err}
 }
+
+// Delete constructs a query to delete the given tweet ID.
+func Delete(tweetID string) Edit {
+	return Edit{
+		Request: &jhttp.Request{
+			Method:     "2/tweets/" + tweetID,
+			HTTPMethod: "DELETE",
+		},
+		tag: "deleted",
+	}
+}
