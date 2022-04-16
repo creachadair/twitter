@@ -10,7 +10,8 @@ interactions:
     url: https://api.twitter.com/2/users/by/username/jack?expansions=pinned_tweet_id&user.fields=created_at%2Cdescription%2Cpublic_metrics%2Cverified
     method: GET
   response:
-    body: '{"data":{"description":"romantic moron, 1/8th hippie #bitcoin","pinned_tweet_id":"1247616214769086465","username":"jack","created_at":"2006-03-21T20:50:14.000Z","public_metrics":{"followers_count":6253848,"following_count":4568,"tweet_count":28382,"listed_count":32525},"verified":true,"name":"jack⚡️","id":"12"},"includes":{"tweets":[{"id":"1247616214769086465","text":"I’m
+    body: '{"data":{"username":"jack","id":"12","description":"romantic moron, 1/8th
+      hippie #bitcoin","public_metrics":{"followers_count":6254027,"following_count":4568,"tweet_count":28383,"listed_count":32519},"name":"jack⚡️","created_at":"2006-03-21T20:50:14.000Z","verified":true,"pinned_tweet_id":"1247616214769086465"},"includes":{"tweets":[{"id":"1247616214769086465","text":"I’m
       moving $1B of my Square equity (~28% of my wealth) to #startsmall LLC to fund
       global COVID-19 relief. After we disarm this pandemic, the focus will shift
       to girl’s health and education, and UBI. It will operate transparently, all
@@ -25,24 +26,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:26 UTC
+      - Sat, 16 Apr 2022 05:57:50 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008498645596445; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:26 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008498645596445; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:26 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_q9Gl4HtomJTao81lvfpyqQ=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:26 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008498645596445; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:26 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867019707257; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:50 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867019707257; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:50 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_b+MOUS5I+MdrUkgjsvboUA=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:50 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867019707257; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:50 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -50,16 +51,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "300"
       X-Rate-Limit-Remaining:
-      - "296"
+      - "298"
       X-Rate-Limit-Reset:
-      - "1650085586"
+      - "1650089421"
       X-Response-Time:
-      - "45"
+      - "49"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 298.941667ms
+    duration: 404.15575ms
 - request:
     body: ""
     form: {}
@@ -69,11 +70,11 @@ interactions:
     url: https://api.twitter.com/2/tweets?expansions=entities.mentions.username&ids=1297524288245895168&tweet.fields=author_id%2Ccreated_at%2Centities
     method: GET
   response:
-    body: '{"data":[{"author_id":"186667011","entities":{"urls":[{"start":173,"end":196,"url":"https://t.co/N3pCyxcpZW","expanded_url":"https://www.crowdcast.io/e/in-lieu-of-fun-episode-44","display_url":"crowdcast.io/e/in-lieu-of-f…","status":200,"unwound_url":"https://www.crowdcast.io/e/in-lieu-of-fun-episode-44"},{"start":210,"end":233,"url":"https://t.co/pUKPEg4UKz","expanded_url":"https://youtu.be/ua64SYY08rE","display_url":"youtu.be/ua64SYY08rE","status":200,"unwound_url":"https://www.youtube.com/watch?v=ua64SYY08rE&feature=youtu.be"}],"annotations":[{"start":201,"end":207,"probability":0.4142,"type":"Organization","normalized_text":"YouTube"},{"start":237,"end":244,"probability":0.5224,"type":"Organization","normalized_text":"Facebook"},{"start":264,"end":270,"probability":0.5724,"type":"Product","normalized_text":"Twitter"}],"mentions":[{"start":9,"end":25,"username":"inlieuoffunshow","id":"1242605009205956608"}]},"created_at":"2020-08-23T13:21:11.000Z","text":"Today
+    body: '{"data":[{"id":"1297524288245895168","author_id":"186667011","text":"Today
       on @inlieuoffunshow, it''s Mystery Guest Sunday. I bring a mystery guest recommended
       by audience members yesterday. Who will it be?\n5:00 pm Eastern time.\nOn Crowdcast:
       https://t.co/N3pCyxcpZW \nOn YouTube: https://t.co/pUKPEg4UKz\nOn Facebook,
-      or right here on Twitter.","id":"1297524288245895168"}],"includes":{"users":[{"id":"1242605009205956608","name":"In
+      or right here on Twitter.","created_at":"2020-08-23T13:21:11.000Z","entities":{"annotations":[{"start":201,"end":207,"probability":0.4142,"type":"Organization","normalized_text":"YouTube"},{"start":237,"end":244,"probability":0.5224,"type":"Organization","normalized_text":"Facebook"},{"start":264,"end":270,"probability":0.5724,"type":"Product","normalized_text":"Twitter"}],"mentions":[{"start":9,"end":25,"username":"inlieuoffunshow","id":"1242605009205956608"}],"urls":[{"start":173,"end":196,"url":"https://t.co/N3pCyxcpZW","expanded_url":"https://www.crowdcast.io/e/in-lieu-of-fun-episode-44","display_url":"crowdcast.io/e/in-lieu-of-f…","status":200,"unwound_url":"https://www.crowdcast.io/e/in-lieu-of-fun-episode-44"},{"start":210,"end":233,"url":"https://t.co/pUKPEg4UKz","expanded_url":"https://youtu.be/ua64SYY08rE","display_url":"youtu.be/ua64SYY08rE","status":200,"unwound_url":"https://www.youtube.com/watch?v=ua64SYY08rE&feature=youtu.be"}]}}],"includes":{"users":[{"id":"1242605009205956608","name":"In
       Lieu of Fun Show","username":"inlieuoffunshow"}]}}'
     headers:
       Api-Version:
@@ -85,24 +86,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:26 UTC
+      - Sat, 16 Apr 2022 05:57:50 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008498687851290; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:26 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008498687851290; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:26 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_iEthT/Be9tKlVI7bar9dJg=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:26 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008498687851290; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:26 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867073933175; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:50 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867073933175; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:50 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_XD5vxncDaeDkk2O+eT23XQ=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:50 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867073933175; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:50 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -110,16 +111,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "300"
       X-Rate-Limit-Remaining:
-      - "296"
+      - "298"
       X-Rate-Limit-Reset:
-      - "1650085587"
+      - "1650089421"
       X-Response-Time:
-      - "62"
+      - "53"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 138.287291ms
+    duration: 134.845334ms
 - request:
     body: ""
     form: {}
@@ -129,23 +130,28 @@ interactions:
     url: https://api.twitter.com/2/tweets/1515177881831321600/quote_tweets?max_results=15&tweet.fields=author_id%2Ccreated_at
     method: GET
   response:
-    body: '{"data":[{"id":"1515189075082424324","author_id":"802703184","text":"RT
-      @pmarca: https://t.co/zfu4vVUsaa","created_at":"2022-04-16T04:43:21.000Z"},{"id":"1515185814778568706","author_id":"1238254117665071104","text":"It’s
-      a time of mercy https://t.co/Ox9pAwxSQM","created_at":"2022-04-16T04:30:23.000Z"},{"id":"1515185515800272899","author_id":"1365720516456181763","text":"RT
-      @pmarca: https://t.co/zfu4vVUsaa","created_at":"2022-04-16T04:29:12.000Z"},{"id":"1515184988248940546","author_id":"5943622","text":"https://t.co/zfu4vVUsaa
-      https://t.co/6VNapZVA7Q","created_at":"2022-04-16T04:27:06.000Z"},{"id":"1515181270497521666","author_id":"1341880711930806272","text":"\uD83D\uDE2D\uD83D\uDCAB
-      @pmarca https://t.co/6mAyFiCJMc","created_at":"2022-04-16T04:12:20.000Z"},{"id":"1515180384660733956","author_id":"839468792635879425","text":"RT
+    body: '{"data":[{"text":"RT @pmarca: https://t.co/6VNapZVA7Q https://t.co/zfu4vVUsaa","author_id":"854464650964062213","created_at":"2022-04-16T05:36:15.000Z","id":"1515202389200015362"},{"text":"RT
+      @pmarca: https://t.co/zfu4vVUsaa","author_id":"1425087849372790790","created_at":"2022-04-16T05:27:51.000Z","id":"1515200276524945408"},{"text":"RT
+      @pmarca: https://t.co/zfu4vVUsaa","author_id":"1327858409241194497","created_at":"2022-04-16T05:13:09.000Z","id":"1515196575450021891"},{"text":"Embrace
+      humanity.\n\nIt''s all about love, peace and nappiness.\n\nCheers.. https://t.co/5qOZHhiTEm","author_id":"1479390986841251842","created_at":"2022-04-16T05:07:53.000Z","id":"1515195251933294599"},{"text":"My
+      view - it depends on your defined purpose, your unique thing. \n\nLife is but
+      brief. Time not unlimited. \n\nIf doing so keeps distractions away, stay the
+      course. There is a right to express oneself, not a right to communicate. Even
+      in virtual world, friendships are a privilege. https://t.co/wUCkNTiQeq","author_id":"878024582107512833","created_at":"2022-04-16T04:57:15.000Z","id":"1515192575925260288"},{"text":"RT
+      @pmarca: https://t.co/zfu4vVUsaa","author_id":"802703184","created_at":"2022-04-16T04:43:21.000Z","id":"1515189075082424324"},{"text":"It’s
+      a time of mercy https://t.co/Ox9pAwxSQM","author_id":"1238254117665071104","created_at":"2022-04-16T04:30:23.000Z","id":"1515185814778568706"},{"text":"RT
+      @pmarca: https://t.co/zfu4vVUsaa","author_id":"1365720516456181763","created_at":"2022-04-16T04:29:12.000Z","id":"1515185515800272899"},{"text":"https://t.co/zfu4vVUsaa
+      https://t.co/6VNapZVA7Q","author_id":"5943622","created_at":"2022-04-16T04:27:06.000Z","id":"1515184988248940546"},{"text":"\uD83D\uDE2D\uD83D\uDCAB
+      @pmarca https://t.co/6mAyFiCJMc","author_id":"1341880711930806272","created_at":"2022-04-16T04:12:20.000Z","id":"1515181270497521666"},{"text":"RT
       @cblatts: I don’t block often but I have never unblocked \n\nThat is your Twitter
-      weekend mental health advisory for the weekend","created_at":"2022-04-16T04:08:49.000Z"},{"id":"1515179883038711811","author_id":"1473890250208395267","text":"RT
+      weekend mental health advisory for the weekend","author_id":"839468792635879425","created_at":"2022-04-16T04:08:49.000Z","id":"1515180384660733956"},{"text":"RT
       @pmarca: Bear in mind my block list contains a *lot* of Communists and a *lot*
-      of Nazis.","created_at":"2022-04-16T04:06:49.000Z"},{"id":"1515179453713895433","author_id":"16150857","text":"RT
+      of Nazis.","author_id":"1473890250208395267","created_at":"2022-04-16T04:06:49.000Z","id":"1515179883038711811"},{"text":"RT
       @pmarca: Bear in mind my block list contains a *lot* of Communists and a *lot*
-      of Nazis.","created_at":"2022-04-16T04:05:07.000Z"},{"id":"1515179409753317377","author_id":"1515157170525917184","text":"RT
+      of Nazis.","author_id":"16150857","created_at":"2022-04-16T04:05:07.000Z","id":"1515179453713895433"},{"text":"RT
       @pmarca: Bear in mind my block list contains a *lot* of Communists and a *lot*
-      of Nazis.","created_at":"2022-04-16T04:04:56.000Z"},{"id":"1515179302366572552","author_id":"5943622","text":"Bear
-      in mind my block list contains a *lot* of Communists and a *lot* of Nazis. https://t.co/6VNapZVA7Q","created_at":"2022-04-16T04:04:31.000Z"},{"id":"1515179007154741252","author_id":"74051281","text":"I
-      don’t block often but I have never unblocked \n\nThat is your Twitter weekend
-      mental health advisory for the weekend https://t.co/Yu7nPpdqEm","created_at":"2022-04-16T04:03:20.000Z"}],"meta":{"result_count":11}}'
+      of Nazis.","author_id":"1515157170525917184","created_at":"2022-04-16T04:04:56.000Z","id":"1515179409753317377"},{"text":"Bear
+      in mind my block list contains a *lot* of Communists and a *lot* of Nazis. https://t.co/6VNapZVA7Q","author_id":"5943622","created_at":"2022-04-16T04:04:31.000Z","id":"1515179302366572552"}],"meta":{"result_count":15,"next_token":"bif28i8irwnc"}}'
     headers:
       Api-Version:
       - "2.39"
@@ -156,24 +162,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:27 UTC
+      - Sat, 16 Apr 2022 05:57:51 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008498715837594; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:27 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008498715837594; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:27 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_vQyH1G9gf/2QILVLVVyChQ=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:27 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008498715837594; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:27 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867100786179; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:51 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867100786179; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:51 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_51fqGFBsSGXMGN/B5YdoVA=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:51 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867100786179; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:51 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -181,16 +187,146 @@ interactions:
       X-Rate-Limit-Limit:
       - "75"
       X-Rate-Limit-Remaining:
-      - "68"
+      - "73"
       X-Rate-Limit-Reset:
-      - "1650085352"
+      - "1650089421"
       X-Response-Time:
-      - "213"
+      - "208"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 371.442917ms
+    duration: 287.076875ms
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+    url: https://api.twitter.com/2/users/916533386352537601/tweets?max_results=5
+    method: GET
+  response:
+    body: '{"data":[{"id":"1514359279590932480","text":"It’s #WormWednesday! Check
+      out this unusual flatworm I found last weekend. https://t.co/owaKzrwhQh"},{"id":"1513680241637552129","text":"@prometheusgreen
+      Hale’iwa trench is the best I’ve found for unusual slugs—if you go straight
+      out from the beach at Hale’iwa Ali’i park, there’s a long shallow area with
+      tons of cool cryptic stuff, and then a steep wall with many good things when
+      you get further out!"},{"id":"1513666346369781761","text":"@prometheusgreen
+      Most were from one dive last night (at the sluggiest site of all; I love it)
+      but a few are from earlier in the week!"},{"id":"1513610524314923010","text":"@Carolina_Pines1
+      @echinoblog Yes, a little chromodorid nudibranch!"},{"id":"1513610341699125249","text":"And
+      finally, in a non-nudibranch twist, an unusually cooperative day octo. https://t.co/G5jTwZ4ZN6"}],"meta":{"result_count":5,"newest_id":"1514359279590932480","oldest_id":"1513610341699125249","next_token":"7140dibdnow9c7btw420yvhyn8gmv0mn4uj1vnlyn5gzd"}}'
+    headers:
+      Api-Version:
+      - "2.39"
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 16 Apr 2022 05:57:51 UTC
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - guest_id_marketing=v1%3A165008867158128509; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:51 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867158128509; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:51 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_DGn1LmqLR1teLi7RNstOkw=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:51 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867158128509; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:51 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "1500"
+      X-Rate-Limit-Remaining:
+      - "1497"
+      X-Rate-Limit-Reset:
+      - "1650089389"
+      X-Response-Time:
+      - "83"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: 162.041833ms
+- request:
+    body: ""
+    form: {}
+    headers:
+      Authorization:
+      - Bearer this-is-a-fake-auth-token-for-testing
+    url: https://api.twitter.com/2/users/2805856351/mentions?max_results=5&tweet.fields=author_id
+    method: GET
+  response:
+    body: '{"data":[{"author_id":"1047151264432295936","id":"1515176088682606593","text":"@mmasnick
+      @RubenZorian @IronyDead @Klonick Who is the left’s Babylon Bee?\n\nThis list
+      is massively tilted toward the right where mere speech is the cause of suspension:
+      https://t.co/2GALJA9DBx"},{"author_id":"1047151264432295936","id":"1515174062259011585","text":"@IronyDead
+      @RubenZorian @mmasnick @Klonick Or, you know, buy a bunch of Twitter stock and
+      try and get your changes to the TOS implemented. Oddly, that’s the action currently
+      being discussed."},{"author_id":"729149466","id":"1515170804295634944","text":"@chinmayiarun
+      @Klonick @yaleisp @MargotKaminski @journoscholar @RebeccaCrootof @nikenberger
+      @LauraDeNardis Oh wow - this is wonderful news. Congratulations!!!"},{"author_id":"14182327","id":"1515165977633304578","text":"@AnthonyMKreis
+      @Klonick I’m completely serious. Would it help if @ProfessorMutch and @stacyhawkinsesq
+      vouched for me?"},{"author_id":"14182327","id":"1515164999739654145","text":"@AnthonyMKreis
+      @Klonick Ooh me too can I tag along?"}],"meta":{"result_count":5,"newest_id":"1515176088682606593","oldest_id":"1515164999739654145","next_token":"7140dibdnow9c7btw420yzpx7dhbdmxjps3l9168fuxit"}}'
+    headers:
+      Api-Version:
+      - "2.39"
+      Cache-Control:
+      - no-cache, no-store, max-age=0
+      Content-Disposition:
+      - attachment; filename=json.json
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 16 Apr 2022 05:57:51 UTC
+      Server:
+      - tsa_a
+      Set-Cookie:
+      - guest_id_marketing=v1%3A165008867190819629; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:51 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867190819629; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:51 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_g1bp8E+YS8Tg2Xnpjh5xEQ=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:51 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867190819629; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:51 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      Strict-Transport-Security:
+      - max-age=631138519
+      X-Access-Level:
+      - read
+      X-Connection-Hash:
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Rate-Limit-Limit:
+      - "450"
+      X-Rate-Limit-Remaining:
+      - "443"
+      X-Rate-Limit-Reset:
+      - "1650089325"
+      X-Response-Time:
+      - "93"
+      X-Xss-Protection:
+      - "0"
+    status: 200 OK
+    code: 200
+    duration: 168.483875ms
 - request:
     body: ""
     form: {}
@@ -230,24 +366,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:28 UTC
+      - Sat, 16 Apr 2022 05:57:52 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008498790604841; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008498790604841; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_B3b1aNaxV18AAR73oI2CdA=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008498790604841; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867224761936; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:52 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867224761936; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:52 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_5/Irwm4Bpv7JXHMO4M1XoA=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:52 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867224761936; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:52 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -255,16 +391,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "75"
       X-Rate-Limit-Remaining:
-      - "71"
+      - "73"
       X-Rate-Limit-Reset:
-      - "1650085588"
+      - "1650089423"
       X-Response-Time:
-      - "172"
+      - "202"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 252.381791ms
+    duration: 280.139125ms
 - request:
     body: ""
     form: {}
@@ -327,24 +463,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:28 UTC
+      - Sat, 16 Apr 2022 05:57:52 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008498841665601; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008498841665601; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_LZk0F3kgur+r0m2QXHNadA=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008498841665601; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867281270618; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:52 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867281270618; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:52 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_FhLP/tosLswFK8sdGMe2ew=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:52 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867281270618; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:52 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -352,16 +488,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "75"
       X-Rate-Limit-Remaining:
-      - "71"
+      - "73"
       X-Rate-Limit-Reset:
-      - "1650085588"
+      - "1650089423"
       X-Response-Time:
-      - "155"
+      - "157"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 237.588458ms
+    duration: 237.530958ms
 - request:
     body: ""
     form: {}
@@ -382,24 +518,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:28 UTC
+      - Sat, 16 Apr 2022 05:57:53 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008498889279110; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008498889279110; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_ivV+4laiR0KqncFGIfCS3Q=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008498889279110; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:28 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867329220506; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:53 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867329220506; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:53 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_DpBNrJ1N26weqNFQl+dzEA=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:53 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867329220506; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:53 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -407,16 +543,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "300"
       X-Rate-Limit-Remaining:
-      - "296"
+      - "297"
       X-Rate-Limit-Reset:
-      - "1650085589"
+      - "1650089053"
       X-Response-Time:
-      - "27"
+      - "26"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 103.292291ms
+    duration: 103.577083ms
 - request:
     body: ""
     form: {}
@@ -426,7 +562,7 @@ interactions:
     url: https://api.twitter.com/2/users/by?user.fields=pinned_tweet_id%2Cprofile_image_url%2Cpublic_metrics&usernames=kanyewest%2Cjack%2CPopehat
     method: GET
   response:
-    body: '{"data":[{"username":"kanyewest","pinned_tweet_id":"1283507551586459648","name":"ye","id":"169686021","public_metrics":{"followers_count":30796135,"following_count":209,"tweet_count":1910,"listed_count":43446},"profile_image_url":"https://pbs.twimg.com/profile_images/1276461929934942210/cqNhNk6v_normal.jpg"},{"username":"jack","pinned_tweet_id":"1247616214769086465","name":"jack⚡️","id":"12","public_metrics":{"followers_count":6253848,"following_count":4568,"tweet_count":28382,"listed_count":32525},"profile_image_url":"https://pbs.twimg.com/profile_images/1115644092329758721/AFjOr-K8_normal.jpg"},{"username":"Popehat","pinned_tweet_id":"1508499393812393984","name":"USankMyBattleshipHat","id":"18839937","public_metrics":{"followers_count":295271,"following_count":1241,"tweet_count":226751,"listed_count":4189},"profile_image_url":"https://pbs.twimg.com/profile_images/884879301190967296/oTCsTck5_normal.jpg"}]}'
+    body: '{"data":[{"public_metrics":{"followers_count":30795966,"following_count":209,"tweet_count":1910,"listed_count":43443},"username":"kanyewest","profile_image_url":"https://pbs.twimg.com/profile_images/1276461929934942210/cqNhNk6v_normal.jpg","pinned_tweet_id":"1283507551586459648","name":"ye","id":"169686021"},{"public_metrics":{"followers_count":6254027,"following_count":4568,"tweet_count":28383,"listed_count":32519},"username":"jack","profile_image_url":"https://pbs.twimg.com/profile_images/1115644092329758721/AFjOr-K8_normal.jpg","pinned_tweet_id":"1247616214769086465","name":"jack⚡️","id":"12"},{"public_metrics":{"followers_count":295276,"following_count":1241,"tweet_count":226751,"listed_count":4189},"username":"Popehat","profile_image_url":"https://pbs.twimg.com/profile_images/884879301190967296/oTCsTck5_normal.jpg","pinned_tweet_id":"1508499393812393984","name":"USankMyBattleshipHat","id":"18839937"}]}'
     headers:
       Api-Version:
       - "2.39"
@@ -437,24 +573,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:29 UTC
+      - Sat, 16 Apr 2022 05:57:53 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008498909639622; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008498909639622; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_lR4hHVAVZ6fQaWCKMLji6A=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008498909639622; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867349963600; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:53 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867349963600; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:53 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_HXGC1xECaDCxePLYgPEd/w=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:53 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867349963600; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:53 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -462,16 +598,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "300"
       X-Rate-Limit-Remaining:
-      - "296"
+      - "295"
       X-Rate-Limit-Reset:
-      - "1650085589"
+      - "1650089056"
       X-Response-Time:
-      - "34"
+      - "33"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 110.463042ms
+    duration: 112.062125ms
 - request:
     body: ""
     form: {}
@@ -481,11 +617,10 @@ interactions:
     url: https://api.twitter.com/2/users/12/followers?max_results=5&user.fields=verified
     method: GET
   response:
-    body: '{"data":[{"id":"343894156","username":"bentbiker61","verified":false,"name":"Ralf
-      Kuhn"},{"id":"1485285904755445761","username":"jalelahsophia","verified":false,"name":"Jalelah
-      Sophia Ahmed"},{"id":"1353302185","username":"big519er","verified":false,"name":"Leroy"},{"id":"1491526044746137604","username":"Alex_JDiniz","verified":false,"name":"Álex
-      Diniz"},{"id":"59374099","username":"bbfriedman","verified":false,"name":"Ben
-      Friedman"}],"meta":{"result_count":5,"next_token":"CKOMT8KU1C1HGZZZ"}}'
+    body: '{"data":[{"id":"21300504","verified":false,"name":"Rich","username":"t_witterrich"},{"id":"766020174319329281","verified":false,"name":"Coop
+      Fotho","username":"CoopFotho"},{"id":"1004211288","verified":false,"name":"Uroš
+      Bratušek","username":"bratuek"},{"id":"911963719898419200","verified":false,"name":"Alvaro
+      Espejo","username":"AlvaroEspej0"},{"id":"1445139944104607763","verified":false,"name":".","username":"lvel_s"}],"meta":{"result_count":5,"next_token":"P6TTFNOK1S1HGZZZ"}}'
     headers:
       Api-Version:
       - "2.39"
@@ -496,24 +631,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:29 UTC
+      - Sat, 16 Apr 2022 05:57:53 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008498932122812; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008498932122812; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_C06bhOP3J7rLjduDUh2jww=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008498932122812; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867372621262; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:53 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867372621262; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:53 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_C1rrWLY7ialf5ZbigzCSqg=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:53 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867372621262; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:53 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -521,16 +656,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "15"
       X-Rate-Limit-Remaining:
-      - "11"
+      - "13"
       X-Rate-Limit-Reset:
-      - "1650085589"
+      - "1650089424"
       X-Response-Time:
-      - "59"
+      - "60"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 133.421875ms
+    duration: 137.882167ms
 - request:
     body: ""
     form: {}
@@ -554,24 +689,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:29 UTC
+      - Sat, 16 Apr 2022 05:57:54 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008498958975712; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008498958975712; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_ERSqyoMzY9DVax7KXQaIDQ=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008498958975712; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867400287335; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867400287335; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_ankAqhC0k5RAsmcHgbGvSw=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867400287335; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -579,16 +714,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "15"
       X-Rate-Limit-Remaining:
-      - "11"
+      - "13"
       X-Rate-Limit-Reset:
-      - "1650085589"
+      - "1650089424"
       X-Response-Time:
-      - "46"
+      - "51"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 119.809375ms
+    duration: 126.479458ms
 - request:
     body: ""
     form: {}
@@ -598,8 +733,8 @@ interactions:
     url: https://api.twitter.com/2/lists/1318922483496591360?list.fields=created_at%2Cdescription%2Cfollower_count%2Cmember_count
     method: GET
   response:
-    body: '{"data":{"name":"In Lieu of Fun Guestlist","description":"Official Twitter
-      guest list of the In Lieu of Fun Show.","id":"1318922483496591360","member_count":174,"follower_count":75,"created_at":"2020-10-21T14:29:59.000Z"}}'
+    body: '{"data":{"name":"In Lieu of Fun Guestlist","member_count":174,"id":"1318922483496591360","created_at":"2020-10-21T14:29:59.000Z","follower_count":75,"description":"Official
+      Twitter guest list of the In Lieu of Fun Show."}}'
     headers:
       Api-Version:
       - "2.39"
@@ -610,24 +745,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:29 UTC
+      - Sat, 16 Apr 2022 05:57:54 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008498983249159; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008498983249159; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_eO2jKZvpKXWJ1V81SZb79A=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008498983249159; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:29 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867425668073; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867425668073; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_5mtctM2XQOu/GZ/riRQF3g=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867425668073; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -635,16 +770,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "75"
       X-Rate-Limit-Remaining:
-      - "71"
+      - "73"
       X-Rate-Limit-Reset:
-      - "1650085590"
+      - "1650089425"
       X-Response-Time:
       - "36"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 111.063333ms
+    duration: 112.173583ms
 - request:
     body: ""
     form: {}
@@ -655,8 +790,7 @@ interactions:
     method: GET
   response:
     body: '{"data":[{"description":"Official Twitter guest list of the In Lieu of
-      Fun Show.","member_count":174,"follower_count":75,"created_at":"2020-10-21T14:29:59.000Z","name":"In
-      Lieu of Fun Guestlist","id":"1318922483496591360"}],"meta":{"result_count":1}}'
+      Fun Show.","id":"1318922483496591360","name":"In Lieu of Fun Guestlist","created_at":"2020-10-21T14:29:59.000Z","member_count":174,"follower_count":75}],"meta":{"result_count":1}}'
     headers:
       Api-Version:
       - "2.39"
@@ -667,24 +801,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:30 UTC
+      - Sat, 16 Apr 2022 05:57:54 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499005712690; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499005712690; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_FO3o7Y7PrdKW3e6rLASsBA=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499005712690; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867448325966; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867448325966; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_MG4NwRcmcnTCXYs0BTSXIQ=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867448325966; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -692,16 +826,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "15"
       X-Rate-Limit-Remaining:
-      - "11"
+      - "13"
       X-Rate-Limit-Reset:
-      - "1650085590"
+      - "1650089425"
       X-Response-Time:
-      - "60"
+      - "65"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 134.766ms
+    duration: 142.5525ms
 - request:
     body: ""
     form: {}
@@ -714,14 +848,16 @@ interactions:
     body: '{"data":[{"id":"1345889115179536384","name":"Software","owner_id":"1056887880394641410"},{"id":"102663289","name":"software
       engineering","owner_id":"15123426"},{"id":"1103846010294394881","name":"Code","owner_id":"7303742"},{"id":"984169246044323840","name":"Machine
       Learning","owner_id":"91347803"},{"id":"1034516174535634955","name":"ml4pl","owner_id":"162422316"},{"id":"222201888","name":"Golang","owner_id":"15734187"},{"id":"110594012","name":"Machine
-      Learning folks","owner_id":"14338766"},{"id":"197429","name":"Friends","owner_id":"15450122"},{"id":"2309040","name":"Dartmouth","owner_id":"13447902"}],"includes":{"users":[{"username":"OmarBessa","name":"Pabli!
-      \uD83C\uDDFA\uD83C\uDDE6","id":"1056887880394641410","location":"Patagonia,
-      Argentina"},{"username":"thierrymarianne","name":"Thierry Marianne \uD83D\uDCD2","id":"15123426"},{"username":"Damien_Neil","name":"Damien
-      Neil","id":"7303742"},{"username":"ankurbohra","name":"Ankur Bohra","id":"91347803"},{"username":"Jan_Hula","name":"Jan
-      Hůla","id":"162422316"},{"username":"christopheviaud","name":"Christophe VIAUD","id":"15734187","location":"Le
-      Mans, Pays de la Loire"},{"username":"phil_renaud","name":"Phil Renaud","id":"14338766","location":"Toronto"},{"username":"sushigrade","name":"The
-      Kandalorian","id":"15450122","location":"Western NY, USA"},{"username":"copumpkin","name":"Dan
-      P","id":"13447902","location":"Tower of the Elephant''s Tusk"}]},"meta":{"result_count":9}}'
+      Learning folks","owner_id":"14338766"},{"id":"197429","name":"Friends","owner_id":"15450122"},{"id":"2309040","name":"Dartmouth","owner_id":"13447902"}],"includes":{"users":[{"location":"Patagonia,
+      Argentina","username":"OmarBessa","id":"1056887880394641410","name":"Pabli!
+      \uD83C\uDDFA\uD83C\uDDE6"},{"username":"thierrymarianne","id":"15123426","name":"Thierry
+      Marianne \uD83D\uDCD2"},{"username":"Damien_Neil","id":"7303742","name":"Damien
+      Neil"},{"username":"ankurbohra","id":"91347803","name":"Ankur Bohra"},{"username":"Jan_Hula","id":"162422316","name":"Jan
+      Hůla"},{"location":"Le Mans, Pays de la Loire","username":"christopheviaud","id":"15734187","name":"Christophe
+      VIAUD"},{"location":"Toronto","username":"phil_renaud","id":"14338766","name":"Phil
+      Renaud"},{"location":"Western NY, USA","username":"sushigrade","id":"15450122","name":"The
+      Kandalorian"},{"location":"Tower of the Elephant''s Tusk","username":"copumpkin","id":"13447902","name":"Dan
+      P"}]},"meta":{"result_count":9}}'
     headers:
       Api-Version:
       - "2.39"
@@ -732,24 +868,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:30 UTC
+      - Sat, 16 Apr 2022 05:57:54 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499032792613; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499032792613; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_CvFQ2owbLseW92KeLBdcsg=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499032792613; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867477153124; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867477153124; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_nNlw8LmcEudcYxlLDu43Lg=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867477153124; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:54 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -757,16 +893,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "75"
       X-Rate-Limit-Remaining:
-      - "71"
+      - "73"
       X-Rate-Limit-Reset:
-      - "1650085590"
+      - "1650089425"
       X-Response-Time:
-      - "135"
+      - "101"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 209.286208ms
+    duration: 180.832125ms
 - request:
     body: ""
     form: {}
@@ -788,24 +924,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:30 UTC
+      - Sat, 16 Apr 2022 05:57:55 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499074800571; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499074800571; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_hMfoOITgIRUHPKXJS6otSg=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499074800571; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:30 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867513682678; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867513682678; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_8k70jgqVaOH16+dUIceHaQ=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867513682678; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -813,16 +949,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "15"
       X-Rate-Limit-Remaining:
-      - "11"
+      - "13"
       X-Rate-Limit-Reset:
-      - "1650085591"
+      - "1650089425"
       X-Response-Time:
-      - "56"
+      - "60"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 130.790209ms
+    duration: 136.924458ms
 - request:
     body: ""
     form: {}
@@ -832,11 +968,11 @@ interactions:
     url: https://api.twitter.com/2/lists/1103846010294394881/members?max_results=5&user.fields=location
     method: GET
   response:
-    body: '{"data":[{"id":"1026228327886073856","username":"thepudds1","name":"thepudds"},{"id":"1112334438","location":"Sign
-      up for the newsletter ⤵️","username":"golangweekly","name":"Golang Weekly"},{"id":"197263266","location":"Sydney,
-      New South Wales","username":"rob_pike","name":"Rob Pike"},{"id":"161667651","location":"San
-      Francisco, CA","username":"copyconstruct","name":"Cindy Sridharan"},{"id":"122053508","location":"Sant
-      Francesc, CA","username":"francesc","name":"francesc"}],"meta":{"result_count":5,"next_token":"4611686018549441412"}}'
+    body: '{"data":[{"id":"1026228327886073856","name":"thepudds","username":"thepudds1"},{"location":"Sign
+      up for the newsletter ⤵️","id":"1112334438","name":"Golang Weekly","username":"golangweekly"},{"location":"Sydney,
+      New South Wales","id":"197263266","name":"Rob Pike","username":"rob_pike"},{"location":"San
+      Francisco, CA","id":"161667651","name":"Cindy Sridharan","username":"copyconstruct"},{"location":"Sant
+      Francesc, CA","id":"122053508","name":"francesc","username":"francesc"}],"meta":{"result_count":5,"next_token":"4611686018549441412"}}'
     headers:
       Api-Version:
       - "2.39"
@@ -847,24 +983,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:31 UTC
+      - Sat, 16 Apr 2022 05:57:55 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499101370152; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499101370152; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_3E9xZL3i7aw36VB/Ml5/gA=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499101370152; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867541342335; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867541342335; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_oB+ipf1DC66G1uUHwhOfKw=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867541342335; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -872,16 +1008,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "900"
       X-Rate-Limit-Remaining:
-      - "890"
+      - "896"
       X-Rate-Limit-Reset:
-      - "1650085591"
+      - "1650089426"
       X-Response-Time:
-      - "59"
+      - "56"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 136.743916ms
+    duration: 134.572583ms
 - request:
     body: ""
     form: {}
@@ -891,11 +1027,11 @@ interactions:
     url: https://api.twitter.com/2/lists/1103846010294394881/members?max_results=5&pagination_token=4611686018549441412&user.fields=location
     method: GET
   response:
-    body: '{"data":[{"username":"davidcrawshaw","name":"David Crawshaw","id":"73774650","location":"Berkeley,
-      CA"},{"username":"_rsc","name":"Russ Cox","id":"22455722"},{"username":"_zombiezen_","name":"Ross
-      Light","id":"17980870","location":"Santa Barbara, CA"},{"username":"apenwarr","name":"apenwarr","id":"17744848","location":"Canada.
-      Sometimes."},{"username":"emshort","name":"Emily Short","id":"17288264","location":"Oxford,
-      UK"}],"meta":{"result_count":5,"next_token":"4611686018444676168","previous_token":"-4611686018501162554"}}'
+    body: '{"data":[{"name":"David Crawshaw","id":"73774650","location":"Berkeley,
+      CA","username":"davidcrawshaw"},{"name":"Russ Cox","id":"22455722","username":"_rsc"},{"name":"Ross
+      Light","id":"17980870","location":"Santa Barbara, CA","username":"_zombiezen_"},{"name":"apenwarr","id":"17744848","location":"Canada.
+      Sometimes.","username":"apenwarr"},{"name":"Emily Short","id":"17288264","location":"Oxford,
+      UK","username":"emshort"}],"meta":{"result_count":5,"next_token":"4611686018444676168","previous_token":"-4611686018501162554"}}'
     headers:
       Api-Version:
       - "2.39"
@@ -906,24 +1042,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:31 UTC
+      - Sat, 16 Apr 2022 05:57:55 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499128986852; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499128986852; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_A2PvbtRcszRiCt8kq6WG1w=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499128986852; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867568157921; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867568157921; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_ovoetOy10lfv6SIKIN6cHg=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867568157921; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -931,16 +1067,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "900"
       X-Rate-Limit-Remaining:
-      - "889"
+      - "895"
       X-Rate-Limit-Reset:
-      - "1650085591"
+      - "1650089426"
       X-Response-Time:
-      - "70"
+      - "56"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 145.52925ms
+    duration: 133.026583ms
 - request:
     body: ""
     form: {}
@@ -950,11 +1086,10 @@ interactions:
     url: https://api.twitter.com/2/lists/1103846010294394881/members?max_results=5&pagination_token=4611686018444676168&user.fields=location
     method: GET
   response:
-    body: '{"data":[{"username":"creachadair","name":"M. J. Fromberger","id":"16431281"},{"username":"zarfeblong","name":"Andrew
-      Plotkin","location":"Boston","id":"16203848"},{"username":"davecheney","name":"Dave
-      Cheney","location":"Department of Australia","id":"699263"},{"username":"bradfitz","name":"Brad
-      Fitzpatrick \uD83D\uDCAA\uD83C\uDDFA\uD83C\uDDE6❤️","location":"Seattle, WA
-      // Bainbridge","id":"650013"}],"meta":{"result_count":4,"previous_token":"-4611686018443819185"}}'
+    body: '{"data":[{"id":"16431281","name":"M. J. Fromberger","username":"creachadair"},{"id":"16203848","location":"Boston","name":"Andrew
+      Plotkin","username":"zarfeblong"},{"id":"699263","location":"Department of Australia","name":"Dave
+      Cheney","username":"davecheney"},{"id":"650013","location":"Seattle, WA // Bainbridge","name":"Brad
+      Fitzpatrick \uD83D\uDCAA\uD83C\uDDFA\uD83C\uDDE6❤️","username":"bradfitz"}],"meta":{"result_count":4,"previous_token":"-4611686018443819185"}}'
     headers:
       Api-Version:
       - "2.39"
@@ -965,24 +1100,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:31 UTC
+      - Sat, 16 Apr 2022 05:57:55 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499158465545; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499158465545; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_cQAdmDP1xbSvF4EDf5CjKg=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499158465545; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867594994257; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867594994257; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_LlLjtPhVNlyeD3BPgWTCIA=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867594994257; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:55 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -990,16 +1125,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "900"
       X-Rate-Limit-Remaining:
-      - "888"
+      - "894"
       X-Rate-Limit-Reset:
-      - "1650085591"
+      - "1650089426"
       X-Response-Time:
-      - "64"
+      - "51"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 141.448333ms
+    duration: 128.244333ms
 - request:
     body: ""
     form: {}
@@ -1023,24 +1158,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:31 UTC
+      - Sat, 16 Apr 2022 05:57:56 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499186797424; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499186797424; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_mufHXTZYO4UNS8wWtk6eCA=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499186797424; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:31 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867621287767; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:56 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867621287767; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:56 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_ePBR0fF/p3KkvpajN3dK4A=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:56 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867621287767; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:56 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -1048,16 +1183,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "180"
       X-Rate-Limit-Remaining:
-      - "176"
+      - "178"
       X-Rate-Limit-Reset:
-      - "1650085592"
+      - "1650089427"
       X-Response-Time:
-      - "78"
+      - "59"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 152.910375ms
+    duration: 140.948625ms
 - request:
     body: ""
     form: {}
@@ -1067,17 +1202,16 @@ interactions:
     url: https://api.twitter.com/2/lists/1318922483496591360/tweets?max_results=5
     method: GET
   response:
-    body: '{"data":[{"id":"1515187259749781512","text":"Ichiro showing good stuff
-      tonight but remember this was only seven year ago... https://t.co/VzkGwDYCTi
-      https://t.co/QhJ3gM2V01"},{"id":"1515179144082083842","text":"RT @TimBeiko:
-      @laurashin If someone thinks they can break it, please reach out and we''ll
-      make sure to reward you with a bounty, and even ma…"},{"id":"1515174749550305280","text":"Wait
-      until DeSantis hears about differential equations…that’s a sure sign of the
-      moral collapse of the decadent Math-Industrial Wokeplex. https://t.co/NQBdTUKn0f"},{"id":"1515174137223954432","text":"RT
-      @wusa9: \uD83D\uDC36 WE DON''T TALK ENOUGH ABOUT BRUNO \uD83D\uDC36 | The French
-      Bull Dog stolen at gunpoint Wednesday in DC is still missing. Here''s what his…"},{"id":"1515174000024068100","text":"RT
-      @OAlexanderDK: @Aviation_Intel I heard it was also carrying the ark of the covenant
-      and several crystal skulls."}],"meta":{"result_count":5,"next_token":"7140dibdnow9c7btw420yzpx8w3ggcndgpeg6vb7jehps"}}'
+    body: '{"data":[{"id":"1515207549779255297","text":"19. Addendum: if you''re having
+      trouble getting access to Hanjo Hamann''s paper that I discuss in this thread,
+      try this link: https://t.co/iEohuKyxbj"},{"id":"1515204410053386241","text":"RT
+      @Bryan_E_Parker: Impressive contribution by the Czech Republic. Awesome!"},{"id":"1515204270529957888","text":"RT
+      @WarOnTheRocks: Ukraine right now has no effective options to counter a prolonged
+      Russian artillery offensive. https://t.co/gWXHPXqRlu"},{"id":"1515204188447387650","text":"RT
+      @lesiavasylenko: As of today # russian/ Belarusian trucks and logistic companies
+      can no longer stay or operate in the #EU. Photo from ye…"},{"id":"1515204014861869061","text":"RT
+      @StratcomCentre: Ukrainian fighter pilot known by his call sign Juice urged
+      partners to provide Ukraine with more and better aircrafts t…"}],"meta":{"result_count":5,"next_token":"7140dibdnow9c7btw420yzq7qp42exa4sfb5njiqzotgx"}}'
     headers:
       Api-Version:
       - "2.39"
@@ -1088,24 +1222,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:32 UTC
+      - Sat, 16 Apr 2022 05:57:56 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499217623827; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:32 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499217623827; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:32 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_7t28tUI5Y++Ie4amCfvoHQ=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:32 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499217623827; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:32 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867649201226; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:56 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867649201226; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:56 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_DIoBggB2S6bCBx/75sSSAA=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:56 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867649201226; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:56 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -1113,16 +1247,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "900"
       X-Rate-Limit-Remaining:
-      - "896"
+      - "898"
       X-Rate-Limit-Reset:
-      - "1650085592"
+      - "1650089427"
       X-Response-Time:
-      - "130"
+      - "99"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 207.725042ms
+    duration: 178.478209ms
 - request:
     body: ""
     form: {}
@@ -1144,24 +1278,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:32 UTC
+      - Sat, 16 Apr 2022 05:57:56 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499259581384; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:32 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499259581384; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:32 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_PPelstA2caGLJ7RWNo2BHw=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:32 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499259581384; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:32 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867685795428; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:56 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867685795428; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:56 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_75uklnfA56EzJwGQ3IF8aw=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:56 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867685795428; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:56 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -1169,16 +1303,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "450"
       X-Rate-Limit-Remaining:
-      - "434"
+      - "444"
       X-Rate-Limit-Reset:
-      - "1650085592"
+      - "1650089427"
       X-Response-Time:
-      - "52"
+      - "54"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 126.371084ms
+    duration: 132.22925ms
 - request:
     body: ""
     form: {}
@@ -1209,24 +1343,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:32 UTC
+      - Sat, 16 Apr 2022 05:57:57 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499285887278; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:32 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499285887278; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:32 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_Q+uTP1Yplzztodr98a0IWg=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:32 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499285887278; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:32 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867713004209; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:57 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867713004209; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:57 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_jooZr/G/HELQsAkmF97Afw=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:57 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867713004209; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:57 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -1234,16 +1368,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "450"
       X-Rate-Limit-Remaining:
-      - "433"
+      - "443"
       X-Rate-Limit-Reset:
-      - "1650085592"
+      - "1650089427"
       X-Response-Time:
-      - "104"
+      - "99"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 190.457584ms
+    duration: 188.700167ms
 - request:
     body: ""
     form: {}
@@ -1277,24 +1411,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:33 UTC
+      - Sat, 16 Apr 2022 05:57:57 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499323226472; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:33 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499323226472; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:33 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_KA1Al7Epxalsc9O1kOUnPg=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:33 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499323226472; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:33 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867750334650; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:57 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867750334650; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:57 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_R23/AXa3AHeHlWpvolaXCw=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:57 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867750334650; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:57 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -1302,16 +1436,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "450"
       X-Rate-Limit-Remaining:
-      - "432"
+      - "442"
       X-Rate-Limit-Reset:
-      - "1650085592"
+      - "1650089427"
       X-Response-Time:
-      - "111"
+      - "97"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 187.978167ms
+    duration: 174.272167ms
 - request:
     body: ""
     form: {}
@@ -1349,24 +1483,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:33 UTC
+      - Sat, 16 Apr 2022 05:57:57 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499361103632; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:33 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499361103632; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:33 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_8NRdJ5fiTDkwMVxKK1vwKg=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:33 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499361103632; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:33 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867785265985; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:57 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867785265985; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:57 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_KRGskCTyQ404V3dpga/N+g=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:57 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867785265985; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:57 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -1374,16 +1508,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "450"
       X-Rate-Limit-Remaining:
-      - "431"
+      - "441"
       X-Rate-Limit-Reset:
-      - "1650085592"
+      - "1650089427"
       X-Response-Time:
-      - "106"
+      - "98"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 182.476084ms
+    duration: 177.686583ms
 - request:
     body: ""
     form: {}
@@ -1393,34 +1527,35 @@ interactions:
     url: https://api.twitter.com/2/tweets/search/recent?max_results=10&query=wordle+has%3Aimages&tweet.fields=author_id%2Centities
     method: GET
   response:
-    body: '{"data":[{"entities":{"urls":[{"start":103,"end":126,"url":"https://t.co/7U2DoNkU9c","expanded_url":"https://twitter.com/ByTimBooth/status/1515166753952710657/photo/1","display_url":"pic.twitter.com/7U2DoNkU9c"}],"annotations":[{"start":80,"end":92,"probability":0.4726,"type":"Place","normalized_text":"T-Mobile
-      Park"}],"mentions":[{"start":3,"end":14,"username":"ByTimBooth","id":"52172226"}]},"author_id":"1004449520506175488","id":"1515192170445107201","text":"RT
+    body: '{"data":[{"entities":{"hashtags":[{"start":23,"end":30,"tag":"Wordle"},{"start":50,"end":59,"tag":"Fortnite"},{"start":105,"end":116,"tag":"GamingNews"}],"urls":[{"start":61,"end":84,"url":"https://t.co/9yepxM3Gn9","expanded_url":"https://gamegeeksnews.com/new-wordle-clone-is-all-about-fortnite/","display_url":"gamegeeksnews.com/new-wordle-clo…","images":[{"url":"https://pbs.twimg.com/news_img/1515207722957946884/Y3tKm88o?format=jpg&name=orig","width":2046,"height":1082},{"url":"https://pbs.twimg.com/news_img/1515207722957946884/Y3tKm88o?format=jpg&name=150x150","width":150,"height":150}],"status":200,"title":"New
+      Wordle Clone is All About Fortnite | Gamegeeksnews","description":"Game Geeks
+      News provides all of the latest gaming news including game releases, game reviews
+      and favorite Games from the gaming community","unwound_url":"https://gamegeeksnews.com/new-wordle-clone-is-all-about-fortnite/"}],"mentions":[{"start":3,"end":17,"username":"GameGeeksNews","id":"1202931350686380033"},{"start":89,"end":103,"username":"GameGeeksNews","id":"1202931350686380033"},{"start":117,"end":127,"username":"BlazedRTs","id":"715492170392846336"},{"start":128,"end":136,"username":"rttanks","id":"1418044846657441796"}]},"text":"RT
+      @GameGeeksNews: New #Wordle Clone is All About #Fortnite: https://t.co/9yepxM3Gn9
+      via @Gamegeeksnews\n\n#GamingNews @BlazedRTs @rttanks @G…","author_id":"1150729203563806720","id":"1515207731405369344"},{"entities":{"hashtags":[{"start":4,"end":11,"tag":"Wordle"},{"start":31,"end":40,"tag":"Fortnite"},{"start":86,"end":97,"tag":"GamingNews"}],"urls":[{"start":42,"end":65,"url":"https://t.co/9yepxM3Gn9","expanded_url":"https://gamegeeksnews.com/new-wordle-clone-is-all-about-fortnite/","display_url":"gamegeeksnews.com/new-wordle-clo…","images":[{"url":"https://pbs.twimg.com/news_img/1515207722957946884/Y3tKm88o?format=jpg&name=orig","width":2046,"height":1082},{"url":"https://pbs.twimg.com/news_img/1515207722957946884/Y3tKm88o?format=jpg&name=150x150","width":150,"height":150}],"status":200,"title":"New
+      Wordle Clone is All About Fortnite | Gamegeeksnews","description":"Game Geeks
+      News provides all of the latest gaming news including game releases, game reviews
+      and favorite Games from the gaming community","unwound_url":"https://gamegeeksnews.com/new-wordle-clone-is-all-about-fortnite/"},{"start":262,"end":285,"url":"https://t.co/GJBw61Fvdi","expanded_url":"https://twitter.com/GameGeeksNews/status/1515207721246674944/photo/1","display_url":"pic.twitter.com/GJBw61Fvdi"}],"mentions":[{"start":70,"end":84,"username":"GameGeeksNews","id":"1202931350686380033"},{"start":98,"end":108,"username":"BlazedRTs","id":"715492170392846336"},{"start":109,"end":117,"username":"rttanks","id":"1418044846657441796"},{"start":118,"end":134,"username":"GamingRTweeters","id":"764928929647955969"},{"start":135,"end":143,"username":"DynoRTs","id":"895382071438213120"},{"start":144,"end":155,"username":"Rapid__RTs","id":"882985971930869760"},{"start":156,"end":163,"username":"RexRTs","id":"896465225938948096"},{"start":164,"end":177,"username":"NemoRETWEET5","id":"1009916606850519043"},{"start":178,"end":185,"username":"sme_rt","id":"1150729203563806720"},{"start":186,"end":196,"username":"Pulse_Rts","id":"731532571176251393"},{"start":197,"end":206,"username":"FatalRTs","id":"826141293495582720"},{"start":207,"end":215,"username":"FindRTs","id":"3512061797"},{"start":216,"end":224,"username":"FluidRT","id":"1188811512816775168"},{"start":225,"end":237,"username":"OwlRetweets","id":"1028234944236085248"},{"start":238,"end":250,"username":"Retweelgend","id":"704583568316633088"},{"start":251,"end":261,"username":"STIQUE_RT","id":"23163671"}]},"text":"New
+      #Wordle Clone is All About #Fortnite: https://t.co/9yepxM3Gn9 via @Gamegeeksnews\n\n#GamingNews
+      @BlazedRTs @rttanks @GamingRTweeters @DynoRTs @Rapid__RTs @RexRTs @NemoRETWEET5
+      @sme_rt @Pulse_Rts @FatalRTs @FindRTs @FluidRT @OwlRetweets @Retweelgend @STIQUE_RT
+      https://t.co/GJBw61Fvdi","author_id":"1202931350686380033","id":"1515207721246674944"},{"text":"Suryanaamaskara,
+      wordle, chores &amp; breakfast done. I have overachieved for the day! Starting
+      with fountainhead now. https://t.co/MJCzUncRjh","author_id":"1598312892","entities":{"urls":[{"start":119,"end":142,"url":"https://t.co/MJCzUncRjh","expanded_url":"https://twitter.com/chaitrag4/status/1515207704629121030/photo/1","display_url":"pic.twitter.com/MJCzUncRjh"}]},"id":"1515207704629121030"},{"text":"RT
+      @Rubiu5: Si escribis GATOS en el Wordle de hoy os saldrá esto \uD83E\uDD72\uD83D\uDC99
+      https://t.co/LlvPIsDEa6","author_id":"851200033571655680","entities":{"urls":[{"start":68,"end":91,"url":"https://t.co/LlvPIsDEa6","expanded_url":"https://twitter.com/Rubiu5/status/1514264700342702084/photo/1","display_url":"pic.twitter.com/LlvPIsDEa6"}],"mentions":[{"start":3,"end":10,"username":"Rubiu5","id":"398306220"}]},"id":"1515207664057389059"},{"text":"Wordle
+      301 4/6\n\n⬛⬛⬛⬛⬛\n⬛⬛⬛⬛\uD83D\uDFE8\n⬛\uD83D\uDFE8⬛⬛\uD83D\uDFE8\n\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9\n\n100
+      not out! https://t.co/B562VAwvl1","author_id":"2953952385","entities":{"urls":[{"start":54,"end":77,"url":"https://t.co/B562VAwvl1","expanded_url":"https://twitter.com/RichardLowe84/status/1515207651445166080/photo/1","display_url":"pic.twitter.com/B562VAwvl1"}]},"id":"1515207651445166080"},{"entities":{"hashtags":[{"start":14,"end":22,"tag":"tartali"}],"urls":[{"start":32,"end":55,"url":"https://t.co/fH5Z03MnCF","expanded_url":"https://twitter.com/kuuneho_/status/1490442158352252928/photo/1","display_url":"pic.twitter.com/fH5Z03MnCF"},{"start":32,"end":55,"url":"https://t.co/fH5Z03MnCF","expanded_url":"https://twitter.com/kuuneho_/status/1490442158352252928/photo/1","display_url":"pic.twitter.com/fH5Z03MnCF"}],"mentions":[{"start":3,"end":12,"username":"kuuneho_","id":"1369655558119157762"}]},"text":"RT
+      @kuuneho_: #tartali + wordle https://t.co/fH5Z03MnCF","author_id":"975377695436492801","id":"1515207643953999872"},{"text":"RT
+      @_tucktuck_goose: There’s a Taylor Swift Heardle game.. like Wordle but with
+      her music! *Adds to the list of things that keep me unprodu…","author_id":"1214542764035076096","id":"1515207032755798016","entities":{"annotations":[{"start":31,"end":50,"probability":0.8235,"type":"Person","normalized_text":"Taylor
+      Swift Heardle"},{"start":64,"end":69,"probability":0.8124,"type":"Person","normalized_text":"Wordle"}],"mentions":[{"start":3,"end":19,"username":"_tucktuck_goose","id":"876838741716979714"}]}},{"text":"RT
       @ByTimBooth: Not sure the photographer on this … but a unique Wordle seen at
-      T-Mobile Park tonight. https://t.co/7U2DoNkU9c"},{"entities":{"urls":[{"start":103,"end":126,"url":"https://t.co/7U2DoNkU9c","expanded_url":"https://twitter.com/ByTimBooth/status/1515166753952710657/photo/1","display_url":"pic.twitter.com/7U2DoNkU9c"}],"annotations":[{"start":80,"end":92,"probability":0.4726,"type":"Place","normalized_text":"T-Mobile
-      Park"}],"mentions":[{"start":3,"end":14,"username":"ByTimBooth","id":"52172226"}]},"author_id":"725826877911228420","id":"1515192138828451841","text":"RT
-      @ByTimBooth: Not sure the photographer on this … but a unique Wordle seen at
-      T-Mobile Park tonight. https://t.co/7U2DoNkU9c"},{"entities":{"urls":[{"start":193,"end":216,"url":"https://t.co/CuKhtPTjfY","expanded_url":"https://twitter.com/tyleroffbench/status/1515192130498703363/photo/1","display_url":"pic.twitter.com/CuKhtPTjfY"}]},"author_id":"936006879947436032","id":"1515192130498703363","text":"I
-      could wait the extra 6 minutes to share todays “Phew” disappointment but fuck
-      it…if you haven’t already done today’s Wordle &amp; this is what upset you then
-      you’re the asshole &amp; not me! https://t.co/CuKhtPTjfY"},{"entities":{"urls":[{"start":103,"end":126,"url":"https://t.co/7U2DoNkU9c","expanded_url":"https://twitter.com/ByTimBooth/status/1515166753952710657/photo/1","display_url":"pic.twitter.com/7U2DoNkU9c"}],"annotations":[{"start":80,"end":92,"probability":0.4726,"type":"Place","normalized_text":"T-Mobile
-      Park"}],"mentions":[{"start":3,"end":14,"username":"ByTimBooth","id":"52172226"}]},"author_id":"229703561","id":"1515192093425094658","text":"RT
-      @ByTimBooth: Not sure the photographer on this … but a unique Wordle seen at
-      T-Mobile Park tonight. https://t.co/7U2DoNkU9c"},{"entities":{"urls":[{"start":62,"end":85,"url":"https://t.co/uSU2NhBQ9o","expanded_url":"https://twitter.com/LifeOfStardust/status/1510089054754287616/photo/1","display_url":"pic.twitter.com/uSU2NhBQ9o"}],"mentions":[{"start":3,"end":18,"username":"LifeOfStardust","id":"1477143733413974022"}],"hashtags":[{"start":54,"end":61,"tag":"Wordle"}]},"author_id":"1477143733413974022","id":"1515192060537892864","text":"RT
-      @LifeOfStardust: Normal people v/s people who play #Wordle https://t.co/uSU2NhBQ9o"},{"entities":{"urls":[{"start":103,"end":126,"url":"https://t.co/7U2DoNkU9c","expanded_url":"https://twitter.com/ByTimBooth/status/1515166753952710657/photo/1","display_url":"pic.twitter.com/7U2DoNkU9c"}],"annotations":[{"start":80,"end":92,"probability":0.4726,"type":"Place","normalized_text":"T-Mobile
-      Park"}],"mentions":[{"start":3,"end":14,"username":"ByTimBooth","id":"52172226"}]},"author_id":"2194472689","id":"1515192009203412995","text":"RT
-      @ByTimBooth: Not sure the photographer on this … but a unique Wordle seen at
-      T-Mobile Park tonight. https://t.co/7U2DoNkU9c"},{"entities":{"urls":[{"start":54,"end":77,"url":"https://t.co/QlBmOTjicZ","expanded_url":"https://twitter.com/ProTrendChecker/status/1515191874235113475/photo/1","display_url":"pic.twitter.com/QlBmOTjicZ"}],"hashtags":[{"start":0,"end":10,"tag":"Wordle301"}]},"author_id":"1427324604662566920","id":"1515191874235113475","text":"#Wordle301
-      \nWordle 301 X 4/6\n\n\uD83D\uDFE9\uD83D\uDFE9⬜⬜⬜\n\uD83D\uDFE9\uD83D\uDFE9⬜⬜\uD83D\uDFE8\n\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9⬜\uD83D\uDFE9\n\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9
-      https://t.co/QlBmOTjicZ"},{"entities":{"urls":[{"start":164,"end":187,"url":"https://t.co/IEPtdtkdXb","expanded_url":"https://twitter.com/claire9219/status/1515191873081647106/photo/1","display_url":"pic.twitter.com/IEPtdtkdXb"}],"hashtags":[{"start":1,"end":11,"tag":"Wordle301"},{"start":12,"end":19,"tag":"Wordle"}]},"author_id":"94603373","id":"1515191873081647106","text":"##Wordle301
-      #Wordle \n\n\uD83C\uDF19 Midnight Wordle \uD83D\uDCA5pow!\uD83D\uDCA5 Lucky
-      guess \uD83C\uDF40!!  End of story!  Good luck &amp; good night fellow Wordlers!
-      \uD83D\uDE34 \uD83D\uDCA4 \n\nWordle 301 3/6*\n\n⬛⬛⬛⬛\uD83D\uDFE8\n⬛⬛⬛\uD83D\uDFE9⬛\n\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9
-      https://t.co/IEPtdtkdXb"},{"entities":{"urls":[{"start":50,"end":73,"url":"https://t.co/weOJoH0jpH","expanded_url":"https://twitter.com/brentnotkeishan/status/1515191798645227520/photo/1","display_url":"pic.twitter.com/weOJoH0jpH"},{"start":74,"end":97,"url":"https://t.co/pFDWBzVLaB","expanded_url":"https://twitter.com/brentnotkeishan/status/1514708557316329485","display_url":"twitter.com/brentnotkeisha…"}]},"author_id":"1177601269126402048","id":"1515191798645227520","text":"Wordle
-      301 4/6\n\n⬛⬛⬛⬛\uD83D\uDFE8\n⬛\uD83D\uDFE9\uD83D\uDFE9⬛⬛\n\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9⬛⬛\n\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9\n\n50th
-      \uD83D\uDC4A\uD83D\uDC4A\uD83D\uDC4A https://t.co/weOJoH0jpH https://t.co/pFDWBzVLaB"},{"entities":{"urls":[{"start":103,"end":126,"url":"https://t.co/7U2DoNkU9c","expanded_url":"https://twitter.com/ByTimBooth/status/1515166753952710657/photo/1","display_url":"pic.twitter.com/7U2DoNkU9c"}],"annotations":[{"start":80,"end":92,"probability":0.4726,"type":"Place","normalized_text":"T-Mobile
-      Park"}],"mentions":[{"start":3,"end":14,"username":"ByTimBooth","id":"52172226"}]},"author_id":"103397797","id":"1515191579316686850","text":"RT
-      @ByTimBooth: Not sure the photographer on this … but a unique Wordle seen at
-      T-Mobile Park tonight. https://t.co/7U2DoNkU9c"}],"meta":{"newest_id":"1515192170445107201","oldest_id":"1515191579316686850","result_count":10,"next_token":"b26v89c19zqg8o3fpytn4cix1437k0h4ioijujxufggvx"}}'
+      T-Mobile Park tonight. https://t.co/7U2DoNkU9c","author_id":"2138681","entities":{"urls":[{"start":103,"end":126,"url":"https://t.co/7U2DoNkU9c","expanded_url":"https://twitter.com/ByTimBooth/status/1515166753952710657/photo/1","display_url":"pic.twitter.com/7U2DoNkU9c"}],"annotations":[{"start":80,"end":92,"probability":0.4726,"type":"Place","normalized_text":"T-Mobile
+      Park"}],"mentions":[{"start":3,"end":14,"username":"ByTimBooth","id":"52172226"}]},"id":"1515207007900372992"},{"text":"Wordle
+      301 4/6\nOnly knew 2 but eliminated 11.\n⬛⬛⬛\uD83D\uDFE9⬛\n⬛⬛⬛\uD83D\uDFE9⬛\n\uD83D\uDFE8⬛⬛\uD83D\uDFE9⬛\n\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9\uD83D\uDFE9\n100th
+      Wordle so stats are %. https://t.co/rd3AZwALqo","author_id":"23326380","entities":{"urls":[{"start":99,"end":122,"url":"https://t.co/rd3AZwALqo","expanded_url":"https://twitter.com/lippyduck/status/1515206689842208768/photo/1","display_url":"pic.twitter.com/rd3AZwALqo"}]},"id":"1515206689842208768"},{"text":"100
+      Wordle milestone https://t.co/yFqIBTz1Jm","author_id":"24918909","entities":{"urls":[{"start":21,"end":44,"url":"https://t.co/yFqIBTz1Jm","expanded_url":"https://twitter.com/tcwoolley/status/1515206364099928067/photo/1","display_url":"pic.twitter.com/yFqIBTz1Jm"}]},"id":"1515206364099928067"}],"meta":{"newest_id":"1515207731405369344","oldest_id":"1515206364099928067","result_count":10,"next_token":"b26v89c19zqg8o3fpytn4ekya6d0q8b4boxhel6j067i5"}}'
     headers:
       Api-Version:
       - "2.39"
@@ -1431,24 +1566,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:34 UTC
+      - Sat, 16 Apr 2022 05:57:58 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499397897794; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:34 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499397897794; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:34 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_4+cCdaa8JjgNOgZ76JB5EQ=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:34 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499397897794; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:34 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867821227213; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:58 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867821227213; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:58 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_wl6lBRVhtR+wq3RU1ZtjLg=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:58 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867821227213; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:58 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -1456,16 +1591,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "450"
       X-Rate-Limit-Remaining:
-      - "430"
+      - "440"
       X-Rate-Limit-Reset:
-      - "1650085592"
+      - "1650089427"
       X-Response-Time:
-      - "179"
+      - "163"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 257.06025ms
+    duration: 242.058583ms
 - request:
     body: '{"add":[{"value":"cat has:images lang:en","tag":"test english kittens whargarbl"}]}'
     form: {}
@@ -1478,7 +1613,7 @@ interactions:
     method: POST
   response:
     body: '{"data":[{"value":"cat has:images lang:en","tag":"test english kittens
-      whargarbl","id":"1515192403346395145"}],"meta":{"sent":"2022-04-16T04:56:34.573Z","summary":{"created":1,"not_created":0,"valid":1,"invalid":0}}}'
+      whargarbl","id":"1515207856001150981"}],"meta":{"sent":"2022-04-16T05:57:58.760Z","summary":{"created":1,"not_created":0,"valid":1,"invalid":0}}}'
     headers:
       Cache-Control:
       - no-cache, no-store, max-age=0
@@ -1487,24 +1622,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:34 UTC
+      - Sat, 16 Apr 2022 05:57:58 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499449706116; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:34 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499449706116; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:34 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_f+5PO0na0iJ0NV5Cf/qgkw=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:34 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499449706116; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:34 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867869997360; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:58 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867869997360; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:58 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_ygz4j2rlW84bgGDkuTWnJQ=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:58 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867869997360; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:58 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -1512,27 +1647,27 @@ interactions:
       X-Rate-Limit-Limit:
       - "50"
       X-Rate-Limit-Remaining:
-      - "30"
+      - "44"
       X-Rate-Limit-Reset:
-      - "1650085594"
+      - "1650089429"
       X-Response-Time:
-      - "116"
+      - "77"
       X-Xss-Protection:
       - "0"
     status: 201 Created
     code: 201
-    duration: 194.706458ms
+    duration: 155.359667ms
 - request:
     body: ""
     form: {}
     headers:
       Authorization:
       - Bearer this-is-a-fake-auth-token-for-testing
-    url: https://api.twitter.com/2/tweets/search/stream/rules?ids=1515192403346395145
+    url: https://api.twitter.com/2/tweets/search/stream/rules?ids=1515207856001150981
     method: GET
   response:
-    body: '{"data":[{"id":"1515192403346395145","value":"cat has:images lang:en","tag":"test
-      english kittens whargarbl"}],"meta":{"sent":"2022-04-16T04:56:34.918Z"}}'
+    body: '{"data":[{"id":"1515207856001150981","value":"cat has:images lang:en","tag":"test
+      english kittens whargarbl"}],"meta":{"sent":"2022-04-16T05:57:59.040Z"}}'
     headers:
       Cache-Control:
       - no-cache, no-store, max-age=0
@@ -1541,24 +1676,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:34 UTC
+      - Sat, 16 Apr 2022 05:57:59 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499488682760; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:34 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499488682760; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:34 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_WxoBPjvixilla4HlPNuyYQ=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:34 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499488682760; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:34 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867901013700; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:59 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867901013700; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:59 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_acyOeNZeNeE3dqnhAqC+pQ=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:59 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867901013700; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:59 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -1566,16 +1701,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "450"
       X-Rate-Limit-Remaining:
-      - "432"
+      - "446"
       X-Rate-Limit-Reset:
-      - "1650085595"
+      - "1650089429"
       X-Response-Time:
-      - "48"
+      - "72"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 122.333458ms
+    duration: 149.274709ms
 - request:
     body: ""
     form: {}
@@ -1585,8 +1720,8 @@ interactions:
     url: https://api.twitter.com/2/tweets/search/stream/rules
     method: GET
   response:
-    body: '{"data":[{"id":"1515192403346395145","value":"cat has:images lang:en","tag":"test
-      english kittens whargarbl"}],"meta":{"sent":"2022-04-16T04:56:35.167Z","result_count":1}}'
+    body: '{"data":[{"id":"1515207856001150981","value":"cat has:images lang:en","tag":"test
+      english kittens whargarbl"}],"meta":{"sent":"2022-04-16T05:57:59.331Z","result_count":1}}'
     headers:
       Cache-Control:
       - no-cache, no-store, max-age=0
@@ -1595,24 +1730,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:35 UTC
+      - Sat, 16 Apr 2022 05:57:59 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499513333436; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:35 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499513333436; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:35 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_Okdo2yHh6IUGiWzYqhURzw=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:35 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499513333436; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:35 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867931252528; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:59 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867931252528; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:59 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_8a3jKPqCUhMVd8dAOIBNoA=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:59 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867931252528; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:59 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -1620,16 +1755,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "450"
       X-Rate-Limit-Remaining:
-      - "431"
+      - "445"
       X-Rate-Limit-Reset:
-      - "1650085595"
+      - "1650089429"
       X-Response-Time:
-      - "49"
+      - "52"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 124.197959ms
+    duration: 133.189083ms
 - request:
     body: ""
     form: {}
@@ -1639,7 +1774,7 @@ interactions:
     url: https://api.twitter.com/2/tweets/search/stream/rules?ids=12345678
     method: GET
   response:
-    body: '{"meta":{"sent":"2022-04-16T04:56:35.421Z"}}'
+    body: '{"meta":{"sent":"2022-04-16T05:57:59.602Z"}}'
     headers:
       Cache-Control:
       - no-cache, no-store, max-age=0
@@ -1648,24 +1783,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:35 UTC
+      - Sat, 16 Apr 2022 05:57:59 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499538237405; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:35 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499538237405; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:35 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_Gxer8jfwXOhnEABa2dWbkA=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:35 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499538237405; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:35 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008867957873606; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:59 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008867957873606; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:57:59 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_qgLh4XdULpdO4fw+OxxM0g=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:57:59 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008867957873606; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:57:59 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -1673,18 +1808,18 @@ interactions:
       X-Rate-Limit-Limit:
       - "450"
       X-Rate-Limit-Remaining:
-      - "430"
+      - "444"
       X-Rate-Limit-Reset:
-      - "1650085595"
+      - "1650089429"
       X-Response-Time:
-      - "53"
+      - "164"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 128.539292ms
+    duration: 239.64875ms
 - request:
-    body: '{"delete":{"ids":["1515192403346395145"]}}'
+    body: '{"delete":{"ids":["1515207856001150981"]}}'
     form: {}
     headers:
       Authorization:
@@ -1694,7 +1829,7 @@ interactions:
     url: https://api.twitter.com/2/tweets/search/stream/rules?dry_run=true
     method: POST
   response:
-    body: '{"meta":{"sent":"2022-04-16T04:56:35.691Z","summary":{"deleted":1,"not_deleted":0}}}'
+    body: '{"meta":{"sent":"2022-04-16T05:58:00.536Z","summary":{"deleted":1,"not_deleted":0}}}'
     headers:
       Cache-Control:
       - no-cache, no-store, max-age=0
@@ -1703,24 +1838,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:35 UTC
+      - Sat, 16 Apr 2022 05:58:00 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499564239988; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:35 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499564239988; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:35 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_qv/p7NUnngM2XDLj3oOX+A=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:35 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499564239988; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:35 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008868006393816; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:58:00 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008868006393816; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:58:00 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_fuTdpJyP1fGSA5ne87bj0Q=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:58:00 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008868006393816; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:58:00 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -1728,18 +1863,18 @@ interactions:
       X-Rate-Limit-Limit:
       - "50"
       X-Rate-Limit-Remaining:
-      - "29"
+      - "43"
       X-Rate-Limit-Reset:
-      - "1650085594"
+      - "1650089429"
       X-Response-Time:
-      - "84"
+      - "508"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 160.091708ms
+    duration: 652.810167ms
 - request:
-    body: '{"delete":{"ids":["1515192403346395145"]}}'
+    body: '{"delete":{"ids":["1515207856001150981"]}}'
     form: {}
     headers:
       Authorization:
@@ -1749,7 +1884,7 @@ interactions:
     url: https://api.twitter.com/2/tweets/search/stream/rules
     method: POST
   response:
-    body: '{"meta":{"sent":"2022-04-16T04:56:36.019Z","summary":{"deleted":1,"not_deleted":0}}}'
+    body: '{"meta":{"sent":"2022-04-16T05:58:01.452Z","summary":{"deleted":1,"not_deleted":0}}}'
     headers:
       Cache-Control:
       - no-cache, no-store, max-age=0
@@ -1758,24 +1893,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:36 UTC
+      - Sat, 16 Apr 2022 05:58:01 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499596489388; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:36 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499596489388; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:36 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_TieSU8dQjmQmf8kZBk3VnA=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:36 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499596489388; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:36 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008868137577427; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:58:01 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008868137577427; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:58:01 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_OPhFjE+ULrlAto9JtigG0w=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:58:01 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008868137577427; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:58:01 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -1783,16 +1918,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "50"
       X-Rate-Limit-Remaining:
-      - "28"
+      - "42"
       X-Rate-Limit-Reset:
-      - "1650085594"
+      - "1650089429"
       X-Response-Time:
-      - "142"
+      - "116"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 220.299584ms
+    duration: 200.928625ms
 - request:
     body: ""
     form: {}
@@ -1811,7 +1946,7 @@ interactions:
       href=\"https:\/\/mobile.twitter.com\" rel=\"nofollow\"\u003eTwitter Web App\u003c\/a\u003e","in_reply_to_status_id":null,"in_reply_to_status_id_str":null,"in_reply_to_user_id":null,"in_reply_to_user_id_str":null,"in_reply_to_screen_name":null,"user":{"id":186667011,"id_str":"186667011","name":"Benjamin
       Wittes","screen_name":"benjaminwittes","location":"Washington DC","description":"Senior
       Fellow at the @BrookingsInst. Editor in Chief of @lawfareblog. Cohost of @inlieuoffunshow.
-      \"Not even a lawyer.\" I will block you for any reason or none.","url":"https:\/\/t.co\/eNn7IXx0Av","entities":{"url":{"urls":[{"url":"https:\/\/t.co\/eNn7IXx0Av","expanded_url":"http:\/\/www.lawfareblog.com","display_url":"lawfareblog.com","indices":[0,23]}]},"description":{"urls":[]}},"protected":false,"followers_count":420355,"friends_count":2455,"listed_count":5063,"created_at":"Sat
+      \"Not even a lawyer.\" I will block you for any reason or none.","url":"https:\/\/t.co\/eNn7IXx0Av","entities":{"url":{"urls":[{"url":"https:\/\/t.co\/eNn7IXx0Av","expanded_url":"http:\/\/www.lawfareblog.com","display_url":"lawfareblog.com","indices":[0,23]}]},"description":{"urls":[]}},"protected":false,"followers_count":420353,"friends_count":2455,"listed_count":5063,"created_at":"Sat
       Sep 04 02:04:41 +0000 2010","favourites_count":6975,"utc_offset":null,"time_zone":null,"geo_enabled":true,"verified":true,"statuses_count":43693,"lang":null,"contributors_enabled":false,"is_translator":false,"is_translation_enabled":false,"profile_background_color":"000000","profile_background_image_url":"http:\/\/abs.twimg.com\/images\/themes\/theme18\/bg.gif","profile_background_image_url_https":"https:\/\/abs.twimg.com\/images\/themes\/theme18\/bg.gif","profile_background_tile":false,"profile_image_url":"http:\/\/pbs.twimg.com\/profile_images\/1495873720774279178\/YTtqSDAU_normal.jpg","profile_image_url_https":"https:\/\/pbs.twimg.com\/profile_images\/1495873720774279178\/YTtqSDAU_normal.jpg","profile_banner_url":"https:\/\/pbs.twimg.com\/profile_banners\/186667011\/1630960375","profile_link_color":"981CEB","profile_sidebar_border_color":"000000","profile_sidebar_fill_color":"000000","profile_text_color":"000000","profile_use_background_image":false,"has_extended_profile":true,"default_profile":false,"default_profile_image":false,"following":null,"follow_request_sent":null,"notifications":null,"translator_type":"none","withheld_in_countries":[]},"geo":null,"coordinates":null,"place":null,"contributors":null,"is_quote_status":false,"retweet_count":1,"favorite_count":11,"favorited":false,"retweeted":false,"possibly_sensitive":false,"possibly_sensitive_appealable":false,"lang":"en"}'
     headers:
       Cache-Control:
@@ -1821,24 +1956,24 @@ interactions:
       Content-Type:
       - application/json;charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:36 GMT
+      - Sat, 16 Apr 2022 05:58:01 GMT
       Expires:
       - Tue, 31 Mar 1981 05:00:00 GMT
       Last-Modified:
-      - Sat, 16 Apr 2022 04:56:36 GMT
+      - Sat, 16 Apr 2022 05:58:01 GMT
       Pragma:
       - no-cache
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499640995292; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:36 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499640995292; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:36 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_vnsrAJIcAgLdfsggA94U6w=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:36 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499640995292; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:36 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008868177436152; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:58:01 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008868177436152; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:58:01 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_BGwUDVuqN9TKv6NpV+O+2w=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:58:01 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008868177436152; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:58:01 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Status:
       - 200 OK
       Strict-Transport-Security:
@@ -1846,7 +1981,7 @@ interactions:
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -1854,20 +1989,20 @@ interactions:
       X-Rate-Limit-Limit:
       - "900"
       X-Rate-Limit-Remaining:
-      - "896"
+      - "898"
       X-Rate-Limit-Reset:
-      - "1650085597"
+      - "1650089431"
       X-Response-Time:
       - "24"
       X-Transaction:
-      - f074799929f066cd
+      - 14c7008893dd2f4f
       X-Twitter-Response-Tags:
       - BouncerCompliant
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 102.924209ms
+    duration: 101.943292ms
 - request:
     body: ""
     form: {}
@@ -1877,72 +2012,70 @@ interactions:
     url: https://api.twitter.com/2/tweets/sample/stream?tweet.fields=author_id%2Centities
     method: GET
   response:
-    body: "{\"data\":{\"author_id\":\"849228645289697280\",\"entities\":{\"urls\":[{\"start\":32,\"end\":55,\"url\":\"https://t.co/ohmkIVUbj1\",\"expanded_url\":\"https://twitter.com/jakeysluvve/status/1515192387148353538/photo/1\",\"display_url\":\"pic.twitter.com/ohmkIVUbj1\"}]},\"id\":\"1515192387148353538\",\"text\":\"im
-      in this bangtan shit forever https://t.co/ohmkIVUbj1\"}}\r\n{\"data\":{\"author_id\":\"2300329285\",\"entities\":{},\"id\":\"1515192387131244547\",\"text\":\"i
-      hate when I get overwhelmed and don’t know how to express my emotions omg uGh\"}}\r\n{\"data\":{\"author_id\":\"1405559386148245504\",\"entities\":{\"urls\":[{\"start\":21,\"end\":44,\"url\":\"https://t.co/CiyzKpHMDO\",\"expanded_url\":\"https://twitter.com/Rachel____k/status/1515187249087803395\",\"display_url\":\"twitter.com/Rachel____k/st…\"}]},\"id\":\"1515192387127357440\",\"text\":\"STOP
-      IT KIM TAEHYUNG https://t.co/CiyzKpHMDO\"}}\r\n{\"data\":{\"author_id\":\"4547281\",\"entities\":{\"annotations\":[{\"start\":0,\"end\":9,\"probability\":0.9863,\"type\":\"Person\",\"normalized_text\":\"Benny
-      Hill\"},{\"start\":12,\"end\":18,\"probability\":0.4153,\"type\":\"Organization\",\"normalized_text\":\"The
-      FBI\"},{\"start\":21,\"end\":35,\"probability\":0.9965,\"type\":\"Person\",\"normalized_text\":\"James
-      Stricklin\"},{\"start\":42,\"end\":52,\"probability\":0.9817,\"type\":\"Person\",\"normalized_text\":\"Randy
-      Haney\"}],\"hashtags\":[{\"start\":78,\"end\":84,\"tag\":\"1980s\"},{\"start\":85,\"end\":100,\"tag\":\"jamesstricklin\"},{\"start\":101,\"end\":112,\"tag\":\"randyhaney\"},{\"start\":113,\"end\":128,\"tag\":\"audiocassettes\"},{\"start\":129,\"end\":139,\"tag\":\"bennyhill\"},{\"start\":140,\"end\":153,\"tag\":\"jerrysanders\"},{\"start\":154,\"end\":167,\"tag\":\"digitization\"},{\"start\":168,\"end\":197,\"tag\":\"tapeandrecordshowenterprises\"},{\"start\":198,\"end\":203,\"tag\":\"trse\"}],\"urls\":[{\"start\":54,\"end\":77,\"url\":\"https://t.co/pSJK7GfmyU\",\"expanded_url\":\"https://albert71292.livejournal.com/1701796.html?utm_source=twsharing&utm_medium=social&\",\"display_url\":\"albert71292.livejournal.com/1701796.html?u…\",\"status\":200,\"title\":\"Benny
-      Hill, The FBI, James Stricklin, and Randy Haney\",\"description\":\"This evening,
-      digitized the next five episodes from \\\"season four\\\" of the Tape and Record
-      Show Enterprises flagship series \\\"The Tape and Record Show\\\" from the original
-      cheap \\\"broadcast\\\" version cassettes... \\\"The Tape & Record Show: Episode
-      364, Broadcast Friday, November 5, 1982 at 10:00pm central.…\",\"unwound_url\":\"https://albert71292.livejournal.com/1701796.html?utm_source=twsharing&utm_medium=social&\"}]},\"id\":\"1515192387131351043\",\"text\":\"Benny
-      Hill, The FBI, James Stricklin, and Randy Haney https://t.co/pSJK7GfmyU #1980s
-      #jamesstricklin #randyhaney #audiocassettes #bennyhill #jerrysanders #digitization
-      #tapeandrecordshowenterprises #trse\"}}\r\n{\"data\":{\"author_id\":\"1507860853588217862\",\"entities\":{\"hashtags\":[{\"start\":20,\"end\":27,\"tag\":\"aliaga\"}],\"mentions\":[{\"start\":3,\"end\":13,\"username\":\"AledaRdag\",\"id\":\"1496567130262851595\"}],\"urls\":[{\"start\":37,\"end\":60,\"url\":\"https://t.co/2WBSYgbR1I\",\"expanded_url\":\"https://twitter.com/AledaRdag/status/1515192307255058435/photo/1\",\"display_url\":\"pic.twitter.com/2WBSYgbR1I\"}]},\"id\":\"1515192387122958339\",\"text\":\"RT
-      @AledaRdag: yine #aliaga  sonucta https://t.co/2WBSYgbR1I\"}}\r\n{\"data\":{\"author_id\":\"1472179071668957188\",\"entities\":{\"mentions\":[{\"start\":0,\"end\":8,\"username\":\"KE_VOOH\",\"id\":\"1454942984533860363\"}]},\"id\":\"1515192387139772418\",\"text\":\"@KE_VOOH
-      Legit\"}}\r\n{\"data\":{\"author_id\":\"886948325781512194\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":17,\"username\":\"soupgrande001\",\"id\":\"718729261096435712\"}]},\"id\":\"1515192387118637060\",\"text\":\"RT
-      @soupgrande001: ※補足※\\n事前届出の有無は〜、の部分ですが\\nこれは今回のことがあったから今後は徹底するようにと求めたのではなく『以前から求めていた』です。\\n\\n誤解を招きかねないので、補足します。\"}}\r\n{\"data\":{\"author_id\":\"1499969915822157825\",\"entities\":{\"cashtags\":[{\"start\":120,\"end\":123,\"tag\":\"UP\"},{\"start\":129,\"end\":133,\"tag\":\"BSW\"}],\"hashtags\":[{\"start\":38,\"end\":45,\"tag\":\"UpDefi\"}],\"mentions\":[{\"start\":3,\"end\":12,\"username\":\"UpDeFiUp\",\"id\":\"1447182926177705987\"}]},\"id\":\"1515192387131551747\",\"text\":\"RT
-      @UpDeFiUp: Chop Chop! Keep up with #UpDefi. At 12:30 PM UTC on the 11th of Apr,
-      we will launch a new strategy: Stake $UP earn $BSW.\\nDon'…\"}}\r\n{\"data\":{\"author_id\":\"1432389569194840065\",\"entities\":{\"hashtags\":[{\"start\":122,\"end\":131,\"tag\":\"imgambts\"}],\"mentions\":[{\"start\":3,\"end\":11,\"username\":\"FRXSTX7\",\"id\":\"1512989698092040192\"}]},\"id\":\"1515192387131572224\",\"text\":\"RT
-      @FRXSTX7: อยากมีแฝดกับเขาบ้าง ชายหญิงได้หมด นี่ไม่ค่อยมีเพื่อนเมจหญิงเลย ใครรีรับรองทักทุกคนอ่ะ
-      เชื่อใจไอฟ้อดคนนี้เลย\U0001F60E #imgambts\"}}\r\n{\"data\":{\"author_id\":\"422652387\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":16,\"username\":\"prettyking30\",\"id\":\"938536241292873728\"}],\"urls\":[{\"start\":64,\"end\":87,\"url\":\"https://t.co/bjjXnzokSE\",\"expanded_url\":\"https://twitter.com/prettyking30/status/1515192353925046274/photo/1\",\"display_url\":\"pic.twitter.com/bjjXnzokSE\"}]},\"id\":\"1515192387139690496\",\"text\":\"RT
-      @prettyking30: قل لعمار بن عما ر الا تعظم قد \\n؟? \\nنمشي \\nسيفي https://t.co/bjjXnzokSE\"}}\r\n{\"data\":{\"author_id\":\"1505608736437850112\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":15,\"username\":\"ImranARaja1\",\"id\":\"1439554340\"},{\"start\":99,\"end\":112,\"username\":\"ImranKhanPTI\",\"id\":\"122453931\"}]},\"id\":\"1515192387148316675\",\"text\":\"RT
-      @ImranARaja1: یار خدا کا واسطہ ہے انصافیو بچگانی حرکتیں مت کرو ۔۔ ہر الٹے سیدھے
-      ٹرینڈ میں جا کر @ImranKhanPTI کی حمایت میں ٹوئٹس مت کرو…\"}}\r\n{\"data\":{\"author_id\":\"1490856077730394112\",\"entities\":{},\"id\":\"1515192387144138756\",\"text\":\"joke
-      practice lang hehe\"}}\r\n{\"data\":{\"author_id\":\"1243981540796723200\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":17,\"username\":\"peachcrush_jk\",\"id\":\"797079438999494657\"}],\"urls\":[{\"start\":36,\"end\":59,\"url\":\"https://t.co/YTnUyjtWVI\",\"expanded_url\":\"https://twitter.com/peachcrush_jk/status/1515172656488005632/photo/1\",\"display_url\":\"pic.twitter.com/YTnUyjtWVI\"}]},\"id\":\"1515192387139637249\",\"text\":\"RT
-      @peachcrush_jk: 형아조아맨 \U0001F436 참견강쥐 정국이 https://t.co/YTnUyjtWVI\"}}\r\n{\"data\":{\"author_id\":\"3193785918\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":12,\"username\":\"NNKJARMY\",\"id\":\"350793770\"},{\"start\":36,\"end\":51,\"username\":\"mypurplebutter\",\"id\":\"1391465419333013504\"}]},\"id\":\"1515192387118985216\",\"text\":\"RT
-      @NNKJARMY: กรี๊ดดดดด ถ่ายติดชั้น @mypurplebutter\"}}\r\n{\"data\":{\"author_id\":\"1351397778413416448\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":15,\"username\":\"kyo_macaron\",\"id\":\"1185788041794744320\"}]},\"id\":\"1515192387147948033\",\"text\":\"RT
-      @kyo_macaron: \U0001F3E0京まかろんBASEｵﾝﾗｲﾝｼｮｯﾌﾟ\\nﾌｫﾛﾜｰ数＆ﾚﾋﾞｭｰ数\\nW500超達成御礼\U0001F381企画開催\U0001F64C\\n\\n今しか食べられない\\n京まかろん玉露\U0001F7E22種食べ比べｾｯﾄ\\nを5名様に\U0001F381させて頂きます\U0001F495\\n\\n応募：ﾌｫﾛｰ＆当ﾂｲRT\\n締切：4/17㈰22時迄…\"}}\r\n{\"data\":{\"author_id\":\"1490872203155755009\",\"entities\":{\"mentions\":[{\"start\":0,\"end\":7,\"username\":\"ZomNFT\",\"id\":\"1486181787113979905\"},{\"start\":8,\"end\":24,\"username\":\"CryptoLadyOscar\",\"id\":\"1466519241369260037\"},{\"start\":25,\"end\":36,\"username\":\"CrypTrad3r\",\"id\":\"1493195898939011076\"},{\"start\":37,\"end\":52,\"username\":\"Cherry17552164\",\"id\":\"1499495399287054336\"},{\"start\":53,\"end\":66,\"username\":\"Jake53270978\",\"id\":\"1400459363819560986\"},{\"start\":67,\"end\":77,\"username\":\"IamMakbul\",\"id\":\"714174765888577539\"},{\"start\":101,\"end\":114,\"username\":\"about_crypto\",\"id\":\"942825792324677637\"},{\"start\":115,\"end\":124,\"username\":\"adhelsta\",\"id\":\"1974727014\"},{\"start\":125,\"end\":136,\"username\":\"Nft_Annata\",\"id\":\"1491704016153497600\"},{\"start\":137,\"end\":147,\"username\":\"AesTailor\",\"id\":\"1506357814339555337\"},{\"start\":148,\"end\":161,\"username\":\"aaaaaylaaaaa\",\"id\":\"1501351072773726239\"},{\"start\":162,\"end\":173,\"username\":\"zluniverse\",\"id\":\"1473089509805813760\"},{\"start\":174,\"end\":188,\"username\":\"AmedeoRossi11\",\"id\":\"1488170271085416457\"},{\"start\":189,\"end\":203,\"username\":\"therealasma91\",\"id\":\"1853179387\"},{\"start\":204,\"end\":218,\"username\":\"Alex_Solana41\",\"id\":\"1500600184157442051\"},{\"start\":219,\"end\":235,\"username\":\"AndyAaron_paint\",\"id\":\"1484348059400040449\"},{\"start\":236,\"end\":247,\"username\":\"FtNonymous\",\"id\":\"1497548560648347648\"},{\"start\":248,\"end\":263,\"username\":\"KeepCalm_WAGMI\",\"id\":\"1460464427132547072\"}]},\"id\":\"1515192387139964932\",\"text\":\"@ZomNFT
-      @CryptoLadyOscar @CrypTrad3r @Cherry17552164 @Jake53270978 @IamMakbul @KhanArslan_
-      @0bigwinx @about_crypto @adhelsta @Nft_Annata @AesTailor @aaaaaylaaaaa @zluniverse
-      @AmedeoRossi11 @therealasma91 @Alex_Solana41 @AndyAaron_paint @FtNonymous @KeepCalm_WAGMI\"}}\r\n{\"data\":{\"author_id\":\"1459004342493605889\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":17,\"username\":\"AirdropStario\",\"id\":\"1173425402523652096\"}]},\"id\":\"1515192387114455042\",\"text\":\"RT
-      @AirdropStario: \U0001F4A7 DogoInu Airdrop \U0001F4A7\\n\\n\U0001F3C6 Task:
-      \         ➕ 20 Million DOGO.\\n\\n\U0001F468‍\U0001F469‍\U0001F467 Referral:
-      \  ➕ 2 Million DOGO.\\n\\n\U0001F51B Airdrop Link &amp; Informat…\"}}\r\n{\"data\":{\"author_id\":\"315092719\",\"entities\":{\"mentions\":[{\"start\":0,\"end\":16,\"username\":\"HwanniePromotes\",\"id\":\"1363765131172220933\"},{\"start\":17,\"end\":33,\"username\":\"PlayTimeRaiders\",\"id\":\"1458500298855665670\"}]},\"id\":\"1515192387135442944\",\"text\":\"@HwanniePromotes
-      @PlayTimeRaiders Wish me luck\"}}\r\n{\"data\":{\"author_id\":\"131522133\",\"entities\":{},\"id\":\"1515192387123150853\",\"text\":\"YEEEEEEEEEEEEEEEES！！！！！！！\"}}\r\n{\"data\":{\"author_id\":\"1384131694169530374\",\"entities\":{\"hashtags\":[{\"start\":0,\"end\":17,\"tag\":\"StoryOfHanumanJi\"}],\"urls\":[{\"start\":208,\"end\":231,\"url\":\"https://t.co/6h3sMnLRoc\",\"expanded_url\":\"https://twitter.com/ManmathaPradha7/status/1515192387118989314/photo/1\",\"display_url\":\"pic.twitter.com/6h3sMnLRoc\"}]},\"id\":\"1515192387118989314\",\"text\":\"#StoryOfHanumanJi\\nहनुमान
-      जी ने मुनिंद्र ऋषि जी की शरण कैसे ग्रहण की?\\nकौन थे मुनिंद्र ऋषि, यह जानने
-      के लिए Download करें हमारी Official App\\n\\\"Sant Rampal Ji Maharaj\\\" या
-      Visit करें Satlok Ashram YouTube Channel https://t.co/6h3sMnLRoc\"}}\r\n{\"data\":{\"author_id\":\"3132220732\",\"entities\":{\"hashtags\":[{\"start\":18,\"end\":22,\"tag\":\"PIC\"},{\"start\":44,\"end\":51,\"tag\":\"ROWOON\"},{\"start\":114,\"end\":118,\"tag\":\"SF9\"},{\"start\":119,\"end\":126,\"tag\":\"에스에프나인\"}],\"mentions\":[{\"start\":3,\"end\":15,\"username\":\"_StationSF9\",\"id\":\"1349174113391304707\"},{\"start\":127,\"end\":139,\"username\":\"SF9official\",\"id\":\"765763153728835584\"}]},\"id\":\"1515192387118718978\",\"text\":\"RT
-      @_StationSF9: [#PIC] 15.04.22 - Fotos do #ROWOON postadas na Naver da FNC. \\n\\n(Segura
-      essas fotos do patrão \U0001F60E)\\n\\n#SF9 #에스에프나인 @SF9official…\"}}\r\n{\"data\":{\"author_id\":\"1511294493999656966\",\"entities\":{},\"id\":\"1515192387127365639\",\"text\":\"一途で連絡マメな彼氏がほしい…\"}}\r\n{\"data\":{\"author_id\":\"760983355315937284\",\"entities\":{\"hashtags\":[{\"start\":51,\"end\":54,\"tag\":\"rt\"}],\"mentions\":[{\"start\":3,\"end\":19,\"username\":\"JonathanPendejo\",\"id\":\"1299834561329856512\"}],\"urls\":[{\"start\":85,\"end\":108,\"url\":\"https://t.co/0JFppHN6s6\",\"expanded_url\":\"https://twitter.com/JonathanPendejo/status/1515125583415492618/video/1\",\"display_url\":\"pic.twitter.com/0JFppHN6s6\"}]},\"id\":\"1515192387143933952\",\"text\":\"RT
-      @JonathanPendejo: Henny dick\U0001F943 is the best dick\U0001F346 #rt (more
-      content link in my bio) https://t.co/0JFppHN6s6\"}}\r\n{\"data\":{\"author_id\":\"1015664165338300416\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":19,\"username\":\"30e9W9jTHpqeyUV\",\"id\":\"1495426038410924034\"}],\"urls\":[{\"start\":70,\"end\":93,\"url\":\"https://t.co/u2FtKfK7WD\",\"expanded_url\":\"https://twitter.com/30e9W9jTHpqeyUV/status/15148228769644"
+    body: "{\"data\":{\"author_id\":\"1501057348705538048\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":11,\"username\":\"jscmine\",\"id\":\"1053318427639574528\"},{\"start\":82,\"end\":95,\"username\":\"NFT_Dispatch\",\"id\":\"977774432\"}]},\"id\":\"1515207838959738880\",\"text\":\"RT
+      @jscmine: $20 | 280.000 IDR IN 3HOURS\U0001F34E\\n\\n~ retweet\\n~ like, rt
+      &amp; tag friends @NFT_Dispatch \U0001F4CC\"}}\r\n{\"data\":{\"author_id\":\"1467555128332853251\",\"entities\":{},\"id\":\"1515207843149877249\",\"text\":\"As
+      a result of living, as a result of dying\"}}\r\n{\"data\":{\"author_id\":\"1455521518662815752\",\"entities\":{\"mentions\":[{\"start\":0,\"end\":14,\"username\":\"ItsEliOyefeso\",\"id\":\"1237455871\"}]},\"id\":\"1515207843158577155\",\"text\":\"@ItsEliOyefeso
+      0xbb3720fa297354cb8acfe12323c411f4efee69a4\"}}\r\n{\"data\":{\"author_id\":\"1138955652410236928\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":18,\"username\":\"haruharu_w_bts\",\"id\":\"926680717286715392\"},{\"start\":112,\"end\":120,\"username\":\"BTS_twt\",\"id\":\"335141638\"}]},\"id\":\"1515207843158409216\",\"text\":\"RT
+      @haruharu_w_bts: \U0001F425it's weird that the korean food in the states is
+      yummier &lt;compared to back in korea&gt;\\n@BTS_twt\"}}\r\n{\"data\":{\"author_id\":\"1364298483738419202\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":15,\"username\":\"albornoz_mx\",\"id\":\"709972301660495876\"}]},\"id\":\"1515207843124817924\",\"text\":\"RT
+      @albornoz_mx: Excelente sopapo. Le doy un 10.\"}}\r\n{\"data\":{\"author_id\":\"2328786734\",\"entities\":{\"annotations\":[{\"start\":51,\"end\":59,\"probability\":0.5285,\"type\":\"Product\",\"normalized_text\":\"Instagram\"}],\"mentions\":[{\"start\":0,\"end\":8,\"username\":\"hrmc912\",\"id\":\"1050752849540349952\"}],\"urls\":[{\"start\":101,\"end\":124,\"url\":\"https://t.co/vhAx0BomMb\",\"expanded_url\":\"https://twitter.com/dearnatura_gf/status/1515207843120484356/photo/1\",\"display_url\":\"pic.twitter.com/vhAx0BomMb\"}]},\"id\":\"1515207843120484356\",\"text\":\"@hrmc912
+      ご応募ありがとうございました!!\\n結果は･･･、\\n\\nごめんなさい、はずれです\U0001F4A6\\n\\nInstagramでもキャンペーン開催中！\\nぜひ参加してみてね✨\\n⏰2022年4月25日(月)まで⏰
+      https://t.co/vhAx0BomMb\"}}\r\n{\"data\":{\"author_id\":\"1444997862836908035\",\"entities\":{\"mentions\":[{\"start\":0,\"end\":10,\"username\":\"Thijzzert\",\"id\":\"3623031556\"}]},\"id\":\"1515207843133206528\",\"text\":\"@Thijzzert
+      Goedemorgen thijzzert \\nWerkze nog even fijne zaterdag verder☕️\U0001F340☀️\"}}\r\n{\"data\":{\"author_id\":\"3184123338\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":14,\"username\":\"llllll5938\",\"id\":\"3786469819\"}]},\"id\":\"1515207843137265665\",\"text\":\"RT
+      @llllll5938: 바이러스에서살아남은대가가\\n전액부담이라니\"}}\r\n{\"data\":{\"author_id\":\"931966609270255616\",\"entities\":{\"hashtags\":[{\"start\":68,\"end\":75,\"tag\":\"パルガントン\"}],\"mentions\":[{\"start\":3,\"end\":14,\"username\":\"dodo_japan\",\"id\":\"133649461\"}]},\"id\":\"1515207843158593539\",\"text\":\"RT
+      @dodo_japan: ／\\n4/17(日)23:59〆\\n新商品✨レビュアー大募集～\U0001F381\\n＼\\n\\nメイクの上から紫外線カット☀️\U0001F497\\n
+      #パルガントン　シアトリカルスキンケアパウダーUV\\n\U0001F499クリアホワイト\\n\U0001F49Bナチュラルベージュ\\n各1名様に❤️\\n\\nご応募方法\\n\U0001F308@dodo_jap…\"}}\r\n{\"data\":{\"author_id\":\"843354035260440576\",\"entities\":{\"hashtags\":[{\"start\":91,\"end\":113,\"tag\":\"امپورٹڈ_حکومت_نامنظور\"}],\"mentions\":[{\"start\":3,\"end\":17,\"username\":\"MashwaniAzhar\",\"id\":\"2415481247\"}],\"urls\":[{\"start\":115,\"end\":138,\"url\":\"https://t.co/g7ynXyAp41\",\"expanded_url\":\"https://twitter.com/AmbreenPTI1/status/1515082028269645826/video/1\",\"display_url\":\"pic.twitter.com/g7ynXyAp41\"}]},\"id\":\"1515207843154219009\",\"text\":\"RT
+      @MashwaniAzhar: یہ لاہور یا کراچی نہیں کینیڈا میں عوام عمران خان کی سپورٹ میں
+      نکلی ہے \\n\\n#امپورٹڈ_حکومت_نامنظور  https://t.co/g7ynXyAp41\"}}\r\n{\"data\":{\"author_id\":\"368685331\",\"entities\":{\"annotations\":[{\"start\":0,\"end\":2,\"probability\":0.8777,\"type\":\"Person\",\"normalized_text\":\"ヒロシ\"}]},\"id\":\"1515207843120496644\",\"text\":\"ヒロシの野球は、投手陣の防御率の良さが大前提として、確実に得点を積み上げるという一昔前のオーソドックスなもの。\\n現時点ではそれが上手く回ってるけど、投手陣も疲れを見せてくる夏場にかけてどのように采配を変えていくかが「鷹座奪回」の鍵になってくるかもしれない。\"}}\r\n{\"data\":{\"author_id\":\"1417789195742060548\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":13,\"username\":\"Raypottss\",\"id\":\"1458209113398255617\"}],\"urls\":[{\"start\":55,\"end\":78,\"url\":\"https://t.co/zGh6xECYzy\",\"expanded_url\":\"https://twitter.com/Raypottss/status/1508836703225712643/photo/1\",\"display_url\":\"pic.twitter.com/zGh6xECYzy\"},{\"start\":55,\"end\":78,\"url\":\"https://t.co/zGh6xECYzy\",\"expanded_url\":\"https://twitter.com/Raypottss/status/1508836703225712643/photo/1\",\"display_url\":\"pic.twitter.com/zGh6xECYzy\"}]},\"id\":\"1515207843124756480\",\"text\":\"RT
+      @Raypottss: Enjoy this scenery as I bust you down \U0001F4A5 https://t.co/zGh6xECYzy\"}}\r\n{\"data\":{\"author_id\":\"1199700926799339520\",\"entities\":{\"mentions\":[{\"start\":0,\"end\":10,\"username\":\"JJK_Times\",\"id\":\"1091577619642904576\"}]},\"id\":\"1515207843141623812\",\"text\":\"@JJK_Times
+      ur kidding\"}}\r\n{\"data\":{\"author_id\":\"1514189815457013764\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":13,\"username\":\"voojjwan_\",\"id\":\"3769921273\"}]},\"id\":\"1515207843133022214\",\"text\":\"RT
+      @voojjwan_: 200/1คน ชป.แทจินเท่านั้นอ๊ากกกกกกกกกุไม่ไหวววววกุตายยยยยยอิเชี่ยยยยยย\U0001F62D\U0001F62D\U0001F62D
+      เดี๋ยวมาสุ่มพรุ่งนี้\"}}\r\n{\"data\":{\"author_id\":\"891435025597554688\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":18,\"username\":\"haruharu_w_bts\",\"id\":\"926680717286715392\"},{\"start\":89,\"end\":97,\"username\":\"BTS_twt\",\"id\":\"335141638\"}]},\"id\":\"1515207843129196545\",\"text\":\"RT
+      @haruharu_w_bts: \U0001F42Fwait a minute the button &lt;on my shirt&gt; *fixes
+      it*\\n\U0001F43Fit's sexy!\\n@BTS_twt\"}}\r\n{\"data\":{\"author_id\":\"1272023459132915712\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":15,\"username\":\"miiniyoongs\",\"id\":\"3337933103\"}],\"urls\":[{\"start\":79,\"end\":102,\"url\":\"https://t.co/Yaww8mSFge\",\"expanded_url\":\"https://twitter.com/miiniyoongs/status/1515132323804688391/video/1\",\"display_url\":\"pic.twitter.com/Yaww8mSFge\"}]},\"id\":\"1515207843158192136\",\"text\":\"RT
+      @miiniyoongs: [220415 J-hope Instagram Story]\\n\\n\U0001F43F SOUNDCHECK LAS
+      VEGAS DAY 3 https://t.co/Yaww8mSFge\"}}\r\n{\"data\":{\"author_id\":\"1505086151626960899\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":11,\"username\":\"poo9932\",\"id\":\"971723171203137536\"}],\"urls\":[{\"start\":37,\"end\":60,\"url\":\"https://t.co/QTpV1HkHJm\",\"expanded_url\":\"https://twitter.com/poo9932/status/1515176910929637379/photo/1\",\"display_url\":\"pic.twitter.com/QTpV1HkHJm\"}]},\"id\":\"1515207843137273858\",\"text\":\"RT
+      @poo9932: ใช้ยาสีฟันอะไรครับเนี่ย https://t.co/QTpV1HkHJm\"}}\r\n{\"data\":{\"author_id\":\"529305559\",\"entities\":{},\"id\":\"1515207843154382852\",\"text\":\"Back
+      to LoL po tayo\"}}\r\n{\"data\":{\"author_id\":\"1507250432317435906\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":12,\"username\":\"khandgaf\",\"id\":\"131402037\"},{\"start\":46,\"end\":62,\"username\":\"treasuremembers\",\"id\":\"1240627844868268033\"}],\"urls\":[{\"start\":63,\"end\":86,\"url\":\"https://t.co/yy8KeMxSZZ\",\"expanded_url\":\"https://twitter.com/khandgaf/status/1515180027515600909/video/1\",\"display_url\":\"pic.twitter.com/yy8KeMxSZZ\"}]},\"id\":\"1515207843137265667\",\"text\":\"RT
+      @khandgaf: junkyu and his titan run always @treasuremembers https://t.co/yy8KeMxSZZ\"}}\r\n{\"data\":{\"author_id\":\"1150251258898370560\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":12,\"username\":\"larraqsw\",\"id\":\"1180098088989384705\"}],\"urls\":[{\"start\":43,\"end\":66,\"url\":\"https://t.co/NWQPnAgMiU\",\"expanded_url\":\"https://twitter.com/larraqsw/status/1515207716457054208/photo/1\",\"display_url\":\"pic.twitter.com/NWQPnAgMiU\"},{\"start\":43,\"end\":66,\"url\":\"https://t.co/NWQPnAgMiU\",\"expanded_url\":\"https://twitter.com/larraqsw/status/1515207716457054208/photo/1\",\"display_url\":\"pic.twitter.com/NWQPnAgMiU\"},{\"start\":43,\"end\":66,\"url\":\"https://t.co/NWQPnAgMiU\",\"expanded_url\":\"https://twitter.com/larraqsw/status/1515207716457054208/photo/1\",\"display_url\":\"pic.twitter.com/NWQPnAgMiU\"},{\"start\":43,\"end\":66,\"url\":\"https://t.co/NWQPnAgMiU\",\"expanded_url\":\"https://twitter.com/larraqsw/status/1515207716457054208/photo/1\",\"display_url\":\"pic.twitter.com/NWQPnAgMiU\"}]},\"id\":\"1515207843120513028\",\"text\":\"RT
+      @larraqsw: คุณหญิงท่านทรงสง่างามมากเพคะ https://t.co/NWQPnAgMiU\"}}\r\n{\"data\":{\"author_id\":\"1255901004765163520\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":11,\"username\":\"j1ehvvv\",\"id\":\"1489179227454795781\"}]},\"id\":\"1515207843133423622\",\"text\":\"RT
+      @j1ehvvv: Bagila tips dulu baru borak nk bobies\U0001F92A\U0001F923\"}}\r\n{\"data\":{\"author_id\":\"1251048774346162176\",\"entities\":{\"hashtags\":[{\"start\":48,\"end\":55,\"tag\":\"German\"},{\"start\":99,\"end\":105,\"tag\":\"Putin\"}],\"mentions\":[{\"start\":3,\"end\":12,\"username\":\"squad3o3\",\"id\":\"1499442188572315650\"}]},\"id\":\"1515207843137343489\",\"text\":\"RT
+      @squad3o3: Do you want to understand why the #German government&amp;corporations
+      are protecting #Putin? Take a look at the participants of t…\"}}\r\n{\"data\":{\"author_id\":\"772747316876996608\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":15,\"username\":\"PTIofficial\",\"id\":\"127483019\"}]},\"id\":\"1515207843137441794\",\"text\":\"RT
+      @PTIofficial: To MQM with Love from a Karachi resident! \\n\\nDear MQM politicians,
+      this is a must watch for you! \\n\\nYou let Muhajirs down! #…\"}}\r\n{\"data\":{\"author_id\":\"3316191367\",\"entities\":{},\"id\":\"1515207843158593542\",\"text\":\"「死にたくない」とでも言えば安心するのかよ\"}}\r\n{\"data\":{\"author_id\":\"891134138\",\"entities\":{\"urls\":[{\"start\":267,\"end\":290,\"url\":\"https://t.co/vNxL0UMLQt\",\"expanded_url\":\"https://twitter.com/evandadovan/status/1515207843124846592/photo/1\",\"display_url\":\"pic.twitter.com/vNxL0UMLQt\"}]},\"id\":\"1515207843124846592\",\"text\":\"Après
+      le boulot j’attends le tram pour aller à ma voiture dans mon coin, une voiture
+      s’arrête là go me souris me fait coucou sort son tel me demande mon insta en
+      mode  je suis une prostitué qui attends son prochain client, joli ou pas madame
+      je ne suis pas une catin https://t.co/vNxL0UMLQt\"}}\r\n{\"data\":{\"author_id\":\"2992379546\",\"entities\":{\"hashtags\":[{\"start\":37,\"end\":42,\"tag\":\"豆原一成\"},{\"start\":76,\"end\":80,\"tag\":\"JO1\"},{\"start\":81,\"end\":88,\"tag\":\"KIZUNA\"},{\"start\":89,\"end\":97,\"tag\":\"With_Us\"}],\"mentions\":[{\"start\":3,\"end\":16,\"username\":\"official_jo1\",\"id\":\"1204439457073487872\"}],\"urls\":[{\"start\":98,\"end\":121,\"url\":\"https://t.co/rYMMO4C4bL\",\"expanded_url\":\"https://twitter.com/official_jo1/status/1515207678523744259/photo/1\",\"display_url\":\"pic.twitter.com/rYMMO4C4bL\"}]},\"id\":\"1515207843129233410\",\"text\":\"RT
+      @official_jo1: 広島ホームテレビ《 フロントドア 》\\n#豆原一成 が\\n出演させていただきました⚾️\\n\\nありがとうございました！！\\n\\n#JO1
+      #KIZUNA #With_Us https://t.co/rYMMO4C4bL\"}}\r\n{\"data\":{\"author_id\":\"815445691233398784\",\"entities\":{\"urls\":[{\"start\":14,\"end\":37,\"url\":\"https://t.co/YrdrCFEBh4\",\"expanded_url\":\"https://twitter.com/himbograntward/status/1515157601348210690\",\"display_url\":\"twitter.com/himbograntward…\"}]},\"id\":\"1515207843120570368\",\"text\":\"Cryptozoology
+      https://t.co/YrdrCFEBh4\"}}\r\n{\"data\":{\"author_id\":\"722079690568019968\",\"entities\":{\"mentions\":[{\"start\":3,\"end\":12,\"username\":\"vinnvynn\",\"id\":\"94346065\"},{\"start\":14,\"end\":23,\"username\":\"jamebalz\",\"id\":\"2365507549\"}]},\"id\":\"1515207843124633600\",\"text\":\"RT
+      @vinnvynn: @jamebalz ของมิลลิอาจจะอยู่แค่ 17 นาที ไม่ก็ยังไมาถึงก็ได้ 5555\\n\\n-
+      MILLI 17 mins at Coachchella\\n- MILLI not yet at Coachchella\"}}\r\n{\"data\":{\"author_id\":\"1413769666757943300\",\"entities\":{\"hashtags\":[{\"start\":79,\"end\":83,\"tag\":\"BTS\"},{\"start\":84,\"end\":90,\"tag\":\"방탄소년단\"}],\"mentions\":[{\"start\":3,\"end\":17,\"username\":\"armyarchives_\",\"id"
     headers:
       Cache-Control:
       - no-cache, no-store, max-age=0
       Date:
-      - Sat, 16 Apr 2022 04:56:36 UTC
+      - Sat, 16 Apr 2022 05:58:02 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008499661859100; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:36 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008499661859100; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:36 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_YgEqv6b/MQ+n/QkRzinjTg=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:36 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008499661859100; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:36 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008868197964930; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:58:02 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008868197964930; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:58:02 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_wqpssn7Ad9vz7Et6Hc1KQw=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:58:02 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008868197964930; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:58:02 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -1950,16 +2083,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "50"
       X-Rate-Limit-Remaining:
-      - "46"
+      - "48"
       X-Rate-Limit-Reset:
-      - "1650085597"
+      - "1650089431"
       X-Response-Time:
-      - "87"
+      - "141"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 164.455ms
+    duration: 217.097458ms
 - request:
     body: '{"add":[{"value":"cat has:images lang:en"}]}'
     form: {}
@@ -1971,7 +2104,7 @@ interactions:
     url: https://api.twitter.com/2/tweets/search/stream/rules
     method: POST
   response:
-    body: '{"data":[{"value":"cat has:images lang:en","id":"1515192432282857472"}],"meta":{"sent":"2022-04-16T04:56:41.459Z","summary":{"created":1,"not_created":0,"valid":1,"invalid":0}}}'
+    body: '{"data":[{"value":"cat has:images lang:en","id":"1515207888456720387"}],"meta":{"sent":"2022-04-16T05:58:06.560Z","summary":{"created":1,"not_created":0,"valid":1,"invalid":0}}}'
     headers:
       Cache-Control:
       - no-cache, no-store, max-age=0
@@ -1980,24 +2113,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:56:41 UTC
+      - Sat, 16 Apr 2022 05:58:06 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008500139599235; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:41 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008500139599235; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:41 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_kXGK/Hf153DymjDswLByTg=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:41 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008500139599235; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:41 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008868644137259; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:58:06 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008868644137259; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:58:06 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_AOhEjjfnGOqtc46n4Jpxvg=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:58:06 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008868644137259; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:58:06 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -2005,16 +2138,16 @@ interactions:
       X-Rate-Limit-Limit:
       - "50"
       X-Rate-Limit-Remaining:
-      - "27"
+      - "41"
       X-Rate-Limit-Reset:
-      - "1650085594"
+      - "1650089429"
       X-Response-Time:
-      - "104"
+      - "145"
       X-Xss-Protection:
       - "0"
     status: 201 Created
     code: 201
-    duration: 181.806625ms
+    duration: 224.351667ms
 - request:
     body: ""
     form: {}
@@ -2024,107 +2157,107 @@ interactions:
     url: https://api.twitter.com/2/tweets/search/stream?tweet.fields=author_id
     method: GET
   response:
-    body: "{\"data\":{\"author_id\":\"1211350535057461248\",\"id\":\"1515192451572670464\",\"text\":\"RT
+    body: "{\"data\":{\"author_id\":\"3225574855\",\"id\":\"1515207868072570884\",\"text\":\"RT
+      @SoftnessDaily: cat burger \U0001F380 https://t.co/xwIovoVvcY\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1266462400607170560\",\"id\":\"1515207874359693312\",\"text\":\"RT
+      @PopBase: Doja Cat shares new photos on her way to #Coachella. https://t.co/sSK3fBOdTu\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"973024171587284992\",\"id\":\"1515207873458237446\",\"text\":\"RT
+      @Kiyohimefuck: #pixelart #gamdev someone in a server told me to draw a cat so
+      I did. https://t.co/Z27cwIGTE6\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"4071611925\",\"id\":\"1515207880235921411\",\"text\":\"Recognizing
+      Sara for rallying the team for on-line service and striving for excellence!
+      ⁦@D66Celest⁩ ⁦@cat_thanner⁩ ⁦@HollieCoronado2⁩ ⁦@JosephSEdwards⁩ ⁦@JakeFromDaDepot⁩
+      ⁦@LuciaThd⁩ @minirex86 ⁦@JasminSTHD⁩ @katy_HD0469 https://t.co/rxAPhpce7n\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1281605549231136770\",\"id\":\"1515207890734395392\",\"text\":\"@___omj
+      I get it. Mine is so crazy https://t.co/I8mWJFpYGH\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1321245689473617921\",\"id\":\"1515207893032779776\",\"text\":\"I'm
+      making a tiny cat. Tiny cat butthole NOT optional. https://t.co/6dhMComNc0\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1487557006345097216\",\"id\":\"1515207896350564357\",\"text\":\"RT
+      @knife__cat: Valorant gf top fragging ur video game https://t.co/a5LzvBUNA9\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1373183001383866369\",\"id\":\"1515207904449732609\",\"text\":\"RT
+      @beyourstar2000: CAT                              BIN https://t.co/uSqH7OKaI6\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1443448015146995720\",\"id\":\"1515207905062297600\",\"text\":\"RT
+      @AbuTagine: Even the cat make Iftar with them, https://t.co/QbGJ2K5xKa\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1160953951245799424\",\"id\":\"1515207904231661568\",\"text\":\"RT
+      @pseonghwapics: bringing seonghwa's cat ears back https://t.co/c5ycbQBlsD\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1514460162945617922\",\"id\":\"1515207913706381314\",\"text\":\"Feets\\n#CatsOfTwitter
+      \\n#CatsOnTwitter \\n#cats \\n#cat \\n#catlovers https://t.co/jg1tvShqTd\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1431288490075967496\",\"id\":\"1515207913614475266\",\"text\":\"RT
       @Picachures: A student this week made a paper craft cat and then crucified it
-      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1325845623854280704\",\"id\":\"1515192456882667523\",\"text\":\"I
-      hope you all have a wonderful weekend.  Add \\\"Dearies\\\" to comment on picture.
-      \U0001F970 \U0001F917\U0001F61A\U0001F495@MommaTwexy @bonnietylerfan5 @UKLCH
-      @Otravez1967 @YvoDreamcatcher @A_Darya79 @Bonu19RC @DonnaVita4 @Jeni645 @KingCarlyle_
-      @NGDAverk @NadinFrog  @NiaNiam2 @AlliCamAllison @Antonel56196938 https://t.co/HhlR8G9mFT\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"974015642725740544\",\"id\":\"1515192461735440384\",\"text\":\"RT
+      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1113362878550093825\",\"id\":\"1515207915342544900\",\"text\":\"RT
       @Picachures: A student this week made a paper craft cat and then crucified it
-      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n\r\n{\"data\":{\"author_id\":\"1427267699667652616\",\"id\":\"1515192475232595972\",\"text\":\"from
-      “bago ka lang ba dito?” to “do you want to see my cat?” #taekook https://t.co/MljaFYgHMo\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1145429847197356032\",\"id\":\"1515192474083655686\",\"text\":\"RT
+      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1500751274026823680\",\"id\":\"1515207924393472004\",\"text\":\"@Drop_Your_NFT_
+      #NFT #nftcollector #nftcollectors #cat #kryptoCat @krypto_cat22        \\n#rarible
+      #ethereum #gooddollar  #nonfungible #nft #bitcoin #DOGE \\nKryptoCat is a 1/1 
+      collection of 1001 unique and original pieces.\\nPrice: 0.03 to 0.005 \\navailable
+      here:\\nhttps://t.co/1KqzC7cZp8 https://t.co/A34lxzhSbY\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n\r\n{\"data\":{\"author_id\":\"1404745352784191488\",\"id\":\"1515207930597220354\",\"text\":\"@patroculi
+      this is my cat po hehe https://t.co/igN7u6rUTQ\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1113837319801462784\",\"id\":\"1515207931213619200\",\"text\":\"I
+      will fucking die for you https://t.co/hEtIawi5A7\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"982678052307058688\",\"id\":\"1515207937349750785\",\"text\":\"@CorpseClips
+      i don't have a cat one but i have one i stole from him &gt;:) https://t.co/Xpdmz7dzQ4\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1375244368529907718\",\"id\":\"1515207936452169732\",\"text\":\"RT
+      @DiabloJodi: \\\"What the cat doin'?\\\"  #IsMyDeepThought https://t.co/N7OoLPVlL1\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1320471102095765505\",\"id\":\"1515207936406175745\",\"text\":\"@PUREB007
+      @GusMcRae5 @Jexyka_3 @shipmate_68 @JerryNYC54 @Nancy7261 @locoashes @laura_7771
+      @couturegems @MattJSlats @J_a_l_i_USA @GuidosG @BassedPatriot @3DIian @45KAG1
+      @groth1945 @vixin757 @smrose29 @Moe_MDKT @NEWZHQ Thanks for the lift Cat! Always
+      a pleasure!\U0001F44A\U0001F3FB\U0001F525\U0001F339\\n\\nPlz Follow: @PUREB007
+      https://t.co/XdMfwJR905\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"2373173881\",\"id\":\"1515207945042026497\",\"text\":\"@MarketWatch
+      Are you trying to make a war here?\U0001F436\U0001F436 let me have fun me Loui!
+      \U0001F436\U0001F436\U0001F436 https://t.co/fLDEAb6hKO\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1402311936931364864\",\"id\":\"1515207945713500163\",\"text\":\"Ok
+      i am finally fully awake hi @KxliraST https://t.co/Vn15HftsKK\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"999954246857609216\",\"id\":\"1515207949123301382\",\"text\":\"The
+      legendary beach cat https://t.co/CkhWL61vOZ\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"881581694372806656\",\"id\":\"1515207972657373187\",\"text\":\"RT
       @Picachures: A student this week made a paper craft cat and then crucified it
-      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1282396823320051712\",\"id\":\"1515192509206433792\",\"text\":\"@JLClayton5
-      My cat and I believe in UFOs \U0001F47D\U0001F44A\U0001F3FB\U0001F525 https://t.co/l92MFi656g\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1515085534586183685\",\"id\":\"1515192510695587842\",\"text\":\"RT
-      @2mao_7i: #反差  #语爱 #制服 #文爱 #裸聊 #美女 #视频 #罐肠 \\nCat Cat shop https://t.co/vbo4BnexZr\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1458837866809864200\",\"id\":\"1515192531906084866\",\"text\":\"RT
-      @fishifiedfish: the owner:                 her angry cat: https://t.co/C8SOfPw0r3\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1480345357213220865\",\"id\":\"1515192536050065417\",\"text\":\"@w3bjustin
-      Love your cat! \U0001F63C✨\U0001F6F8 https://t.co/Wivv8Snz9B\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"894877593807200256\",\"id\":\"1515192537316618240\",\"text\":\"RT
-      @luxjii: COOL CAT! DUMB DOG! https://t.co/ANJkKgEtr3\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1104079941140922369\",\"id\":\"1515192545592197123\",\"text\":\"sent
-      this to my friend because it reminded me of her cat, this was her response https://t.co/4AhCpMrgbl
-      https://t.co/PfISzYFa8W\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1504322023564226572\",\"id\":\"1515192553066348546\",\"text\":\"Funny
-      cat but closer https://t.co/8L0JaeiEkT\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"894877593807200256\",\"id\":\"1515192552760115200\",\"text\":\"RT
-      @furrytheworld: evil cat oc https://t.co/SkTRBWgINW\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n\r\n{\"data\":{\"author_id\":\"1146280225325629440\",\"id\":\"1515192563594145792\",\"text\":\"RT
-      @Manda_AMSBT: I love when cat https://t.co/2SUQg1xesA\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1338886411592798208\",\"id\":\"1515192567830355968\",\"text\":\"RT
-      @Sadbonerman: @DEAADSEAA \\\"Look what the cat dragged in fellas\\\" https://t.co/y7lrVo2Jjo\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1502929850964664321\",\"id\":\"1515192580342161408\",\"text\":\"RT
-      @dojacatpics: doja cat - streets mv (2021) https://t.co/ZfRuzz3TxW\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1069689382406369280\",\"id\":\"1515192584712462338\",\"text\":\"RT
+      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1339101526598541314\",\"id\":\"1515207977111851010\",\"text\":\"RT
       @Picachures: A student this week made a paper craft cat and then crucified it
-      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"987554363362238472\",\"id\":\"1515192588877410304\",\"text\":\"RT
+      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1275196064\",\"id\":\"1515207976977534977\",\"text\":\"RT
       @Picachures: A student this week made a paper craft cat and then crucified it
-      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"713016622609522689\",\"id\":\"1515192587124035586\",\"text\":\"@PawsleyTheCat
-      Cow (long haired) https://t.co/4v8r74Wi3A\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"261137809\",\"id\":\"1515192592048173058\",\"text\":\"RT
-      @maiz_julio: \U0001F4F7 space-pics: Cat’s Eye Nebula by NASA Goddard Photo and
-      Video https://t.co/yBOPAMdZG0 https://t.co/qwHMGXVJ8i\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1406319895785005058\",\"id\":\"1515192591221854210\",\"text\":\"CONGRATULATIONS
-      @yorushinigami \U0001F973\U0001F973\U0001F973\\n\\nYou won the giveaway\U0001F973\U0001F63B\\n\\n\\\"see
-      me fall\\\" Is now yours \U0001F63B\U0001F525\\n\\nComment/dm me your tezos
-      wallet and ill send it your way \U0001F63D\U0001F63B https://t.co/5asl40Xivg
-      https://t.co/8k86DhIfN7\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1171467316522975233\",\"id\":\"1515192594330005508\",\"text\":\"#cat
-      #animals Women's Cute Cat Backpack https://t.co/bUeCFjiRwd https://t.co/pqkL1p87Sq\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1137020389450760192\",\"id\":\"1515192597937074179\",\"text\":\"I’m
-      obsessed with my cat.  She hates me. https://t.co/aE7pJTvFKE\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1490029156557791232\",\"id\":\"1515192601430822912\",\"text\":\"The
-      plot of \\\"Need a Cat, Dear Deity?\\\" is like a roller coaster of emotion.
-      It's riveting and full of surprises!\\n \\n#animation #genshinimpact #JJK0Movie
-      #AttackOnTitan\\n\\nhttps://t.co/tmDXraayeA https://t.co/B9QFEDT3Rk\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"2282553259\",\"id\":\"1515192601950961665\",\"text\":\"RT
-      @stars__sp: cat pajama butters \U0001F431 #SouthPark #spbutters https://t.co/8Nk7H0tlY8\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"136154673\",\"id\":\"1515192614970179584\",\"text\":\"My
-      demon cat from hell has decided I need to entertain him in the middle of the
-      night when my body has decided to start vomiting from pain and exhaustion.\\n\\n8
-      year old monster spawned from hell free to the first family willing to call
-      the exorcist. https://t.co/Nv0nSLJEug\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1271343010840817670\",\"id\":\"1515192615058436096\",\"text\":\"RT
-      @stars__sp: cat pajama butters \U0001F431 #SouthPark #spbutters https://t.co/8Nk7H0tlY8\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1434739997169438724\",\"id\":\"1515192625212518400\",\"text\":\"NOOOOOOOOO
-      MY LITTLE CAT! https://t.co/Qf4DoigcK1\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n\r\n{\"data\":{\"author_id\":\"1424726496619290624\",\"id\":\"1515192639812825089\",\"text\":\"RT
+      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"975561548067319808\",\"id\":\"1515207986267914240\",\"text\":\"RT
+      @BearyUnbearable: Sneasel cat behaviour is my fav thing ever #submas #pla #PokemonLegendsArceus
+      https://t.co/0C2DmpiE7o\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1440108993725206530\",\"id\":\"1515207985601171458\",\"text\":\"RT
       @Picachures: A student this week made a paper craft cat and then crucified it
-      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"714780570\",\"id\":\"1515192646486036480\",\"text\":\"RT
-      @TranslatedCats: Cat senior! https://t.co/sM2tMJqI9A\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1026916874515296256\",\"id\":\"1515192653637378050\",\"text\":\"RT
-      @momokoshoyo: the cat and the rabbit ❤️✌️ https://t.co/1Nvy8LJL0H\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1479274862698926080\",\"id\":\"1515192654450946049\",\"text\":\"@GeraldBourguet
-      Cat adoption: how it started, how it is … https://t.co/RWcgtWwHF0\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"733918483390574594\",\"id\":\"1515192661866655747\",\"text\":\"RT
-      @knife__cat: Valorant gf top fragging ur video game https://t.co/a5LzvBUNA9\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1000601515835494401\",\"id\":\"1515192666555826179\",\"text\":\"RT
+      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"971829255196872705\",\"id\":\"1515207991108198400\",\"text\":\"RT
+      @PINKCATNFT: My daughter has a message for everyone from Pink Cat https://t.co/heieDdSxQx\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1393962855909576705\",\"id\":\"1515208002420494338\",\"text\":\"buffy
+      cat https://t.co/vmcOUwbnSs\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1486077604755132419\",\"id\":\"1515208004861374464\",\"text\":\"RT
+      @dojacatpics: doja cat - streets mv (2021) https://t.co/ZfRuzz3TxW\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"753518141502730240\",\"id\":\"1515208004219465731\",\"text\":\"RT
+      @WoolRool: Horny cat and snek cos why not :V https://t.co/OGh3UIroj1\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1457320258344140802\",\"id\":\"1515208005465575425\",\"text\":\"@JamesMarriottYT
+      I may not be a influencer but cat :D  her name's wendall btw https://t.co/qauED9wHdn\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"209883224\",\"id\":\"1515208009168965635\",\"text\":\"RT
+      @AfroEagle: gamer cat at 6am https://t.co/WMkdsPlXTj\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n\r\n{\"data\":{\"author_id\":\"1448796373705535495\",\"id\":\"1515208018148831232\",\"text\":\"a
+      lost caring cat \\n is like a flying flower \\n without a sole tree https://t.co/iMF52cICQW\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1414076505328472067\",\"id\":\"1515208020141096962\",\"text\":\"RT
+      @pseonghwapics: bringing seonghwa's cat ears back https://t.co/c5ycbQBlsD\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"3484334118\",\"id\":\"1515208028064460809\",\"text\":\"RT
+      @VirtuelleSterne: cat medic with 2 pairs of ears\\nNow he can hear you much
+      better &lt;3 https://t.co/NA405JsnaM\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1173922092078850050\",\"id\":\"1515208024427749378\",\"text\":\"RT
+      @ArtofRob: My shop:\\nhttps://t.co/1EQFO6eCHa  \\n\\nThis image:\\nhttps://t.co/YXU1b40uEk
+      https://t.co/vFdmsymvOK\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"637435062\",\"id\":\"1515208066433794048\",\"text\":\"RT
+      @PawsleyTheCat: Comment with a photo of your cat and their breed https://t.co/3lTgITaK4S\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1465964874522054656\",\"id\":\"1515208070602838016\",\"text\":\"RT
+      @Seventh04412445: #Psyborg #Ukinky #Cybussy #ViVid \\nCat boy!❤️\U0001F49C\\nanother
+      version in reply! https://t.co/PHPV1f5Qp1\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n\r\n{\"data\":{\"author_id\":\"1175467074732351488\",\"id\":\"1515208097404444675\",\"text\":\"RT
+      @Baconheckerson: // THE OWL HOUSE SPOILERS , TOH SPOILERS \\n\\nPost this cat
+      instantly https://t.co/WZpC22UDqP\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1052436284\",\"id\":\"1515208109907603457\",\"text\":\"i
+      saw that some of you didn’t like the pic of my cat that i posted on ig… https://t.co/c9ng6cgWK2\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1309423286846132226\",\"id\":\"1515208117369384960\",\"text\":\"#pet
+      #cats #cat #adorable #cute #kitten #petfinder I'm looking for a home!\U0001F63F\U0001F640\U0001F63F
+      } https://t.co/wd4Qp6PNrs\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1069730302119931904\",\"id\":\"1515208122750537728\",\"text\":\"RT
       @Picachures: A student this week made a paper craft cat and then crucified it
-      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1419379304\",\"id\":\"1515192668187344898\",\"text\":\"RT
-      @PawsleyTheCat: Comment with a photo of your cat and their breed https://t.co/3lTgITaK4S\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"717094801611427841\",\"id\":\"1515192679121924100\",\"text\":\"RT
-      @tigermaws: @Scout_Monster little #tff2022 TB  miss ya my cat homie \U0001F408
-      \U0001F405! meow meow https://t.co/ICCgdMpgT0\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"104960245\",\"id\":\"1515192698885476353\",\"text\":\"Would
-      you look at that, it's the cat from that one meme. Nice. #AnimalCrossing #ACNH
-      #NintendoSwitch https://t.co/Fxpyw5fav5\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1259586055574974465\",\"id\":\"1515192700173127684\",\"text\":\"RT
-      @kev_exclusive_: Your cat eats its own shit\\nMy cat is straight OG bitch https://t.co/TczTcDJSGg\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"860113540610392065\",\"id\":\"1515192720914014216\",\"text\":\"RT
+      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"902051324\",\"id\":\"1515208127372615683\",\"text\":\"Shop
+      Sassy: *Affiliate \\n\\n Shop the Spring Collection! \\n\\n Get 10% Off Sitewide
+      with code… https://t.co/vUwK4veCyx Visit The Cat's Meow https://t.co/meDp1RoSGO\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1505457864760242182\",\"id\":\"1515208129788932099\",\"text\":\"@St4rryL3n
+      i give u this cat in exchange https://t.co/kOxFKiPwR2\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1465964874522054656\",\"id\":\"1515208131457990662\",\"text\":\"RT
       @Picachures: A student this week made a paper craft cat and then crucified it
-      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n\r\n{\"data\":{\"author_id\":\"1480384934799982594\",\"id\":\"1515192737934544897\",\"text\":\"RT
-      @dojacatpics: doja cat - streets mv (2021) https://t.co/ZfRuzz3TxW\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1295246886631288832\",\"id\":\"1515192744477614085\",\"text\":\"RT
-      @kirbscuit: (wip) theres a cat in the gay bar https://t.co/VVIgihj3OH\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1244020075281223680\",\"id\":\"1515192744162959367\",\"text\":\"I
-      also want to show my #NewHeader photo, and with this I want to give a warm welcome
-      to this kitten, which I adopted thanks to my friend @BabArt101Dal.\\n\\nAnd
-      all my characters are here as a sign of welcome to the family, especially because
-      he is the first cat in the group.\\n\\n(1/2) https://t.co/WjFeiUQUuT\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1509341339351240704\",\"id\":\"1515192758729940994\",\"text\":\"RT
-      @ThrowbackDoja: Doja Cat via Instagram 2 years ago today ‘baby pictures’ (15th
-      april 2020) https://t.co/HQYiGtDhAL\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1416551880562515972\",\"id\":\"1515192761938493443\",\"text\":\"RT
-      @SoftnessDaily: cat burger \U0001F380 https://t.co/xwIovoVvcY\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"2346320822\",\"id\":\"1515192764610203655\",\"text\":\"RT
-      @Picachures: A student this week made a paper craft cat and then crucified it
-      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1247809012088950785\",\"id\":\"1515192777281351683\",\"text\":\"@KenneyPunks
-      !howl @starwolvez https://t.co/ZPZDgWTApY\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1496326671799967746\",\"id\":\"1515192779940384770\",\"text\":\"each
-      tweet will have 2 pets with their #\\nex: \\n#2142\\n#1695 https://t.co/gPod5xzkVK\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1243691486706884608\",\"id\":\"1515192789738291204\",\"text\":\"RT
-      @Asii_lovessiyaa: Cat morning ..♥♥♥♥♥\U0001F60D\U0001F618\U0001F618\U0001F618\U0001F618\U0001F408\U0001F431\U0001F63B\U0001F63B♥♥
-      https://t.co/S4GHRfMKmF\"},\"matching_rules\":[{\"id\":\"1515192432282857472\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1975893252\",\"id\":\"1515192799527723012\",\"text\":\"RT
-      @cat_clark: Let’s Goooooooooooooooo!! \U0001F49C\U0001F49B https://t.co/KmJmjiQnmQ\"},\"matching_rules\":[{\"id\""
+      to the wall https://t.co/gh7ENEoMNt\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1501746029560958976\",\"id\":\"1515208134737813507\",\"text\":\"RT
+      @SoftnessDaily: cat burger \U0001F380 https://t.co/xwIovoVvcY\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"1500751274026823680\",\"id\":\"1515208140735754240\",\"text\":\"@Nftshiil
+      #NFT #nftcollector #nftcollectors #cat #kryptoCat @krypto_cat22        \\n#rarible
+      #ethereum #gooddollar  #nonfungible #nft #bitcoin #DOGE \\nKryptoCat is a 1/1 
+      collection of 1001 unique and original pieces.\\nPrice: 0.03 to 0.005 \\navailable
+      here:\\nhttps://t.co/1KqzC7cZp8 https://t.co/WsFLc3VogA\"},\"matching_rules\":[{\"id\":\"1515207888456720387\",\"tag\":\"\"}]}\r\n{\"data\":{\"author_id\":\"903308909523329024\",\"id\":\"1515208142572986373\",\"text\":\"RT
+      @Picachures: A student this week made a paper craft cat a"
     headers:
       Cache-Control:
       - no-cache, no-store, max-age=0
       Date:
-      - Sat, 16 Apr 2022 04:56:41 UTC
+      - Sat, 16 Apr 2022 05:58:07 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008500175847319; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:41 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008500175847319; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:56:41 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_ISiUWQI0bZNh6sf0AM0f8g=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:56:41 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008500175847319; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:56:41 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008868689456179; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:58:07 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008868689456179; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:58:07 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_IQldehPcPvxpEVF5hMDoBg=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:58:07 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008868689456179; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:58:07 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -2134,16 +2267,16 @@ interactions:
       X-Rate-Limit-Remaining:
       - "48"
       X-Rate-Limit-Reset:
-      - "1650085602"
+      - "1650089436"
       X-Response-Time:
-      - "77"
+      - "122"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 153.143542ms
+    duration: 203.606916ms
 - request:
-    body: '{"delete":{"ids":["1515192432282857472"]}}'
+    body: '{"delete":{"ids":["1515207888456720387"]}}'
     form: {}
     headers:
       Authorization:
@@ -2153,7 +2286,7 @@ interactions:
     url: https://api.twitter.com/2/tweets/search/stream/rules
     method: POST
   response:
-    body: '{"meta":{"sent":"2022-04-16T04:58:20.405Z","summary":{"deleted":1,"not_deleted":0}}}'
+    body: '{"meta":{"sent":"2022-04-16T05:59:18.506Z","summary":{"deleted":1,"not_deleted":0}}}'
     headers:
       Cache-Control:
       - no-cache, no-store, max-age=0
@@ -2162,24 +2295,24 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 16 Apr 2022 04:58:20 UTC
+      - Sat, 16 Apr 2022 05:59:18 UTC
       Server:
       - tsa_a
       Set-Cookie:
-      - guest_id_marketing=v1%3A165008510033210921; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:58:20 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id_ads=v1%3A165008510033210921; Max-Age=63072000; Expires=Mon, 15 Apr
-        2024 04:58:20 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - personalization_id="v1_Ti/YUi7knW5BPiAxolZZ7g=="; Max-Age=63072000; Expires=Mon,
-        15 Apr 2024 04:58:20 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
-      - guest_id=v1%3A165008510033210921; Max-Age=63072000; Expires=Mon, 15 Apr 2024
-        04:58:20 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_marketing=v1%3A165008875843996132; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:59:18 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id_ads=v1%3A165008875843996132; Max-Age=63072000; Expires=Mon, 15 Apr
+        2024 05:59:18 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - personalization_id="v1_a/GF1abP/VJMZvtEvh6EcA=="; Max-Age=63072000; Expires=Mon,
+        15 Apr 2024 05:59:18 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+      - guest_id=v1%3A165008875843996132; Max-Age=63072000; Expires=Mon, 15 Apr 2024
+        05:59:18 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
       Strict-Transport-Security:
       - max-age=631138519
       X-Access-Level:
       - read
       X-Connection-Hash:
-      - 5e3fdd997b3fd1b5a9b5573485009561e0c5abe4291897615df2848874826d6a
+      - b1bcd86d68dbdebb23ccdfe58a945e58774707070c1136535d7387567e9f2669
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -2187,13 +2320,13 @@ interactions:
       X-Rate-Limit-Limit:
       - "50"
       X-Rate-Limit-Remaining:
-      - "26"
+      - "40"
       X-Rate-Limit-Reset:
-      - "1650085594"
+      - "1650089429"
       X-Response-Time:
-      - "88"
+      - "82"
       X-Xss-Protection:
       - "0"
     status: 200 OK
     code: 200
-    duration: 252.317875ms
+    duration: 161.829584ms
