@@ -247,6 +247,25 @@ func TestTweetsLookup(t *testing.T) {
 	}
 }
 
+func TestTweetsQuotes(t *testing.T) {
+	ctx := context.Background()
+	query := tweets.Quotes("1515177881831321600", &tweets.ListOpts{
+		MaxResults: 15,
+		Optional: []types.Fields{types.TweetFields{
+			AuthorID:  true,
+			CreatedAt: true,
+		}},
+	})
+	rsp, err := query.Invoke(ctx, cli)
+	if err != nil {
+		t.Fatalf("Quotes failed: %v", err)
+	}
+
+	for i, v := range rsp.Tweets {
+		t.Logf("Tweet %d: id=%s, author=%s, text=%q", i+1, v.ID, v.AuthorID, v.Text)
+	}
+}
+
 func TestTweetsLikedBy(t *testing.T) {
 	ctx := context.Background()
 	query := tweets.LikedBy("12", &tweets.ListOpts{
