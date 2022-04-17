@@ -96,6 +96,18 @@ func MutedBy(userID string, opts *ListOpts) Query {
 	return Query{Request: req}
 }
 
+// BlockedBy returns a query for those the specified user ID is blocking.
+//
+// API: 2/users/:id/blocking
+func BlockedBy(userID string, opts *ListOpts) Query {
+	req := &jhttp.Request{
+		Method: "2/users/" + userID + "/blocking",
+		Params: make(jhttp.Params),
+	}
+	opts.addRequestParams(req)
+	return Query{Request: req}
+}
+
 // RetweetersOf returns a query for users who retweeted the specified tweet ID.
 //
 // API: 2/tweets/:id/retweeted_by

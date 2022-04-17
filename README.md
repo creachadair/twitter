@@ -79,7 +79,7 @@ Here is the current status of v2 API endpoint implementations.
 ### Users
 
 - [x] GET 2/users
-- [ ] GET 2/users/:id/blocking
+- [x] GET 2/users/:id/blocking
 - [x] GET 2/users/:id/bookmarks
 - [x] GET 2/users/:id/followed_lists
 - [x] GET 2/users/:id/followers
