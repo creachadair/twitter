@@ -161,6 +161,18 @@ func FromUser(userID string, opts *ListOpts) Query {
 	return Query{Request: req}
 }
 
+// BookmarkedBy constructs a query for tweets bookmarked by the given user ID.
+//
+// API: 2/users/:id/bookmarks
+func BookmarkedBy(userID string, opts *ListOpts) Query {
+	req := &jhttp.Request{
+		Method: "2/users/" + userID + "/bookmarks",
+		Params: make(jhttp.Params),
+	}
+	opts.addRequestParams(req)
+	return Query{Request: req}
+}
+
 // A Query performs a lookup or search query.
 type Query struct {
 	*jhttp.Request
