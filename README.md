@@ -87,7 +87,7 @@ Here is the current status of v2 API endpoint implementations.
 - [x] GET 2/users/:id/liked_tweets
 - [x] GET 2/users/:id/list_memberships
 - [x] GET 2/users/:id/mentions
-- [ ] GET 2/users/:id/muting
+- [x] GET 2/users/:id/muting
 - [x] GET 2/users/:id/owned_lists
 - [x] GET 2/users/:id/retweeted_by
 - [x] GET 2/users/:id/tweets
