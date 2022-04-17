@@ -200,3 +200,38 @@ func Unblock(userID, blockeeID string) Query {
 		tag: "blocking",
 	}
 }
+
+// Follow constructs a query for one user ID to follow another user ID.
+//
+// API: POST 2/users/:id/following
+func Follow(userID, followeeID string) Query {
+	body, err := json.Marshal(struct {
+		ID string `json:"target_user_id"`
+	}{ID: followeeID})
+	return Query{
+		Request: &jhttp.Request{
+			Method:      "2/users/" + userID + "/following",
+			HTTPMethod:  "POST",
+			ContentType: "application/json",
+			Data:        body,
+		},
+		tag:       "following",
+		encodeErr: err,
+
+		// TODO(creachadair): Do something about the pending status for target
+		// users who are protected.
+	}
+}
+
+// Unfollow constructs a query for one user ID to un-follow another user ID.
+//
+// API: DELETE 2/users/:id/following/:other
+func Unfollow(userID, followeeID string) Query {
+	return Query{
+		Request: &jhttp.Request{
+			Method:     "2/users/" + userID + "/following/" + followeeID,
+			HTTPMethod: "DELETE",
+		},
+		tag: "following",
+	}
+}

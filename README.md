@@ -33,8 +33,8 @@ Here is the current status of v2 API endpoint implementations.
 - [x] DELETE 2/users/:id/blocking/:other
 - [x] POST 2/users/:id/bookmarks
 - [x] DELETE 2/users/:id/bookmarks/:tid
-- [ ] POST 2/users/:id/following
-- [ ] DELETE 2/users/:id/following/:other
+- [x] POST 2/users/:id/following
+- [x] DELETE 2/users/:id/following/:other
 - [x] POST 2/users/:id/likes
 - [x] DELETE 2/users/:id/likes/:tid
 - [ ] POST 2/users/:id/muting
