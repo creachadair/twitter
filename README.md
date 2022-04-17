@@ -29,10 +29,18 @@ Here is the current status of v2 API endpoint implementations.
 
 - [x] DELETE 2/tweets/:id
 - [x] PUT 2/tweets/:id/hidden
+- [ ] POST 2/users/:id/blocking
+- [ ] DELETE 2/users/:id/blocking/:other
 - [x] POST 2/users/:id/bookmarks
 - [x] DELETE 2/users/:id/bookmarks/:tid
+- [ ] POST 2/users/:id/following
+- [ ] DELETE 2/users/:id/following/:other
 - [x] POST 2/users/:id/likes
 - [x] DELETE 2/users/:id/likes/:tid
+- [ ] POST 2/users/:id/muting
+- [ ] DELETE 2/users/:id/muting/:other
+- [ ] POST 2/users/:id/pinned_lists
+- [ ] DELETE 2/users/:id/pinned_lists/:lid
 - [x] POST 2/users/:id/retweets
 - [x] DELETE 2/users/:id/retweets/:tid
 
@@ -47,6 +55,7 @@ Here is the current status of v2 API endpoint implementations.
 - [x] POST 2/lists/:id/members
 - [x] DELETE 2/lists/:id/members/:userid
 - [x] GET 2/lists/:id/tweets
+- [ ] GET 2/lists/:id/pinned_lists
 
 ### Rules
 
@@ -60,24 +69,27 @@ Here is the current status of v2 API endpoint implementations.
 - [x] POST 2/tweets
 - [x] GET 2/tweets/:id/liking_users
 - [x] GET 2/tweets/:id/quote_tweets
-- [x] GET 2/tweets/sample/stream
-- [x] GET 2/tweets/search/recent
-- [x] GET 2/tweets/search/stream
 - [ ] GET 2/tweets/count/all (requires academic access)
 - [ ] GET 2/tweets/count/recent
+- [x] GET 2/tweets/sample/stream
 - [ ] GET 2/tweets/search/all (requires academic access)
+- [x] GET 2/tweets/search/recent
+- [x] GET 2/tweets/search/stream
 
 ### Users
 
 - [x] GET 2/users
+- [ ] GET 2/users/:id/blocking
+- [ ] GET 2/users/:id/bookmarks
 - [x] GET 2/users/:id/followed_lists
 - [x] GET 2/users/:id/followers
 - [x] GET 2/users/:id/following
 - [x] GET 2/users/:id/liked_tweets
 - [x] GET 2/users/:id/list_memberships
 - [x] GET 2/users/:id/mentions
+- [ ] GET 2/users/:id/muting
 - [x] GET 2/users/:id/owned_lists
 - [x] GET 2/users/:id/retweeted_by
 - [x] GET 2/users/:id/tweets
 - [x] GET 2/users/by
-- [ ] GET 2/users/:id/bookmarks
+- [ ] GET 2/users/me
