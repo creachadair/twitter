@@ -29,8 +29,8 @@ Here is the current status of v2 API endpoint implementations.
 
 - [x] DELETE 2/tweets/:id
 - [x] PUT 2/tweets/:id/hidden
-- [ ] POST 2/users/:id/blocking
-- [ ] DELETE 2/users/:id/blocking/:other
+- [x] POST 2/users/:id/blocking
+- [x] DELETE 2/users/:id/blocking/:other
 - [x] POST 2/users/:id/bookmarks
 - [x] DELETE 2/users/:id/bookmarks/:tid
 - [ ] POST 2/users/:id/following

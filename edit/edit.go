@@ -168,3 +168,35 @@ func Unretweet(userID, tweetID string) Query {
 		tag: "retweeted",
 	}
 }
+
+// Block constructs a query for one user ID to block another user ID.
+//
+// API: POST 2/users/:id/blocking
+func Block(userID, blockeeID string) Query {
+	body, err := json.Marshal(struct {
+		ID string `json:"target_user_id"`
+	}{ID: blockeeID})
+	return Query{
+		Request: &jhttp.Request{
+			Method:      "2/users/" + userID + "/blocking",
+			HTTPMethod:  "POST",
+			ContentType: "application/json",
+			Data:        body,
+		},
+		tag:       "blocking",
+		encodeErr: err,
+	}
+}
+
+// Unblock constructs a query for one user ID to un-block another user ID.
+//
+// API: DELETE 2/users/:id/blocking/:other
+func Unblock(userID, blockeeID string) Query {
+	return Query{
+		Request: &jhttp.Request{
+			Method:     "2/users/" + userID + "/blocking/" + blockeeID,
+			HTTPMethod: "DELETE",
+		},
+		tag: "blocking",
+	}
+}
