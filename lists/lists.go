@@ -54,6 +54,19 @@ func FollowedBy(userID string, opts *ListOpts) Query {
 	return Query{Request: req}
 }
 
+// PinnedBy constructs a query for the metadata of lists pinned by the
+// specified user ID.
+//
+// API: 2/users/:id/pinned_lists
+func PinnedBy(userID string, opts *ListOpts) Query {
+	req := &jhttp.Request{
+		Method: "2/users/" + userID + "/pinned_lists",
+		Params: make(jhttp.Params),
+	}
+	opts.addRequestParams(req)
+	return Query{Request: req}
+}
+
 // MemberOf constructs a query for the metadata of lists the specified user ID
 // belongs to.
 //

@@ -55,7 +55,7 @@ Here is the current status of v2 API endpoint implementations.
 - [x] POST 2/lists/:id/members
 - [x] DELETE 2/lists/:id/members/:userid
 - [x] GET 2/lists/:id/tweets
-- [ ] GET 2/lists/:id/pinned_lists
+- [x] GET 2/lists/:id/pinned_lists
 
 ### Rules
 
