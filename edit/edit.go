@@ -235,3 +235,35 @@ func Unfollow(userID, followeeID string) Query {
 		tag: "following",
 	}
 }
+
+// Mute constructs a query for one user ID to mute another user ID.
+//
+// API: POST 2/users/:id/muting
+func Mute(userID, muteeID string) Query {
+	body, err := json.Marshal(struct {
+		ID string `json:"target_user_id"`
+	}{ID: muteeID})
+	return Query{
+		Request: &jhttp.Request{
+			Method:      "2/users/" + userID + "/muting",
+			HTTPMethod:  "POST",
+			ContentType: "application/json",
+			Data:        body,
+		},
+		tag:       "muting",
+		encodeErr: err,
+	}
+}
+
+// Unmute constructs a query for one user ID to un-mute another user ID.
+//
+// API: DELETE 2/users/:id/muting/:other
+func Unmute(userID, muteeID string) Query {
+	return Query{
+		Request: &jhttp.Request{
+			Method:     "2/users/" + userID + "/muting/" + muteeID,
+			HTTPMethod: "DELETE",
+		},
+		tag: "muting",
+	}
+}
