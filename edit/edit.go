@@ -52,9 +52,11 @@ func (e Query) Invoke(ctx context.Context, cli *twitter.Client) (bool, error) {
 	return false, fmt.Errorf("tag %q not found", e.tag)
 }
 
-// SetHidden constructs a query to set whether replies to the given tweet ID
-// should (hidden == true) or should not (hidden == false) be hidden.
-func SetHidden(tweetID string, hidden bool) Query {
+// SetRepliesHidden constructs a query to set whether replies to the given
+// tweet ID should (hidden == true) or should not (hidden == false) be hidden.
+//
+// API: PUT 2/tweets/:id/hidden
+func SetRepliesHidden(tweetID string, hidden bool) Query {
 	body, err := json.Marshal(struct {
 		H bool `json:"hidden"`
 	}{H: hidden})
