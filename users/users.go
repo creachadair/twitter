@@ -60,10 +60,10 @@ func newLookup(method, param, key string, opts *LookupOpts) Query {
 	return Query{Request: req}
 }
 
-// Followers returns a query for the followers of the specified user ID.
+// FollowersOf returns a query for the followers of the specified user ID.
 //
 // API: 2/users/:id/followers
-func Followers(userID string, opts *ListOpts) Query {
+func FollowersOf(userID string, opts *ListOpts) Query {
 	req := &jhttp.Request{
 		Method: "2/users/" + userID + "/followers",
 		Params: make(jhttp.Params),
@@ -72,10 +72,10 @@ func Followers(userID string, opts *ListOpts) Query {
 	return Query{Request: req}
 }
 
-// Following returns a query for those the specified user ID is following.
+// FollowedBy returns a query for those the specified user ID is following.
 //
 // API: 2/users/:id/following
-func Following(userID string, opts *ListOpts) Query {
+func FollowedBy(userID string, opts *ListOpts) Query {
 	req := &jhttp.Request{
 		Method: "2/users/" + userID + "/following",
 		Params: make(jhttp.Params),
@@ -84,12 +84,29 @@ func Following(userID string, opts *ListOpts) Query {
 	return Query{Request: req}
 }
 
-// Retweeting returns a query for users who retweeted the specified tweet ID.
+// RetweetersOf returns a query for users who retweeted the specified tweet ID.
 //
 // API: 2/tweets/:id/retweeted_by
-func Retweeting(tweetID string, opts *ListOpts) Query {
+func RetweetersOf(tweetID string, opts *ListOpts) Query {
 	req := &jhttp.Request{
 		Method: "2/tweets/" + tweetID + "/retweeted_by",
+		Params: make(jhttp.Params),
+	}
+	opts.addRequestParams(req)
+	return Query{Request: req}
+}
+
+// LikersOf constructs a query for the users who like a given tweet ID.
+//
+// API: 2/tweets/:id/liking_users
+//
+// BUG: The service does not understand pagination for this endpoint.
+// It appears to return a fixed number of responses regardless how many there
+// actually are. If you set MaxResults or PageToken in the options, the request
+// will report an error.
+func LikersOf(id string, opts *ListOpts) Query {
+	req := &jhttp.Request{
+		Method: "2/tweets/" + id + "/liking_users",
 		Params: make(jhttp.Params),
 	}
 	opts.addRequestParams(req)

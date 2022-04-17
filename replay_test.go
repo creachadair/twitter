@@ -324,9 +324,9 @@ func TestTweetsLikedBy(t *testing.T) {
 	}
 }
 
-func TestTweetsLikersOf(t *testing.T) {
+func TestUsersLikersOf(t *testing.T) {
 	ctx := context.Background()
-	rsp, err := tweets.LikersOf("1039602865831010305", nil).Invoke(ctx, cli)
+	rsp, err := users.LikersOf("1039602865831010305", nil).Invoke(ctx, cli)
 	if err != nil {
 		t.Fatalf("Likers failed: %v", err)
 	}
@@ -377,46 +377,46 @@ func TestUsersLookupByName(t *testing.T) {
 	}
 }
 
-func TestUsersFollowers(t *testing.T) {
+func TestUsersFollowersOf(t *testing.T) {
 	ctx := context.Background()
-	rsp, err := users.Followers("12", &users.ListOpts{ // @jack
+	rsp, err := users.FollowersOf("12", &users.ListOpts{ // @jack
 		MaxResults: 5,
 		Optional:   []types.Fields{types.UserFields{Verified: true}},
 	}).Invoke(ctx, cli)
 	if err != nil {
-		t.Fatalf("Followers failed: %v", err)
+		t.Fatalf("FollowersOf failed: %v", err)
 	}
-	t.Logf("Followers request returned %d bytes", len(rsp.Reply.Data))
+	t.Logf("FollowersOf request returned %d bytes", len(rsp.Reply.Data))
 
 	for i, v := range rsp.Users {
 		t.Logf("User %d: id=%s, username=%q, verified=%v", i+1, v.ID, v.Username, v.Verified)
 	}
 }
 
-func TestUsersFollowing(t *testing.T) {
+func TestUsersFollowedBy(t *testing.T) {
 	ctx := context.Background()
-	rsp, err := users.Following("16431281", &users.ListOpts{
+	rsp, err := users.FollowedBy("16431281", &users.ListOpts{
 		MaxResults: 5,
 	}).Invoke(ctx, cli)
 	if err != nil {
-		t.Fatalf("Following failed: %v", err)
+		t.Fatalf("FollowedBy failed: %v", err)
 	}
-	t.Logf("Following request returned %d bytes", len(rsp.Reply.Data))
+	t.Logf("FollowedBy request returned %d bytes", len(rsp.Reply.Data))
 
 	for i, v := range rsp.Users {
 		t.Logf("User %d: id=%s, username=%q, name=%q", i+1, v.ID, v.Username, v.Name)
 	}
 }
 
-func TestUsersRetweeting(t *testing.T) {
+func TestUsersRetweetersOf(t *testing.T) {
 	ctx := context.Background()
-	rsp, err := users.Retweeting("1480745523309019136", &users.ListOpts{
+	rsp, err := users.RetweetersOf("1480745523309019136", &users.ListOpts{
 		MaxResults: 10,
 	}).Invoke(ctx, cli)
 	if err != nil {
-		t.Fatalf("Retweeting failed: %v", err)
+		t.Fatalf("RetweetersOf failed: %v", err)
 	}
-	t.Logf("Retweeting request returned %d bytes", len(rsp.Reply.Data))
+	t.Logf("RetweetersOf request returned %d bytes", len(rsp.Reply.Data))
 
 	for i, v := range rsp.Users {
 		t.Logf("User %d: id=%s, username=%q, name=%q", i+1, v.ID, v.Username, v.Name)
