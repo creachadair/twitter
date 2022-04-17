@@ -267,3 +267,35 @@ func Unmute(userID, muteeID string) Query {
 		tag: "muting",
 	}
 }
+
+// PinList constructs a query for one user ID to pin a list ID.
+//
+// API: POST 2/users/:id/pinned_lists
+func PinList(userID, listID string) Query {
+	body, err := json.Marshal(struct {
+		ID string `json:"list_id"`
+	}{ID: listID})
+	return Query{
+		Request: &jhttp.Request{
+			Method:      "2/users/" + userID + "/pinned_lists",
+			HTTPMethod:  "POST",
+			ContentType: "application/json",
+			Data:        body,
+		},
+		tag:       "pinned",
+		encodeErr: err,
+	}
+}
+
+// UnpinList constructs a query for one user ID to un-pin a list ID.
+//
+// API: DELETE 2/users/:id/pinned_lists/:lid
+func UnpinLists(userID, listID string) Query {
+	return Query{
+		Request: &jhttp.Request{
+			Method:     "2/users/" + userID + "/pinned_lists/" + listID,
+			HTTPMethod: "DELETE",
+		},
+		tag: "pinned",
+	}
+}

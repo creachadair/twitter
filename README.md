@@ -39,8 +39,8 @@ Here is the current status of v2 API endpoint implementations.
 - [x] DELETE 2/users/:id/likes/:tid
 - [x] POST 2/users/:id/muting
 - [x] DELETE 2/users/:id/muting/:other
-- [ ] POST 2/users/:id/pinned_lists
-- [ ] DELETE 2/users/:id/pinned_lists/:lid
+- [x] POST 2/users/:id/pinned_lists
+- [x] DELETE 2/users/:id/pinned_lists/:lid
 - [x] POST 2/users/:id/retweets
 - [x] DELETE 2/users/:id/retweets/:tid
 
