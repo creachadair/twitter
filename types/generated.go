@@ -334,6 +334,7 @@ type MediaFields struct {
 	PreviewImageURL  bool // preview_image_url
 	PromotedMetrics  bool // promoted_metrics
 	PublicMetrics    bool // public_metrics
+	URL              bool // url
 	Width            bool // width
 }
 
@@ -367,6 +368,9 @@ func (f MediaFields) Values() []string {
 	if f.PublicMetrics {
 		values = append(values, "public_metrics")
 	}
+	if f.URL {
+		values = append(values, "url")
+	}
 	if f.Width {
 		values = append(values, "width")
 	}
@@ -393,6 +397,8 @@ func (f *MediaFields) Set(name string, value bool) bool {
 		f.PromotedMetrics = value
 	case "public_metrics":
 		f.PublicMetrics = value
+	case "url":
+		f.URL = value
 	case "width":
 		f.Width = value
 	default:

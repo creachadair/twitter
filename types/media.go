@@ -9,6 +9,7 @@ type Media struct {
 	Key  string `json:"media_key" twitter:"default"`
 	Type string `json:"type" twitter:"default"` // e.g., "video"
 
+	URL             string       `json:"url"`
 	Duration        Milliseconds `json:"duration_ms"`
 	Height          int          `json:"height"` // pixels
 	Width           int          `json:"width"`  // pixels
