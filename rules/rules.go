@@ -3,46 +3,45 @@
 // Package rules implements queries for reading and modifying the
 // rules used by streaming search queries.
 //
-// Reading Rules
+// # Reading Rules
 //
 // Use rules.Get to query for existing rules by ID. If no IDs are given, Get
 // will return all available rules.
 //
-//   myRules := rules.Get(id1, id2, id3)
-//   allRules := rules.Get()
+//	myRules := rules.Get(id1, id2, id3)
+//	allRules := rules.Get()
 //
 // Invoke the query to fetch the rules:
 //
-//   rsp, err := allRules.Invoke(ctx, cli)
+//	rsp, err := allRules.Invoke(ctx, cli)
 //
 // The Rules field of the response contains the requested rules.
 //
-// Updating Rules
+// # Updating Rules
 //
 // Each rule update must either add or delete rules, but not both.  Use Adds to
 // describe a Set of rules to add, or Deletes to identify a Set of rules to
 // delete. For example:
 //
-//    adds := rules.Adds{
-//       {Query: `cat has:images lang:en`, Tag: "cat pictures in English"},
-//       {Query: `dog or puppy has:images`},
-//    }
-//    dels := rules.Deletes{id1, id2}
+//	adds := rules.Adds{
+//	   {Query: `cat has:images lang:en`, Tag: "cat pictures in English"},
+//	   {Query: `dog or puppy has:images`},
+//	}
+//	dels := rules.Deletes{id1, id2}
 //
 // Once you have a set, you can build a query to Update or Validate.  Update
 // applies the rule change; Validate just reports whether the update would have
 // succeeded (this corresponds to the "dry_run" parameter in the API):
 //
-//    apply := rules.Update(adds)
-//    check := rules.Validate(dels)
+//	apply := rules.Update(adds)
+//	check := rules.Validate(dels)
 //
 // Invoke the query to execute the change or check:
 //
-//    rsp, err := apply.Invoke(ctx, cli)
+//	rsp, err := apply.Invoke(ctx, cli)
 //
 // The response will include the updated rules, along with server metadata
 // indicating the effective time of application and summary statistics.
-//
 package rules
 
 import (

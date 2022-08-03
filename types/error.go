@@ -6,7 +6,6 @@ package types
 // reply from the API, such as missing expansion data.
 //
 // See https://developer.twitter.com/en/support/twitter-api/error-troubleshooting
-//
 type ErrorDetail struct {
 	// omitted: required_enrollment, registration_url
 

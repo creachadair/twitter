@@ -3,25 +3,25 @@
 // Package twitter implements a client for the Twitter API v2.  This package is
 // in development and is not yet ready for production use.
 //
-// Usage outline
+// # Usage outline
 //
 // The general structure of an API call is to first construct a query, then
 // invoke that query with a context on a client:
 //
-//    cli := twitter.NewClient(&jhttp.Client{
-//       Authorize: jhttp.BearerTokenAuthorizer(token),
-//    })
+//	cli := twitter.NewClient(&jhttp.Client{
+//	   Authorize: jhttp.BearerTokenAuthorizer(token),
+//	})
 //
-//    ctx := context.Background()
-//    rsp, err := users.LookupByName("jack", nil).Invoke(ctx, cli)
-//    if err != nil {
-//       log.Fatalf("Request failed: %v", err)
-//    } else if len(rsp.Users) == 0 {
-//       log.Fatal("No matches")
-//    }
-//    process(rsp.Users)
+//	ctx := context.Background()
+//	rsp, err := users.LookupByName("jack", nil).Invoke(ctx, cli)
+//	if err != nil {
+//	   log.Fatalf("Request failed: %v", err)
+//	} else if len(rsp.Users) == 0 {
+//	   log.Fatal("No matches")
+//	}
+//	process(rsp.Users)
 //
-// Packages
+// # Packages
 //
 // Package "types" contains the type and constant definitions for the API.
 //
@@ -34,7 +34,6 @@
 //
 // Queries to create, edit, delete, and show the contents of lists are defined
 // in package "lists".
-//
 package twitter
 
 import (

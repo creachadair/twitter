@@ -84,11 +84,10 @@ const fakeAuthToken = "this-is-a-fake-auth-token-for-testing"
 //
 // Known deficiencies:
 //
-// - Each interaction is marked as "played" once it has been used so that it
-//   cannot be replayed. This is sensible, but means if you run go test with
-//   -count > 1 or multiple -cpu options, it will fail on all runs after the
-//   first because it can't find the interactions again.
-//
+//   - Each interaction is marked as "played" once it has been used so that it
+//     cannot be replayed. This is sensible, but means if you run go test with
+//     -count > 1 or multiple -cpu options, it will fail on all runs after the
+//     first because it can't find the interactions again.
 func TestMain(m *testing.M) {
 	flag.Parse()
 

@@ -5,23 +5,22 @@
 // To look up one or more users by ID, use users.Lookup. Additional IDs can be
 // given in the options:
 //
-//   single := users.Lookup("12", nil)
-//   multi := users.Lookup("12", &users.LookupOpts{
-//      More: []string{"16431281", "2805856351"},
-//   })
+//	single := users.Lookup("12", nil)
+//	multi := users.Lookup("12", &users.LookupOpts{
+//	   More: []string{"16431281", "2805856351"},
+//	})
 //
 // By default only the default fields are returned (see types.User).  To
 // request additional fields or expansions, include them in the options:
 //
-//   q := users.Lookup("12", &users.LookupOpts{
-//      Optional: []types.Fields{
-//         types.UserFields{Description: true, PublicMetrics: true},
-//      },
-//   })
+//	q := users.Lookup("12", &users.LookupOpts{
+//	   Optional: []types.Fields{
+//	      types.UserFields{Description: true, PublicMetrics: true},
+//	   },
+//	})
 //
 // To look up users by username, use users.LookupByName. As above, additional
 // usernames can be included in the option keys.
-//
 package users
 
 import (

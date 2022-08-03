@@ -2,30 +2,30 @@
 
 // Package tweets supports queries for tweet lookup and search.
 //
-// Lookup
+// # Lookup
 //
 // To look up one or more tweets by ID, use tweets.Lookup. Additional IDs can
 // be given in the options:
 //
-//   single := tweets.Lookup(id, nil)
-//   multi := tweets.Lookup(id1, &tweets.LookupOpts{
-//      More: []string{id2, id3},
-//   })
+//	single := tweets.Lookup(id, nil)
+//	multi := tweets.Lookup(id1, &tweets.LookupOpts{
+//	   More: []string{id2, id3},
+//	})
 //
 // By default only the default fields are returned (see types.Tweet). To
 // request additional fields or expansions, include them in the options:
 //
-//   q := tweets.Lookup(id, &tweets.LookupOpts{
-//      Optional: []types.Fields{
-//         types.TweetFields{AuthorID: true, PublicMetrics: true},
-//         types.MediaFields{Duration: true},
-//         types.Expansions{types.Expand_AuthorID},
-//      },
-//   })
+//	q := tweets.Lookup(id, &tweets.LookupOpts{
+//	   Optional: []types.Fields{
+//	      types.TweetFields{AuthorID: true, PublicMetrics: true},
+//	      types.MediaFields{Duration: true},
+//	      types.Expansions{types.Expand_AuthorID},
+//	   },
+//	})
 //
 // Invoke the query to fetch the tweets:
 //
-//   rsp, err := q.Invoke(ctx, cli)
+//	rsp, err := q.Invoke(ctx, cli)
 //
 // The Tweets field of the response contains the requested tweets. In addition,
 // any attachments resulting from expansions can be fetched using methods on
@@ -34,11 +34,11 @@
 // as an error. Instead. the caller should examine the ErrorDetail messages in
 // the Errors field of the Reply, if requested tweets are not listed.
 //
-// Search
+// # Search
 //
 // To search recent tweets, use tweets.SearchRecent:
 //
-//   q := tweets.SearchRecent(`from:jack has:mentions -has:media`, nil)
+//	q := tweets.SearchRecent(`from:jack has:mentions -has:media`, nil)
 //
 // For search query syntax, see
 // https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-rule
@@ -49,14 +49,14 @@
 // query automatically updates the query with this pagination token, so
 // invoking the query again will fetch the remaining results:
 //
-//   for q.HasMorePages() {
-//      rsp, err := q.Invoke(ctx, cli)
-//      // ...
-//   }
+//	for q.HasMorePages() {
+//	   rsp, err := q.Invoke(ctx, cli)
+//	   // ...
+//	}
 //
 // Use q.ResetPageToken to reset the query.
 //
-// Streaming
+// # Streaming
 //
 // Streaming queries take a callback that receives each response sent by the
 // server. Streaming continues as long as there are more results, or until the
@@ -65,13 +65,13 @@
 //
 // For example:
 //
-//    q := tweets.SearchStream(func(rsp *tweets.Reply) error {
-//       handle(rsp)
-//       if !wantMore() {
-//          return jhttp.ErrStopStreaming
-//       }
-//       return nil
-//    }, nil)
+//	q := tweets.SearchStream(func(rsp *tweets.Reply) error {
+//	   handle(rsp)
+//	   if !wantMore() {
+//	      return jhttp.ErrStopStreaming
+//	   }
+//	   return nil
+//	}, nil)
 //
 // If the callback returns jhttp.ErrStopStreaming, the stream is terminated
 // without error; otherwise the error returned by the callback is reported to
@@ -80,13 +80,12 @@
 //
 // Expansions and non-default fields can be requested using *StreamOpts:
 //
-//    opts := &tweets.StreamOpts{
-//       Optional: []types.Fields{
-//          types.Expansions{types.Expand_MediaKeys},
-//          types.MediaFields{PublicMetrics: true},
-//       },
-//    }
-//
+//	opts := &tweets.StreamOpts{
+//	   Optional: []types.Fields{
+//	      types.Expansions{types.Expand_MediaKeys},
+//	      types.MediaFields{PublicMetrics: true},
+//	   },
+//	}
 package tweets
 
 import (
