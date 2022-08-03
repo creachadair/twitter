@@ -1,5 +1,5 @@
-github.com/creachadair/jhttp v0.0.0-20220426155725-42d8ba9f2669 h1:SpvSQcLKwK3+MqlxtaUFuPSMkWLn4+EMN1M9IqaXqhk=
-github.com/creachadair/jhttp v0.0.0-20220426155725-42d8ba9f2669/go.mod h1:65J0yhuD3EL1u5/63Gn23BJmRuzAaA64wLijV6Pt4AU=
+github.com/creachadair/jhttp v0.0.0-20220803151615-09f9631cc13b h1:yaz9poG2rsORjZurvr0G5giuPwzkqgaHtS+5dyAQ3jk=
+github.com/creachadair/jhttp v0.0.0-20220803151615-09f9631cc13b/go.mod h1:65J0yhuD3EL1u5/63Gn23BJmRuzAaA64wLijV6Pt4AU=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dnaeon/go-vcr/v2 v2.0.1 h1:KQnAAR6r4GbcJ71KfVxM7qhX85oVj3A0zWbuoxpbYcA=
