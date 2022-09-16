@@ -1,6 +1,6 @@
 module github.com/creachadair/twitter
 
-go 1.17
+go 1.18
 
 require (
 	github.com/creachadair/jhttp v0.0.0-20220803151615-09f9631cc13b
