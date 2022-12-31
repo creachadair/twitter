@@ -3,7 +3,7 @@ module github.com/creachadair/twitter
 go 1.18
 
 require (
-	github.com/creachadair/jhttp v0.0.0-20220916175646-261f550a7fde
+	github.com/creachadair/jhttp v0.0.0-20221231180123-a9a6d969f806
 	github.com/dnaeon/go-vcr/v2 v2.1.0
 )
 
