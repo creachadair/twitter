@@ -8,9 +8,9 @@ import (
 	"context"
 	"strconv"
 
-	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
 	"github.com/creachadair/twitter/internal/ocall"
+	"github.com/creachadair/twitter/jape"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -19,9 +19,9 @@ import (
 // API: 1.1/lists/members
 func Members(listID string, opts *ListOpts) Query {
 	q := Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method: "1.1/lists/members.json",
-			Params: make(jhttp.Params),
+			Params: make(jape.Params),
 		},
 	}
 	q.Request.Params.Set("list_id", listID)
@@ -34,9 +34,9 @@ func Members(listID string, opts *ListOpts) Query {
 // API: 1.1/lists/subscribers
 func Subscribers(listID string, opts *ListOpts) Query {
 	q := Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method: "1.1/lists/subscribers.json",
-			Params: make(jhttp.Params),
+			Params: make(jape.Params),
 		},
 	}
 	q.Request.Params.Set("list_id", listID)
@@ -46,7 +46,7 @@ func Subscribers(listID string, opts *ListOpts) Query {
 
 // Query is a query for list memberships.
 type Query struct {
-	*jhttp.Request
+	*jape.Request
 	opts types.UserFields
 }
 
@@ -98,9 +98,9 @@ func (o *ListOpts) addQueryParams(q *Query) {
 // API: 1.1/followers/list
 func Followers(user string, opts *FollowOpts) Query {
 	q := Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method: "1.1/followers/list.json",
-			Params: make(jhttp.Params),
+			Params: make(jape.Params),
 		},
 	}
 	opts.addQueryParams(user, &q)
@@ -113,9 +113,9 @@ func Followers(user string, opts *FollowOpts) Query {
 // API: 1.1/friends/list
 func Following(user string, opts *FollowOpts) Query {
 	q := Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method: "1.1/friends/list.json",
-			Params: make(jhttp.Params),
+			Params: make(jape.Params),
 		},
 	}
 	opts.addQueryParams(user, &q)

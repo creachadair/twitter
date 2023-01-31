@@ -6,15 +6,15 @@ import (
 	"context"
 	"testing"
 
-	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter/internal/otest"
+	"github.com/creachadair/twitter/jape"
 	"github.com/creachadair/twitter/olists"
 )
 
 func TestUserCall(t *testing.T) {
 	bearerToken := otest.GetOrSkip(t, "OLISTS_TWITTER_TOKEN")
-	cli := otest.NewClient(t, &jhttp.Client{
-		Authorize: jhttp.BearerTokenAuthorizer(bearerToken),
+	cli := otest.NewClient(t, &jape.Client{
+		Authorize: jape.BearerTokenAuthorizer(bearerToken),
 	})
 	ctx := context.Background()
 

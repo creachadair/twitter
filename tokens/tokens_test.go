@@ -56,10 +56,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/creachadair/jhttp"
-	"github.com/creachadair/jhttp/auth"
 	"github.com/creachadair/twitter"
 	"github.com/creachadair/twitter/internal/otest"
+	"github.com/creachadair/twitter/jape"
+	"github.com/creachadair/twitter/jape/auth"
 	"github.com/creachadair/twitter/tokens"
 	"github.com/creachadair/twitter/tweets"
 	"github.com/creachadair/twitter/types"
@@ -67,8 +67,8 @@ import (
 
 func debugClient(t *testing.T) *twitter.Client {
 	t.Helper()
-	return twitter.NewClient(&jhttp.Client{
-		Log: func(tag jhttp.LogTag, msg string) {
+	return twitter.NewClient(&jape.Client{
+		Log: func(tag jape.LogTag, msg string) {
 			t.Logf("DEBUG :: %s | %s", tag, msg)
 		},
 	})

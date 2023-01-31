@@ -68,12 +68,12 @@
 //	q := tweets.SearchStream(func(rsp *tweets.Reply) error {
 //	   handle(rsp)
 //	   if !wantMore() {
-//	      return jhttp.ErrStopStreaming
+//	      return jape.ErrStopStreaming
 //	   }
 //	   return nil
 //	}, nil)
 //
-// If the callback returns jhttp.ErrStopStreaming, the stream is terminated
+// If the callback returns jape.ErrStopStreaming, the stream is terminated
 // without error; otherwise the error returned by the callback is reported to
 // the caller of the query. For the common and simple case of limiting the
 // number of results, you can use the MaxResults stream option.
@@ -93,8 +93,8 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jape"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -103,9 +103,9 @@ import (
 //
 // API: 2/tweets
 func Lookup(id string, opts *LookupOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/tweets",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	req.Params.Add("ids", id)
 	opts.addRequestParams(req)
@@ -116,9 +116,9 @@ func Lookup(id string, opts *LookupOpts) Query {
 //
 // API: 2/users/:id/liked_tweets
 func LikedBy(userID string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/users/" + userID + "/liked_tweets",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -128,9 +128,9 @@ func LikedBy(userID string, opts *ListOpts) Query {
 //
 // API: 2/tweets/:id/quote_tweets
 func Quotes(id string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/tweets/" + id + "/quote_tweets",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -140,9 +140,9 @@ func Quotes(id string, opts *ListOpts) Query {
 //
 // API: 2/users/:id/mentions
 func MentioningUser(userID string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/users/" + userID + "/mentions",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -152,9 +152,9 @@ func MentioningUser(userID string, opts *ListOpts) Query {
 //
 // API: 2/users/:id/tweets
 func FromUser(userID string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/users/" + userID + "/tweets",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -164,9 +164,9 @@ func FromUser(userID string, opts *ListOpts) Query {
 //
 // API: 2/users/:id/bookmarks
 func BookmarkedBy(userID string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/users/" + userID + "/bookmarks",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -174,7 +174,7 @@ func BookmarkedBy(userID string, opts *ListOpts) Query {
 
 // A Query performs a lookup or search query.
 type Query struct {
-	*jhttp.Request
+	*jape.Request
 	encodeErr error
 }
 
@@ -208,14 +208,14 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 		err = json.Unmarshal(rsp.Data, &out.Tweets)
 	}
 	if err != nil {
-		return nil, &jhttp.Error{Data: rsp.Data, Message: "decoding tweet data", Err: err}
+		return nil, &jape.Error{Data: rsp.Data, Message: "decoding tweet data", Err: err}
 	}
 
 	// Maintain the flag validity for lookup queries.
 	q.Request.Params.Set(q.nextTokenParam(), "")
 	if len(rsp.Meta) != 0 {
 		if err := json.Unmarshal(rsp.Meta, &out.Meta); err != nil {
-			return nil, &jhttp.Error{Data: rsp.Meta, Message: "decoding response metadata", Err: err}
+			return nil, &jape.Error{Data: rsp.Meta, Message: "decoding response metadata", Err: err}
 		}
 		// Update the query page token. Do this even if next_token is empty; the
 		// HasMorePages method uses the presence of the parameter to distinguish
@@ -258,7 +258,7 @@ type LookupOpts struct {
 	Optional  []types.Fields // optional response fields, expansions
 }
 
-func (o *LookupOpts) addRequestParams(req *jhttp.Request) {
+func (o *LookupOpts) addRequestParams(req *jape.Request) {
 	if o == nil {
 		return // nothing to do
 	}
@@ -287,7 +287,7 @@ type ListOpts struct {
 	Optional []types.Fields
 }
 
-func (o *ListOpts) addRequestParams(req *jhttp.Request) {
+func (o *ListOpts) addRequestParams(req *jape.Request) {
 	if o == nil {
 		return // nothing to do
 	}

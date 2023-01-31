@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/creachadair/jhttp"
+	"github.com/creachadair/twitter/jape"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -18,9 +18,9 @@ import (
 //
 // API: 2/tweets/search/recent
 func SearchRecent(query string, opts *SearchOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/tweets/search/recent",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	req.Params.Set("query", query)
 	opts.addRequestParams(req)
@@ -53,7 +53,7 @@ type SearchOpts struct {
 	Optional []types.Fields
 }
 
-func (o *SearchOpts) addRequestParams(req *jhttp.Request) {
+func (o *SearchOpts) addRequestParams(req *jape.Request) {
 	if o == nil {
 		return // nothing to do
 	}
