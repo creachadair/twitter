@@ -8,9 +8,9 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
 	"github.com/creachadair/twitter/internal/otypes"
+	"github.com/creachadair/twitter/jape"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -26,18 +26,18 @@ type UsersReply struct {
 // HasMorePages reports whether the request has more pages to fetch.  This is
 // true for a freshly-constructed request, and for an invoked request where the
 // server not reported a next-page token.
-func HasMorePages(req *jhttp.Request) bool {
+func HasMorePages(req *jape.Request) bool {
 	v, ok := req.Params[nextTokenParam]
 	return !ok || (v[0] != "" && v[0] != "0")
 }
 
 // ResetPageToken resets (clears) the request's current page token.
 // Subsequently invoking the query will then fetch the first page of results.
-func ResetPageToken(req *jhttp.Request) { req.Params.Reset(nextTokenParam) }
+func ResetPageToken(req *jape.Request) { req.Params.Reset(nextTokenParam) }
 
 // GetUsers invokes an API method that returns API v1.1 user objects and
 // pagination metadata.
-func GetUsers(ctx context.Context, req *jhttp.Request, opts types.UserFields, cli *twitter.Client) (*UsersReply, error) {
+func GetUsers(ctx context.Context, req *jape.Request, opts types.UserFields, cli *twitter.Client) (*UsersReply, error) {
 	data, err := cli.CallRaw(ctx, req)
 	if err != nil {
 		return nil, err
@@ -47,7 +47,7 @@ func GetUsers(ctx context.Context, req *jhttp.Request, opts types.UserFields, cl
 		C string         `json:"next_cursor_str"` // N.B. abbreviated
 	}
 	if err := json.Unmarshal(data, &rsp); err != nil {
-		return nil, &jhttp.Error{Message: "decoding response body", Err: err}
+		return nil, &jape.Error{Message: "decoding response body", Err: err}
 	}
 	nextPage := rsp.C
 	if nextPage == "0" {

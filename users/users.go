@@ -28,8 +28,8 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jape"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -50,9 +50,9 @@ func LookupByName(name string, opts *LookupOpts) Query {
 }
 
 func newLookup(method, param, key string, opts *LookupOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: method,
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	req.Params.Add(param, key)
 	opts.addRequestParams(param, req)
@@ -63,9 +63,9 @@ func newLookup(method, param, key string, opts *LookupOpts) Query {
 //
 // API: 2/users/:id/followers
 func FollowersOf(userID string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/users/" + userID + "/followers",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -75,9 +75,9 @@ func FollowersOf(userID string, opts *ListOpts) Query {
 //
 // API: 2/users/:id/following
 func FollowedBy(userID string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/users/" + userID + "/following",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -87,9 +87,9 @@ func FollowedBy(userID string, opts *ListOpts) Query {
 //
 // API: 2/users/:id/muting
 func MutedBy(userID string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/users/" + userID + "/muting",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -99,9 +99,9 @@ func MutedBy(userID string, opts *ListOpts) Query {
 //
 // API: 2/users/:id/blocking
 func BlockedBy(userID string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/users/" + userID + "/blocking",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -111,9 +111,9 @@ func BlockedBy(userID string, opts *ListOpts) Query {
 //
 // API: 2/tweets/:id/retweeted_by
 func RetweetersOf(tweetID string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/tweets/" + tweetID + "/retweeted_by",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -128,9 +128,9 @@ func RetweetersOf(tweetID string, opts *ListOpts) Query {
 // actually are. If you set MaxResults or PageToken in the options, the request
 // will report an error.
 func LikersOf(id string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/tweets/" + id + "/liking_users",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -138,7 +138,7 @@ func LikersOf(id string, opts *ListOpts) Query {
 
 // A Query performs a lookup query for one or more users.
 type Query struct {
-	*jhttp.Request
+	*jape.Request
 }
 
 // Invoke executes the query on the given context and client.
@@ -151,13 +151,13 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 	if len(rsp.Data) == 0 {
 		// no results
 	} else if err := json.Unmarshal(rsp.Data, &users); err != nil {
-		return nil, &jhttp.Error{Data: rsp.Data, Message: "decoding users data", Err: err}
+		return nil, &jape.Error{Data: rsp.Data, Message: "decoding users data", Err: err}
 	}
 	out := &Reply{Reply: rsp, Users: users}
 	q.Request.Params.Set(twitter.NextTokenParam, "")
 	if len(rsp.Meta) != 0 {
 		if err := json.Unmarshal(rsp.Meta, &out.Meta); err != nil {
-			return nil, &jhttp.Error{Data: rsp.Meta, Message: "decoding response metadata", Err: err}
+			return nil, &jape.Error{Data: rsp.Meta, Message: "decoding response metadata", Err: err}
 		}
 		// Update the query page token. Do this even if next_token is empty; the
 		// HasMorePages method uses the presence of the parameter to distinguish
@@ -196,7 +196,7 @@ type LookupOpts struct {
 	Optional []types.Fields
 }
 
-func (o *LookupOpts) addRequestParams(param string, req *jhttp.Request) {
+func (o *LookupOpts) addRequestParams(param string, req *jape.Request) {
 	if o == nil {
 		return // nothing to do
 	}
@@ -222,7 +222,7 @@ type ListOpts struct {
 	Optional []types.Fields
 }
 
-func (o *ListOpts) addRequestParams(req *jhttp.Request) {
+func (o *ListOpts) addRequestParams(req *jape.Request) {
 	if o == nil {
 		return // nothing to do
 	}

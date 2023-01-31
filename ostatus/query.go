@@ -9,9 +9,9 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
 	"github.com/creachadair/twitter/internal/otypes"
+	"github.com/creachadair/twitter/jape"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -21,10 +21,10 @@ import (
 // API: 1.1/statuses/update.json
 func Create(text string, opts *CreateOpts) Query {
 	q := Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:     "1.1/statuses/update.json",
 			HTTPMethod: "POST",
-			Params: jhttp.Params{
+			Params: jape.Params{
 				"status":    []string{text},
 				"trim_user": []string{"true"},
 			},
@@ -36,10 +36,10 @@ func Create(text string, opts *CreateOpts) Query {
 
 func modQuery(path, id string, opts *Options) Query {
 	q := Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:     path + "/" + id + ".json", // N.B. parameter in path
 			HTTPMethod: "POST",
-			Params:     jhttp.Params{"trim_user": []string{"true"}},
+			Params:     jape.Params{"trim_user": []string{"true"}},
 		},
 	}
 	opts.addQueryParams(&q)
@@ -72,10 +72,10 @@ func Unretweet(id string, opts *Options) Query {
 
 func likeQuery(path, id string, opts *Options) Query {
 	q := Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:     path + ".json",
 			HTTPMethod: "POST",
-			Params:     jhttp.Params{"id": []string{id}},
+			Params:     jape.Params{"id": []string{id}},
 		},
 	}
 	opts.addQueryParams(&q)
@@ -101,7 +101,7 @@ func Unlike(id string, opts *Options) Query {
 
 // Query is a query to post, delete, like, or retweet a status update.
 type Query struct {
-	*jhttp.Request
+	*jape.Request
 	opts types.TweetFields
 }
 
@@ -113,7 +113,7 @@ func (o Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 	}
 	var rsp otypes.Tweet
 	if err := json.Unmarshal(data, &rsp); err != nil {
-		return nil, &jhttp.Error{Message: "decoding response body", Err: err}
+		return nil, &jape.Error{Message: "decoding response body", Err: err}
 	}
 	return &Reply{
 		Data:   data,
@@ -175,9 +175,9 @@ type Reply struct {
 
 func makeTLQuery(id, method string, opts *TimelineOpts) TimelineQuery {
 	q := TimelineQuery{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method: "1.1/statuses/" + method + "_timeline.json",
-			Params: make(jhttp.Params),
+			Params: make(jape.Params),
 		},
 	}
 	opts.addQueryParams(id, &q)
@@ -274,7 +274,7 @@ func (o *TimelineOpts) addQueryParams(key string, q *TimelineQuery) {
 
 // TimelineQuery is a query to fetch a timeline of tweets.
 type TimelineQuery struct {
-	*jhttp.Request
+	*jape.Request
 	opts types.TweetFields
 }
 
@@ -286,7 +286,7 @@ func (o TimelineQuery) Invoke(ctx context.Context, cli *twitter.Client) (*Reply,
 	}
 	var rsp []*otypes.Tweet
 	if err := json.Unmarshal(data, &rsp); err != nil {
-		return nil, &jhttp.Error{Message: "decoding response body", Err: err}
+		return nil, &jape.Error{Message: "decoding response body", Err: err}
 	}
 	v2s := make([]*types.Tweet, len(rsp))
 	for i, t := range rsp {

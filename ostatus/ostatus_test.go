@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/creachadair/jhttp"
-	"github.com/creachadair/jhttp/auth"
 	"github.com/creachadair/twitter"
 	"github.com/creachadair/twitter/internal/otest"
+	"github.com/creachadair/twitter/jape"
+	"github.com/creachadair/twitter/jape/auth"
 	"github.com/creachadair/twitter/ostatus"
 	"github.com/creachadair/twitter/types"
 )
@@ -43,7 +43,7 @@ func newTestClient(t *testing.T) (context.Context, string, *twitter.Client) {
 
 	userID := strings.SplitN(userToken[0], "-", 2)[0]
 	ctx := context.Background()
-	cli := otest.NewClient(t, &jhttp.Client{
+	cli := otest.NewClient(t, &jape.Client{
 		Authorize: cfg.Authorizer(userToken[0], userToken[1]),
 	})
 	return ctx, userID, cli

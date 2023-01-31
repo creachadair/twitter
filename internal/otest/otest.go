@@ -8,8 +8,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jape"
 )
 
 var (
@@ -29,10 +29,10 @@ func GetOrSkip(t *testing.T, key string) string {
 
 // NewClient is a wrapper for twitter.NewClient that sets up debug logging if
 // enabled by the -verbose-log flag.
-func NewClient(t *testing.T, opts *jhttp.Client) *twitter.Client {
+func NewClient(t *testing.T, opts *jape.Client) *twitter.Client {
 	cli := twitter.NewClient(opts)
 	if *doVerboseLog {
-		cli.Log = func(tag jhttp.LogTag, msg string) {
+		cli.Log = func(tag jape.LogTag, msg string) {
 			t.Logf("DEBUG :: %s | %s", tag, msg)
 		}
 	}

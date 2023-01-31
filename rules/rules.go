@@ -49,8 +49,8 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jape"
 )
 
 // Get constructs a query to fetch the specified streaming search rule IDs.  If
@@ -58,9 +58,9 @@ import (
 //
 // API: GET 2/tweets/search/stream/rules
 func Get(ids ...string) Query {
-	req := &jhttp.Request{Method: "2/tweets/search/stream/rules"}
+	req := &jape.Request{Method: "2/tweets/search/stream/rules"}
 	if len(ids) != 0 {
-		req.Params = jhttp.Params{"ids": ids}
+		req.Params = jape.Params{"ids": ids}
 	}
 	return Query{request: req}
 }
@@ -70,7 +70,7 @@ func Get(ids ...string) Query {
 // API: POST 2/tweets/search/stream/rules
 func Update(r Set) Query {
 	enc, err := r.encode()
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method:     "2/tweets/search/stream/rules",
 		HTTPMethod: "POST",
 		Data:       enc,
@@ -84,10 +84,10 @@ func Update(r Set) Query {
 // API: POST 2/tweets/search/stream/rules, dry_run=true
 func Validate(r Set) Query {
 	enc, err := r.encode()
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method:     "2/tweets/search/stream/rules",
 		HTTPMethod: "POST",
-		Params:     jhttp.Params{"dry_run": []string{"true"}},
+		Params:     jape.Params{"dry_run": []string{"true"}},
 		Data:       enc,
 	}
 	return Query{request: req, encodeErr: err}
@@ -95,7 +95,7 @@ func Validate(r Set) Query {
 
 // A Query performs a rule fetch or update query.
 type Query struct {
-	request   *jhttp.Request
+	request   *jape.Request
 	encodeErr error // an error from encoding the rules
 }
 
@@ -103,7 +103,7 @@ type Query struct {
 func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) {
 	// Report a deferred error from encoding.
 	if q.encodeErr != nil {
-		return nil, &jhttp.Error{Message: "encoding rule set", Err: q.encodeErr}
+		return nil, &jape.Error{Message: "encoding rule set", Err: q.encodeErr}
 	}
 	rsp, err := cli.Call(ctx, q.request)
 	if err != nil {
@@ -113,10 +113,10 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 	if len(rsp.Data) == 0 {
 		// no rules returned
 	} else if err := json.Unmarshal(rsp.Data, &out.Rules); err != nil {
-		return nil, &jhttp.Error{Data: rsp.Data, Message: "decoding rules data", Err: err}
+		return nil, &jape.Error{Data: rsp.Data, Message: "decoding rules data", Err: err}
 	}
 	if err := json.Unmarshal(rsp.Meta, &out.Meta); err != nil {
-		return nil, &jhttp.Error{Data: rsp.Meta, Message: "decoding rules metadata", Err: err}
+		return nil, &jape.Error{Data: rsp.Meta, Message: "decoding rules metadata", Err: err}
 	}
 	return out, nil
 }

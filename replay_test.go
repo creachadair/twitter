@@ -16,8 +16,8 @@ import (
 	"github.com/dnaeon/go-vcr/v2/cassette"
 	"github.com/dnaeon/go-vcr/v2/recorder"
 
-	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jape"
 	"github.com/creachadair/twitter/lists"
 	"github.com/creachadair/twitter/query"
 	"github.com/creachadair/twitter/rules"
@@ -129,7 +129,7 @@ func TestMain(m *testing.M) {
 
 	// Running or recording require a production credential.
 	// Replaying requires a fake credential.
-	var auth jhttp.Authorizer
+	var auth jape.Authorizer
 	switch *testMode {
 	case "run", "record":
 		bearerToken := os.Getenv("TWITTER_TOKEN")
@@ -137,9 +137,9 @@ func TestMain(m *testing.M) {
 			// When talking to production, we need a real credential.
 			log.Fatalf("No TWITTER_TOKEN found in the environment; cannot %s tests", *testMode)
 		}
-		auth = jhttp.BearerTokenAuthorizer(bearerToken)
+		auth = jape.BearerTokenAuthorizer(bearerToken)
 	default:
-		auth = jhttp.BearerTokenAuthorizer(fakeAuthToken)
+		auth = jape.BearerTokenAuthorizer(fakeAuthToken)
 	}
 
 	// Filter Authorization headers when recording to swap the real token with
@@ -159,13 +159,13 @@ func TestMain(m *testing.M) {
 		})
 	}
 
-	cli = twitter.NewClient(&jhttp.Client{
+	cli = twitter.NewClient(&jape.Client{
 		HTTPClient: &http.Client{Transport: rec},
 		Authorize:  auth,
 	})
 	if *doVerboseLog {
 		log.Printf("Enabled verbose client logging")
-		cli.Log = func(tag jhttp.LogTag, msg string) {
+		cli.Log = func(tag jape.LogTag, msg string) {
 			log.Printf("CLIENT :: %s | %s", tag, msg)
 		}
 	}
@@ -184,9 +184,9 @@ func TestMain(m *testing.M) {
 
 // Verify that the direct call plumbing works.
 func TestClientCall(t *testing.T) {
-	rsp, err := cli.Call(context.Background(), &jhttp.Request{
+	rsp, err := cli.Call(context.Background(), &jape.Request{
 		Method: "2/users/by/username/jack",
-		Params: jhttp.Params{
+		Params: jape.Params{
 			"user.fields": []string{
 				"created_at",
 				"description",
@@ -732,9 +732,9 @@ func TestCallRaw(t *testing.T) {
 	defer func() { cli.BaseURL = save }()
 	cli.BaseURL = "https://api.twitter.com/1.1"
 
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "statuses/show.json",
-		Params: jhttp.Params{
+		Params: jape.Params{
 			"id":         []string{"1297524288245895168"},
 			"tweet_mode": []string{"extended"},
 		},

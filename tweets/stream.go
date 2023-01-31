@@ -6,8 +6,8 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jape"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -15,9 +15,9 @@ import (
 //
 // API: 2/tweets/sample/stream
 func SampleStream(f Callback, opts *StreamOpts) Stream {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/tweets/sample/stream",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Stream{Request: req, callback: f, maxResults: opts.maxResults()}
@@ -27,9 +27,9 @@ func SampleStream(f Callback, opts *StreamOpts) Stream {
 //
 // API: 2/tweets/search/stream
 func SearchStream(f Callback, opts *StreamOpts) Stream {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/tweets/search/stream",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Stream{Request: req, callback: f, maxResults: opts.maxResults()}
@@ -37,7 +37,7 @@ func SearchStream(f Callback, opts *StreamOpts) Stream {
 
 // A Stream performs a streaming search or sampling query.
 type Stream struct {
-	*jhttp.Request
+	*jape.Request
 	callback   Callback
 	maxResults int
 }
@@ -52,7 +52,7 @@ type StreamOpts struct {
 	Optional []types.Fields
 }
 
-func (o *StreamOpts) addRequestParams(req *jhttp.Request) {
+func (o *StreamOpts) addRequestParams(req *jape.Request) {
 	if o == nil {
 		return // nothing to do
 	}
@@ -72,7 +72,7 @@ func (o *StreamOpts) maxResults() int {
 
 // A Callback receives streaming replies from a sample or streaming search
 // query. If the callback returns an error, the stream is terminated. If the
-// error is not jhttp.ErrStopStreaming, that error is reported to the caller.
+// error is not jape.ErrStopStreaming, that error is reported to the caller.
 type Callback func(*Reply) error
 
 // Invoke executes the streaming query on the given context and client.
@@ -82,7 +82,7 @@ func (s Stream) Invoke(ctx context.Context, cli *twitter.Client) error {
 		nr++
 		var tweet types.Tweet
 		if err := json.Unmarshal(rsp.Data, &tweet); err != nil {
-			return &jhttp.Error{Data: rsp.Data, Message: "decoding tweet data", Err: err}
+			return &jape.Error{Data: rsp.Data, Message: "decoding tweet data", Err: err}
 		}
 		if err := s.callback(&Reply{
 			Reply:  rsp,
@@ -90,7 +90,7 @@ func (s Stream) Invoke(ctx context.Context, cli *twitter.Client) error {
 		}); err != nil {
 			return err
 		} else if s.maxResults > 0 && nr == s.maxResults {
-			return jhttp.ErrStopStreaming
+			return jape.ErrStopStreaming
 		}
 		return nil
 	})

@@ -7,13 +7,13 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jape"
 )
 
 // An Edit is a query to edit or delete a list or list membership.
 type Edit struct {
-	*jhttp.Request
+	*jape.Request
 	tag       string
 	encodeErr error
 }
@@ -30,7 +30,7 @@ func (e Edit) Invoke(ctx context.Context, cli *twitter.Client) (bool, error) {
 	}
 	m := make(map[string]*bool)
 	if err := json.Unmarshal(rsp.Data, &m); err != nil {
-		return false, &jhttp.Error{Data: rsp.Data, Message: "decoding response", Err: err}
+		return false, &jape.Error{Data: rsp.Data, Message: "decoding response", Err: err}
 	}
 	if v := m[e.tag]; v != nil {
 		return *v, nil
@@ -42,7 +42,7 @@ func (e Edit) Invoke(ctx context.Context, cli *twitter.Client) (bool, error) {
 //
 // API: DELETE 2/lists/:id
 func Delete(id string) Edit {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method:     "2/lists/" + id,
 		HTTPMethod: "DELETE",
 	}
@@ -53,7 +53,7 @@ func Delete(id string) Edit {
 //
 // API: PUT 2/lists/:id
 func Update(id string, opts UpdateOpts) Edit {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method:     "2/lists/" + id,
 		HTTPMethod: "PUT",
 	}
@@ -67,7 +67,7 @@ func Update(id string, opts UpdateOpts) Edit {
 //
 // API: POST 2/lists/:id/members
 func AddMember(listID, userID string) Edit {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method:     "2/lists/" + listID + "/members",
 		HTTPMethod: "POST",
 	}
@@ -83,7 +83,7 @@ func AddMember(listID, userID string) Edit {
 //
 // API: DELETE 2/lists/:id/members/:userid
 func RemoveMember(listID, userID string) Edit {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method:     "2/lists/" + listID + "/members/" + userID,
 		HTTPMethod: "DELETE",
 	}

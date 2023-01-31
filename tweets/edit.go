@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/creachadair/jhttp"
+	"github.com/creachadair/twitter/jape"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -14,7 +14,7 @@ import (
 //
 // API: POST 2/tweets
 func Create(opts CreateOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method:     "2/tweets",
 		HTTPMethod: "POST",
 	}

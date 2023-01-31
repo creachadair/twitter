@@ -23,7 +23,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/creachadair/jhttp"
+	"github.com/creachadair/twitter/jape"
 )
 
 /*
@@ -69,9 +69,9 @@ type Config struct {
 	MakeNonce func() string
 }
 
-// Authorizer returns a jhttp.Authorizer that uses the specified access token
+// Authorizer returns a jape.Authorizer that uses the specified access token
 // to sign requests.
-func (c Config) Authorizer(token, secret string) jhttp.Authorizer {
+func (c Config) Authorizer(token, secret string) jape.Authorizer {
 	uc := c // shallow copy
 	uc.AccessToken = token
 	uc.AccessTokenSecret = secret

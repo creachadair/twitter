@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/creachadair/jhttp"
+	"github.com/creachadair/twitter/jape"
 	"github.com/creachadair/twitter/types"
 )
 
@@ -42,7 +42,7 @@ func (r *Reply) IncludedMedia() (types.Medias, error) {
 	}
 	var out types.Medias
 	if err := json.Unmarshal(media, &out); err != nil {
-		return nil, &jhttp.Error{Data: media, Message: "decoding media", Err: err}
+		return nil, &jape.Error{Data: media, Message: "decoding media", Err: err}
 	}
 	return out, nil
 }
@@ -56,7 +56,7 @@ func (r *Reply) IncludedTweets() (types.Tweets, error) {
 	}
 	var out types.Tweets
 	if err := json.Unmarshal(tweets, &out); err != nil {
-		return nil, &jhttp.Error{Data: tweets, Message: "decoding tweets", Err: err}
+		return nil, &jape.Error{Data: tweets, Message: "decoding tweets", Err: err}
 	}
 	return out, nil
 }
@@ -70,7 +70,7 @@ func (r *Reply) IncludedUsers() (types.Users, error) {
 	}
 	var out types.Users
 	if err := json.Unmarshal(users, &out); err != nil {
-		return nil, &jhttp.Error{Data: users, Message: "decoding users", Err: err}
+		return nil, &jape.Error{Data: users, Message: "decoding users", Err: err}
 	}
 	return out, nil
 }
@@ -84,7 +84,7 @@ func (r *Reply) IncludedPolls() (types.Polls, error) {
 	}
 	var out types.Polls
 	if err := json.Unmarshal(polls, &out); err != nil {
-		return nil, &jhttp.Error{Data: polls, Message: "decoding polls", Err: err}
+		return nil, &jape.Error{Data: polls, Message: "decoding polls", Err: err}
 	}
 	return out, nil
 }
@@ -98,7 +98,7 @@ func (r *Reply) IncludedPlaces() (types.Places, error) {
 	}
 	var out types.Places
 	if err := json.Unmarshal(places, &out); err != nil {
-		return nil, &jhttp.Error{Data: places, Message: "decoding places", Err: err}
+		return nil, &jape.Error{Data: places, Message: "decoding places", Err: err}
 	}
 	return out, nil
 }

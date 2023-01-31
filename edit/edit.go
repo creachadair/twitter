@@ -8,8 +8,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jape"
 )
 
 // DeleteTweet constructs a query to delete the given tweet ID.
@@ -17,7 +17,7 @@ import (
 // API: DELETE 2/tweets/:tid
 func DeleteTweet(tweetID string) Query {
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:     "2/tweets/" + tweetID,
 			HTTPMethod: "DELETE",
 		},
@@ -27,7 +27,7 @@ func DeleteTweet(tweetID string) Query {
 
 // A Query is a query to modify the contents or properties of tweets.
 type Query struct {
-	*jhttp.Request
+	*jape.Request
 	tag       string
 	encodeErr error
 }
@@ -44,7 +44,7 @@ func (e Query) Invoke(ctx context.Context, cli *twitter.Client) (bool, error) {
 	}
 	m := make(map[string]*bool)
 	if err := json.Unmarshal(rsp.Data, &m); err != nil {
-		return false, &jhttp.Error{Data: rsp.Data, Message: "decoding response", Err: err}
+		return false, &jape.Error{Data: rsp.Data, Message: "decoding response", Err: err}
 	}
 	if v := m[e.tag]; v != nil {
 		return *v, nil
@@ -61,7 +61,7 @@ func SetRepliesHidden(tweetID string, hidden bool) Query {
 		H bool `json:"hidden"`
 	}{H: hidden})
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:      "2/tweets/" + tweetID + "/hidden",
 			HTTPMethod:  "PUT",
 			ContentType: "application/json",
@@ -80,7 +80,7 @@ func Like(userID, tweetID string) Query {
 		ID string `json:"tweet_id"`
 	}{ID: tweetID})
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:      "2/users/" + userID + "/likes",
 			HTTPMethod:  "POST",
 			ContentType: "application/json",
@@ -96,7 +96,7 @@ func Like(userID, tweetID string) Query {
 // API: DELETE 2/users/:id/likes/:tid
 func Unlike(userID, tweetID string) Query {
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:     "2/users/" + userID + "/likes/" + tweetID,
 			HTTPMethod: "DELETE",
 		},
@@ -113,7 +113,7 @@ func Bookmark(userID, tweetID string) Query {
 		ID string `json:"tweet_id"`
 	}{ID: tweetID})
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:      "2/users/" + userID + "/bookmarks",
 			HTTPMethod:  "POST",
 			ContentType: "application/json",
@@ -130,7 +130,7 @@ func Bookmark(userID, tweetID string) Query {
 // API: DELETE 2/users/:id/bookmarks/:tid
 func Unbookmark(userID, tweetID string) Query {
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:     "2/users/" + userID + "/bookmarks/" + tweetID,
 			HTTPMethod: "DELETE",
 		},
@@ -146,7 +146,7 @@ func Retweet(userID, tweetID string) Query {
 		ID string `json:"tweet_id"`
 	}{ID: tweetID})
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:      "2/users/" + userID + "/retweets",
 			HTTPMethod:  "POST",
 			ContentType: "application/json",
@@ -163,7 +163,7 @@ func Retweet(userID, tweetID string) Query {
 // API: DELETE 2/users/:id/retweets/:tid
 func Unretweet(userID, tweetID string) Query {
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:     "2/users/" + userID + "/retweets/" + tweetID,
 			HTTPMethod: "DELETE",
 		},
@@ -179,7 +179,7 @@ func Block(userID, blockeeID string) Query {
 		ID string `json:"target_user_id"`
 	}{ID: blockeeID})
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:      "2/users/" + userID + "/blocking",
 			HTTPMethod:  "POST",
 			ContentType: "application/json",
@@ -195,7 +195,7 @@ func Block(userID, blockeeID string) Query {
 // API: DELETE 2/users/:id/blocking/:other
 func Unblock(userID, blockeeID string) Query {
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:     "2/users/" + userID + "/blocking/" + blockeeID,
 			HTTPMethod: "DELETE",
 		},
@@ -211,7 +211,7 @@ func Follow(userID, followeeID string) Query {
 		ID string `json:"target_user_id"`
 	}{ID: followeeID})
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:      "2/users/" + userID + "/following",
 			HTTPMethod:  "POST",
 			ContentType: "application/json",
@@ -230,7 +230,7 @@ func Follow(userID, followeeID string) Query {
 // API: DELETE 2/users/:id/following/:other
 func Unfollow(userID, followeeID string) Query {
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:     "2/users/" + userID + "/following/" + followeeID,
 			HTTPMethod: "DELETE",
 		},
@@ -246,7 +246,7 @@ func Mute(userID, muteeID string) Query {
 		ID string `json:"target_user_id"`
 	}{ID: muteeID})
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:      "2/users/" + userID + "/muting",
 			HTTPMethod:  "POST",
 			ContentType: "application/json",
@@ -262,7 +262,7 @@ func Mute(userID, muteeID string) Query {
 // API: DELETE 2/users/:id/muting/:other
 func Unmute(userID, muteeID string) Query {
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:     "2/users/" + userID + "/muting/" + muteeID,
 			HTTPMethod: "DELETE",
 		},
@@ -278,7 +278,7 @@ func PinList(userID, listID string) Query {
 		ID string `json:"list_id"`
 	}{ID: listID})
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:      "2/users/" + userID + "/pinned_lists",
 			HTTPMethod:  "POST",
 			ContentType: "application/json",
@@ -294,7 +294,7 @@ func PinList(userID, listID string) Query {
 // API: DELETE 2/users/:id/pinned_lists/:lid
 func UnpinLists(userID, listID string) Query {
 	return Query{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:     "2/users/" + userID + "/pinned_lists/" + listID,
 			HTTPMethod: "DELETE",
 		},

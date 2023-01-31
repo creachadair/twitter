@@ -8,8 +8,8 @@
 // The general structure of an API call is to first construct a query, then
 // invoke that query with a context on a client:
 //
-//	cli := twitter.NewClient(&jhttp.Client{
-//	   Authorize: jhttp.BearerTokenAuthorizer(token),
+//	cli := twitter.NewClient(&jape.Client{
+//	   Authorize: jape.BearerTokenAuthorizer(token),
 //	})
 //
 //	ctx := context.Background()
@@ -40,7 +40,7 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/creachadair/jhttp"
+	"github.com/creachadair/twitter/jape"
 )
 
 const (
@@ -56,9 +56,9 @@ const (
 // NewClient returns a new client for the Twitter API.
 // If cli == nil, default client options are used targeting the production API
 // at BaseURL.
-func NewClient(cli *jhttp.Client) *Client {
+func NewClient(cli *jape.Client) *Client {
 	if cli == nil {
-		cli = new(jhttp.Client)
+		cli = new(jape.Client)
 	}
 	if cli.BaseURL == "" {
 		cli.BaseURL = BaseURL
@@ -67,7 +67,7 @@ func NewClient(cli *jhttp.Client) *Client {
 }
 
 // A Client serves as a client for the Twitter API v2.
-type Client jhttp.Client
+type Client jape.Client
 
 // A Callback function is invoked for each reply received in a stream.  If the
 // callback reports a non-nil error, the stream is terminated. If the error is
@@ -75,34 +75,34 @@ type Client jhttp.Client
 type Callback func(*Reply) error
 
 // Call issues the specified API request and returns the decoded reply.
-// Errors from Call have concrete type *jhttp.Error.
-func (c *Client) Call(ctx context.Context, req *jhttp.Request) (*Reply, error) {
-	header, body, err := (*jhttp.Client)(c).Call(ctx, req)
+// Errors from Call have concrete type *jape.Error.
+func (c *Client) Call(ctx context.Context, req *jape.Request) (*Reply, error) {
+	header, body, err := (*jape.Client)(c).Call(ctx, req)
 	if err != nil {
 		return nil, err
 	}
 	var reply Reply
 	if err := json.Unmarshal(body, &reply); err != nil {
-		return nil, &jhttp.Error{Data: body, Message: "decoding response body", Err: err}
+		return nil, &jape.Error{Data: body, Message: "decoding response body", Err: err}
 	}
 	reply.RateLimit = decodeRateLimits(header)
 	return &reply, nil
 }
 
 // CallRaw issues the specified API request and returns the raw response body
-// without decoding. Errors from CallRaw have concrete type *jhttp.Error
-func (c *Client) CallRaw(ctx context.Context, req *jhttp.Request) ([]byte, error) {
-	_, body, err := (*jhttp.Client)(c).Call(ctx, req)
+// without decoding. Errors from CallRaw have concrete type *jape.Error
+func (c *Client) CallRaw(ctx context.Context, req *jape.Request) ([]byte, error) {
+	_, body, err := (*jape.Client)(c).Call(ctx, req)
 	return body, err
 }
 
 // Stream issues the specified API request and streams results to the given
-// callback. Errors from Stream have concrete type *jhttp.Error.
-func (c *Client) Stream(ctx context.Context, req *jhttp.Request, f Callback) error {
-	return (*jhttp.Client)(c).Stream(ctx, req, func(body []byte) error {
+// callback. Errors from Stream have concrete type *jape.Error.
+func (c *Client) Stream(ctx context.Context, req *jape.Request, f Callback) error {
+	return (*jape.Client)(c).Stream(ctx, req, func(body []byte) error {
 		var reply Reply
 		if err := json.Unmarshal(body, &reply); err != nil {
-			return &jhttp.Error{Data: body, Message: "decoding stream response", Err: err}
+			return &jape.Error{Data: body, Message: "decoding stream response", Err: err}
 		}
 		return f(&reply)
 	})

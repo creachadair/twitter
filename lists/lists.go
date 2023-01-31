@@ -8,8 +8,8 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/creachadair/jhttp"
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jape"
 	"github.com/creachadair/twitter/tweets"
 	"github.com/creachadair/twitter/types"
 	"github.com/creachadair/twitter/users"
@@ -20,9 +20,9 @@ import (
 //
 // API: 2/lists
 func Lookup(id string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/lists/" + id,
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -33,9 +33,9 @@ func Lookup(id string, opts *ListOpts) Query {
 //
 // API: 2/users/:id/owned_lists
 func OwnedBy(userID string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/users/" + userID + "/owned_lists",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -46,9 +46,9 @@ func OwnedBy(userID string, opts *ListOpts) Query {
 //
 // API: 2/users/:id/followed_lists
 func FollowedBy(userID string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/users/" + userID + "/followed_lists",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -59,9 +59,9 @@ func FollowedBy(userID string, opts *ListOpts) Query {
 //
 // API: 2/users/:id/pinned_lists
 func PinnedBy(userID string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/users/" + userID + "/pinned_lists",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -72,9 +72,9 @@ func PinnedBy(userID string, opts *ListOpts) Query {
 //
 // API: 2/users/:id/list_memberships
 func MemberOf(userID string, opts *ListOpts) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/users/" + userID + "/list_memberships",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return Query{Request: req}
@@ -85,10 +85,10 @@ func MemberOf(userID string, opts *ListOpts) Query {
 //
 // API: POST 2/lists
 func Create(name, description string, private bool) Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method:     "2/lists",
 		HTTPMethod: "POST",
-		Params:     make(jhttp.Params),
+		Params:     make(jape.Params),
 	}
 	body, err := json.Marshal(struct {
 		Name    string `json:"name"`
@@ -105,9 +105,9 @@ func Create(name, description string, private bool) Query {
 //
 // API: 2/lists/:id/members
 func Members(listID string, opts *ListOpts) users.Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/lists/" + listID + "/members",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return users.Query{Request: req}
@@ -118,9 +118,9 @@ func Members(listID string, opts *ListOpts) users.Query {
 //
 // API: 2/lists/:id/followers
 func Followers(listID string, opts *ListOpts) users.Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/lists/" + listID + "/followers",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return users.Query{Request: req}
@@ -131,9 +131,9 @@ func Followers(listID string, opts *ListOpts) users.Query {
 //
 // API: 2/lists/:id/tweets
 func Tweets(listID string, opts *ListOpts) tweets.Query {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method: "2/lists/" + listID + "/tweets",
-		Params: make(jhttp.Params),
+		Params: make(jape.Params),
 	}
 	opts.addRequestParams(req)
 	return tweets.Query{Request: req}
@@ -141,7 +141,7 @@ func Tweets(listID string, opts *ListOpts) tweets.Query {
 
 // A Query performs a query for list metadata.
 type Query struct {
-	*jhttp.Request
+	*jape.Request
 	encodeErr error
 }
 
@@ -166,13 +166,13 @@ func (q Query) Invoke(ctx context.Context, cli *twitter.Client) (*Reply, error) 
 		err = json.Unmarshal(rsp.Data, &lists)
 	}
 	if err != nil {
-		return nil, &jhttp.Error{Data: rsp.Data, Message: "decoding lists data", Err: err}
+		return nil, &jape.Error{Data: rsp.Data, Message: "decoding lists data", Err: err}
 	}
 	out := &Reply{Reply: rsp, Lists: lists}
 	q.Request.Params.Set(twitter.NextTokenParam, "")
 	if len(rsp.Meta) != 0 {
 		if err := json.Unmarshal(rsp.Meta, &out.Meta); err != nil {
-			return nil, &jhttp.Error{Data: rsp.Meta, Message: "decoding response metadata", Err: err}
+			return nil, &jape.Error{Data: rsp.Meta, Message: "decoding response metadata", Err: err}
 		}
 		// Update the query page token. Do this even if next_token is empty; the
 		// HasMorePages method uses the presence of the parameter to distinguish
@@ -215,7 +215,7 @@ type ListOpts struct {
 	Optional []types.Fields
 }
 
-func (o *ListOpts) addRequestParams(req *jhttp.Request) {
+func (o *ListOpts) addRequestParams(req *jape.Request) {
 	if o == nil {
 		return // nothing to do
 	}

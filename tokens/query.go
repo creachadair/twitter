@@ -12,12 +12,12 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/creachadair/jhttp"
-	"github.com/creachadair/jhttp/auth"
 	"github.com/creachadair/twitter"
+	"github.com/creachadair/twitter/jape"
+	"github.com/creachadair/twitter/jape/auth"
 )
 
-func clientWithAuth(cli *twitter.Client, auth jhttp.Authorizer) *twitter.Client {
+func clientWithAuth(cli *twitter.Client, auth jape.Authorizer) *twitter.Client {
 	cp := *cli // shallow copy
 	cp.Authorize = auth
 	return &cp
@@ -36,10 +36,10 @@ const UsePIN = "oob"
 //
 // API: oauth/request_token
 func GetRequest(c auth.Config, callback string, opts *RequestOpts) RequestQuery {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method:     "oauth/request_token",
 		HTTPMethod: "POST",
-		Params:     jhttp.Params{"oauth_callback": []string{callback}},
+		Params:     jape.Params{"oauth_callback": []string{callback}},
 	}
 	opts.addRequestParams(req)
 	return RequestQuery{Request: req, authorize: c.Authorize}
@@ -47,8 +47,8 @@ func GetRequest(c auth.Config, callback string, opts *RequestOpts) RequestQuery 
 
 // A RequestQuery is a query for an authorization ticket.
 type RequestQuery struct {
-	*jhttp.Request
-	authorize jhttp.Authorizer
+	*jape.Request
+	authorize jape.Authorizer
 }
 
 // Invoke issues the query to the given client and returns the request Token.
@@ -59,7 +59,7 @@ func (q RequestQuery) Invoke(ctx context.Context, cli *twitter.Client) (Token, e
 	}
 	tok, err := url.ParseQuery(string(data))
 	if err != nil {
-		return Token{}, &jhttp.Error{Message: "parsing response", Err: err}
+		return Token{}, &jape.Error{Message: "parsing response", Err: err}
 	}
 	return Token{
 		Key:    tok.Get("oauth_token"),
@@ -73,7 +73,7 @@ type RequestOpts struct {
 	AccessType string // access override; "read" or "write"
 }
 
-func (o *RequestOpts) addRequestParams(req *jhttp.Request) {
+func (o *RequestOpts) addRequestParams(req *jape.Request) {
 	if o != nil && o.AccessType != "" {
 		req.Params.Set("x_auth_access_type", o.AccessType)
 	}
@@ -86,10 +86,10 @@ func (o *RequestOpts) addRequestParams(req *jhttp.Request) {
 //
 // API: oauth/access_token
 func GetAccess(c auth.Config, reqToken, verifier string, opts *AccessOpts) AccessQuery {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method:     "oauth/access_token",
 		HTTPMethod: "POST",
-		Params: jhttp.Params{
+		Params: jape.Params{
 			"oauth_token":    []string{reqToken},
 			"oauth_verifier": []string{verifier},
 		},
@@ -99,7 +99,7 @@ func GetAccess(c auth.Config, reqToken, verifier string, opts *AccessOpts) Acces
 
 // An AccessQuery is a query for an access token.
 type AccessQuery struct {
-	*jhttp.Request
+	*jape.Request
 }
 
 // Invoke issues the query and returns the access Token.
@@ -110,7 +110,7 @@ func (a AccessQuery) Invoke(ctx context.Context, cli *twitter.Client) (AccessTok
 	}
 	tok, err := url.ParseQuery(string(data))
 	if err != nil {
-		return AccessToken{}, &jhttp.Error{Message: "parsing response", Err: err}
+		return AccessToken{}, &jape.Error{Message: "parsing response", Err: err}
 	}
 	return AccessToken{
 		Token: Token{
@@ -146,10 +146,10 @@ type AccessToken struct {
 //
 // API: oauth2/token
 func GetBearer(c auth.Config, opts *BearerOpts) BearerQuery {
-	req := &jhttp.Request{
+	req := &jape.Request{
 		Method:     "oauth2/token",
 		HTTPMethod: "POST",
-		Params: jhttp.Params{
+		Params: jape.Params{
 			"grant_type": []string{"client_credentials"},
 			// This is the only grant type currently supported, but the parameter
 			// is required to be set.
@@ -162,7 +162,7 @@ func GetBearer(c auth.Config, opts *BearerOpts) BearerQuery {
 
 // A BearerQuery is a query for an OAuth 2 bearer token.
 type BearerQuery struct {
-	*jhttp.Request
+	*jape.Request
 	user, password string
 }
 
@@ -185,7 +185,7 @@ func (q BearerQuery) Invoke(ctx context.Context, cli *twitter.Client) (Token, er
 		Token string `json:"access_token"`
 	}
 	if err := json.Unmarshal(data, &wrapper); err != nil {
-		return Token{}, &jhttp.Error{Message: "decoding token", Err: err}
+		return Token{}, &jape.Error{Message: "decoding token", Err: err}
 	}
 	return Token{
 		Key:    wrapper.Type,
@@ -199,7 +199,7 @@ func (q BearerQuery) Invoke(ctx context.Context, cli *twitter.Client) (Token, er
 // API: oauth/invalidate_token
 func InvalidateAccess(c auth.Config, token, secret string) InvalidateQuery {
 	return InvalidateQuery{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:     "1.1/oauth/invalidate_token",
 			HTTPMethod: "POST",
 		},
@@ -215,7 +215,7 @@ func InvalidateAccess(c auth.Config, token, secret string) InvalidateQuery {
 // API: oauth2/invalidate_token
 func InvalidateBearer(c auth.Config, bearerToken string) InvalidateQuery {
 	return InvalidateQuery{
-		Request: &jhttp.Request{
+		Request: &jape.Request{
 			Method:     "oauth2/invalidate_token",
 			HTTPMethod: "POST",
 
@@ -233,8 +233,8 @@ func InvalidateBearer(c auth.Config, bearerToken string) InvalidateQuery {
 
 // InvalidateQuery is a query for a token invalidation request.
 type InvalidateQuery struct {
-	*jhttp.Request
-	authorize jhttp.Authorizer
+	*jape.Request
+	authorize jape.Authorizer
 }
 
 // Invoke issues the query and returns the invalidated token.
@@ -247,7 +247,7 @@ func (q InvalidateQuery) Invoke(ctx context.Context, cli *twitter.Client) (strin
 		Token string `json:"access_token"`
 	}
 	if err := json.Unmarshal(data, &tok); err != nil {
-		return "", &jhttp.Error{Message: "decoding token", Err: err}
+		return "", &jape.Error{Message: "decoding token", Err: err}
 	}
 	return tok.Token, nil
 }
