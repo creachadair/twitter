@@ -1,6 +1,10 @@
 # twitter
 
-[![GoDoc](https://img.shields.io/static/v1?label=godoc&message=reference&color=blue)](https://pkg.go.dev/github.com/creachadair/twitter)
+<!-- [![GoDoc](https://img.shields.io/static/v1?label=godoc&message=reference&color=blue)](https://pkg.go.dev/github.com/creachadair/twitter) -->
+
+> **Note:** It is no longer practical or worthwhile for me to continue work on
+> this library, as Twitter now charges $100 per month for minimal API access.
+> I have therefore archived the repository.
 
 This repository provides Go package that implements an experimental client for
 the [Twitter API v2][tv2]. It is no longer under active development.
